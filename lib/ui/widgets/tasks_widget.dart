@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 
 class TasksWidget extends StatelessWidget {
   final List<Widget> tasks;
+  final ScrollController controller;
+  final PanelController panelController;
 
-  const TasksWidget({Key? key, required this.tasks}) : super(key: key);
+  const TasksWidget(
+      {Key? key,
+      required this.tasks,
+      required this.controller,
+      required this.panelController})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +27,12 @@ class TasksWidget extends StatelessWidget {
       width: 428,
       height: 534,
       child: Padding(
-        padding: const EdgeInsets.only(left: 25, right: 25),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: tasks,
-        ),
-      ),
+          padding: const EdgeInsets.only(left: 25, right: 25),
+          child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: tasks,
+                )
+              ),
     );
   }
 }
@@ -34,7 +42,7 @@ class TaskWidget extends StatelessWidget {
   final Color active;
   final String task;
 
-  TaskWidget({
+  const TaskWidget({
     Key? key,
     required this.colorful,
     required this.active,
@@ -43,7 +51,7 @@ class TaskWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 378,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,7 +65,7 @@ class TaskWidget extends StatelessWidget {
               task,
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
-              style: TextStyle(
+              style: const TextStyle(
                   color: textColor, fontSize: 20, fontWeight: FontWeight.w700),
             ),
           ),
@@ -66,24 +74,24 @@ class TaskWidget extends StatelessWidget {
               Container(
                 height: 5,
                 width: 32,
-                padding: EdgeInsets.symmetric(vertical: 6),
+                padding: const EdgeInsets.symmetric(vertical: 6),
                 decoration: BoxDecoration(
                   color: colorful,
-                  borderRadius: BorderRadius.all(
+                  borderRadius: const BorderRadius.all(
                     Radius.circular(8),
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 10,
               ),
               Container(
                 height: 5,
                 width: 32,
-                padding: EdgeInsets.symmetric(vertical: 6),
+                padding: const EdgeInsets.symmetric(vertical: 6),
                 decoration: BoxDecoration(
                   color: active,
-                  borderRadius: BorderRadius.all(
+                  borderRadius: const BorderRadius.all(
                     Radius.circular(8),
                   ),
                 ),
