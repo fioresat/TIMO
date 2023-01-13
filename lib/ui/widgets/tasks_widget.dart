@@ -8,13 +8,13 @@ class TasksWidget extends StatefulWidget {
   final ScrollController controller;
   final PanelController panelController;
 
-  const TasksWidget(
-      {Key? key,
-      required this.padding,
-      required this.tasks,
-      required this.controller,
-      required this.panelController})
-      : super(key: key);
+  const TasksWidget({
+    Key? key,
+    required this.padding,
+    required this.tasks,
+    required this.controller,
+    required this.panelController,
+  }) : super(key: key);
 
   @override
   State<TasksWidget> createState() => _TasksWidgetState();
@@ -50,7 +50,8 @@ class _TasksWidgetState extends State<TasksWidget> {
                         child: Row(
                           children: [
                             Icon(Icons.favorite, color: Colors.white),
-                            Text('Move to', style: TextStyle(color: Colors.white)),
+                            Text('Move to',
+                                style: TextStyle(color: Colors.white)),
                           ],
                         ),
                       ),
@@ -63,7 +64,8 @@ class _TasksWidgetState extends State<TasksWidget> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Icon(Icons.delete, color: Colors.white),
-                            Text('Delete', style: TextStyle(color: Colors.white)),
+                            Text('Delete',
+                                style: TextStyle(color: Colors.white)),
                           ],
                         ),
                       ),

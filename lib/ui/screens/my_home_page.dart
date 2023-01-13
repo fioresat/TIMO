@@ -26,26 +26,6 @@ List<Widget> testTasks = [
   ),
 ];
 
-Widget paddingTodo = Column(children: [
-  const SizedBox(
-    height: 18,
-  ),
-  Row(
-    mainAxisAlignment: MainAxisAlignment.start,
-    mainAxisSize: MainAxisSize.max,
-    children: const [
-      Icon(Icons.keyboard_arrow_down),
-      SizedBox(
-        width: 5,
-      ),
-      Text(
-        'ToDo',
-        style: TextStyle(color: Colors.grey),
-      ),
-    ],
-  ),
-]);
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
@@ -63,6 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: secondBackgroundColor,
       body: SlidingUpPanel(
+        //isDraggable: false,
         backdropEnabled: true,
         backdropColor: Colors.white,
         backdropOpacity: 1,
@@ -88,7 +69,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   SizedBox(
                     height: 0.049 * heightScreen,
                   ),
-                  NavBarWidget(height: heightScreen),
+                  NavBarWidget(
+                    height: heightScreen,
+                    onPressed: () {},
+                  ),
                   DateWidget(
                     dateTime: DateTime.now(),
                     height: heightScreen,
@@ -112,13 +96,34 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         panelBuilder: (controller) => TasksWidget(
           padding: panelController.isPanelOpen
-              ? paddingTodo
+              ? Column(
+                  children: [
+                    const SizedBox(
+                      height: 18,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: const [
+                        Icon(Icons.keyboard_arrow_down),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text(
+                          'ToDo',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                  ],
+                )
               : const SizedBox(
                   height: 40,
                 ),
           tasks: testTasks,
           controller: controller,
           panelController: panelController,
+
         ),
       ),
       floatingActionButton: FloatingActionButton(
