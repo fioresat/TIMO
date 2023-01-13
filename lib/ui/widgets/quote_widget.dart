@@ -4,8 +4,13 @@ import 'package:todo_app_main_screen/consts/colors.dart';
 class QuoteWidget extends StatelessWidget {
   final String author;
   final String content;
+  final double? height;
 
-  const QuoteWidget({required this.content, super.key, required this.author});
+  const QuoteWidget(
+      {required this.content,
+      super.key,
+      required this.author,
+      required this.height});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +26,7 @@ class QuoteWidget extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 8,
+          height: 0.008 * height!,
         ),
         Text(
           content,
