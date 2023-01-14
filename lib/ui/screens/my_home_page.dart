@@ -43,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: secondBackgroundColor,
       body: SlidingUpPanel(
-        //isDraggable: false,
+        isDraggable: false,
         backdropEnabled: true,
         backdropColor: Colors.white,
         backdropOpacity: 1,
@@ -99,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ? Column(
                   children: [
                     const SizedBox(
-                      height: 18,
+                      height: 3,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -118,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 )
               : const SizedBox(
-                  height: 40,
+                  height: 25,
                 ),
           tasks: testTasks,
           controller: controller,

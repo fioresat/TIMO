@@ -36,8 +36,10 @@ class _TasksWidgetState extends State<TasksWidget> {
         padding: const EdgeInsets.only(left: 25, right: 25),
         child: Column(
           children: [
+            dragHandle(),
             widget.padding,
             ReorderableListView.builder(
+                scrollController: widget.controller,
                 itemCount: tasks.length,
                 shrinkWrap: true,
                 onReorder: reorderData,
@@ -48,7 +50,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                       child: Padding(
                         padding: const EdgeInsets.all(15),
                         child: Row(
-                          children: [
+                          children: const [
                             Icon(Icons.favorite, color: Colors.white),
                             Text('Move to',
                                 style: TextStyle(color: Colors.white)),
@@ -62,7 +64,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                         padding: const EdgeInsets.all(15),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
+                          children: const [
                             Icon(Icons.delete, color: Colors.white),
                             Text('Delete',
                                 style: TextStyle(color: Colors.white)),
@@ -102,5 +104,32 @@ class _TasksWidgetState extends State<TasksWidget> {
       final items = widget.tasks.removeAt(oldindex);
       widget.tasks.insert(newindex, items);
     });
+  }
+
+  Widget dragHandle() => GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: _movePanel,
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Container(
+              width: 30,
+              height: 5,
+              decoration: BoxDecoration(
+                  color: Colors.grey.shade300,
+                  borderRadius: BorderRadius.circular(12)),
+            ),
+          ),
+        ),
+      );
+
+  void _movePanel() {
+    widget.panelController.isPanelOpen
+        ? setState(() {
+            widget.panelController.close();
+          })
+        : setState(() {
+            widget.panelController.open();
+          });
   }
 }
