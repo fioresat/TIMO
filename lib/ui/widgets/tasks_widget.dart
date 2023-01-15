@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
+import 'package:todo_app_main_screen/consts/icons/app_icons.dart';
 
 class TasksWidget extends StatefulWidget {
   final Widget padding;
@@ -44,7 +46,36 @@ class _TasksWidgetState extends State<TasksWidget> {
                 shrinkWrap: true,
                 onReorder: reorderData,
                 itemBuilder: (BuildContext context, int index) {
-                  return Dismissible(
+                  return Slidable(
+                    key: ValueKey(tasks[index]),
+                      endActionPane:  const ActionPane(
+                        extentRatio: 0.4,
+                        motion: ScrollMotion(),
+                        children: [
+                          SlidableAction(
+                            //padding: EdgeInsets.zero,
+                            flex: 1,
+                            onPressed: null,
+                            backgroundColor: Colors.white,
+                            icon: AppIcons.moveToIcon, padding: EdgeInsets.zero,
+                          ),
+                          SlidableAction(
+                            //padding: EdgeInsets.zero,
+                            flex: 1,
+                            onPressed: null,
+                            backgroundColor: Colors.white,
+                            foregroundColor: Color(0xffF02222),
+                            icon: AppIcons.deleteIcon, padding: EdgeInsets.zero,
+                          ),
+                        ],
+                      ),
+                    child: Card(
+                      elevation: 0,
+                      child: tasks[index],
+                    ),
+                  )
+
+                    /*Dismissible(
                     background: Container(
                       color: Colors.blue,
                       child: Padding(
@@ -82,7 +113,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                       elevation: 0,
                       child: tasks[index],
                     ),
-                  );
+                  )*/;
 
                   // return Card(
                   //   elevation: 0,
