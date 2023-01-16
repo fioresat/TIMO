@@ -63,7 +63,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                           onPressed: (BuildContext context) {
                             setState(() {});
                           },
-                          child: Image.asset('assets/icons/move_to_icon.png'),
+                          child: Image.asset('assets/icons/move_to_icon.png', scale: 3,),
                         ),
                         CustomSlidableAction(
                           flex: 1,
@@ -72,26 +72,8 @@ class _TasksWidgetState extends State<TasksWidget> {
                               tasks.removeAt(index);
                             });
                           },
-                          child: Image.asset('assets/icons/delete_icon.png'),
+                          child: Image.asset('assets/icons/delete_icon.png', scale: 2,),
                         ),
-
-                        // SlidableAction(
-                        //   //padding: EdgeInsets.zero,
-                        //   flex: 1,
-                        //   onPressed: null,
-                        //   backgroundColor: Colors.white,
-                        //   icon: AppIcons.moveToIcon,
-                        //   padding: EdgeInsets.zero,
-                        // ),
-                        // SlidableAction(
-                        //   //padding: EdgeInsets.zero,
-                        //   flex: 1,
-                        //   onPressed: null,
-                        //   backgroundColor: Colors.white,
-                        //   foregroundColor: Color(0xffF02222),
-                        //   icon: AppIcons.deleteIcon,
-                        //   padding: EdgeInsets.zero,
-                        // ),
                       ],
                     ),
                     child: Container(
