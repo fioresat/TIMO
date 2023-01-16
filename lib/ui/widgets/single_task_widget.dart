@@ -30,7 +30,10 @@ class SingleTaskWidget extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
               style: const TextStyle(
-                  color: textColor, fontSize: 20, fontWeight: FontWeight.w700),
+                color: textColor,
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
           Row(

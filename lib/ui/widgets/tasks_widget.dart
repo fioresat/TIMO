@@ -121,15 +121,19 @@ class _TasksWidgetState extends State<TasksWidget> {
   Widget dragHandle() => GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: _movePanel,
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: Container(
-              width: 30,
-              height: 5,
-              decoration: BoxDecoration(
-                  color: Colors.grey.shade300,
-                  borderRadius: BorderRadius.circular(12)),
+        onVerticalDragEnd: (DragEndDetails dets) {
+          if (dets.velocity.pixelsPerSecond.dy != 0) {
+            _movePanel;
+          }
+        },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 10),
+          child: Container(
+            width: 30,
+            height: 5,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade300,
+              borderRadius: BorderRadius.circular(12),
             ),
           ),
         ),
