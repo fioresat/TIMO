@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
-import 'package:todo_app_main_screen/consts/icons/app_icons.dart';
 
 class TasksWidget extends StatefulWidget {
   final Widget padding;
@@ -48,78 +47,60 @@ class _TasksWidgetState extends State<TasksWidget> {
                 itemBuilder: (BuildContext context, int index) {
                   return Slidable(
                     key: ValueKey(tasks[index]),
-                      endActionPane:  const ActionPane(
-                        extentRatio: 0.4,
-                        motion: ScrollMotion(),
-                        children: [
-                          SlidableAction(
-                            //padding: EdgeInsets.zero,
-                            flex: 1,
-                            onPressed: null,
-                            backgroundColor: Colors.white,
-                            icon: AppIcons.moveToIcon, padding: EdgeInsets.zero,
-                          ),
-                          SlidableAction(
-                            //padding: EdgeInsets.zero,
-                            flex: 1,
-                            onPressed: null,
-                            backgroundColor: Colors.white,
-                            foregroundColor: Color(0xffF02222),
-                            icon: AppIcons.deleteIcon, padding: EdgeInsets.zero,
-                          ),
-                        ],
+                    endActionPane: ActionPane(
+                      extentRatio: 0.4,
+                      dismissible: DismissiblePane(
+                        onDismissed: () {
+                          setState(() {
+                            tasks.removeAt(index);
+                          });
+                        },
                       ),
-                    child: Card(
-                      elevation: 0,
-                      child: tasks[index],
-                    ),
-                  )
-
-                    /*Dismissible(
-                    background: Container(
-                      color: Colors.blue,
-                      child: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Row(
-                          children: const [
-                            Icon(Icons.favorite, color: Colors.white),
-                            Text('Move to',
-                                style: TextStyle(color: Colors.white)),
-                          ],
+                      motion: BehindMotion(),
+                      children: [
+                        CustomSlidableAction(
+                          flex: 1,
+                          onPressed: (BuildContext context) {
+                            setState(() {});
+                          },
+                          child: Image.asset('assets/icons/move_to_icon.png'),
                         ),
-                      ),
-                    ),
-                    secondaryBackground: Container(
-                      color: Colors.red,
-                      child: Padding(
-                        padding: const EdgeInsets.all(15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: const [
-                            Icon(Icons.delete, color: Colors.white),
-                            Text('Delete',
-                                style: TextStyle(color: Colors.white)),
-                          ],
+                        CustomSlidableAction(
+                          flex: 1,
+                          onPressed: (BuildContext context) {
+                            setState(() {
+                              tasks.removeAt(index);
+                            });
+                          },
+                          child: Image.asset('assets/icons/delete_icon.png'),
                         ),
+
+                        // SlidableAction(
+                        //   //padding: EdgeInsets.zero,
+                        //   flex: 1,
+                        //   onPressed: null,
+                        //   backgroundColor: Colors.white,
+                        //   icon: AppIcons.moveToIcon,
+                        //   padding: EdgeInsets.zero,
+                        // ),
+                        // SlidableAction(
+                        //   //padding: EdgeInsets.zero,
+                        //   flex: 1,
+                        //   onPressed: null,
+                        //   backgroundColor: Colors.white,
+                        //   foregroundColor: Color(0xffF02222),
+                        //   icon: AppIcons.deleteIcon,
+                        //   padding: EdgeInsets.zero,
+                        // ),
+                      ],
+                    ),
+                    child: Container(
+                      child: Card(
+                        elevation: 0,
+                        child: tasks[index],
                       ),
                     ),
-                    key: ValueKey(tasks[index]),
-                    onDismissed: (DismissDirection direction) {
-                      setState(() {
-                        tasks.removeAt(index);
-                      });
-                    },
-                    child: Card(
-                      elevation: 0,
-                      child: tasks[index],
-                    ),
-                  )*/;
-
-                  // return Card(
-                  //   elevation: 0,
-                  //   key: ValueKey(index),
-                  //   child: widget.tasks[index],
-                  // );
+                  );
                 }),
           ],
         ),
