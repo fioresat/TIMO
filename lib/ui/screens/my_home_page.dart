@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
+import 'package:todo_app_main_screen/ui/widgets/alarm_notification_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/date_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/nav_bar_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/quote_widget.dart';
@@ -123,7 +124,6 @@ class _MyHomePageState extends State<MyHomePage> {
           tasks: testTasks,
           controller: controller,
           panelController: panelController,
-
         ),
       ),
       floatingActionButton: FloatingActionButton(

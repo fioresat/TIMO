@@ -22,7 +22,7 @@ class NavBarWidget extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               border: Border.all(
-                color: Colors.black,
+                color: darkColor,
                 width: 2.0,
                 style: BorderStyle.solid,
               ),
@@ -30,8 +30,8 @@ class NavBarWidget extends StatelessWidget {
                 Radius.circular(20),
               ),
             ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
+            child: const Padding(
+              padding: EdgeInsets.symmetric(
                 vertical: 4,
                 horizontal: 10,
               ),

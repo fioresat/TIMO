@@ -56,14 +56,17 @@ class _TasksWidgetState extends State<TasksWidget> {
                           });
                         },
                       ),
-                      motion: BehindMotion(),
+                      motion: const BehindMotion(),
                       children: [
                         CustomSlidableAction(
                           flex: 1,
                           onPressed: (BuildContext context) {
                             setState(() {});
                           },
-                          child: Image.asset('assets/icons/move_to_icon.png', scale: 3,),
+                          child: Image.asset(
+                            'assets/icons/move_to_icon.png',
+                            scale: 3,
+                          ),
                         ),
                         CustomSlidableAction(
                           flex: 1,
@@ -72,15 +75,16 @@ class _TasksWidgetState extends State<TasksWidget> {
                               tasks.removeAt(index);
                             });
                           },
-                          child: Image.asset('assets/icons/delete_icon.png', scale: 2,),
+                          child: Image.asset(
+                            'assets/icons/delete_icon.png',
+                            scale: 3,
+                          ),
                         ),
                       ],
                     ),
-                    child: Container(
-                      child: Card(
-                        elevation: 0,
-                        child: tasks[index],
-                      ),
+                    child: Card(
+                      elevation: 0,
+                      child: tasks[index],
                     ),
                   );
                 }),
@@ -90,24 +94,24 @@ class _TasksWidgetState extends State<TasksWidget> {
     );
   }
 
-  void reorderData(int oldindex, int newindex) {
+  void reorderData(int oldIndex, int newIndex) {
     setState(() {
-      if (newindex > oldindex) {
-        newindex -= 1;
+      if (newIndex > oldIndex) {
+        newIndex -= 1;
       }
-      final items = widget.tasks.removeAt(oldindex);
-      widget.tasks.insert(newindex, items);
+      final items = widget.tasks.removeAt(oldIndex);
+      widget.tasks.insert(newIndex, items);
     });
   }
 
   Widget dragHandle() => GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: _movePanel,
-        onVerticalDragEnd: (DragEndDetails dets) {
-          if (dets.velocity.pixelsPerSecond.dy != 0) {
-            _movePanel;
-          }
-        },
+        // onVerticalDragEnd: (DragEndDetails dets) {
+        //   if (dets.velocity.pixelsPerSecond.dy != 0) {
+        //     _movePanel;
+        //   }
+        // },
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 10),
           child: Container(
