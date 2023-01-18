@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
+import 'package:todo_app_main_screen/consts/strings.dart';
 import 'package:todo_app_main_screen/ui/widgets/date_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/move_to_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/nav_bar_widget.dart';
@@ -10,50 +11,17 @@ import 'package:todo_app_main_screen/ui/widgets/single_task_widget.dart';
 
 List<Widget> testTasks = [
   const SingleTaskWidget(
-    task: 'Thinking through a brand idea',
+    task: TestStrings.task1,
     active: textColor,
     colorful: lightBlueColor,
   ),
   const SingleTaskWidget(
-    task: 'Organize a photo shoot',
+    task: TestStrings.task2,
     active: Colors.transparent,
     colorful: Colors.transparent,
   ),
   const SingleTaskWidget(
-    task:
-        'Buying groceries to take home. Buying groceries to take home. Buying groceries to take home.',
-    active: Colors.transparent,
-    colorful: Colors.transparent,
-  ),
-  const SingleTaskWidget(
-    task: 'Thinking through a brand idea',
-    active: textColor,
-    colorful: lightBlueColor,
-  ),
-  const SingleTaskWidget(
-    task: 'Organize a photo shoot',
-    active: Colors.transparent,
-    colorful: Colors.transparent,
-  ),
-  const SingleTaskWidget(
-    task:
-    'Buying groceries to take home. Buying groceries to take home. Buying groceries to take home.',
-    active: Colors.transparent,
-    colorful: Colors.transparent,
-  ),
-  const SingleTaskWidget(
-    task: 'Thinking through a brand idea',
-    active: textColor,
-    colorful: lightBlueColor,
-  ),
-  const SingleTaskWidget(
-    task: 'Organize a photo shoot',
-    active: Colors.transparent,
-    colorful: Colors.transparent,
-  ),
-  const SingleTaskWidget(
-    task:
-    'Buying groceries to take home. Buying groceries to take home. Buying groceries to take home.',
+    task: TestStrings.task3,
     active: Colors.transparent,
     colorful: Colors.transparent,
   ),
@@ -61,19 +29,19 @@ List<Widget> testTasks = [
 
 List<Widget> testLists = [
   const Text(
-    'Todo',
+    TestStrings.list1,
     style: TextStyle(
       fontSize: 20,
     ),
   ),
   const Text(
-    'Todo',
+    TestStrings.list2,
     style: TextStyle(
       fontSize: 20,
     ),
   ),
   const Text(
-    'Todo',
+    TestStrings.list3,
     style: TextStyle(
       fontSize: 20,
     ),
@@ -149,9 +117,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 0.044 * heightScreen,
                     ),
                     QuoteWidget(
-                      author: 'Maya Angelou',
+                      author: TestStrings.quoteAuthor,
                       content:
-                          'You will face many defeats in life, but never let yourself be defeated. So many defeats',
+                          TestStrings.quoteContent,
                       height: heightScreen,
                     ),
                     SizedBox(
@@ -169,31 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 isMoveTo = true;
               });
             },
-            padding: panelController.isPanelOpen
-                ? Column(
-                    children: [
-                      const SizedBox(
-                        height: 3,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.max,
-                        children: const [
-                          Icon(Icons.keyboard_arrow_down),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            'ToDo',
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    ],
-                  )
-                : const SizedBox(
-                    height: 25,
-                  ),
+            isPanelOpen: panelController.isPanelOpen,
             tasks: testTasks,
             controller: controller,
             panelController: panelController,
@@ -237,7 +181,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     : FloatingActionButton(
                         backgroundColor: textColor,
                         onPressed: () {},
-                        child: Icon(Icons.add),
+                        child: const Icon(Icons.add),
                       ),
               ],
             ),

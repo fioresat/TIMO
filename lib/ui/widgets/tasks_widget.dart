@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:todo_app_main_screen/consts/colors.dart';
 
 class TasksWidget extends StatefulWidget {
-  final Widget padding;
+  final bool isPanelOpen;
   final double height;
   final List<Widget> tasks;
   final ScrollController controller;
@@ -13,11 +12,12 @@ class TasksWidget extends StatefulWidget {
 
   const TasksWidget({
     Key? key,
-    required this.padding,
+    required this.isPanelOpen,
     required this.tasks,
     required this.controller,
     required this.panelController,
-    this.onPressed, required this.height,
+    this.onPressed,
+    required this.height,
   }) : super(key: key);
 
   @override
@@ -28,79 +28,94 @@ class _TasksWidgetState extends State<TasksWidget> {
   @override
   Widget build(BuildContext context) {
     List<Widget> tasks = widget.tasks;
-    return Container(
-      decoration: const BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(left: 25, right: 25),
-        child: Column(
-          children: [
-            dragHandle(),
-            widget.padding,
-            SizedBox(
-              height: 0.9 * widget.height,
-              child: ReorderableListView.builder(
-                  scrollController: widget.controller,
-                  itemCount: tasks.length,
-                  //shrinkWrap: true,
-                  onReorder: reorderData,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Slidable(
-                      key: ValueKey(tasks[index]),
-                      endActionPane: ActionPane(
-                        extentRatio: 0.4,
-                        dismissible: DismissiblePane(
-                          onDismissed: () {
-                            setState(() {
-                              tasks.removeAt(index);
-                            });
-                          },
+    return Padding(
+      padding: const EdgeInsets.only(left: 25, right: 25),
+      child: Column(
+        children: [
+          dragHandle(),
+          widget.isPanelOpen
+              ? Column(
+                  children: [
+                    const SizedBox(
+                      height: 3,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: const [
+                        Icon(Icons.keyboard_arrow_down),
+                        SizedBox(
+                          width: 5,
                         ),
-                        motion: const BehindMotion(),
-                        children: [
-                          CustomSlidableAction(
-                            flex: 1,
-                            onPressed: (BuildContext context) {
-                              setState(() {
-                                tasks.removeAt(index);
-                              });
-                            },
-                            child: InkWell(
-                              onTap: widget.onPressed,
-                              child: Image.asset(
-                                'assets/icons/move_to_icon.png',
-                                scale: 3,
-                              ),
-                            ),
-                          ),
-                          CustomSlidableAction(
-                            flex: 1,
-                            onPressed: (BuildContext context) {
-                              setState(() {
-                                tasks.removeAt(index);
-                              });
-                            },
+                        Text(
+                          'ToDo',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                  ],
+                )
+              : const SizedBox(
+                  height: 25,
+                ),
+          SizedBox(
+            height: 0.9 * widget.height,
+            child: ReorderableListView.builder(
+                scrollController: widget.controller,
+                itemCount: tasks.length,
+                //shrinkWrap: true,
+                onReorder: reorderData,
+                itemBuilder: (BuildContext context, int index) {
+                  return Slidable(
+                    key: ValueKey(tasks[index]),
+                    endActionPane: ActionPane(
+                      extentRatio: 0.4,
+                      dismissible: DismissiblePane(
+                        onDismissed: () {
+                          setState(() {
+                            //ToDo
+                            tasks.removeAt(index);
+                          });
+                        },
+                      ),
+                      motion: const BehindMotion(),
+                      children: [
+                        CustomSlidableAction(
+                          flex: 1,
+                          onPressed: (BuildContext context) {
+                            setState(() {});
+                          },
+                          child: InkWell(
+                            onTap: widget.onPressed,
                             child: Image.asset(
-                              'assets/icons/delete_icon.png',
+                              'assets/icons/move_to_icon.png',
                               scale: 3,
                             ),
                           ),
-                        ],
-                      ),
-                      child: Card(
-                        elevation: 0,
-                        child: tasks[index],
-                      ),
-                    );
-                  }),
-            ),
-          ],
-        ),
+                        ),
+                        CustomSlidableAction(
+                          flex: 1,
+                          onPressed: (BuildContext context) {
+                            setState(() {
+                              //ToDo
+                              tasks.removeAt(index);
+                            });
+                          },
+                          child: Image.asset(
+                            'assets/icons/delete_icon.png',
+                            scale: 3,
+                          ),
+                        ),
+                      ],
+                    ),
+                    child: Card(
+                      elevation: 0,
+                      child: tasks[index],
+                    ),
+                  );
+                }),
+          ),
+        ],
       ),
     );
   }

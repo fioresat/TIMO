@@ -64,7 +64,7 @@ class SingleTaskWidget extends StatelessWidget {
                 ),
               ),
             ],
-          )
+          ),
         ],
       ),
     );
