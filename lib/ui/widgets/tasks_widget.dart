@@ -8,6 +8,7 @@ class TasksWidget extends StatefulWidget {
   final List<Widget> tasks;
   final ScrollController controller;
   final PanelController panelController;
+  final void Function()? onPressed;
 
   const TasksWidget({
     Key? key,
@@ -15,6 +16,7 @@ class TasksWidget extends StatefulWidget {
     required this.tasks,
     required this.controller,
     required this.panelController,
+    this.onPressed,
   }) : super(key: key);
 
   @override
@@ -61,11 +63,16 @@ class _TasksWidgetState extends State<TasksWidget> {
                         CustomSlidableAction(
                           flex: 1,
                           onPressed: (BuildContext context) {
-                            setState(() {});
+                            setState(() {
+                              tasks.removeAt(index);
+                            });
                           },
-                          child: Image.asset(
-                            'assets/icons/move_to_icon.png',
-                            scale: 3,
+                          child: InkWell(
+                            onTap: widget.onPressed,
+                            child: Image.asset(
+                              'assets/icons/move_to_icon.png',
+                              scale: 3,
+                            ),
                           ),
                         ),
                         CustomSlidableAction(
