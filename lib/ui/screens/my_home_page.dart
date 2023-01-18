@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
+import 'package:todo_app_main_screen/ui/style.dart';
 import 'package:todo_app_main_screen/ui/widgets/date_widget.dart';
+import 'package:todo_app_main_screen/ui/widgets/main_screen_background_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/move_to_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/nav_bar_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/quote_widget.dart';
@@ -65,16 +67,14 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     double widthScreen = MediaQuery.of(context).size.width;
     double heightScreen = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: secondBackgroundColor,
       body: SlidingUpPanel(
         isDraggable: false,
         minHeight: 0,
         maxHeight: 0.3 * heightScreen,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
-        ),
+        borderRadius: commonBorderRadius,
         controller: listsPanelController,
         onPanelOpened: () => setState(() {}),
         onPanelClosed: () => setState(() {}),
@@ -88,47 +88,13 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
           minHeight: 0.55 * heightScreen,
           maxHeight: 0.95 * heightScreen,
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
-          ),
+          borderRadius: commonBorderRadius,
           controller: panelController,
           onPanelOpened: () => setState(() {}),
           onPanelClosed: () => setState(() {}),
-          body: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 0.049 * heightScreen,
-                    ),
-                    NavBarWidget(
-                      height: heightScreen,
-                      onPressed: () {},
-                    ),
-                    DateWidget(
-                      dateTime: DateTime.now(),
-                      height: heightScreen,
-                    ),
-                    SizedBox(
-                      height: 0.044 * heightScreen,
-                    ),
-                    QuoteWidget(
-                      author: TestStrings.quoteAuthor,
-                      content:
-                          TestStrings.quoteContent,
-                      height: heightScreen,
-                    ),
-                    SizedBox(
-                      height: 0.03 * heightScreen,
-                    ),
-                  ],
-                ),
-              ),
-            ],
+          body: MainScreenBackgroundWidget(
+            height: heightScreen,
+            onPressed: () {},
           ),
           panelBuilder: (controller) => TasksWidget(
             onPressed: () {

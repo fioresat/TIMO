@@ -24,7 +24,8 @@ class BlackButtonWidget extends StatelessWidget {
         style: ButtonStyle(
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.elliptical(20, 20))),
+              borderRadius: BorderRadius.all(Radius.elliptical(20, 20)),
+            ),
           ),
           backgroundColor: MaterialStateProperty.all(Colors.transparent),
           shadowColor: MaterialStateProperty.all(Colors.transparent),
