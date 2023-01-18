@@ -25,9 +25,53 @@ List<Widget> testTasks = [
     active: Colors.transparent,
     colorful: Colors.transparent,
   ),
+  const SingleTaskWidget(
+    task: 'Thinking through a brand idea',
+    active: textColor,
+    colorful: lightBlueColor,
+  ),
+  const SingleTaskWidget(
+    task: 'Organize a photo shoot',
+    active: Colors.transparent,
+    colorful: Colors.transparent,
+  ),
+  const SingleTaskWidget(
+    task:
+    'Buying groceries to take home. Buying groceries to take home. Buying groceries to take home.',
+    active: Colors.transparent,
+    colorful: Colors.transparent,
+  ),
+  const SingleTaskWidget(
+    task: 'Thinking through a brand idea',
+    active: textColor,
+    colorful: lightBlueColor,
+  ),
+  const SingleTaskWidget(
+    task: 'Organize a photo shoot',
+    active: Colors.transparent,
+    colorful: Colors.transparent,
+  ),
+  const SingleTaskWidget(
+    task:
+    'Buying groceries to take home. Buying groceries to take home. Buying groceries to take home.',
+    active: Colors.transparent,
+    colorful: Colors.transparent,
+  ),
 ];
 
 List<Widget> testLists = [
+  const Text(
+    'Todo',
+    style: TextStyle(
+      fontSize: 20,
+    ),
+  ),
+  const Text(
+    'Todo',
+    style: TextStyle(
+      fontSize: 20,
+    ),
+  ),
   const Text(
     'Todo',
     style: TextStyle(
@@ -51,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    //double widthScreen = MediaQuery.of(context).size.width;
+    double widthScreen = MediaQuery.of(context).size.width;
     double heightScreen = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: secondBackgroundColor,
@@ -153,6 +197,9 @@ class _MyHomePageState extends State<MyHomePage> {
             tasks: testTasks,
             controller: controller,
             panelController: panelController,
+            height: panelController.isPanelOpen
+                ? 0.95 * heightScreen
+                : 0.55 * heightScreen,
           ),
         ),
         panelBuilder: (controller) => MoveToWidget(
@@ -166,6 +213,7 @@ class _MyHomePageState extends State<MyHomePage> {
           controller: controller,
           panelController: listsPanelController,
           height: heightScreen,
+          width: widthScreen,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

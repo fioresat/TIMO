@@ -5,6 +5,7 @@ import 'package:todo_app_main_screen/consts/colors.dart';
 
 class TasksWidget extends StatefulWidget {
   final Widget padding;
+  final double height;
   final List<Widget> tasks;
   final ScrollController controller;
   final PanelController panelController;
@@ -16,7 +17,7 @@ class TasksWidget extends StatefulWidget {
     required this.tasks,
     required this.controller,
     required this.panelController,
-    this.onPressed,
+    this.onPressed, required this.height,
   }) : super(key: key);
 
   @override
@@ -41,60 +42,63 @@ class _TasksWidgetState extends State<TasksWidget> {
           children: [
             dragHandle(),
             widget.padding,
-            ReorderableListView.builder(
-                scrollController: widget.controller,
-                itemCount: tasks.length,
-                shrinkWrap: true,
-                onReorder: reorderData,
-                itemBuilder: (BuildContext context, int index) {
-                  return Slidable(
-                    key: ValueKey(tasks[index]),
-                    endActionPane: ActionPane(
-                      extentRatio: 0.4,
-                      dismissible: DismissiblePane(
-                        onDismissed: () {
-                          setState(() {
-                            tasks.removeAt(index);
-                          });
-                        },
-                      ),
-                      motion: const BehindMotion(),
-                      children: [
-                        CustomSlidableAction(
-                          flex: 1,
-                          onPressed: (BuildContext context) {
+            SizedBox(
+              height: 0.9 * widget.height,
+              child: ReorderableListView.builder(
+                  scrollController: widget.controller,
+                  itemCount: tasks.length,
+                  //shrinkWrap: true,
+                  onReorder: reorderData,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Slidable(
+                      key: ValueKey(tasks[index]),
+                      endActionPane: ActionPane(
+                        extentRatio: 0.4,
+                        dismissible: DismissiblePane(
+                          onDismissed: () {
                             setState(() {
                               tasks.removeAt(index);
                             });
                           },
-                          child: InkWell(
-                            onTap: widget.onPressed,
+                        ),
+                        motion: const BehindMotion(),
+                        children: [
+                          CustomSlidableAction(
+                            flex: 1,
+                            onPressed: (BuildContext context) {
+                              setState(() {
+                                tasks.removeAt(index);
+                              });
+                            },
+                            child: InkWell(
+                              onTap: widget.onPressed,
+                              child: Image.asset(
+                                'assets/icons/move_to_icon.png',
+                                scale: 3,
+                              ),
+                            ),
+                          ),
+                          CustomSlidableAction(
+                            flex: 1,
+                            onPressed: (BuildContext context) {
+                              setState(() {
+                                tasks.removeAt(index);
+                              });
+                            },
                             child: Image.asset(
-                              'assets/icons/move_to_icon.png',
+                              'assets/icons/delete_icon.png',
                               scale: 3,
                             ),
                           ),
-                        ),
-                        CustomSlidableAction(
-                          flex: 1,
-                          onPressed: (BuildContext context) {
-                            setState(() {
-                              tasks.removeAt(index);
-                            });
-                          },
-                          child: Image.asset(
-                            'assets/icons/delete_icon.png',
-                            scale: 3,
-                          ),
-                        ),
-                      ],
-                    ),
-                    child: Card(
-                      elevation: 0,
-                      child: tasks[index],
-                    ),
-                  );
-                }),
+                        ],
+                      ),
+                      child: Card(
+                        elevation: 0,
+                        child: tasks[index],
+                      ),
+                    );
+                  }),
+            ),
           ],
         ),
       ),

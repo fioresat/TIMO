@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
+import 'package:todo_app_main_screen/ui/widgets/black_button_widget.dart';
 
 class MoveToWidget extends StatefulWidget {
   final List<Widget> lists;
   final ScrollController controller;
   final PanelController panelController;
   final double height;
+  final double width;
   final void Function() onTap;
 
   const MoveToWidget({
@@ -16,6 +18,7 @@ class MoveToWidget extends StatefulWidget {
     required this.panelController,
     required this.height,
     required this.onTap,
+    required this.width,
   }) : super(key: key);
 
   @override
@@ -58,28 +61,34 @@ class _MoveToWidgetState extends State<MoveToWidget> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: lists.length,
-                itemBuilder: (_, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        lists[index],
-                        Icon(Icons.check),
-                      ],
-                    ),
-                  );
-                }),
+            SizedBox(
+              height: 0.1 * widget.height,
+              child: ListView.builder(
+                  itemCount: lists.length,
+                  itemBuilder: (_, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          lists[index],
+                          Icon(Icons.check),
+                        ],
+                      ),
+                    );
+                  }),
+            ),
             Text(
               'add new list',
               style: TextStyle(
                 fontSize: 0.018 * widget.height,
                 color: Colors.grey,
               ),
+            ),
+            BlackButtonWidget(
+              onPressed: () {},
+              width: widget.width - 50,
+              child: Text('move', style: const TextStyle(color: backgroundColor),),
             ),
           ],
         ),
