@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
+import 'package:todo_app_main_screen/consts/strings.dart';
 
 class NavBarWidget extends StatelessWidget {
   final double height;
@@ -36,7 +37,7 @@ class NavBarWidget extends StatelessWidget {
                 horizontal: 10,
               ),
               child: Text(
-                'lists',
+                TestStrings.lists,
                 style: TextStyle(color: textColor, fontSize: 14),
               ),
             ),

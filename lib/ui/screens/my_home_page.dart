@@ -3,11 +3,8 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
 import 'package:todo_app_main_screen/ui/style.dart';
-import 'package:todo_app_main_screen/ui/widgets/date_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_screen_background_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/move_to_widget.dart';
-import 'package:todo_app_main_screen/ui/widgets/nav_bar_widget.dart';
-import 'package:todo_app_main_screen/ui/widgets/quote_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/tasks_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/single_task_widget.dart';
 

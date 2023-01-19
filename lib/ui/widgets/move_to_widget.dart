@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
+import 'package:todo_app_main_screen/consts/strings.dart';
 import 'package:todo_app_main_screen/ui/widgets/black_button_widget.dart';
 
 class MoveToWidget extends StatefulWidget {
@@ -41,7 +43,7 @@ class _MoveToWidgetState extends State<MoveToWidget> {
               child: Padding(
                 padding: EdgeInsets.only(top: 0.02 * widget.height),
                 child: Image.asset(
-                    'assets/icons/close_button_darker_icon.png',
+                    AppIcons.closeButtonDarker,
                     scale: 3),
               ),
             ),
@@ -64,25 +66,31 @@ class _MoveToWidgetState extends State<MoveToWidget> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         lists[index],
-                        const Icon(Icons.check),
+                        Image.asset(
+                          AppIcons.check,
+                          scale: 3,
+                        ),
                       ],
                     ),
                   );
                 }),
           ),
-          Text(
-            'add new list',
-            style: TextStyle(
-              fontSize: 0.018 * widget.height,
-              color: Colors.grey,
+          Padding(
+            padding: EdgeInsets.only(bottom: 0.01 * widget.height),
+            child: Text(
+              TestStrings.addNewList,
+              style: TextStyle(
+                fontSize: 0.018 * widget.height,
+                color: Colors.grey,
+              ),
             ),
           ),
           BlackButtonWidget(
             onPressed: () {},
             width: widget.width - 50,
-            child: Text(
-              'move',
-              style: const TextStyle(color: backgroundColor),
+            child: const Text(
+              TestStrings.move,
+              style: TextStyle(color: backgroundColor),
             ),
           ),
         ],

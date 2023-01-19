@@ -10,4 +10,9 @@ abstract class TestStrings {
   static const quoteAuthor = 'Maya Angelou';
   static const quoteContent = 'You will face many defeats in life, but never let yourself be defeated. So many defeats';
 
+  static const lists = 'lists';
+  static const move = 'move';
+  static const addNewList = 'add new list';
+
+  static const toDo = 'ToDo';
 }

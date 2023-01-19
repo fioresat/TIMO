@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'dart:ui' as ui;
 
@@ -73,13 +74,13 @@ class _QuoteWidgetState extends State<QuoteWidget> {
                   ),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: Colors.transparent,
+                        backgroundColor: Colors.transparent,
                         shadowColor: Colors.transparent),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
                     child: Image.asset(
-                      'assets/icons/close_icon.png',
+                      AppIcons.close,
                       scale: 3,
                     ),
                   ),

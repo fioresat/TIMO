@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 
 class AlarmNotifWidget extends StatelessWidget {
@@ -35,7 +36,7 @@ class AlarmNotifWidget extends StatelessWidget {
 
                 },
                 child: Image.asset(
-                  'assets/icons/close_button_darker_icon.png',
+                  AppIcons.closeButtonDarker,
                   scale: 4,
                 ),
               )

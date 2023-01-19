@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:todo_app_main_screen/consts/app_icons.dart';
+import 'package:todo_app_main_screen/consts/strings.dart';
 
 class TasksWidget extends StatefulWidget {
   final bool isPanelOpen;
@@ -48,7 +50,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                           width: 5,
                         ),
                         Text(
-                          'ToDo',
+                          TestStrings.toDo,
                           style: TextStyle(color: Colors.grey),
                         ),
                       ],
@@ -88,7 +90,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                           child: InkWell(
                             onTap: widget.onPressed,
                             child: Image.asset(
-                              'assets/icons/move_to_icon.png',
+                              AppIcons.moveTo,
                               scale: 3,
                             ),
                           ),
@@ -102,7 +104,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                             });
                           },
                           child: Image.asset(
-                            'assets/icons/delete_icon.png',
+                            AppIcons.delete,
                             scale: 3,
                           ),
                         ),
