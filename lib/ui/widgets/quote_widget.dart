@@ -74,7 +74,7 @@ class _QuoteWidgetState extends State<QuoteWidget> {
                   ),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.transparent,
+                        primary: Colors.transparent,
                         shadowColor: Colors.transparent),
                     onPressed: () {
                       Navigator.of(context).pop();
