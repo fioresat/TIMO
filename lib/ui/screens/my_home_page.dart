@@ -67,62 +67,52 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       backgroundColor: secondBackgroundColor,
-      body: SlidingUpPanel(
-        isDraggable: false,
-        minHeight: 0,
-        maxHeight: 0.3 * heightScreen,
-        borderRadius: commonBorderRadius,
-        controller: listsPanelController,
-        onPanelOpened: () => setState(() {}),
-        onPanelClosed: () => setState(() {}),
-        body: SlidingUpPanel(
-          isDraggable: false,
-          backdropEnabled: true,
-          backdropColor: Colors.white,
-          backdropOpacity: 1,
-          boxShadow: const [
-            BoxShadow(blurRadius: 0, color: Color.fromRGBO(0, 0, 0, 0))
-          ],
-          minHeight: 0.55 * heightScreen,
-          maxHeight: 0.95 * heightScreen,
-          borderRadius: commonBorderRadius,
-          controller: panelController,
-          onPanelOpened: () => setState(() {}),
-          onPanelClosed: () => setState(() {}),
-          body: MainScreenBackgroundWidget(
-            height: heightScreen,
-            onPressed: () {},
+      body: MoveToWidget(
+          panelController: listsPanelController,
+          height: heightScreen,
+          width: widthScreen,
+          borderRaduis: commonBorderRadius,
+          body: SlidingUpPanel(
+            isDraggable: false,
+            backdropEnabled: true,
+            backdropColor: Colors.white,
+            backdropOpacity: 1,
+            boxShadow: const [
+              BoxShadow(blurRadius: 0, color: Color.fromRGBO(0, 0, 0, 0))
+            ],
+            minHeight: 0.55 * heightScreen,
+            maxHeight: 0.95 * heightScreen,
+            borderRadius: commonBorderRadius,
+            controller: panelController,
+            onPanelOpened: () => setState(() {}),
+            onPanelClosed: () => setState(() {}),
+            body: MainScreenBackgroundWidget(
+              height: heightScreen,
+              onPressed: () {},
+            ),
+            panelBuilder: (controller) => TasksWidget(
+              onPressed: () {
+                listsPanelController.open();
+                setState(() {
+                  isMoveTo = true;
+                });
+              },
+              isPanelOpen: panelController.isPanelOpen,
+              tasks: testTasks,
+              controller: controller,
+              panelController: panelController,
+              height: panelController.isPanelOpen
+                  ? 0.95 * heightScreen
+                  : 0.55 * heightScreen,
+            ),
           ),
-          panelBuilder: (controller) => TasksWidget(
-            onPressed: () {
-              listsPanelController.open();
-              setState(() {
-                isMoveTo = true;
-              });
-            },
-            isPanelOpen: panelController.isPanelOpen,
-            tasks: testTasks,
-            controller: controller,
-            panelController: panelController,
-            height: panelController.isPanelOpen
-                ? 0.95 * heightScreen
-                : 0.55 * heightScreen,
-          ),
-        ),
-        panelBuilder: (controller) => MoveToWidget(
+          lists: testLists,
           onTap: () {
             listsPanelController.close();
             setState(() {
               isMoveTo = false;
             });
-          },
-          lists: testLists,
-          controller: controller,
-          panelController: listsPanelController,
-          height: heightScreen,
-          width: widthScreen,
-        ),
-      ),
+          },),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Container(
         padding: const EdgeInsets.symmetric(horizontal: 25.0),
