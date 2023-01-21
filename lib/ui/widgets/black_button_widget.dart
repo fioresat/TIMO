@@ -5,20 +5,22 @@ class BlackButtonWidget extends StatelessWidget {
   final Widget child;
   final void Function() onPressed;
   final double width;
+  final BorderRadiusGeometry? borderRadius;
 
   const BlackButtonWidget(
       {required this.child,
       required this.onPressed,
       required this.width,
-      super.key});
+      super.key,
+      required this.borderRadius});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      decoration: const BoxDecoration(
+      decoration:  BoxDecoration(
         color: textColor,
-        borderRadius: BorderRadius.all(Radius.elliptical(12, 12)),
+        borderRadius: borderRadius,
       ),
       child: ElevatedButton(
         style: ButtonStyle(

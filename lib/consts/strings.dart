@@ -15,4 +15,5 @@ abstract class TestStrings {
   static const addNewList = 'add new list';
 
   static const toDo = 'ToDo';
+  static const create = 'create';
 }

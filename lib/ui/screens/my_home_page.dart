@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
+import 'package:todo_app_main_screen/ui/screens/new_task_page.dart';
 import 'package:todo_app_main_screen/ui/style.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_screen_background_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/move_to_widget.dart';
@@ -48,6 +49,8 @@ List<Widget> testLists = [
 ];
 
 class MyHomePage extends StatefulWidget {
+  static const routeName = '/my_home_page';
+
   const MyHomePage({Key? key}) : super(key: key);
 
   @override
@@ -64,55 +67,57 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     double widthScreen = MediaQuery.of(context).size.width;
     double heightScreen = MediaQuery.of(context).size.height;
-
     return Scaffold(
       backgroundColor: secondBackgroundColor,
       body: MoveToWidget(
-          panelController: listsPanelController,
-          height: heightScreen,
-          width: widthScreen,
-          borderRaduis: commonBorderRadius,
-          body: SlidingUpPanel(
-            isDraggable: false,
-            backdropEnabled: true,
-            backdropColor: Colors.white,
-            backdropOpacity: 1,
-            boxShadow: const [
-              BoxShadow(blurRadius: 0, color: Color.fromRGBO(0, 0, 0, 0))
-            ],
-            minHeight: 0.55 * heightScreen,
-            maxHeight: 0.95 * heightScreen,
-            borderRadius: commonBorderRadius,
-            controller: panelController,
-            onPanelOpened: () => setState(() {}),
-            onPanelClosed: () => setState(() {}),
-            body: MainScreenBackgroundWidget(
-              height: heightScreen,
-              onPressed: () {},
-            ),
-            panelBuilder: (controller) => TasksWidget(
-              onPressed: () {
-                listsPanelController.open();
-                setState(() {
-                  isMoveTo = true;
-                });
-              },
-              isPanelOpen: panelController.isPanelOpen,
-              tasks: testTasks,
-              controller: controller,
-              panelController: panelController,
-              height: panelController.isPanelOpen
-                  ? 0.95 * heightScreen
-                  : 0.55 * heightScreen,
-            ),
+        panelController: listsPanelController,
+        height: heightScreen,
+        width: widthScreen,
+        borderRaduis: commonBorderRadius,
+        body: SlidingUpPanel(
+          isDraggable: false,
+          backdropEnabled: true,
+          backdropColor: Colors.white,
+          backdropOpacity: 1,
+          boxShadow: const [
+            BoxShadow(blurRadius: 0, color: Color.fromRGBO(0, 0, 0, 0))
+          ],
+          minHeight: 0.55 * heightScreen,
+          maxHeight: 0.95 * heightScreen,
+          borderRadius: commonBorderRadius,
+          controller: panelController,
+          onPanelOpened: () => setState(() {}),
+          onPanelClosed: () => setState(() {}),
+          body: MainScreenBackgroundWidget(
+            height: heightScreen,
+            onPressed: () {},
           ),
-          lists: testLists,
-          onTap: () {
-            listsPanelController.close();
-            setState(() {
-              isMoveTo = false;
-            });
-          },),
+          panelBuilder: (controller) => TasksWidget(
+            onPressed: () {
+              listsPanelController.open();
+              setState(() {
+                isMoveTo = true;
+              });
+            },
+            isPanelOpen: panelController.isPanelOpen,
+            tasks: testTasks,
+            controller: controller,
+            panelController: panelController,
+            height: panelController.isPanelOpen
+                ? 0.95 * heightScreen
+                : 0.55 * heightScreen,
+          ),
+        ),
+        lists: testLists,
+        onTap: () {
+          listsPanelController.close();
+          setState(() {
+            isMoveTo = false;
+          });
+        },
+        panelMaxheight: heightScreen * 0.5,
+        panelMinheight: 0,
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Container(
         padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -133,7 +138,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     ? Container()
                     : FloatingActionButton(
                         backgroundColor: textColor,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, NewTaskPage.routeName);
+                        },
                         child: const Icon(Icons.add),
                       ),
               ],

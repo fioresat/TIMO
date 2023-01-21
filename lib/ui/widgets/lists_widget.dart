@@ -6,7 +6,7 @@ class ListsWidget extends StatelessWidget {
   final height;
   final List<Widget> lists;
 
-  const ListsWidget({Key? key, required this.height, required this.lists})
+  const ListsWidget({Key? key, required this.height, required this.lists,})
       : super(key: key);
 
   @override

@@ -21,7 +21,7 @@ class ListsPanelWidget extends StatefulWidget {
       required this.lists,
       required this.onTap,
       required this.controller,
-      required this.panelController})
+      required this.panelController,})
       : super(key: key);
 
   @override
@@ -49,10 +49,12 @@ class _ListsPanelWidgetState extends State<ListsPanelWidget> {
           ListsWidget(
             height: widget.height,
             lists: widget.lists,
+
           ),
           BlackButtonWidget(
             onPressed: () {},
             width: widget.width - 50,
+            borderRadius: BorderRadius.all(Radius.elliptical(12, 12)),
             child: const Text(
               TestStrings.move,
               style: TextStyle(color: backgroundColor),
