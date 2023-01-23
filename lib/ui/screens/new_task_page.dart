@@ -40,7 +40,9 @@ class _NewTaskPageState extends State<NewTaskPage> {
               child: TextField(
                 textCapitalization: TextCapitalization.sentences,
                 controller: controller,
-                style: const TextStyle(fontSize: 26,),
+                style: const TextStyle(
+                  fontSize: 26,
+                ),
                 decoration: const InputDecoration(
                   hintText: TestStrings.hintText,
                   hintStyle: TextStyle(
@@ -57,40 +59,37 @@ class _NewTaskPageState extends State<NewTaskPage> {
                 cursorColor: Colors.black,
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    InkWell(
-                      onTap: null,
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 0.02 * heightScreen),
+            Padding(
+              padding: EdgeInsets.only(top: 0.2 * heightScreen),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      InkWell(
+                        onTap: () {},
                         child: Image.asset(AppIcons.lists, scale: 3),
                       ),
-                    ),
-                    SizedBox(
-                      width: widthScreen * 0.05,
-                    ),
-                    InkWell(
-                      onTap: null,
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 0.02 * heightScreen),
+                      SizedBox(
+                        width: widthScreen * 0.05,
+                      ),
+                      InkWell(
+                        onTap: () {},
                         child: Image.asset(AppIcons.reminderBell, scale: 3),
                       ),
-                    ),
-                  ],
-                ),
-                BlackButtonWidget(
-                  onPressed: () {},
-                  width: widthScreen * 0.3,
-                  borderRadius: BorderRadius.circular(22),
-                  child: const Text(
-                    TestStrings.create,
-                    style: TextStyle(color: backgroundColor),
+                    ],
                   ),
-                ),
-              ],
+                  BlackButtonWidget(
+                    onPressed: () {},
+                    width: widthScreen * 0.3,
+                    borderRadius: BorderRadius.circular(22),
+                    child: const Text(
+                      TestStrings.create,
+                      style: TextStyle(color: backgroundColor),
+                    ),
+                  ),
+                ],
+              ),
             )
           ],
         ),
