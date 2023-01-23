@@ -71,7 +71,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                   return Slidable(
                     key: ValueKey(tasks[index]),
                     endActionPane: ActionPane(
-                      extentRatio: 0.4,
+                      extentRatio: 0.6,
                       dismissible: DismissiblePane(
                         onDismissed: () {
                           setState(() {
@@ -80,32 +80,40 @@ class _TasksWidgetState extends State<TasksWidget> {
                           });
                         },
                       ),
-                      motion: const BehindMotion(),
+                      motion: const ScrollMotion(),
                       children: [
                         CustomSlidableAction(
-                          flex: 1,
+                          //flex: 1,
                           onPressed: (BuildContext context) {
                             setState(() {});
                           },
                           child: InkWell(
                             onTap: widget.onPressed,
-                            child: Image.asset(
-                              AppIcons.moveTo,
-                              scale: 3,
+                            child: Container(
+                              width: 100,
+                              height: 56,
+                              child: Image.asset(
+                                AppIcons.moveTo,
+                                scale: 3,
+                              ),
                             ),
                           ),
                         ),
                         CustomSlidableAction(
-                          flex: 1,
+                          //flex: 2,
                           onPressed: (BuildContext context) {
                             setState(() {
                               //ToDo
                               tasks.removeAt(index);
                             });
                           },
-                          child: Image.asset(
-                            AppIcons.delete,
-                            scale: 3,
+                          child: Container(
+                            width: 100,
+                            height: 56,
+                            child: Image.asset(
+                              AppIcons.delete,
+                              scale: 3,
+                            ),
                           ),
                         ),
                       ],
