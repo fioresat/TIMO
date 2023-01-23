@@ -125,12 +125,12 @@ class _TasksWidgetState extends State<TasksWidget> {
   Widget dragHandle() => GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: _movePanel,
-        onVerticalDragUpdate: (DragUpdateDetails dets) => _movePanel,
+        onVerticalDragUpdate: (DragUpdateDetails dets) => _movePanel(),
         onVerticalDragEnd: (DragEndDetails dets) => _movePanel(),
-        onVerticalDragStart: (DragStartDetails dets) => _movePanel,
+        onVerticalDragStart: (DragStartDetails dets) => _movePanel(),
         child: Padding(
           padding: const EdgeInsets.only(
-              left: 100.0, right: 100, top: 10, bottom: 30),
+              left: 150.0, right: 150, top: 10, bottom: 30),
           child: Container(
             width: 30,
             height: 5,
