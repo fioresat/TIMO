@@ -24,6 +24,66 @@ List<Widget> testTasks = [
     active: Colors.transparent,
     colorful: Colors.transparent,
   ),
+  const SingleTaskWidget(
+    task: TestStrings.task1,
+    active: textColor,
+    colorful: lightBlueColor,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task2,
+    active: Colors.transparent,
+    colorful: Colors.transparent,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task3,
+    active: Colors.transparent,
+    colorful: Colors.transparent,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task1,
+    active: textColor,
+    colorful: lightBlueColor,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task2,
+    active: Colors.transparent,
+    colorful: Colors.transparent,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task3,
+    active: Colors.transparent,
+    colorful: Colors.transparent,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task1,
+    active: textColor,
+    colorful: lightBlueColor,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task2,
+    active: Colors.transparent,
+    colorful: Colors.transparent,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task3,
+    active: Colors.transparent,
+    colorful: Colors.transparent,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task1,
+    active: textColor,
+    colorful: lightBlueColor,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task2,
+    active: Colors.transparent,
+    colorful: Colors.transparent,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task3,
+    active: Colors.transparent,
+    colorful: Colors.transparent,
+  ),
 ];
 
 List<Widget> testLists = [
@@ -59,6 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final listsPanelController = PanelController();
   bool isDeleted = false; //manage undo floating action button visibility
   bool isMoveTo = false; //manage add floating action button visibility
+  final scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +160,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               isPanelOpen: panelController.isPanelOpen,
               tasks: testTasks,
-              controller: controller,
+              controller: scrollController,
               panelController: panelController,
               height: panelController.isPanelOpen
                   ? 0.95 * heightScreen
@@ -144,3 +205,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+

@@ -34,32 +34,14 @@ class _TasksWidgetState extends State<TasksWidget> {
       padding: const EdgeInsets.only(left: 25, right: 25),
       child: Column(
         children: [
-          dragHandle(),
-          widget.isPanelOpen
-              ? Column(
-                  children: [
-                    const SizedBox(
-                      height: 3,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.max,
-                      children: const [
-                        Icon(Icons.keyboard_arrow_down),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          TestStrings.toDo,
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                      ],
-                    ),
-                  ],
-                )
-              : const SizedBox(
-                  height: 25,
-                ),
+          Stack(
+            children: [
+              Center(
+                child: dragHandle(),
+              ),
+              todoButton(),
+            ],
+          ),
           SizedBox(
             height: 0.9 * widget.height,
             child: ReorderableListView.builder(
@@ -143,13 +125,12 @@ class _TasksWidgetState extends State<TasksWidget> {
   Widget dragHandle() => GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: _movePanel,
-        // onVerticalDragEnd: (DragEndDetails dets) {
-        //   if (dets.velocity.pixelsPerSecond.dy != 0) {
-        //     _movePanel;
-        //   }
-        // },
+        onVerticalDragUpdate: (DragUpdateDetails dets) => _movePanel,
+        onVerticalDragEnd: (DragEndDetails dets) => _movePanel(),
+        onVerticalDragStart: (DragStartDetails dets) => _movePanel,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 10),
+          padding: const EdgeInsets.only(
+              left: 100.0, right: 100, top: 10, bottom: 30),
           child: Container(
             width: 30,
             height: 5,
@@ -160,6 +141,30 @@ class _TasksWidgetState extends State<TasksWidget> {
           ),
         ),
       );
+
+  Widget todoButton() {
+    return widget.isPanelOpen
+        ? InkWell(
+            onTap: widget.panelController.close,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: const [
+                Icon(Icons.keyboard_arrow_down),
+                SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  TestStrings.toDo,
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ],
+            ),
+          )
+        : const SizedBox(
+            height: 22,
+          );
+  }
 
   void _movePanel() {
     widget.panelController.isPanelOpen
