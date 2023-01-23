@@ -40,9 +40,9 @@ class _NewTaskPageState extends State<NewTaskPage> {
               child: TextField(
                 textCapitalization: TextCapitalization.sentences,
                 controller: controller,
-                style: const TextStyle(fontSize: 22,),
+                style: const TextStyle(fontSize: 26,),
                 decoration: const InputDecoration(
-                  hintText: " Type new task...",
+                  hintText: TestStrings.hintText,
                   hintStyle: TextStyle(
                     color: hintTextColor,
                     fontSize: 26,
@@ -54,7 +54,6 @@ class _NewTaskPageState extends State<NewTaskPage> {
                 autofocus: true,
                 keyboardType: TextInputType.multiline,
                 maxLines: 99999,
-                cursorHeight: 26,
                 cursorColor: Colors.black,
               ),
             ),

@@ -16,4 +16,6 @@ abstract class TestStrings {
 
   static const toDo = 'ToDo';
   static const create = 'create';
+
+  static const hintText = " Type new task...";
 }

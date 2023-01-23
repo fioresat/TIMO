@@ -25,7 +25,7 @@ class ListsWidget extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 0.2 * height,
+          height: 0.1 * height,
           child: ListView.builder(
               itemCount: lists.length,
               itemBuilder: (_, index) {
@@ -45,7 +45,10 @@ class ListsWidget extends StatelessWidget {
               }),
         ),
         Padding(
-          padding: EdgeInsets.only(bottom: 0.04 * height),
+          padding: EdgeInsets.only(
+            bottom: 0.03 * height,
+            top: 0.02 * height,
+          ),
           child: Text(
             TestStrings.addNewList,
             style: TextStyle(

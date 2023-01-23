@@ -33,9 +33,9 @@ class _MoveToWidgetState extends State<MoveToWidget> {
   @override
   Widget build(BuildContext context) {
     return SlidingUpPanel(
-      isDraggable: true,
+      isDraggable: false,
       minHeight: 0,
-      maxHeight: 0.5 * widget.height,
+      maxHeight: 0.35 * widget.height,
       borderRadius: widget.borderRadius,
       controller: widget.listPanelController,
       onPanelOpened: () => setState(() {}),
