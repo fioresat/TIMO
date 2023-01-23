@@ -10,9 +10,9 @@ class QuoteWidget extends StatefulWidget {
 
   const QuoteWidget(
       {required this.content,
-        super.key,
-        required this.author,
-        required this.height});
+      super.key,
+      required this.author,
+      required this.height});
 
   @override
   State<QuoteWidget> createState() => _QuoteWidgetState();
@@ -70,20 +70,15 @@ class _QuoteWidgetState extends State<QuoteWidget> {
               children: [
                 Padding(
                   padding: EdgeInsets.only(
-                    top: 0.066 * heightScreen,
+                    top: 0.067 * heightScreen,
                   ),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        primary: Colors.transparent,
-                        shadowColor: Colors.transparent),
-                    onPressed: () {
+                  child: InkWell(
+                    onTap: () {
                       Navigator.of(context).pop();
                     },
-                    child: Container(
-                      child: Image.asset(
-                        AppIcons.close,
-                        scale: 3,
-                      ),
+                    child: Image.asset(
+                      AppIcons.close,
+                      scale: 3,
                     ),
                   ),
                 ),

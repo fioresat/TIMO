@@ -35,8 +35,11 @@ class _NewTaskPageBackgroundWidgetState
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-          vertical: widget.height * 0.05, horizontal: widget.width * 0.05),
+      padding: EdgeInsets.only(
+          bottom: widget.height * 0.017,
+          top: widget.height * 0.048,
+          left: 25,
+          right: 25),
       child: Column(
         children: [
           Align(
@@ -73,7 +76,7 @@ class _NewTaskPageBackgroundWidgetState
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 0.2 * widget.height),
+            padding: EdgeInsets.only(top: 0.02 * widget.height),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

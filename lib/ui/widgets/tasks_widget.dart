@@ -57,8 +57,8 @@ class _TasksWidgetState extends State<TasksWidget> {
                       dismissible: DismissiblePane(
                         onDismissed: () {
                           setState(() {
-                            //ToDo
-                            tasks.removeAt(index);
+                            // added this block
+                            _undo(tasks, index);
                           });
                         },
                       ),
@@ -86,7 +86,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                           onPressed: (BuildContext context) {
                             setState(() {
                               //ToDo
-                              tasks.removeAt(index);
+                              _undo(tasks, index);
                             });
                           },
                           child: Container(
@@ -123,56 +123,76 @@ class _TasksWidgetState extends State<TasksWidget> {
   }
 
   Widget dragHandle() => GestureDetector(
-    behavior: HitTestBehavior.translucent,
-    onTap: _movePanel,
-    onVerticalDragUpdate: (DragUpdateDetails dets) => _movePanel(),
-    onVerticalDragEnd: (DragEndDetails dets) => _movePanel(),
-    onVerticalDragStart: (DragStartDetails dets) => _movePanel(),
-    child: Padding(
-      padding: const EdgeInsets.only(
-          left: 150.0, right: 150, top: 10, bottom: 30),
-      child: Container(
-        width: 30,
-        height: 5,
-        decoration: BoxDecoration(
-          color: Colors.grey.shade300,
-          borderRadius: BorderRadius.circular(12),
+        behavior: HitTestBehavior.translucent,
+        onTap: _movePanel,
+        onVerticalDragUpdate: (DragUpdateDetails dets) => _movePanel(),
+        onVerticalDragEnd: (DragEndDetails dets) => _movePanel(),
+        onVerticalDragStart: (DragStartDetails dets) => _movePanel(),
+        child: Padding(
+          padding: const EdgeInsets.only(
+              left: 150.0, right: 150, top: 10, bottom: 30),
+          child: Container(
+            width: 30,
+            height: 5,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade300,
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
         ),
-      ),
-    ),
-  );
+      );
 
   Widget todoButton() {
     return widget.isPanelOpen
         ? InkWell(
-      onTap: widget.panelController.close,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        children: const [
-          Icon(Icons.keyboard_arrow_down),
-          SizedBox(
-            width: 5,
-          ),
-          Text(
-            TestStrings.toDo,
-            style: TextStyle(color: Colors.grey),
-          ),
-        ],
-      ),
-    )
+            onTap: widget.panelController.close,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: const [
+                Icon(Icons.keyboard_arrow_down),
+                SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  TestStrings.toDo,
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ],
+            ),
+          )
         : const SizedBox(
-      height: 22,
-    );
+            height: 22,
+          );
   }
 
   void _movePanel() {
     widget.panelController.isPanelOpen
         ? setState(() {
-      widget.panelController.close();
-    })
+            widget.panelController.close();
+          })
         : setState(() {
-      widget.panelController.open();
-    });
+            widget.panelController.open();
+          });
   }
+
+  void _undo(List tasks, int index)
+  {Widget deletedItem = tasks.removeAt(index);
+  showDialog(
+    context: context,
+    builder: (BuildContext context) => AlertDialog(
+      title: const Text('AlertDialog Title'),
+      actions: <Widget>[
+        TextButton(
+            child: const Text('Undo'),
+            onPressed: () {
+              setState(
+                    () =>
+                    tasks.insert(index, deletedItem),
+              );
+              Navigator.of(context).pop();
+            }),
+      ],
+    ),
+  );}
 }
