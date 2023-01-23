@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -176,23 +177,23 @@ class _TasksWidgetState extends State<TasksWidget> {
           });
   }
 
-  void _undo(List tasks, int index)
-  {Widget deletedItem = tasks.removeAt(index);
-  showDialog(
-    context: context,
-    builder: (BuildContext context) => AlertDialog(
-      title: const Text('AlertDialog Title'),
-      actions: <Widget>[
-        TextButton(
-            child: const Text('Undo'),
-            onPressed: () {
-              setState(
-                    () =>
-                    tasks.insert(index, deletedItem),
-              );
-              Navigator.of(context).pop();
-            }),
-      ],
-    ),
-  );}
+  void _undo(List tasks, int index) {
+    Widget deletedItem = tasks.removeAt(index);
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => CupertinoAlertDialog(
+        title: const Text('AlertDialog Title'),
+        actions: <CupertinoDialogAction>[
+          CupertinoDialogAction(
+              child: const Text('Undo'),
+              onPressed: () {
+                setState(
+                  () => tasks.insert(index, deletedItem),
+                );
+                Navigator.of(context).pop();
+              }),
+        ],
+      ),
+    );
+  }
 }
