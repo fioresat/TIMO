@@ -1,97 +1,178 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app_main_screen/consts/colors.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:todo_app_main_screen/consts/app_icons.dart';
+import 'package:todo_app_main_screen/consts/strings.dart';
 
-class TasksWidget extends StatelessWidget {
+class TasksWidget extends StatefulWidget {
+  final bool isPanelOpen;
+  final double height;
   final List<Widget> tasks;
+  final ScrollController controller;
+  final PanelController panelController;
+  final void Function()? onPressed;
 
-  const TasksWidget({Key? key, required this.tasks}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
-        ),
-      ),
-      width: 428,
-      height: 534,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 25, right: 25),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: tasks,
-        ),
-      ),
-    );
-  }
-}
-
-class TaskWidget extends StatelessWidget {
-  final Color colorful;
-  final Color active;
-  final String task;
-
-  TaskWidget({
+  const TasksWidget({
     Key? key,
-    required this.colorful,
-    required this.active,
-    required this.task,
+    required this.isPanelOpen,
+    required this.tasks,
+    required this.controller,
+    required this.panelController,
+    this.onPressed,
+    required this.height,
   }) : super(key: key);
 
   @override
+  State<TasksWidget> createState() => _TasksWidgetState();
+}
+
+class _TasksWidgetState extends State<TasksWidget> {
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 378,
+    List<Widget> tasks = widget.tasks;
+    return Padding(
+      padding: const EdgeInsets.only(left: 25, right: 25),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 26,
-              bottom: 19,
-            ),
-            child: Text(
-              task,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 2,
-              style: TextStyle(
-                  color: textColor, fontSize: 20, fontWeight: FontWeight.w700),
-            ),
-          ),
-          Row(
+          Stack(
             children: [
-              Container(
-                height: 5,
-                width: 32,
-                padding: EdgeInsets.symmetric(vertical: 6),
-                decoration: BoxDecoration(
-                  color: colorful,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(8),
-                  ),
-                ),
+              Center(
+                child: dragHandle(),
               ),
-              SizedBox(
-                width: 10,
-              ),
-              Container(
-                height: 5,
-                width: 32,
-                padding: EdgeInsets.symmetric(vertical: 6),
-                decoration: BoxDecoration(
-                  color: active,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(8),
-                  ),
-                ),
-              ),
+              todoButton(),
             ],
-          )
+          ),
+          SizedBox(
+            height: 0.9 * widget.height,
+            child: ReorderableListView.builder(
+                scrollController: widget.controller,
+                itemCount: tasks.length,
+                //shrinkWrap: true,
+                onReorder: reorderData,
+                itemBuilder: (BuildContext context, int index) {
+                  return Slidable(
+                    key: ValueKey(tasks[index]),
+                    endActionPane: ActionPane(
+                      extentRatio: 0.6,
+                      dismissible: DismissiblePane(
+                        onDismissed: () {
+                          setState(() {
+                            //ToDo
+                            tasks.removeAt(index);
+                          });
+                        },
+                      ),
+                      motion: const ScrollMotion(),
+                      children: [
+                        CustomSlidableAction(
+                          //flex: 1,
+                          onPressed: (BuildContext context) {
+                            setState(() {});
+                          },
+                          child: InkWell(
+                            onTap: widget.onPressed,
+                            child: Container(
+                              width: 100,
+                              height: 56,
+                              child: Image.asset(
+                                AppIcons.moveTo,
+                                scale: 3,
+                              ),
+                            ),
+                          ),
+                        ),
+                        CustomSlidableAction(
+                          //flex: 2,
+                          onPressed: (BuildContext context) {
+                            setState(() {
+                              //ToDo
+                              tasks.removeAt(index);
+                            });
+                          },
+                          child: Container(
+                            width: 100,
+                            height: 56,
+                            child: Image.asset(
+                              AppIcons.delete,
+                              scale: 3,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    child: Card(
+                      elevation: 0,
+                      child: tasks[index],
+                    ),
+                  );
+                }),
+          ),
         ],
       ),
     );
+  }
+
+  void reorderData(int oldIndex, int newIndex) {
+    setState(() {
+      if (newIndex > oldIndex) {
+        newIndex -= 1;
+      }
+      final items = widget.tasks.removeAt(oldIndex);
+      widget.tasks.insert(newIndex, items);
+    });
+  }
+
+  Widget dragHandle() => GestureDetector(
+        behavior: HitTestBehavior.translucent,
+        onTap: _movePanel,
+        onVerticalDragUpdate: (DragUpdateDetails dets) => _movePanel(),
+        onVerticalDragEnd: (DragEndDetails dets) => _movePanel(),
+        onVerticalDragStart: (DragStartDetails dets) => _movePanel(),
+        child: Padding(
+          padding: const EdgeInsets.only(
+              left: 150.0, right: 150, top: 10, bottom: 30),
+          child: Container(
+            width: 30,
+            height: 5,
+            decoration: BoxDecoration(
+              color: Colors.grey.shade300,
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        ),
+      );
+
+  Widget todoButton() {
+    return widget.isPanelOpen
+        ? InkWell(
+            onTap: widget.panelController.close,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: const [
+                Icon(Icons.keyboard_arrow_down),
+                SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  TestStrings.toDo,
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ],
+            ),
+          )
+        : const SizedBox(
+            height: 22,
+          );
+  }
+
+  void _movePanel() {
+    widget.panelController.isPanelOpen
+        ? setState(() {
+            widget.panelController.close();
+          })
+        : setState(() {
+            widget.panelController.open();
+          });
   }
 }

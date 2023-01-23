@@ -1,29 +1,109 @@
 import 'package:flutter/material.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
-import 'package:todo_app_main_screen/ui/widgets/date_widget.dart';
-import 'package:todo_app_main_screen/ui/widgets/quote_widget.dart';
+import 'package:todo_app_main_screen/consts/strings.dart';
+import 'package:todo_app_main_screen/ui/style.dart';
+import 'package:todo_app_main_screen/ui/widgets/main_screen_background_widget.dart';
+import 'package:todo_app_main_screen/ui/widgets/move_to_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/tasks_widget.dart';
-
+import 'package:todo_app_main_screen/ui/widgets/single_task_widget.dart';
 
 List<Widget> testTasks = [
-  const SizedBox(
-    height: 30,
-  ),
-  TaskWidget(
-    task: 'Thinking through a brand idea',
+  const SingleTaskWidget(
+    task: TestStrings.task1,
     active: textColor,
     colorful: lightBlueColor,
   ),
-  TaskWidget(
-    task: 'Organize a photo shoot',
+  const SingleTaskWidget(
+    task: TestStrings.task2,
     active: Colors.transparent,
     colorful: Colors.transparent,
   ),
-  TaskWidget(
-    task:
-        'Buying groceries to take home. Buying groceries to take home. Buying groceries to take home.',
+  const SingleTaskWidget(
+    task: TestStrings.task3,
     active: Colors.transparent,
     colorful: Colors.transparent,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task1,
+    active: textColor,
+    colorful: lightBlueColor,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task2,
+    active: Colors.transparent,
+    colorful: Colors.transparent,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task3,
+    active: Colors.transparent,
+    colorful: Colors.transparent,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task1,
+    active: textColor,
+    colorful: lightBlueColor,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task2,
+    active: Colors.transparent,
+    colorful: Colors.transparent,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task3,
+    active: Colors.transparent,
+    colorful: Colors.transparent,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task1,
+    active: textColor,
+    colorful: lightBlueColor,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task2,
+    active: Colors.transparent,
+    colorful: Colors.transparent,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task3,
+    active: Colors.transparent,
+    colorful: Colors.transparent,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task1,
+    active: textColor,
+    colorful: lightBlueColor,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task2,
+    active: Colors.transparent,
+    colorful: Colors.transparent,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task3,
+    active: Colors.transparent,
+    colorful: Colors.transparent,
+  ),
+];
+
+List<Widget> testLists = [
+  const Text(
+    TestStrings.list1,
+    style: TextStyle(
+      fontSize: 20,
+    ),
+  ),
+  const Text(
+    TestStrings.list2,
+    style: TextStyle(
+      fontSize: 20,
+    ),
+  ),
+  const Text(
+    TestStrings.list3,
+    style: TextStyle(
+      fontSize: 20,
+    ),
   ),
 ];
 
@@ -35,77 +115,94 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final panelController = PanelController();
+  final listsPanelController = PanelController();
+  bool isDeleted = false; //manage undo floating action button visibility
+  bool isMoveTo = false; //manage add floating action button visibility
+  final scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     double widthScreen = MediaQuery.of(context).size.width;
+    double heightScreen = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: secondBackgroundColor,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 44,
-                  ),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 13),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              color: Colors.black,
-                              width: 2.0,
-                              style: BorderStyle.solid),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(20),
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'lists',
-                            style: TextStyle(color: textColor, fontSize: 14),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  DateWidget(
-                    dateTime: DateTime.now(),
-                  ),
-                  SizedBox(
-                    height: 42,
-                  ),
-                  QuoteWidget(
-                    author: 'Maya Angelou',
-                    content:
-                        'You will face many defeats in life, but never let yourself be defeated. So many defeats',
-                  ),
-                  SizedBox(
-                    height: 29,
-                  ),
-                ],
-              ),
+      body: MoveToWidget(
+          panelController: listsPanelController,
+          height: heightScreen,
+          width: widthScreen,
+          borderRaduis: commonBorderRadius,
+          body: SlidingUpPanel(
+            isDraggable: false,
+            backdropEnabled: true,
+            backdropColor: Colors.white,
+            backdropOpacity: 1,
+            boxShadow: const [
+              BoxShadow(blurRadius: 0, color: Color.fromRGBO(0, 0, 0, 0))
+            ],
+            minHeight: 0.55 * heightScreen,
+            maxHeight: 0.95 * heightScreen,
+            borderRadius: commonBorderRadius,
+            controller: panelController,
+            onPanelOpened: () => setState(() {}),
+            onPanelClosed: () => setState(() {}),
+            body: MainScreenBackgroundWidget(
+              height: heightScreen,
+              onPressed: () {},
             ),
-            TasksWidget(tasks: testTasks),
+            panelBuilder: (controller) => TasksWidget(
+              onPressed: () {
+                listsPanelController.open();
+                setState(() {
+                  isMoveTo = true;
+                });
+              },
+              isPanelOpen: panelController.isPanelOpen,
+              tasks: testTasks,
+              controller: scrollController,
+              panelController: panelController,
+              height: panelController.isPanelOpen
+                  ? 0.95 * heightScreen
+                  : 0.55 * heightScreen,
+            ),
+          ),
+          lists: testLists,
+          onTap: () {
+            listsPanelController.close();
+            setState(() {
+              isMoveTo = false;
+            });
+          },),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 25.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                isDeleted
+                    ? FloatingActionButton(
+                        backgroundColor: textColor,
+                        onPressed: () {},
+                        child: const Icon(Icons.undo),
+                      )
+                    : Container(),
+                isMoveTo
+                    ? Container()
+                    : FloatingActionButton(
+                        backgroundColor: textColor,
+                        onPressed: () {},
+                        child: const Icon(Icons.add),
+                      ),
+              ],
+            ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.add),
-        backgroundColor: textColor,
       ),
     );
   }
 }
-
-
-
-
-
 
