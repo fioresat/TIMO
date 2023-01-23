@@ -13,23 +13,24 @@ class MoveToWidget extends StatefulWidget {
   final Widget? body;
   final void Function() onTap;
 
-   const MoveToWidget(
-      {Key? key,
-      required this.listPanelController,
-      required this.height,
-      required this.width,
-      required this.borderRadius,
-      required this.body,
-      required this.lists,
-      required this.onTap, required this.panelMaxheight, required this.panelMinheight,})
-      : super(key: key);
+  const MoveToWidget({
+    Key? key,
+    required this.listPanelController,
+    required this.height,
+    required this.width,
+    required this.borderRadius,
+    required this.body,
+    required this.lists,
+    required this.onTap,
+    required this.panelMaxheight,
+    required this.panelMinheight,
+  }) : super(key: key);
 
   @override
   State<MoveToWidget> createState() => _MoveToWidgetState();
 }
 
 class _MoveToWidgetState extends State<MoveToWidget> {
-
   @override
   Widget build(BuildContext context) {
     return SlidingUpPanel(
@@ -40,7 +41,6 @@ class _MoveToWidgetState extends State<MoveToWidget> {
       controller: widget.listPanelController,
       onPanelOpened: () => setState(() {}),
       onPanelClosed: () => setState(() {}),
-
       body: widget.body,
       panelBuilder: (controller) => ListsPanelWidget(
         height: widget.height,
