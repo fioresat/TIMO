@@ -34,32 +34,14 @@ class _TasksWidgetState extends State<TasksWidget> {
       padding: const EdgeInsets.only(left: 25, right: 25),
       child: Column(
         children: [
-          dragHandle(),
-          widget.isPanelOpen
-              ? Column(
-                  children: [
-                    const SizedBox(
-                      height: 3,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.max,
-                      children: const [
-                        Icon(Icons.keyboard_arrow_down),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          TestStrings.toDo,
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                      ],
-                    ),
-                  ],
-                )
-              : const SizedBox(
-                  height: 25,
-                ),
+          Stack(
+            children: [
+              Center(
+                child: dragHandle(),
+              ),
+              todoButton(),
+            ],
+          ),
           SizedBox(
             height: 0.9 * widget.height,
             child: ReorderableListView.builder(
@@ -71,7 +53,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                   return Slidable(
                     key: ValueKey(tasks[index]),
                     endActionPane: ActionPane(
-                      extentRatio: 0.4,
+                      extentRatio: 0.6,
                       dismissible: DismissiblePane(
                         onDismissed: () {
                           setState(() {
@@ -80,32 +62,40 @@ class _TasksWidgetState extends State<TasksWidget> {
                           });
                         },
                       ),
-                      motion: const BehindMotion(),
+                      motion: const ScrollMotion(),
                       children: [
                         CustomSlidableAction(
-                          flex: 1,
+                          //flex: 1,
                           onPressed: (BuildContext context) {
                             setState(() {});
                           },
                           child: InkWell(
                             onTap: widget.onPressed,
-                            child: Image.asset(
-                              AppIcons.moveTo,
-                              scale: 3,
+                            child: Container(
+                              width: 100,
+                              height: 56,
+                              child: Image.asset(
+                                AppIcons.moveTo,
+                                scale: 3,
+                              ),
                             ),
                           ),
                         ),
                         CustomSlidableAction(
-                          flex: 1,
+                          //flex: 2,
                           onPressed: (BuildContext context) {
                             setState(() {
                               //ToDo
                               tasks.removeAt(index);
                             });
                           },
-                          child: Image.asset(
-                            AppIcons.delete,
-                            scale: 3,
+                          child: Container(
+                            width: 100,
+                            height: 56,
+                            child: Image.asset(
+                              AppIcons.delete,
+                              scale: 3,
+                            ),
                           ),
                         ),
                       ],
@@ -133,33 +123,56 @@ class _TasksWidgetState extends State<TasksWidget> {
   }
 
   Widget dragHandle() => GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        onTap: _movePanel,
-        // onVerticalDragEnd: (DragEndDetails dets) {
-        //   if (dets.velocity.pixelsPerSecond.dy != 0) {
-        //     _movePanel;
-        //   }
-        // },
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 10),
-          child: Container(
-            width: 30,
-            height: 5,
-            decoration: BoxDecoration(
-              color: Colors.grey.shade300,
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
+    behavior: HitTestBehavior.translucent,
+    onTap: _movePanel,
+    onVerticalDragUpdate: (DragUpdateDetails dets) => _movePanel(),
+    onVerticalDragEnd: (DragEndDetails dets) => _movePanel(),
+    onVerticalDragStart: (DragStartDetails dets) => _movePanel(),
+    child: Padding(
+      padding: const EdgeInsets.only(
+          left: 150.0, right: 150, top: 10, bottom: 30),
+      child: Container(
+        width: 30,
+        height: 5,
+        decoration: BoxDecoration(
+          color: Colors.grey.shade300,
+          borderRadius: BorderRadius.circular(12),
         ),
-      );
+      ),
+    ),
+  );
+
+  Widget todoButton() {
+    return widget.isPanelOpen
+        ? InkWell(
+      onTap: widget.panelController.close,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
+        children: const [
+          Icon(Icons.keyboard_arrow_down),
+          SizedBox(
+            width: 5,
+          ),
+          Text(
+            TestStrings.toDo,
+            style: TextStyle(color: Colors.grey),
+          ),
+        ],
+      ),
+    )
+        : const SizedBox(
+      height: 22,
+    );
+  }
 
   void _movePanel() {
     widget.panelController.isPanelOpen
         ? setState(() {
-            widget.panelController.close();
-          })
+      widget.panelController.close();
+    })
         : setState(() {
-            widget.panelController.open();
-          });
+      widget.panelController.open();
+    });
   }
 }

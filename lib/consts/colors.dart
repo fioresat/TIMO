@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-const Color secondBackgroundColor = Color(0xffD9F3FB);
+const Color secondBackgroundColor = Color(0xffd9f3fb);
 const Color textColor = Color(0xff000000);
 const Color backgroundColor = Color(0xffFFFFFF);
 const Color removeColor = Color(0xffF02222);

@@ -10,9 +10,9 @@ class QuoteWidget extends StatefulWidget {
 
   const QuoteWidget(
       {required this.content,
-      super.key,
-      required this.author,
-      required this.height});
+        super.key,
+        required this.author,
+        required this.height});
 
   @override
   State<QuoteWidget> createState() => _QuoteWidgetState();
@@ -54,7 +54,7 @@ class _QuoteWidgetState extends State<QuoteWidget> {
 
   Future _showDialog() => showGeneralDialog(
       context: context,
-      transitionDuration: const Duration(milliseconds: 350),
+      transitionDuration: const Duration(milliseconds: 0),
       pageBuilder: (BuildContext buildContext, Animation animation,
           Animation secondaryAnimation) {
         double widthScreen = MediaQuery.of(context).size.width;
@@ -64,7 +64,7 @@ class _QuoteWidgetState extends State<QuoteWidget> {
           child: Container(
             width: widthScreen,
             height: heightScreen,
-            color: Colors.white.withOpacity(0.7),
+            color: Colors.white.withOpacity(1.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -79,9 +79,11 @@ class _QuoteWidgetState extends State<QuoteWidget> {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: Image.asset(
-                      AppIcons.close,
-                      scale: 3,
+                    child: Container(
+                      child: Image.asset(
+                        AppIcons.close,
+                        scale: 3,
+                      ),
                     ),
                   ),
                 ),

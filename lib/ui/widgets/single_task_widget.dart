@@ -22,8 +22,8 @@ class SingleTaskWidget extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(
-              top: 26,
-              bottom: 19,
+              top: 20,
+              bottom: 11,
             ),
             child: Text(
               task,

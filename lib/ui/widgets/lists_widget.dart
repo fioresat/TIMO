@@ -3,11 +3,14 @@ import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
 
 class ListsWidget extends StatelessWidget {
-  final height;
+  final double height;
   final List<Widget> lists;
 
-  const ListsWidget({Key? key, required this.height, required this.lists,})
-      : super(key: key);
+  const ListsWidget({
+    Key? key,
+    required this.height,
+    required this.lists,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
