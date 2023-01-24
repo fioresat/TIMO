@@ -8,9 +8,10 @@ class ColorsPanelWidget extends StatefulWidget {
   final double height;
   final double width;
   final void Function() onTap;
-  final void Function() onColorTap;
-  final void Function() onColorSecTap;
+  final void Function()? onColorTap;
+  final void Function()? onColorSecTap;
   final List<Widget> lists;
+  final List<Color> colors;
   final AlignmentGeometry alignment;
 
   const ColorsPanelWidget(
@@ -18,7 +19,11 @@ class ColorsPanelWidget extends StatefulWidget {
       required this.height,
       required this.width,
       required this.onTap,
-      required this.lists, required this.onColorTap, required this.alignment, required this.onColorSecTap})
+      required this.lists,
+      required this.onColorTap,
+      required this.alignment,
+      required this.onColorSecTap,
+      required this.colors})
       : super(key: key);
 
   @override
@@ -26,12 +31,11 @@ class ColorsPanelWidget extends StatefulWidget {
 }
 
 class _ColorsPanelWidgetState extends State<ColorsPanelWidget> {
-
-
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  EdgeInsets.only(left: widget.width * 0.04, right: widget.width * 0.04),
+      padding: EdgeInsets.only(
+          left: widget.width * 0.04, right: widget.width * 0.04),
       child: Column(
         children: [
           Align(
@@ -58,11 +62,14 @@ class _ColorsPanelWidgetState extends State<ColorsPanelWidget> {
             ),
           ),
           SizedBox(
-            height: 0.03 * widget.height,
+            height: 0.01 * widget.height,
           ),
           ColorsWidget(
             onColorTap: widget.onColorTap,
-           alignment: widget.alignment, onColorSecTap: widget.onColorSecTap, width: widget.width,
+            alignment: widget.alignment,
+            onColorSecTap: widget.onColorSecTap,
+            width: widget.width,
+            colors: widget.colors,
           ),
           SizedBox(
             height: 0.01 * widget.height,

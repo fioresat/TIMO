@@ -3,10 +3,10 @@ import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/ui/widgets/single_color_widget.dart';
 
 class ColorsWidget extends StatefulWidget {
-  final void Function() onColorTap;
-  final void Function() onColorSecTap;
+  final void Function()? onColorTap;
+  final void Function()? onColorSecTap;
   final AlignmentGeometry alignment;
-  final List<Widget> colors;
+  final List<Color> colors;
   final double width;
 
   const ColorsWidget(
@@ -29,58 +29,23 @@ class _ColorsWidgetState extends State<ColorsWidget> {
       height: 60,
       child: Padding(
         padding: EdgeInsets.only(right: widget.width * 0.15),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SingleColorWidget(
-              color: lightBlueColor,
-              onColorTap: widget.onColorTap,
-              alignment: widget.alignment,
-              onColorSecTap: widget.onColorSecTap,
-            ),
-            SingleColorWidget(
-              color: yellowColor,
-              onColorTap: widget.onColorTap,
-              alignment: widget.alignment,
-              onColorSecTap: widget.onColorSecTap,
-            ),
-            SingleColorWidget(
-              color: blueColor,
-              onColorTap: widget.onColorTap,
-              alignment: widget.alignment,
-              onColorSecTap: widget.onColorSecTap,
-            ),
-            SingleColorWidget(
-              color: greenColor,
-              onColorTap: widget.onColorTap,
-              alignment: widget.alignment,
-              onColorSecTap: widget.onColorSecTap,
-            ),
-            SingleColorWidget(
-              color: purpleColor,
-              onColorTap: widget.onColorTap,
-              alignment: widget.alignment,
-              onColorSecTap: widget.onColorSecTap,
-            ),
-            SingleColorWidget(
-              color: redColor,
-              onColorTap: widget.onColorTap,
-              alignment: widget.alignment,
-              onColorSecTap: widget.onColorSecTap,
-            ),
-            SingleColorWidget(
-              color: orangeColor,
-              onColorTap: widget.onColorTap,
-              alignment: widget.alignment,
-              onColorSecTap: widget.onColorSecTap,
-            ),
-            SingleColorWidget(
-              color: pinkColor,
-              onColorTap: widget.onColorTap,
-              alignment: widget.alignment,
-              onColorSecTap: widget.onColorSecTap,
-            ),
-          ],
+        child: ListView.separated(
+          shrinkWrap: true,
+          itemCount: widget.colors.length,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (
+            BuildContext context,
+            int index,
+          ) {
+            return SingleColorWidget(
+                color: widget.colors[index],
+                onColorTap: widget.onColorTap,
+                alignment: widget.alignment,
+                onColorSecTap: widget.onColorSecTap);
+          },
+          separatorBuilder: (BuildContext context, int index) => SizedBox(
+            width: widget.width * 0.08,
+          ),
         ),
       ),
     );

@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:todo_app_main_screen/consts/app_icons.dart';
+import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/ui/style.dart';
 import 'package:todo_app_main_screen/ui/widgets/colors_panel_widget.dart';
-import 'package:todo_app_main_screen/ui/widgets/colors_widget.dart';
-import 'package:todo_app_main_screen/ui/widgets/lists_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/new_task_page_background_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/reminder_panel_widget.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-
 import 'my_home_page.dart';
+
+List<Color> colors = [
+  lightBlueColor,
+  yellowColor,
+  blueColor,
+  greenColor,
+  purpleColor,
+  redColor,
+  orangeColor,
+  pinkColor
+];
 
 class NewTaskPage extends StatefulWidget {
   static const routeName = '/new_task_page';
@@ -23,8 +31,8 @@ class NewTaskPage extends StatefulWidget {
 class _NewTaskPageState extends State<NewTaskPage> {
   final controller = TextEditingController();
   final reminderPanelController = PanelController();
-  var colorPadding = EdgeInsets.zero;
   var colorAlignment = Alignment.center;
+  var selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -54,14 +62,15 @@ class _NewTaskPageState extends State<NewTaskPage> {
                       lists: testLists,
                       onColorTap: () {
                           setState(() {
-                            colorAlignment = Alignment.topCenter;
+
                           });
                       },
                       onColorSecTap: () {
                           setState(() {
-                            colorAlignment = Alignment.center;
+                            selectedIndex = 0;
                           });
-                    }, alignment: colorAlignment,
+                    }, alignment: selectedIndex == 0 ? Alignment.center : Alignment.topCenter,
+                      colors: colors,
                     ),
                   ],
                 )),

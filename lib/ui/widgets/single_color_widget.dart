@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class SingleColorWidget extends StatelessWidget {
   final Color color;
-  final void Function() onColorTap;
-  final void Function() onColorSecTap;
+  final void Function()? onColorTap;
+  final void Function()? onColorSecTap;
   final AlignmentGeometry alignment;
 
   SingleColorWidget(
