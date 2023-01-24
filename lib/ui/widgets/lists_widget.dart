@@ -3,11 +3,14 @@ import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
 
 class ListsWidget extends StatelessWidget {
-  final height;
+  final double height;
   final List<Widget> lists;
 
-  const ListsWidget({Key? key, required this.height, required this.lists,})
-      : super(key: key);
+  const ListsWidget({
+    Key? key,
+    required this.height,
+    required this.lists,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,7 @@ class ListsWidget extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 0.2 * height,
+          height: 0.1 * height,
           child: ListView.builder(
               itemCount: lists.length,
               itemBuilder: (_, index) {
@@ -42,7 +45,10 @@ class ListsWidget extends StatelessWidget {
               }),
         ),
         Padding(
-          padding: EdgeInsets.only(bottom: 0.04 * height),
+          padding: EdgeInsets.only(
+            bottom: 0.03 * height,
+            top: 0.02 * height,
+          ),
           child: Text(
             TestStrings.addNewList,
             style: TextStyle(

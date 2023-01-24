@@ -16,4 +16,10 @@ abstract class TestStrings {
 
   static const toDo = 'ToDo';
   static const create = 'create';
+
+  static const hintText = " Type new task...";
+
+  static const reminder = 'Reminder';
+  static const saveReminderButton = 'save reminder';
+
 }

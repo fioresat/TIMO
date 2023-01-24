@@ -4,12 +4,13 @@ import 'package:todo_app_main_screen/consts/strings.dart';
 
 class NavBarWidget extends StatelessWidget {
   final double height;
+  final double width;
   final void Function() onPressed;
 
   const NavBarWidget({
     Key? key,
     required this.height,
-    required this.onPressed,
+    required this.onPressed, required this.width,
   }) : super(key: key);
 
   @override
@@ -17,7 +18,7 @@ class NavBarWidget extends StatelessWidget {
     return Align(
       alignment: Alignment.topRight,
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 0.01 * height),
+        padding: EdgeInsets.symmetric(vertical: 0.01 * height,),
         child: InkWell(
           onTap: onPressed,
           child: Container(
@@ -31,12 +32,12 @@ class NavBarWidget extends StatelessWidget {
                 Radius.circular(20),
               ),
             ),
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.symmetric(
-                vertical: 4,
-                horizontal: 10,
+                vertical: 0.004 * height,
+                horizontal:  0.033 * width,
               ),
-              child: Text(
+              child: const Text(
                 TestStrings.lists,
                 style: TextStyle(color: textColor, fontSize: 14),
               ),

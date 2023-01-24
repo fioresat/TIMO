@@ -5,6 +5,7 @@ import 'package:todo_app_main_screen/ui/widgets/nav_bar_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/quote_widget.dart';
 
 class MainScreenBackgroundWidget extends StatelessWidget {
+  final double width;
   final double? height;
   final void Function() onPressed;
 
@@ -12,6 +13,7 @@ class MainScreenBackgroundWidget extends StatelessWidget {
     super.key,
     this.height,
     required this.onPressed,
+    required this.width,
   });
 
   @override
@@ -27,6 +29,7 @@ class MainScreenBackgroundWidget extends StatelessWidget {
                 height: 0.049 * height!,
               ),
               NavBarWidget(
+                width: width,
                 height: height!,
                 onPressed: onPressed,
               ),

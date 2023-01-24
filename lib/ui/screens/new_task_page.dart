@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app_main_screen/consts/app_icons.dart';
-import 'package:todo_app_main_screen/consts/colors.dart';
-import 'package:todo_app_main_screen/consts/strings.dart';
-import 'package:todo_app_main_screen/ui/widgets/black_button_widget.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:todo_app_main_screen/ui/style.dart';
+import 'package:todo_app_main_screen/ui/widgets/new_task_page_background_widget.dart';
+import 'package:todo_app_main_screen/ui/widgets/reminder_panel_widget.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class NewTaskPage extends StatefulWidget {
   static const routeName = '/new_task_page';
@@ -15,86 +16,38 @@ class NewTaskPage extends StatefulWidget {
 
 class _NewTaskPageState extends State<NewTaskPage> {
   final controller = TextEditingController();
+  final reminderPanelController = PanelController();
 
   @override
   Widget build(BuildContext context) {
     double widthScreen = MediaQuery.of(context).size.width;
     double heightScreen = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-            vertical: heightScreen * 0.05, horizontal: widthScreen * 0.06),
-        child: Column(
-          children: [
-            Align(
-              alignment: Alignment.topRight,
-              child: InkWell(
-                onTap: Navigator.of(context).pop,
-                child: Padding(
-                  padding: EdgeInsets.only(top: 0.02 * heightScreen),
-                  child: Image.asset(AppIcons.close, scale: 3),
-                ),
+      body: NewTaskPageBackgroundWidget(
+        height: heightScreen,
+        controller: controller,
+        width: widthScreen,
+        onPressed: () {},
+        onListsTap: () {},
+        onReminderTap: () {
+          showMaterialModalBottomSheet(
+            shape: const RoundedRectangleBorder(
+              borderRadius: commonBorderRadius,
+            ),
+            enableDrag: false,
+            context: context,
+            builder: (context) => SingleChildScrollView(
+              controller: ModalScrollController.of(context),
+              child: ReminderPanelWidget(
+                height: heightScreen,
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                width: widthScreen,
               ),
             ),
-            Expanded(
-              child: TextField(
-                textCapitalization: TextCapitalization.sentences,
-                controller: controller,
-                style: const TextStyle(fontSize: 22,),
-                decoration: const InputDecoration(
-                  hintText: " Type new task...",
-                  hintStyle: TextStyle(
-                    color: hintTextColor,
-                    fontSize: 26,
-                    height: 2,
-                  ),
-                  border: InputBorder.none,
-                ),
-                scrollPadding: const EdgeInsets.all(20.0),
-                autofocus: true,
-                keyboardType: TextInputType.multiline,
-                maxLines: 99999,
-                cursorHeight: 26,
-                cursorColor: Colors.black,
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    InkWell(
-                      onTap: null,
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 0.02 * heightScreen),
-                        child: Image.asset(AppIcons.lists, scale: 3),
-                      ),
-                    ),
-                    SizedBox(
-                      width: widthScreen * 0.05,
-                    ),
-                    InkWell(
-                      onTap: null,
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 0.02 * heightScreen),
-                        child: Image.asset(AppIcons.reminderBell, scale: 3),
-                      ),
-                    ),
-                  ],
-                ),
-                BlackButtonWidget(
-                  onPressed: () {},
-                  width: widthScreen * 0.32,
-                  borderRadius: BorderRadius.circular(22),
-                  child: const Text(
-                    TestStrings.create,
-                    style: TextStyle(color: backgroundColor, fontSize: 18),
-                  ),
-                ),
-              ],
-            )
-          ],
-        ),
+          );
+        },
       ),
     );
   }

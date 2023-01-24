@@ -54,7 +54,7 @@ class _ListsPanelWidgetState extends State<ListsPanelWidget> {
           BlackButtonWidget(
             onPressed: () {},
             width: widget.width - 50,
-            borderRadius: BorderRadius.all(Radius.elliptical(12, 12)),
+            borderRadius: const BorderRadius.all(Radius.elliptical(12, 12)),
             child: const Text(
               TestStrings.move,
               style: TextStyle(color: backgroundColor),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
 import 'package:todo_app_main_screen/ui/screens/new_task_page.dart';
@@ -10,6 +11,66 @@ import 'package:todo_app_main_screen/ui/widgets/tasks_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/single_task_widget.dart';
 
 List<Widget> testTasks = [
+  const SingleTaskWidget(
+    task: TestStrings.task1,
+    active: textColor,
+    colorful: lightBlueColor,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task2,
+    active: Colors.transparent,
+    colorful: Colors.transparent,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task3,
+    active: Colors.transparent,
+    colorful: Colors.transparent,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task1,
+    active: textColor,
+    colorful: lightBlueColor,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task2,
+    active: Colors.transparent,
+    colorful: Colors.transparent,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task3,
+    active: Colors.transparent,
+    colorful: Colors.transparent,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task1,
+    active: textColor,
+    colorful: lightBlueColor,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task2,
+    active: Colors.transparent,
+    colorful: Colors.transparent,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task3,
+    active: Colors.transparent,
+    colorful: Colors.transparent,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task1,
+    active: textColor,
+    colorful: lightBlueColor,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task2,
+    active: Colors.transparent,
+    colorful: Colors.transparent,
+  ),
+  const SingleTaskWidget(
+    task: TestStrings.task3,
+    active: Colors.transparent,
+    colorful: Colors.transparent,
+  ),
   const SingleTaskWidget(
     task: TestStrings.task1,
     active: textColor,
@@ -62,6 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final listsPanelController = PanelController();
   bool isDeleted = false; //manage undo floating action button visibility
   bool isMoveTo = false; //manage add floating action button visibility
+  final scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -70,10 +132,10 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: secondBackgroundColor,
       body: MoveToWidget(
-        panelController: listsPanelController,
+        listPanelController: listsPanelController,
         height: heightScreen,
         width: widthScreen,
-        borderRaduis: commonBorderRadius,
+        borderRadius: commonBorderRadius,
         body: SlidingUpPanel(
           isDraggable: false,
           backdropEnabled: true,
@@ -82,13 +144,14 @@ class _MyHomePageState extends State<MyHomePage> {
           boxShadow: const [
             BoxShadow(blurRadius: 0, color: Color.fromRGBO(0, 0, 0, 0))
           ],
-          minHeight: 0.55 * heightScreen,
+          minHeight: 0.58 * heightScreen,
           maxHeight: 0.95 * heightScreen,
           borderRadius: commonBorderRadius,
           controller: panelController,
           onPanelOpened: () => setState(() {}),
           onPanelClosed: () => setState(() {}),
           body: MainScreenBackgroundWidget(
+            width: widthScreen,
             height: heightScreen,
             onPressed: () {},
           ),
@@ -101,7 +164,7 @@ class _MyHomePageState extends State<MyHomePage> {
             },
             isPanelOpen: panelController.isPanelOpen,
             tasks: testTasks,
-            controller: controller,
+            controller: scrollController,
             panelController: panelController,
             height: panelController.isPanelOpen
                 ? 0.95 * heightScreen
@@ -120,7 +183,11 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 25.0),
+        padding: EdgeInsets.only(
+          left: 25.0,
+          right: 25.0,
+          top: 0.0086 * heightScreen, // ToDo
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -141,7 +208,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         onPressed: () {
                           Navigator.pushNamed(context, NewTaskPage.routeName);
                         },
-                        child: const Icon(Icons.add),
+                        child: Image.asset(AppIcons.addButton),
                       ),
               ],
             ),

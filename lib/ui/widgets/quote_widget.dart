@@ -54,7 +54,7 @@ class _QuoteWidgetState extends State<QuoteWidget> {
 
   Future _showDialog() => showGeneralDialog(
       context: context,
-      transitionDuration: const Duration(milliseconds: 350),
+      transitionDuration: const Duration(milliseconds: 0),
       pageBuilder: (BuildContext buildContext, Animation animation,
           Animation secondaryAnimation) {
         double widthScreen = MediaQuery.of(context).size.width;
@@ -64,19 +64,16 @@ class _QuoteWidgetState extends State<QuoteWidget> {
           child: Container(
             width: widthScreen,
             height: heightScreen,
-            color: Colors.white.withOpacity(0.7),
+            color: Colors.white.withOpacity(1.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
                   padding: EdgeInsets.only(
-                    top: 0.066 * heightScreen,
+                    top: 0.067 * heightScreen,
                   ),
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        primary: Colors.transparent,
-                        shadowColor: Colors.transparent),
-                    onPressed: () {
+                  child: InkWell(
+                    onTap: () {
                       Navigator.of(context).pop();
                     },
                     child: Image.asset(
