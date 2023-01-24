@@ -61,15 +61,16 @@ class _NewTaskPageState extends State<NewTaskPage> {
                       onTap: Navigator.of(context).pop,
                       lists: testLists,
                       onColorTap: () {
-                          setState(() {
-
-                          });
+                        setState(() {});
                       },
                       onColorSecTap: () {
-                          setState(() {
-                            selectedIndex = 0;
-                          });
-                    }, alignment: selectedIndex == 0 ? Alignment.center : Alignment.topCenter,
+                        setState(() {
+                          selectedIndex = 0;
+                        });
+                      },
+                      alignment: selectedIndex == 0
+                          ? Alignment.center
+                          : Alignment.topCenter,
                       colors: colors,
                     ),
                   ],
