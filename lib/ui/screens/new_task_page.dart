@@ -23,7 +23,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(
-            vertical: heightScreen * 0.05, horizontal: widthScreen * 0.05),
+            vertical: heightScreen * 0.05, horizontal: widthScreen * 0.06),
         child: Column(
           children: [
             Align(
@@ -84,11 +84,11 @@ class _NewTaskPageState extends State<NewTaskPage> {
                 ),
                 BlackButtonWidget(
                   onPressed: () {},
-                  width: widthScreen * 0.3,
+                  width: widthScreen * 0.32,
                   borderRadius: BorderRadius.circular(22),
                   child: const Text(
                     TestStrings.create,
-                    style: TextStyle(color: backgroundColor),
+                    style: TextStyle(color: backgroundColor, fontSize: 18),
                   ),
                 ),
               ],
