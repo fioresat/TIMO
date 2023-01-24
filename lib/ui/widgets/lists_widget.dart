@@ -5,11 +5,13 @@ import 'package:todo_app_main_screen/consts/strings.dart';
 class ListsWidget extends StatelessWidget {
   final double height;
   final List<Widget> lists;
+  final void Function() onAddNewListPressed;
 
   const ListsWidget({
     Key? key,
     required this.height,
     required this.lists,
+    required this.onAddNewListPressed,
   }) : super(key: key);
 
   @override
@@ -49,11 +51,14 @@ class ListsWidget extends StatelessWidget {
             bottom: 0.03 * height,
             top: 0.02 * height,
           ),
-          child: Text(
-            TestStrings.addNewList,
-            style: TextStyle(
-              fontSize: 0.018 * height,
-              color: Colors.grey,
+          child: InkWell(
+            onTap: onAddNewListPressed,
+            child: Text(
+              TestStrings.addNewList,
+              style: TextStyle(
+                fontSize: 0.018 * height,
+                color: Colors.grey,
+              ),
             ),
           ),
         ),
