@@ -13,6 +13,8 @@ abstract class TestStrings {
   static const lists = 'lists';
   static const move = 'move';
   static const addNewList = 'add new list';
+  static const createNewList = 'create new list';
+  static const hintTextList = " new list";
 
   static const toDo = 'ToDo';
   static const create = 'create';

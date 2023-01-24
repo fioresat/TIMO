@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/ui/style.dart';
-import 'package:todo_app_main_screen/ui/widgets/colors_panel_widget.dart';
-import 'package:todo_app_main_screen/ui/widgets/new_task_page_background_widget.dart';
+import 'package:todo_app_main_screen/ui/widgets/add_new_list_panel_widget.dart';
+import 'package:todo_app_main_screen/ui/widgets/new_task_page_widgets/colors_panel_widget.dart';
+import 'package:todo_app_main_screen/ui/widgets/new_task_page_widgets/new_task_page_background_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/reminder_panel_widget.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'my_home_page.dart';
@@ -30,8 +30,8 @@ class NewTaskPage extends StatefulWidget {
 
 class _NewTaskPageState extends State<NewTaskPage> {
   final controller = TextEditingController();
-  final reminderPanelController = PanelController();
-  var colorAlignment = Alignment.center;
+  final listController = TextEditingController();
+
   var selectedIndex = 0;
 
   @override
@@ -43,58 +43,66 @@ class _NewTaskPageState extends State<NewTaskPage> {
         height: heightScreen,
         controller: controller,
         width: widthScreen,
-        onPressed: () {},
+        onBlackButtonPressed: () {},
         onListsTap: () {
-          showMaterialModalBottomSheet(
-            shape: const RoundedRectangleBorder(
-              borderRadius: commonBorderRadius,
-            ),
-            enableDrag: false,
-            context: context,
-            builder: (context) => SingleChildScrollView(
-                controller: ModalScrollController.of(context),
-                child: Column(
-                  children: [
-                    ColorsPanelWidget(
-                      height: heightScreen,
-                      width: widthScreen,
-                      onTap: Navigator.of(context).pop,
-                      lists: testLists,
-                      onColorTap: () {
-                        setState(() {});
-                      },
-                      onColorSecTap: () {
-                        setState(() {
-                          selectedIndex = 0;
-                        });
-                      },
-                      alignment: selectedIndex == 0
-                          ? Alignment.center
-                          : Alignment.topCenter,
-                      colors: colors,
-                    ),
-                  ],
-                )),
-          );
+          onListsTap(widthScreen, heightScreen);
         },
         onReminderTap: () {
-          showMaterialModalBottomSheet(
-            shape: const RoundedRectangleBorder(
-              borderRadius: commonBorderRadius,
-            ),
-            enableDrag: false,
-            context: context,
-            builder: (context) => SingleChildScrollView(
-              controller: ModalScrollController.of(context),
-              child: ReminderPanelWidget(
-                height: heightScreen,
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-                width: widthScreen,
-              ),
-            ),
-          );
+          onReminderTap(widthScreen, heightScreen);
+        },
+      ),
+    );
+  }
+
+  void onPressedShowBottomSheet(Widget child) {
+    showMaterialModalBottomSheet(
+      shape: const RoundedRectangleBorder(
+        borderRadius: commonBorderRadius,
+      ),
+      enableDrag: false,
+      context: context,
+      builder: (context) => SingleChildScrollView(
+        controller: ModalScrollController.of(context),
+        child: child,
+      ),
+    );
+  }
+
+  void onAddNewListPressed(double widthScreen, double heightScreen) {
+    onPressedShowBottomSheet(
+      AddNewListPanelWidget(
+        height: heightScreen,
+        onTapClose: () {
+          Navigator.of(context).pop();
+        },
+        width: widthScreen,
+        controller: listController,
+      ),
+    );
+  }
+
+  void onReminderTap(double widthScreen, double heightScreen) {
+    onPressedShowBottomSheet(
+      ReminderPanelWidget(
+        height: heightScreen,
+        onTap: () {
+          Navigator.of(context).pop();
+        },
+        width: widthScreen,
+      ),
+    );
+  }
+
+  void onListsTap(double widthScreen, double heightScreen) {
+    onPressedShowBottomSheet(
+      ColorsPanelWidget(
+        height: heightScreen,
+        width: widthScreen,
+        onTapClose: Navigator.of(context).pop,
+        lists: testLists,
+        colors: colors,
+        onAddNewListPressed: () {
+          onAddNewListPressed(widthScreen, heightScreen);
         },
       ),
     );

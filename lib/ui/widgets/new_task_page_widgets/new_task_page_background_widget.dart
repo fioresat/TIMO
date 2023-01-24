@@ -3,13 +3,13 @@ import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
 
-import 'black_button_widget.dart';
+import '../black_button_widget.dart';
 
 class NewTaskPageBackgroundWidget extends StatefulWidget {
   final TextEditingController controller;
   final double height;
   final double width;
-  final void Function() onPressed;
+  final void Function() onBlackButtonPressed;
   final void Function() onReminderTap;
   final void Function() onListsTap;
 
@@ -18,7 +18,7 @@ class NewTaskPageBackgroundWidget extends StatefulWidget {
       required this.controller,
       required this.height,
       required this.width,
-      required this.onPressed,
+      required this.onBlackButtonPressed,
       required this.onReminderTap,
       required this.onListsTap})
       : super(key: key);
@@ -30,8 +30,6 @@ class NewTaskPageBackgroundWidget extends StatefulWidget {
 
 class _NewTaskPageBackgroundWidgetState
     extends State<NewTaskPageBackgroundWidget> {
-
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -96,7 +94,7 @@ class _NewTaskPageBackgroundWidgetState
                   ],
                 ),
                 BlackButtonWidget(
-                  onPressed: () {},
+                  onPressed: widget.onBlackButtonPressed,
                   width: widget.width * 0.3,
                   borderRadius: BorderRadius.circular(22),
                   child: const Text(

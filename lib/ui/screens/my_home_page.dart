@@ -5,10 +5,12 @@ import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
 import 'package:todo_app_main_screen/ui/screens/new_task_page.dart';
 import 'package:todo_app_main_screen/ui/style.dart';
-import 'package:todo_app_main_screen/ui/widgets/main_screen_background_widget.dart';
-import 'package:todo_app_main_screen/ui/widgets/move_to_widget.dart';
-import 'package:todo_app_main_screen/ui/widgets/tasks_widget.dart';
-import 'package:todo_app_main_screen/ui/widgets/single_task_widget.dart';
+import 'package:todo_app_main_screen/ui/widgets/add_new_list_panel_widget.dart';
+import 'package:todo_app_main_screen/ui/widgets/lists_panel_widget.dart';
+import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/main_page_background_widget.dart';
+import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/tasks_widget.dart';
+import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/single_task_widget.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 List<Widget> testTasks = [
   const SingleTaskWidget(
@@ -120,10 +122,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final panelController = PanelController();
-  final listsPanelController = PanelController();
   bool isDeleted = false; //manage undo floating action button visibility
   bool isMoveTo = false; //manage add floating action button visibility
   final scrollController = ScrollController();
+  final listController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -131,55 +133,55 @@ class _MyHomePageState extends State<MyHomePage> {
     double heightScreen = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: secondBackgroundColor,
-      body: MoveToWidget(
-        listPanelController: listsPanelController,
-        height: heightScreen,
-        width: widthScreen,
+      body: SlidingUpPanel(
+        isDraggable: false,
+        backdropEnabled: true,
+        backdropColor: Colors.white,
+        backdropOpacity: 1,
+        boxShadow: const [
+          BoxShadow(blurRadius: 0, color: Color.fromRGBO(0, 0, 0, 0))
+        ],
+        minHeight: 0.58 * heightScreen,
+        maxHeight: 0.95 * heightScreen,
         borderRadius: commonBorderRadius,
-        body: SlidingUpPanel(
-          isDraggable: false,
-          backdropEnabled: true,
-          backdropColor: Colors.white,
-          backdropOpacity: 1,
-          boxShadow: const [
-            BoxShadow(blurRadius: 0, color: Color.fromRGBO(0, 0, 0, 0))
-          ],
-          minHeight: 0.58 * heightScreen,
-          maxHeight: 0.95 * heightScreen,
-          borderRadius: commonBorderRadius,
-          controller: panelController,
-          onPanelOpened: () => setState(() {}),
-          onPanelClosed: () => setState(() {}),
-          body: MainScreenBackgroundWidget(
-            width: widthScreen,
-            height: heightScreen,
-            onPressed: () {},
-          ),
-          panelBuilder: (controller) => TasksWidget(
-            onPressed: () {
-              listsPanelController.open();
-              setState(() {
-                isMoveTo = true;
-              });
-            },
-            isPanelOpen: panelController.isPanelOpen,
-            tasks: testTasks,
-            controller: scrollController,
-            panelController: panelController,
-            height: panelController.isPanelOpen
-                ? 0.95 * heightScreen
-                : 0.55 * heightScreen,
-          ),
+        controller: panelController,
+        onPanelOpened: () => setState(() {}),
+        onPanelClosed: () => setState(() {}),
+        body: MainScreenBackgroundWidget(
+          width: widthScreen,
+          height: heightScreen,
+          onPressed: () {},
         ),
-        lists: testLists,
-        onTap: () {
-          listsPanelController.close();
-          setState(() {
-            isMoveTo = false;
-          });
-        },
-        panelMaxheight: heightScreen * 0.5,
-        panelMinheight: 0,
+        panelBuilder: (controller) => TasksWidget(
+          onPressed: () {
+            onPressedShowBottomSheet(
+              ListsPanelWidget(
+                height: heightScreen,
+                width: widthScreen,
+                lists: testLists,
+                onTapClose: () {
+                  Navigator.of(context).pop();
+                  setState(() {
+                    isMoveTo = false;
+                  });
+                },
+                onAddNewListPressed: () {
+                  onAddNewListPressed(widthScreen, heightScreen);
+                },
+              ),
+            );
+            setState(() {
+              isMoveTo = true;
+            });
+          },
+          isPanelOpen: panelController.isPanelOpen,
+          tasks: testTasks,
+          controller: scrollController,
+          panelController: panelController,
+          height: panelController.isPanelOpen
+              ? 0.95 * heightScreen
+              : 0.55 * heightScreen,
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Container(
@@ -214,6 +216,33 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  void onPressedShowBottomSheet(Widget child) {
+    showMaterialModalBottomSheet(
+      shape: const RoundedRectangleBorder(
+        borderRadius: commonBorderRadius,
+      ),
+      enableDrag: false,
+      context: context,
+      builder: (context) => SingleChildScrollView(
+        controller: ModalScrollController.of(context),
+        child: child,
+      ),
+    );
+  }
+
+  void onAddNewListPressed(double widthScreen, double heightScreen) {
+    onPressedShowBottomSheet(
+      AddNewListPanelWidget(
+        height: heightScreen,
+        onTapClose: () {
+          Navigator.of(context).pop();
+        },
+        width: widthScreen,
+        controller: listController,
       ),
     );
   }
