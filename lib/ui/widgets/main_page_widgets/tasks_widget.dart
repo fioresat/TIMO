@@ -72,7 +72,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                           },
                           child: InkWell(
                             onTap: widget.onPressed,
-                            child: Container(
+                            child: SizedBox(
                               width: 100,
                               height: 56,
                               child: Image.asset(

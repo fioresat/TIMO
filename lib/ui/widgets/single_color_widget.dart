@@ -18,7 +18,7 @@ class _SingleColorWidgetState extends State<SingleColorWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 56,
       width: 10,
       child: AnimatedPadding(

@@ -59,7 +59,7 @@ class _ColorsPanelWidgetState extends State<ColorsPanelWidget> {
             colors: widget.colors,
           ),
           SizedBox(
-            height: 0.01 * widget.height,
+            height: 0.03 * widget.height,
           ),
           ListsWidget(
             height: widget.height,

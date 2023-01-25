@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app_main_screen/consts/button_colors.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/ui/style.dart';
 import 'package:todo_app_main_screen/ui/widgets/add_new_list_panel_widget.dart';
@@ -8,16 +9,7 @@ import 'package:todo_app_main_screen/ui/widgets/reminder_panel_widget.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'my_home_page.dart';
 
-List<Color> colors = [
-  lightBlueColor,
-  yellowColor,
-  blueColor,
-  greenColor,
-  purpleColor,
-  redColor,
-  orangeColor,
-  pinkColor
-];
+
 
 class NewTaskPage extends StatefulWidget {
   static const routeName = '/new_task_page';
@@ -100,7 +92,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
         width: widthScreen,
         onTapClose: Navigator.of(context).pop,
         lists: testLists,
-        colors: colors,
+        colors: buttonColors,
         onAddNewListPressed: () {
           onAddNewListPressed(widthScreen, heightScreen);
         },

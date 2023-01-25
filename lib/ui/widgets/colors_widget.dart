@@ -35,7 +35,7 @@ class _ColorsWidgetState extends State<ColorsWidget> {
             );
           },
           separatorBuilder: (BuildContext context, int index) => SizedBox(
-            width: widget.width * 0.08,
+            width: widget.width * 0.07,
           ),
         ),
       ),

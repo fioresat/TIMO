@@ -25,7 +25,7 @@ class AlarmNotifWidget extends StatelessWidget {
               Expanded(
                 child: Text(
                   content,
-                  style: const TextStyle(color: alertTextColor, fontSize: 17),
+                  style: const TextStyle(color: paleTextColor, fontSize: 17),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                   softWrap: false,

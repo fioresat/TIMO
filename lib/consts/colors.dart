@@ -13,6 +13,9 @@ const Color redColor = Color(0xffED7459);
 const Color orangeColor = Color(0xffE9AD52);
 const Color pinkColor = Color(0xffD96DBB);
 const Color darkColor = Color(0xff000000);
-const Color alertTextColor = Color(0xffB1B1B1);
+const Color paleTextColor = Color(0xffB1B1B1);
 const Color hintTextColor = Color(0xffE1E1E1);
+const Color greyTextColor = Color(0xff636363);
+const Color separatorColor = Color(0xffF0F0F0);
+const Color activeReminderText = Color(0xff646464);
 
