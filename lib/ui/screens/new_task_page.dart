@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/button_colors.dart';
-import 'package:todo_app_main_screen/consts/colors.dart';
-import 'package:todo_app_main_screen/ui/style.dart';
-import 'package:todo_app_main_screen/ui/widgets/add_new_list_panel_widget.dart';
+import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
 import 'package:todo_app_main_screen/ui/widgets/new_task_page_widgets/colors_panel_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/new_task_page_widgets/new_task_page_background_widget.dart';
-import 'package:todo_app_main_screen/ui/widgets/reminder_panel_widget.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'my_home_page.dart';
-
-
 
 class NewTaskPage extends StatefulWidget {
   static const routeName = '/new_task_page';
@@ -40,53 +34,15 @@ class _NewTaskPageState extends State<NewTaskPage> {
           onListsTap(widthScreen, heightScreen);
         },
         onReminderTap: () {
-          onReminderTap(widthScreen, heightScreen);
+          SlidingPanelHelper()
+              .onReminderTap(widthScreen, heightScreen, context);
         },
-      ),
-    );
-  }
-
-  void onPressedShowBottomSheet(Widget child) {
-    showMaterialModalBottomSheet(
-      shape: const RoundedRectangleBorder(
-        borderRadius: commonBorderRadius,
-      ),
-      enableDrag: false,
-      context: context,
-      builder: (context) => SingleChildScrollView(
-        controller: ModalScrollController.of(context),
-        child: child,
-      ),
-    );
-  }
-
-  void onAddNewListPressed(double widthScreen, double heightScreen) {
-    onPressedShowBottomSheet(
-      AddNewListPanelWidget(
-        height: heightScreen,
-        onTapClose: () {
-          Navigator.of(context).pop();
-        },
-        width: widthScreen,
-        controller: listController,
-      ),
-    );
-  }
-
-  void onReminderTap(double widthScreen, double heightScreen) {
-    onPressedShowBottomSheet(
-      ReminderPanelWidget(
-        height: heightScreen,
-        onTap: () {
-          Navigator.of(context).pop();
-        },
-        width: widthScreen,
       ),
     );
   }
 
   void onListsTap(double widthScreen, double heightScreen) {
-    onPressedShowBottomSheet(
+    SlidingPanelHelper().onPressedShowBottomSheet(
       ColorsPanelWidget(
         height: heightScreen,
         width: widthScreen,
@@ -94,9 +50,11 @@ class _NewTaskPageState extends State<NewTaskPage> {
         lists: testLists,
         colors: buttonColors,
         onAddNewListPressed: () {
-          onAddNewListPressed(widthScreen, heightScreen);
+          SlidingPanelHelper().onAddNewListPressed(
+              widthScreen, heightScreen, context, listController);
         },
       ),
+      context,
     );
   }
 }

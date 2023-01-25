@@ -3,14 +3,13 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
+import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
 import 'package:todo_app_main_screen/ui/screens/new_task_page.dart';
 import 'package:todo_app_main_screen/ui/style.dart';
-import 'package:todo_app_main_screen/ui/widgets/add_new_list_panel_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_panel_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/main_page_background_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/tasks_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/single_task_widget.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 List<Widget> testTasks = [
   const SingleTaskWidget(
@@ -154,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         panelBuilder: (controller) => TasksWidget(
           onPressed: () {
-            onPressedShowBottomSheet(
+            SlidingPanelHelper().onPressedShowBottomSheet(
               ListsPanelWidget(
                 height: heightScreen,
                 width: widthScreen,
@@ -166,9 +165,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   });
                 },
                 onAddNewListPressed: () {
-                  onAddNewListPressed(widthScreen, heightScreen);
+                  SlidingPanelHelper().onAddNewListPressed(
+                      widthScreen, heightScreen, context, listController);
                 },
               ),
+              context,
             );
             setState(() {
               isMoveTo = true;
@@ -216,33 +217,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  void onPressedShowBottomSheet(Widget child) {
-    showMaterialModalBottomSheet(
-      shape: const RoundedRectangleBorder(
-        borderRadius: commonBorderRadius,
-      ),
-      enableDrag: false,
-      context: context,
-      builder: (context) => SingleChildScrollView(
-        controller: ModalScrollController.of(context),
-        child: child,
-      ),
-    );
-  }
-
-  void onAddNewListPressed(double widthScreen, double heightScreen) {
-    onPressedShowBottomSheet(
-      AddNewListPanelWidget(
-        height: heightScreen,
-        onTapClose: () {
-          Navigator.of(context).pop();
-        },
-        width: widthScreen,
-        controller: listController,
       ),
     );
   }

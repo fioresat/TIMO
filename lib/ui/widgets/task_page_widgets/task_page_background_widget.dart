@@ -32,6 +32,7 @@ class TaskPageBackgroundWidget extends StatefulWidget {
 
 class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
   DateTime date = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -55,25 +56,36 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
           ),
           Text(
             widget.title,
-            style: const TextStyle(fontSize: 26, fontWeight: FontWeight.w900),
+            style: const TextStyle(
+              fontSize: 26,
+              fontWeight: FontWeight.w900,
+            ),
           ),
           SizedBox(
             height: widget.height * 0.05,
           ),
           const Text(
             'Color',
-            style: TextStyle(fontSize: 20, color: greyTextColor),
+            style: TextStyle(
+              fontSize: 20,
+              color: greyTextColor,
+            ),
           ),
           SizedBox(
             height: widget.height * 0.02,
           ),
-          ColorsWidget(width: widget.width, colors: widget.colors),
+          ColorsWidget(
+            width: widget.width,
+            colors: widget.colors,
+          ),
           SizedBox(
             height: widget.height * 0.04,
           ),
           Container(
             height: 1,
-            decoration: const BoxDecoration(color: separatorColor),
+            decoration: const BoxDecoration(
+              color: separatorColor,
+            ),
           ),
           SizedBox(
             height: widget.height * 0.04,
@@ -82,18 +94,27 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
-                'Reminder',
-                style: TextStyle(fontSize: 20, color: greyTextColor),
+                TestStrings.reminder,
+                style: TextStyle(
+                  fontSize: 20,
+                  color: greyTextColor,
+                ),
               ),
               Row(
                 children: const [
                   Text(
                     '+',
-                    style: TextStyle(fontSize: 24, color: greyTextColor),
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: greyTextColor,
+                    ),
                   ),
                   Text(
                     ' add',
-                    style: TextStyle(fontSize: 18, color: greyTextColor),
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: greyTextColor,
+                    ),
                   ),
                 ],
               ),
@@ -108,15 +129,21 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
               children: [
                 Text(
                   '${date.hour}-${date.minute.toString().padLeft(2, "0")}',
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
                 const SizedBox(
                   width: 10,
                 ),
                 Text(
-                  '${date.day} ${DateFormat("MMMM").format(date).toLowerCase().substring(0,3)}.',
-                  style: const TextStyle(color: paleTextColor, fontSize: 20),
-                )
+                  '${date.day} ${DateFormat("MMMM").format(date).toLowerCase().substring(0, 3)}.',
+                  style: const TextStyle(
+                    color: paleTextColor,
+                    fontSize: 20,
+                  ),
+                ),
               ],
             ),
           ),
@@ -173,7 +200,7 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
                       AppIcons.closeButton,
                       scale: 3,
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
