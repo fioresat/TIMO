@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
+import 'package:todo_app_main_screen/consts/strings.dart';
 import 'package:todo_app_main_screen/ui/widgets/colors_widget.dart';
 
 class TaskPageBackgroundWidget extends StatefulWidget {
@@ -29,6 +31,7 @@ class TaskPageBackgroundWidget extends StatefulWidget {
 }
 
 class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
+  DateTime date = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -102,17 +105,17 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
           InkWell(
             onTap: widget.onReminderTap,
             child: Row(
-              children: const [
+              children: [
                 Text(
-                  '12-30',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
+                  '${date.hour}-${date.minute.toString().padLeft(2, "0")}',
+                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 Text(
-                  '12 apr.',
-                  style: TextStyle(color: paleTextColor, fontSize: 20),
+                  '${date.day} ${DateFormat("MMMM").format(date).toLowerCase().substring(0,3)}.',
+                  style: const TextStyle(color: paleTextColor, fontSize: 20),
                 )
               ],
             ),
@@ -129,12 +132,36 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
               padding: const EdgeInsets.all(8),
               child: Row(
                 children: [
-                  const Flexible(
-                    child: Text(
-                      'The active reminder will be displayed below the task as a black item',
-                      style: TextStyle(
-                        color: activeReminderText,
-                        fontSize: 14,
+                  Flexible(
+                    child: RichText(
+                      text: TextSpan(
+                        children: [
+                          const TextSpan(
+                            text: TestStrings.activeReminder,
+                            style: TextStyle(
+                              color: activeReminderText,
+                              fontSize: 14,
+                            ),
+                          ),
+                          WidgetSpan(
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                left: 5,
+                                bottom: 2,
+                              ),
+                              child: Container(
+                                height: 10,
+                                width: 36,
+                                decoration: const BoxDecoration(
+                                  color: textColor,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(8),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -150,7 +177,7 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );
