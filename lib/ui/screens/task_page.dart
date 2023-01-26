@@ -21,11 +21,13 @@ class TaskPage extends StatefulWidget {
 
 class _TaskPageState extends State<TaskPage> {
   final listController = TextEditingController();
+  final textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     double widthScreen = MediaQuery.of(context).size.width;
     double heightScreen = MediaQuery.of(context).size.height;
+    final bool showFab = MediaQuery.of(context).viewInsets.bottom==0.0;
     return Scaffold(
       body: TaskPageBackgroundWidget(
         height: heightScreen,
@@ -36,8 +38,9 @@ class _TaskPageState extends State<TaskPage> {
         onMoveToTap: () {},
         title: TestStrings.task1,
         colors: buttonColors,
+        controller: textController,
       ),
-      floatingActionButton: Container(
+      floatingActionButton: showFab ? Container(
         padding:
             EdgeInsets.only(left: widthScreen * 0.1, right: widthScreen * 0.02),
         child: Row(
@@ -77,7 +80,7 @@ class _TaskPageState extends State<TaskPage> {
             )
           ],
         ),
-      ),
+      ) : null,
     );
   }
 }
