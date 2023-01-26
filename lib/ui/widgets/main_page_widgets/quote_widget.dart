@@ -65,31 +65,31 @@ class _QuoteWidgetState extends State<QuoteWidget> {
             width: widthScreen,
             height: heightScreen,
             color: Colors.white.withOpacity(1.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                    top: 0.067 * heightScreen,
-                  ),
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Image.asset(
-                      AppIcons.close,
-                      scale: 3,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 25,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: 0.067 * heightScreen,
+                    ),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Image.asset(
+                        AppIcons.close,
+                        scale: 3,
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: heightScreen * 0.18,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 25,
+                  SizedBox(
+                    height: heightScreen * 0.18,
                   ),
-                  child: Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
@@ -117,8 +117,8 @@ class _QuoteWidgetState extends State<QuoteWidget> {
                       ),
                     ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );
