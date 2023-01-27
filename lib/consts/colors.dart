@@ -18,4 +18,5 @@ const Color hintTextColor = Color(0xffE1E1E1);
 const Color greyTextColor = Color(0xff636363);
 const Color separatorColor = Color(0xffF0F0F0);
 const Color activeReminderText = Color(0xff646464);
+const Color lightBorderColor = Color(0xffE8E8E8);
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/date_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/quote_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/nav_bar_widget.dart';
-
 
 class MainScreenBackgroundWidget extends StatelessWidget {
   final double width;
@@ -33,6 +33,8 @@ class MainScreenBackgroundWidget extends StatelessWidget {
                 width: width,
                 height: height!,
                 onPressed: onPressed,
+                titleColor: textColor,
+                buttonColor: lightBlueColor,
               ),
               DateWidget(
                 dateTime: DateTime.now(),

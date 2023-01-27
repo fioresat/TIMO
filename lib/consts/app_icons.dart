@@ -21,4 +21,7 @@ abstract class AppIcons {
   static const lists = 'assets/icons/lists_icon.png';
   static const back = 'assets/icons/back_icon.png';
   static const blackItem = 'assets/icons/black_item_icon.png';
+  static const options = 'assets/icons/options_icon.png';
+  static const plus = 'assets/icons/plus_icon.png';
+  static const userPoint = 'assets/icons/user_point_icon.png';
 }

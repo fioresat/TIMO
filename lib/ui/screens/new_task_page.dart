@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/button_colors.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
-import 'package:todo_app_main_screen/ui/widgets/new_task_page_widgets/colors_panel_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/new_task_page_widgets/new_task_page_background_widget.dart';
 import 'my_home_page.dart';
 
@@ -31,30 +30,14 @@ class _NewTaskPageState extends State<NewTaskPage> {
         width: widthScreen,
         onBlackButtonPressed: () {},
         onListsTap: () {
-          onListsTap(widthScreen, heightScreen);
+          SlidingPanelHelper().onListsTap(context, widthScreen, heightScreen,
+              testLists, buttonColors, listController);
         },
         onReminderTap: () {
           SlidingPanelHelper()
               .onReminderTap(widthScreen, heightScreen, context);
         },
       ),
-    );
-  }
-
-  void onListsTap(double widthScreen, double heightScreen) {
-    SlidingPanelHelper().onPressedShowBottomSheet(
-      ColorsPanelWidget(
-        height: heightScreen,
-        width: widthScreen,
-        onTapClose: Navigator.of(context).pop,
-        lists: testLists,
-        colors: buttonColors,
-        onAddNewListPressed: () {
-          SlidingPanelHelper().onAddNewListPressed(
-              widthScreen, heightScreen, context, listController);
-        },
-      ),
-      context,
     );
   }
 }

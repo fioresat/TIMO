@@ -27,7 +27,7 @@ class _TaskPageState extends State<TaskPage> {
   Widget build(BuildContext context) {
     double widthScreen = MediaQuery.of(context).size.width;
     double heightScreen = MediaQuery.of(context).size.height;
-    final bool showFab = MediaQuery.of(context).viewInsets.bottom==0.0;
+    final bool showFab = MediaQuery.of(context).viewInsets.bottom == 0.0;
     return Scaffold(
       body: TaskPageBackgroundWidget(
         height: heightScreen,
@@ -40,47 +40,50 @@ class _TaskPageState extends State<TaskPage> {
         colors: buttonColors,
         controller: textController,
       ),
-      floatingActionButton: showFab ? Container(
-        padding:
-            EdgeInsets.only(left: widthScreen * 0.1, right: widthScreen * 0.02),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            FloatingActionButton(
-              heroTag: 'deleteBtn',
-              elevation: 0,
-              backgroundColor: removeColor,
-              onPressed: null,
-              child: Image.asset(
-                AppIcons.delete,
-                scale: 2.5,
-              ),
-            ),
-            FloatingActionButton(
-              heroTag: 'moveBtn',
-              elevation: 0,
-              backgroundColor: textColor,
-              onPressed: () => SlidingPanelHelper().onPressedShowBottomSheet(
-                ListsPanelWidget(
-                  height: heightScreen,
-                  width: widthScreen,
-                  lists: testLists,
-                  onTapClose: Navigator.of(context).pop,
-                  onAddNewListPressed: () {
-                    SlidingPanelHelper().onAddNewListPressed(
-                        widthScreen, heightScreen, context, listController);
-                  },
-                ),
-                context,
-              ),
-              child: Image.asset(
-                AppIcons.moveTo,
-                scale: 3,
+      floatingActionButton: showFab
+          ? Container(
+              padding: EdgeInsets.only(
+                  left: widthScreen * 0.1, right: widthScreen * 0.02),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  FloatingActionButton(
+                    heroTag: 'deleteBtn',
+                    elevation: 0,
+                    backgroundColor: removeColor,
+                    onPressed: null,
+                    child: Image.asset(
+                      AppIcons.delete,
+                      scale: 2.5,
+                    ),
+                  ),
+                  FloatingActionButton(
+                    heroTag: 'moveBtn',
+                    elevation: 0,
+                    backgroundColor: textColor,
+                    onPressed: () =>
+                        SlidingPanelHelper().onPressedShowBottomSheet(
+                      ListsPanelWidget(
+                        height: heightScreen,
+                        width: widthScreen,
+                        lists: testLists,
+                        onTapClose: Navigator.of(context).pop,
+                        onAddNewListPressed: () {
+                          SlidingPanelHelper().onAddNewListPressed(widthScreen,
+                              heightScreen, context, listController);
+                        },
+                      ),
+                      context,
+                    ),
+                    child: Image.asset(
+                      AppIcons.moveTo,
+                      scale: 3,
+                    ),
+                  )
+                ],
               ),
             )
-          ],
-        ),
-      ) : null,
+          : null,
     );
   }
 }
