@@ -49,13 +49,14 @@ class SlidingPanelHelper {
   }
 
   void onOptionsTap(BuildContext context, double widthScreen,
-      double heightScreen, List<Color> buttonColors) {
+      double heightScreen, List<Color> buttonColors, void Function() onRenameTap) {
     SlidingPanelHelper().onPressedShowBottomSheet(
       OptionsPanelWidget(
           height: heightScreen,
           width: widthScreen,
           onTapClose: Navigator.of(context).pop,
-          colors: buttonColors),
+          colors: buttonColors,
+        onRenameTap: onRenameTap,),
       context,
     );
   }

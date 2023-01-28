@@ -28,7 +28,7 @@ class _ListsPageState extends State<ListsPage> {
         onPressed: () {},
         lists: sampleLists,
         onOptionsTap: () => SlidingPanelHelper()
-            .onOptionsTap(context, widthScreen, heightScreen, buttonColors),
+            .onOptionsTap(context, widthScreen, heightScreen, buttonColors, onRenameTap(context)),
         onAddButtonTap: () => SlidingPanelHelper().onAddNewListPressed(
             widthScreen, heightScreen, context, listController),
         controller: textController,
@@ -41,4 +41,8 @@ class _ListsPageState extends State<ListsPage> {
     TestStrings.list2,
     TestStrings.list3,
   ];
+}
+
+void Function() onRenameTap(BuildContext context) {
+  return Navigator.of(context).pop;
 }

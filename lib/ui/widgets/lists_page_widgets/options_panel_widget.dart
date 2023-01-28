@@ -8,13 +8,14 @@ class OptionsPanelWidget extends StatefulWidget {
   final double width;
   final void Function() onTapClose;
   final List<Color> colors;
+  final void Function() onRenameTap;
 
   const OptionsPanelWidget(
       {Key? key,
       required this.height,
       required this.width,
       required this.onTapClose,
-      required this.colors})
+      required this.colors, required this.onRenameTap})
       : super(key: key);
 
   @override
@@ -59,13 +60,16 @@ class _OptionsPanelWidgetState extends State<OptionsPanelWidget> {
           SizedBox(
             height: 0.03 * widget.height,
           ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: Text(
-              'Rename',
-              style: TextStyle(
-                fontSize: 0.025 * widget.height,
-                fontWeight: FontWeight.w700,
+          InkWell(
+            onTap: widget.onRenameTap,
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Text(
+                'Rename',
+                style: TextStyle(
+                  fontSize: 0.025 * widget.height,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
           ),
