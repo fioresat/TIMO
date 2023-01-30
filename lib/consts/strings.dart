@@ -28,3 +28,19 @@ abstract class TestStrings {
   static const activeReminder =
       'The active reminder will be displayed below the task as a black item';
 }
+
+abstract class SettingsStrings {
+  static const aboutUs = 'About us';
+  static const language = 'Language';
+  static const report = 'Report a problem';
+  static const termsOfUsing = 'Terms of Using';
+  static const privacyPolicy = 'Privacy Policy';
+}
+
+abstract class LanguageStrings {
+  static const english = 'English';
+  static const russian = 'Русский';
+  static const spanish = 'Español';
+  static const german = 'Deutsch';
+  static const italian = 'Italiano';
+}

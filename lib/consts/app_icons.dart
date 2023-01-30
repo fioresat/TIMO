@@ -24,4 +24,10 @@ abstract class AppIcons {
   static const options = 'assets/icons/options_icon.png';
   static const plus = 'assets/icons/plus_icon.png';
   static const userPoint = 'assets/icons/user_point_icon.png';
+  static const link = 'assets/icons/link_icon.png';
+  static const ruFlag = 'assets/icons/ru_flag_icon.png';
+  static const usaFlag = 'assets/icons/usa_flag_icon.png';
+  static const esFlag = 'assets/icons/es_flag_icon.png';
+  static const itFlag = 'assets/icons/it_flag_icon.png';
+  static const deFlag = 'assets/icons/de_flag_icon.png';
 }

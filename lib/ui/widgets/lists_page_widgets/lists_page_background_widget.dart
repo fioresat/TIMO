@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
+import 'package:todo_app_main_screen/ui/screens/settings_page.dart';
 import 'package:todo_app_main_screen/ui/widgets/nav_bar_widget.dart';
 
 class ListsPageBackgroundWidget extends StatefulWidget {
@@ -45,8 +46,9 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const InkWell(
-                  child: Icon(
+                 InkWell(
+                  onTap: () => Navigator.pushNamed(context, SettingsPage.routeName),
+                  child: const Icon(
                     Icons.settings,
                     size: 30,
                   ),
