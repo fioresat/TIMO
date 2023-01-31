@@ -30,4 +30,8 @@ abstract class AppIcons {
   static const esFlag = 'assets/icons/es_flag_icon.png';
   static const itFlag = 'assets/icons/it_flag_icon.png';
   static const deFlag = 'assets/icons/de_flag_icon.png';
+  static const diamond = 'assets/icons/diamond_icon.png';
+  static const lightning = 'assets/icons/lightning_icon.png';
+  static const whitePlate = 'assets/icons/white_plate_icon.png';
+  static const bluePlate = 'assets/icons/blue_plate_icon.png';
 }

@@ -3,6 +3,7 @@ import 'package:todo_app_main_screen/ui/screens/language_page.dart';
 import 'package:todo_app_main_screen/ui/screens/lists_page.dart';
 import 'package:todo_app_main_screen/ui/screens/my_home_page.dart';
 import 'package:todo_app_main_screen/ui/screens/new_task_page.dart';
+import 'package:todo_app_main_screen/ui/screens/premium_page.dart';
 import 'package:todo_app_main_screen/ui/screens/settings_page.dart';
 import 'package:todo_app_main_screen/ui/screens/task_page.dart';
 
@@ -27,7 +28,8 @@ class MyApp extends StatelessWidget {
         TaskPage.routeName: (context) => const TaskPage(),
         ListsPage.routeName: (context) => const ListsPage(),
         SettingsPage.routeName: (context) => const SettingsPage(),
-        LanguagePage.routeName: (context) => const LanguagePage()
+        LanguagePage.routeName: (context) => const LanguagePage(),
+        PremiumPage.routeName: (context) => const PremiumPage()
       },
       initialRoute: MyHomePage.routeName,
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
+import 'package:todo_app_main_screen/ui/screens/premium_page.dart';
 import 'package:todo_app_main_screen/ui/widgets/settings_page_widgets/settings_list.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -55,10 +56,13 @@ class _SettingsPageState extends State<SettingsPage> {
               SizedBox(
                 height: heightScreen * 0.06,
               ),
-              Center(
-                child: Image.asset(
-                  'assets/images/banner.png',
-                  scale: 3,
+              InkWell(
+                onTap: () => Navigator.pushNamed(context, PremiumPage.routeName),
+                child: Center(
+                  child: Image.asset(
+                    'assets/images/banner.png',
+                    scale: 3,
+                  ),
                 ),
               ),
               SizedBox(

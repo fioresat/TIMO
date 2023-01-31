@@ -44,3 +44,17 @@ abstract class LanguageStrings {
   static const german = 'Deutsch';
   static const italian = 'Italiano';
 }
+
+abstract class PremiumPageStrings {
+  static const getPremium = 'Get Premium';
+  static const monthlyPrice = '3\$';
+  static const yearlyPrice = '26\$';
+  static const perMonth = 'per month';
+  static const perYear = 'per year';
+  static const recurringPayment = 'This is Recurring Payment';
+  static const goPremium = 'Go Premium';
+  static const bySubscribing = 'By subscribing you accept our';
+  static const privacyPolicy = '\nPrivacy policy';
+  static const and = ' and';
+  static const terms = ' Terms';
+}
