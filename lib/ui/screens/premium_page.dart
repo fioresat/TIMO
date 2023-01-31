@@ -1,3 +1,4 @@
+import 'package:drop_shadow_image/drop_shadow_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
@@ -6,16 +7,11 @@ import 'package:todo_app_main_screen/consts/premium_features.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
 import 'package:todo_app_main_screen/ui/widgets/black_button_widget.dart';
 
-class PremiumPage extends StatefulWidget {
+class PremiumPage extends StatelessWidget {
   static const routeName = '/premium_page';
 
   const PremiumPage({Key? key}) : super(key: key);
 
-  @override
-  State<PremiumPage> createState() => _PremiumPageState();
-}
-
-class _PremiumPageState extends State<PremiumPage> {
   @override
   Widget build(BuildContext context) {
     double heightScreen = MediaQuery.of(context).size.height;
@@ -44,9 +40,14 @@ class _PremiumPageState extends State<PremiumPage> {
                 height: heightScreen * 0.03,
               ),
               Center(
-                child: Image.asset(
-                  AppIcons.diamond,
-                  scale: 3,
+                child: DropShadowImage(
+                  image: Image.asset(
+                    AppIcons.diamond,
+                    scale: 3,
+                  ),
+                  blurRadius: 5,
+                  offset: Offset(1, 5),
+                  scale: 1,
                 ),
               ),
               SizedBox(
@@ -142,6 +143,12 @@ class _PremiumPageState extends State<PremiumPage> {
                               child: const Text(
                                 PremiumPageStrings.perYear,
                                 style: TextStyle(fontSize: 16),
+                              )),
+                          Positioned(
+                              left: widthScreen * 0.2,
+                              child: Image.asset(
+                                AppIcons.lightning,
+                                scale: 3,
                               ))
                         ],
                       ),
