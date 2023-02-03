@@ -16,6 +16,13 @@ class ListsPage extends StatefulWidget {
 class _ListsPageState extends State<ListsPage> {
   final listController = TextEditingController();
   final textController = TextEditingController();
+  var listTitle = '';
+
+  @override
+  void initState() {
+    super.initState();
+    titleApply();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +34,21 @@ class _ListsPageState extends State<ListsPage> {
         width: widthScreen,
         onPressed: () {},
         lists: sampleLists,
-        onOptionsTap: () => SlidingPanelHelper()
-            .onOptionsTap(context, widthScreen, heightScreen, buttonColors, onRenameTap(context)),
+        onOptionsTap: () => SlidingPanelHelper().onOptionsTap(
+          context,
+          widthScreen,
+          heightScreen,
+          buttonColors,
+          onRenameTap(context),
+        ),
         onAddButtonTap: () => SlidingPanelHelper().onAddNewListPressed(
-            widthScreen, heightScreen, context, listController),
+          widthScreen,
+          heightScreen,
+          context,
+          listController,
+        ),
         controller: textController,
+        listTitle: listTitle,
       ),
     );
   }
@@ -41,6 +58,12 @@ class _ListsPageState extends State<ListsPage> {
     TestStrings.list2,
     TestStrings.list3,
   ];
+
+  void titleApply() {
+    sampleLists.forEach((name) {
+      listTitle = name;
+    });
+  }
 }
 
 void Function() onRenameTap(BuildContext context) {

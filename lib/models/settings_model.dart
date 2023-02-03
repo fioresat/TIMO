@@ -5,6 +5,9 @@ class Settings {
   final Widget widget;
   final String url;
 
-  Settings(
-      this.widget, this.route, this.url);
+  Settings({
+    required this.widget,
+    required this.route,
+    required this.url,
+  });
 }

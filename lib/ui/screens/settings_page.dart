@@ -25,10 +25,11 @@ class _SettingsPageState extends State<SettingsPage> {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(
-              bottom: heightScreen * 0.017,
-              top: heightScreen * 0.060,
-              left: 25,
-              right: 25),
+            bottom: heightScreen * 0.017,
+            top: heightScreen * 0.060,
+            left: 25,
+            right: 25,
+          ),
           child: Column(
             children: [
               Row(
@@ -44,9 +45,10 @@ class _SettingsPageState extends State<SettingsPage> {
                   const Text(
                     'Settings',
                     style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w500,
-                        color: darkColor),
+                      fontSize: 22,
+                      fontWeight: FontWeight.w500,
+                      color: darkColor,
+                    ),
                   ),
                   SizedBox(
                     width: widthScreen * 0.1,
@@ -57,7 +59,10 @@ class _SettingsPageState extends State<SettingsPage> {
                 height: heightScreen * 0.06,
               ),
               InkWell(
-                onTap: () => Navigator.pushNamed(context, PremiumPage.routeName),
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  PremiumPage.routeName,
+                ),
                 child: Center(
                   child: Image.asset(
                     'assets/images/banner.png',
@@ -75,21 +80,14 @@ class _SettingsPageState extends State<SettingsPage> {
                         onTap: () => setting.url.isNotEmpty
                             ? _launchURL(setting.url)
                             : Navigator.pushNamed(context, setting.route),
-                        child: Card(
-                          color: Colors.transparent,
-                          elevation: 0,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10),
-                            child: setting.widget,
-                          ),
-                        ),
+                        child: setting.widget,
                       );
                     },
                     separatorBuilder: (context, index) {
                       return const Divider();
                     },
                     itemCount: settingsList.length),
-              )
+              ),
             ],
           ),
         ),
@@ -99,7 +97,10 @@ class _SettingsPageState extends State<SettingsPage> {
 
   _launchURL(String url) async {
     if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
+      await launchUrl(
+        Uri.parse(url),
+        mode: LaunchMode.externalApplication,
+      );
     } else {
       throw 'Could not launch $url';
     }

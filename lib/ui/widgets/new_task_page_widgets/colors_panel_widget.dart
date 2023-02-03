@@ -65,7 +65,7 @@ class _ColorsPanelWidgetState extends State<ColorsPanelWidget> {
             height: widget.height,
             lists: widget.lists,
             onAddNewListPressed: widget.onAddNewListPressed,
-          )
+          ),
         ],
       ),
     );

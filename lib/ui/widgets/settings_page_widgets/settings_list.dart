@@ -7,82 +7,93 @@ import 'package:todo_app_main_screen/ui/screens/language_page.dart';
 
 List<Settings> settingsList = [
   Settings(
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text(
-            SettingsStrings.aboutUs,
-            style: TextStyle(
-                fontSize: 19, fontWeight: FontWeight.w600, color: darkColor),
-          ),
-          Image.asset(
-            AppIcons.link,
-            scale: 3,
-          )
-        ],
-      ),
-      '',
-      'https://flutter.dev/'),
+    route: '',
+    url: 'https://flutter.dev/',
+    widget: SettingsWidget(
+      title: SettingsStrings.aboutUs,
+      trailing: settingsImage,
+    ),
+  ),
   Settings(
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: const [
-          Text(
-            SettingsStrings.language,
-            style: TextStyle(
-                fontSize: 19, fontWeight: FontWeight.w600, color: darkColor),
-          ),
-          Text(
-            'English',
-            style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.normal,
-                color: paleTextColor),
-          )
-        ],
-      ),
-      LanguagePage.routeName,
-      ''),
-  Settings(
-      const Text(
-        SettingsStrings.report,
+    route: LanguagePage.routeName,
+    url: '',
+    widget: const SettingsWidget(
+      title: SettingsStrings.language,
+      trailing: Text(
+        'English',
         style: TextStyle(
-            fontSize: 19, fontWeight: FontWeight.w600, color: darkColor),
+          fontSize: 17,
+          fontWeight: FontWeight.normal,
+          color: paleTextColor,
+        ),
       ),
-      '',
-      ''),
+    ),
+  ),
   Settings(
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text(
-            SettingsStrings.termsOfUsing,
-            style: TextStyle(
-                fontSize: 19, fontWeight: FontWeight.w600, color: darkColor),
-          ),
-          Image.asset(
-            AppIcons.link,
-            scale: 3,
-          )
-        ],
-      ),
-      '',
-      'https://flutter.dev/'),
+    route: '',
+    url: '',
+    widget: SettingsWidget(
+      title: SettingsStrings.report,
+      trailing: Container(),
+    ),
+  ),
   Settings(
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const Text(
-            SettingsStrings.privacyPolicy,
-            style: TextStyle(
-                fontSize: 19, fontWeight: FontWeight.w600, color: darkColor),
-          ),
-          Image.asset(
-            AppIcons.link,
-            scale: 3,
-          )
-        ],
-      ),
-      '',
-      'https://flutter.dev/')
+    route: '',
+    url: 'https://flutter.dev/',
+    widget: SettingsWidget(
+      title: SettingsStrings.termsOfUsing,
+      trailing: settingsImage,
+    ),
+  ),
+  Settings(
+    route: '',
+    url: 'https://flutter.dev/',
+    widget: SettingsWidget(
+      title: SettingsStrings.privacyPolicy,
+      trailing: settingsImage,
+    ),
+  ),
 ];
+
+class SettingsWidget extends StatelessWidget {
+  final String title;
+  final Widget trailing;
+
+  const SettingsWidget({
+    Key? key,
+    required this.title,
+    required this.trailing,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Colors.transparent,
+      elevation: 0,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 19,
+                fontWeight: FontWeight.w600,
+                color: darkColor,
+              ),
+            ),
+            trailing,
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+Widget settingsImage = Image.asset(
+  AppIcons.link,
+  scale: 3,
+);
+
+
