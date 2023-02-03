@@ -41,11 +41,10 @@ class _LanguagePageState extends State<LanguagePage> {
               child: ListView.separated(
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    final language = languageList[index];
+                    var language = languageList[index];
                     return InkWell(
                       onTap: () {
                         setState(() {
-                          language.isTapped = !language.isTapped;
                           _selectedIndex = index;
                         });
                       },
@@ -57,7 +56,7 @@ class _LanguagePageState extends State<LanguagePage> {
                         ),
                         title: Text(language.name),
                         trailing:
-                            _selectedIndex == index && language.isTapped == true
+                            _selectedIndex == index
                                 ? Image.asset(
                                     AppIcons.check,
                                     scale: 3,

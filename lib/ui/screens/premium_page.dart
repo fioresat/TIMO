@@ -40,15 +40,10 @@ class PremiumPage extends StatelessWidget {
                 height: heightScreen * 0.03,
               ),
               Center(
-                child: DropShadowImage(
-                  image: Image.asset(
+                child: Image.asset(
                     AppIcons.diamond,
                     scale: 3,
                   ),
-                  blurRadius: 5,
-                  offset: Offset(1, 5),
-                  scale: 1,
-                ),
               ),
               SizedBox(
                 height: heightScreen * 0.01,
@@ -183,6 +178,7 @@ class PremiumPage extends StatelessWidget {
                 height: heightScreen * 0.02,
               ),
               RichText(
+                  textAlign: TextAlign.center,
                   text: TextSpan(
                       text: PremiumPageStrings.bySubscribing,
                       style: const TextStyle(color: recurringPaymentColor),
@@ -190,7 +186,7 @@ class PremiumPage extends StatelessWidget {
                     TextSpan(
                       text: PremiumPageStrings.privacyPolicy,
                       style: const TextStyle(
-                          color: textColor, fontWeight: FontWeight.w800),
+                          color: textColor, fontWeight: FontWeight.w800, ),
                       recognizer: TapGestureRecognizer()..onTap = () {},
                     ),
                     const TextSpan(
