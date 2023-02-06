@@ -116,14 +116,13 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                                 onTapClose: Navigator.of(context).pop,
                                 colors: buttonColors,
                                 onRenameTap: () {
-                                  onRenameTap(context);
+                                  Navigator.pop(context);
                                 },
                                 onDeleteTap: () {
                                   setState(() {
                                     widget.lists.removeAt(index);
                                   });
-
-                                  Navigator.of(context).pop;
+                                  Navigator.pop(context);
                                 },
                               ),
                               context,
@@ -144,7 +143,5 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
     );
   }
 
-  void Function() onRenameTap(BuildContext context) {
-    return Navigator.of(context).pop;
-  }
+
 }

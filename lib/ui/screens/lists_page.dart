@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app_main_screen/consts/button_colors.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_page_widgets/lists_page_background_widget.dart';
@@ -8,7 +7,7 @@ List<String> sampleLists = [
   TestStrings.list1,
   TestStrings.list2,
   TestStrings.list3,
-  "",
+  ""
 ];
 
 class ListsPage extends StatefulWidget {
