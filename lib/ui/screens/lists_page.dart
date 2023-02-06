@@ -4,6 +4,13 @@ import 'package:todo_app_main_screen/consts/strings.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_page_widgets/lists_page_background_widget.dart';
 
+List<String> sampleLists = [
+  TestStrings.list1,
+  TestStrings.list2,
+  TestStrings.list3,
+  "",
+];
+
 class ListsPage extends StatefulWidget {
   static const routeName = '/lists_page';
 
@@ -15,13 +22,12 @@ class ListsPage extends StatefulWidget {
 
 class _ListsPageState extends State<ListsPage> {
   final listController = TextEditingController();
-  final textController = TextEditingController();
-  var listTitle = '';
+
 
   @override
   void initState() {
     super.initState();
-    titleApply();
+
   }
 
   @override
@@ -44,26 +50,17 @@ class _ListsPageState extends State<ListsPage> {
         onAddButtonTap: () => SlidingPanelHelper().onAddNewListPressed(
           widthScreen,
           heightScreen,
-          context,
-          listController,
+          context
+
         ),
-        controller: textController,
-        listTitle: listTitle,
+
       ),
     );
   }
 
-  List<String> sampleLists = [
-    TestStrings.list1,
-    TestStrings.list2,
-    TestStrings.list3,
-  ];
 
-  void titleApply() {
-    sampleLists.forEach((name) {
-      listTitle = name;
-    });
-  }
+
+
 }
 
 void Function() onRenameTap(BuildContext context) {

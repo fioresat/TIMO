@@ -169,7 +169,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
                 onAddNewListPressed: () {
                   SlidingPanelHelper().onAddNewListPressed(
-                      widthScreen, heightScreen, context, listController);
+                      widthScreen, heightScreen, context);
                 },
               ),
               context,
