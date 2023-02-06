@@ -90,58 +90,63 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                         height: widget.height,
                       ),
                     )
-                  : GridView.builder(
+                  : GridView.count(
+                      crossAxisCount: 2,
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 3 / 5,
-                        crossAxisSpacing: widget.width * 0.1,
-                        mainAxisSpacing: widget.width * 0.01,
-                      ),
-                      itemCount: widget.lists.length,
-                      itemBuilder: (BuildContext ctx, index) {
-                        return SingleListWidget(
-                          onListTap: () {
-                            setState(() {
-                              _selectedIndex = index;
-                            });
-                          },
-                          height: widget.height,
-                          onOptionsTap: () {
-                            SlidingPanelHelper().onPressedShowBottomSheet(
-                              OptionsPanelWidget(
-                                height: widget.height,
-                                width: widget.width,
-                                onTapClose: Navigator.of(context).pop,
-                                colors: buttonColors,
-                                onRenameTap: () {
-                                  Navigator.pop(context);
-                                },
-                                onDeleteTap: () {
+                      childAspectRatio: 1.5 / 2.5,
+                      crossAxisSpacing: widget.width * 0.1,
+                      mainAxisSpacing: widget.width * 0.01,
+                      children: [
+                        ...widget.lists.asMap().entries.map(
+                              (list) => SingleListWidget(
+                                onListTap: () {
                                   setState(() {
-                                    widget.lists.removeAt(index);
+                                    _selectedIndex = list.key;
                                   });
-                                  Navigator.pop(context);
                                 },
+                                height: widget.height,
+                                onOptionsTap: () {
+                                  SlidingPanelHelper().onPressedShowBottomSheet(
+                                    OptionsPanelWidget(
+                                      height: widget.height,
+                                      width: widget.width,
+                                      onTapClose: Navigator.of(context).pop,
+                                      colors: buttonColors,
+                                      onRenameTap: () {
+                                        Navigator.pop(context);
+                                      },
+                                      onDeleteTap: () {
+                                        setState(() {
+                                          widget.lists.removeAt(list.key);
+                                        });
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                    context,
+                                  );
+                                },
+                                title: list.value,
+                                isTapped: _selectedIndex == list.key,
+                                onAddButtonTap: () {
+                                  widget.onAddButtonTap();
+                                },
+                                width: widget.width,
                               ),
-                              context,
-                            );
-                          },
-                          title: widget.lists[index],
-                          isTapped: _selectedIndex == index,
+                            ),
+                        AddButtonWidget(
                           onAddButtonTap: () {
                             widget.onAddButtonTap();
                           },
                           width: widget.width,
-                        );
-                      }),
+                          height: widget.height,
+                        ),
+                      ],
+                    ),
             ),
           ],
         ),
       ),
     );
   }
-
-
 }

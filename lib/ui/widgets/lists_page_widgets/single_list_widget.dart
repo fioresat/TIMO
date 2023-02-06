@@ -39,8 +39,7 @@ class _SingleListWidgetState extends State<SingleListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.title.isNotEmpty
-        ? InkWell(
+    return  InkWell(
             onTap: widget.onListTap,
             child: Column(
               children: [
@@ -100,13 +99,6 @@ class _SingleListWidgetState extends State<SingleListWidget> {
                 ),
               ],
             ),
-          )
-        : AddButtonWidget(
-            onAddButtonTap: () {
-              widget.onAddButtonTap();
-            },
-            width: widget.width,
-            height: widget.height,
           );
   }
 }

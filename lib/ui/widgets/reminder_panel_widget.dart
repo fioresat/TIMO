@@ -8,13 +8,13 @@ import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
 class ReminderPanelWidget extends StatefulWidget {
   final double height;
   final double width;
-  final void Function() onTap;
+  final void Function() onCloseTap;
 
   const ReminderPanelWidget({
     Key? key,
     required this.height,
     required this.width,
-    required this.onTap,
+    required this.onCloseTap,
   }) : super(key: key);
 
   @override
@@ -32,7 +32,7 @@ class _ReminderPanelWidgetState extends State<ReminderPanelWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           PanelCloseWidget(
-            onTapClose: widget.onTap,
+            onTapClose: widget.onCloseTap,
             height: widget.height,
           ),
           Text(
@@ -55,7 +55,7 @@ class _ReminderPanelWidgetState extends State<ReminderPanelWidget> {
           Padding(
             padding: const EdgeInsets.only(bottom: 10.0),
             child: BlackButtonWidget(
-              onPressed: () {},
+              onPressed: () {Navigator.pop(context);},
               width: widget.width - 50,
               borderRadius: const BorderRadius.all(Radius.elliptical(12, 12)),
               child: const Text(

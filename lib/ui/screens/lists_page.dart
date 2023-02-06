@@ -6,8 +6,7 @@ import 'package:todo_app_main_screen/ui/widgets/lists_page_widgets/lists_page_ba
 List<String> sampleLists = [
   TestStrings.list1,
   TestStrings.list2,
-  TestStrings.list3,
-  ""
+  TestStrings.list3
 ];
 
 class ListsPage extends StatefulWidget {

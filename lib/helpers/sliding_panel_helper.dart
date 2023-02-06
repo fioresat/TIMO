@@ -39,7 +39,7 @@ class SlidingPanelHelper {
     onPressedShowBottomSheet(
         ReminderPanelWidget(
           height: heightScreen,
-          onTap: () {
+          onCloseTap: () {
             Navigator.of(context).pop();
           },
           width: widthScreen,

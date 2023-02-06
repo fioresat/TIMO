@@ -47,7 +47,8 @@ class _TasksWidgetState extends State<TasksWidget> {
           ),
           SizedBox(
             height: 0.9 * widget.height,
-            child: ReorderableListView.builder(
+            child:
+                ReorderableListView.builder(
                 scrollController: widget.controller,
                 itemCount: tasks.length,
                 //shrinkWrap: true,
