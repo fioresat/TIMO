@@ -21,8 +21,8 @@ class SlidingPanelHelper {
     );
   }
 
-  void onAddNewListPressed(double widthScreen, double heightScreen,
-      BuildContext context) {
+  void onAddNewListPressed(
+      double widthScreen, double heightScreen, BuildContext context) {
     onPressedShowBottomSheet(
         AddNewListPanelWidget(
           height: heightScreen,
@@ -30,7 +30,6 @@ class SlidingPanelHelper {
             Navigator.of(context).pop();
           },
           width: widthScreen,
-
         ),
         context);
   }
@@ -48,24 +47,11 @@ class SlidingPanelHelper {
         context);
   }
 
-  void onOptionsTap(BuildContext context, double widthScreen,
-      double heightScreen, List<Color> buttonColors, void Function() onRenameTap) {
-    SlidingPanelHelper().onPressedShowBottomSheet(
-      OptionsPanelWidget(
-          height: heightScreen,
-          width: widthScreen,
-          onTapClose: Navigator.of(context).pop,
-          colors: buttonColors,
-        onRenameTap: onRenameTap,),
-      context,
-    );
-  }
-
   void onListsTap(
       BuildContext context,
       double widthScreen,
       double heightScreen,
-      List<Widget> lists,
+      List<String> lists,
       List<Color> buttonColors,
       TextEditingController controller) {
     SlidingPanelHelper().onPressedShowBottomSheet(
@@ -76,11 +62,24 @@ class SlidingPanelHelper {
         lists: lists,
         colors: buttonColors,
         onAddNewListPressed: () {
-          SlidingPanelHelper().onAddNewListPressed(
-              widthScreen, heightScreen, context);
+          SlidingPanelHelper()
+              .onAddNewListPressed(widthScreen, heightScreen, context);
         },
       ),
       context,
     );
   }
+
+// void onOptionsTap(BuildContext context, double widthScreen,
+//     double heightScreen, List<Color> buttonColors, void Function() onRenameTap) {
+//   SlidingPanelHelper().onPressedShowBottomSheet(
+//     OptionsPanelWidget(
+//       height: heightScreen,
+//       width: widthScreen,
+//       onTapClose: Navigator.of(context).pop,
+//       colors: buttonColors,
+//       onRenameTap: onRenameTap,),
+//     context,
+//   );
+// }
 }

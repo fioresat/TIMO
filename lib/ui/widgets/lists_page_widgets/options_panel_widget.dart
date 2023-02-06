@@ -8,6 +8,7 @@ class OptionsPanelWidget extends StatefulWidget {
   final void Function() onTapClose;
   final List<Color> colors;
   final void Function() onRenameTap;
+  final void Function() onDeleteTap;
 
   const OptionsPanelWidget(
       {Key? key,
@@ -15,7 +16,8 @@ class OptionsPanelWidget extends StatefulWidget {
       required this.width,
       required this.onTapClose,
       required this.colors,
-      required this.onRenameTap})
+      required this.onRenameTap,
+      required this.onDeleteTap})
       : super(key: key);
 
   @override
@@ -76,7 +78,9 @@ class _OptionsPanelWidgetState extends State<OptionsPanelWidget> {
             optionTitle: 'Thumbnail',
           ),
           OptionsWidget(
-            onOptionTap: () {},
+            onOptionTap: () {
+              widget.onDeleteTap();
+            },
             height: widget.height,
             optionTitle: 'Delete',
           ),

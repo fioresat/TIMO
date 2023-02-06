@@ -55,13 +55,13 @@ class _LanguagePageState extends State<LanguagePage> {
                           scale: 3,
                         ),
                         title: Text(language.name),
-                        trailing:
-                            _selectedIndex == index
-                                ? Image.asset(
-                                    AppIcons.check,
-                                    scale: 3,
-                                  )
-                                : null,
+                        trailing: Image.asset(
+                          AppIcons.check,
+                          scale: 3,
+                          color: _selectedIndex == index
+                              ? Colors.black
+                              : Colors.transparent,
+                        ),
                       ),
                     );
                   },

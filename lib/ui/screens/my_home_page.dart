@@ -90,26 +90,7 @@ List<Widget> testTasks = [
   ),
 ];
 
-List<Widget> testLists = [
-  const Text(
-    TestStrings.list1,
-    style: TextStyle(
-      fontSize: 20,
-    ),
-  ),
-  const Text(
-    TestStrings.list2,
-    style: TextStyle(
-      fontSize: 20,
-    ),
-  ),
-  const Text(
-    TestStrings.list3,
-    style: TextStyle(
-      fontSize: 20,
-    ),
-  ),
-];
+
 
 class MyHomePage extends StatefulWidget {
   static const routeName = '/my_home_page';
@@ -160,7 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ListsPanelWidget(
                 height: heightScreen,
                 width: widthScreen,
-                lists: testLists,
+                lists: sampleLists,
                 onTapClose: () {
                   Navigator.of(context).pop();
                   setState(() {

@@ -26,6 +26,11 @@ class _AddNewListPanelWidgetState extends State<AddNewListPanelWidget> {
   TextEditingController controller = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double keyBoardHeight = MediaQuery.of(context).viewInsets.bottom;
     return Padding(
@@ -67,7 +72,6 @@ class _AddNewListPanelWidgetState extends State<AddNewListPanelWidget> {
                     sampleLists.add(controller.text);
                   });
                 }
-                print(sampleLists);
                 widget.onTapClose();
               },
               width: widget.width - 50,

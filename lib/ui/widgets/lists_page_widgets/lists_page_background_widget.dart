@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
+import 'package:todo_app_main_screen/consts/button_colors.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
+import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
+import 'package:todo_app_main_screen/ui/screens/lists_page.dart';
 import 'package:todo_app_main_screen/ui/screens/settings_page.dart';
+import 'package:todo_app_main_screen/ui/widgets/lists_page_widgets/options_panel_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_page_widgets/single_list_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/nav_bar_widget.dart';
 
@@ -13,7 +17,6 @@ class ListsPageBackgroundWidget extends StatefulWidget {
   final void Function() onPressed;
   final List lists;
 
-  final void Function() onOptionsTap;
   final void Function() onAddButtonTap;
 
   ListsPageBackgroundWidget({
@@ -22,7 +25,6 @@ class ListsPageBackgroundWidget extends StatefulWidget {
     required this.width,
     required this.onPressed,
     required this.lists,
-    required this.onOptionsTap,
     required this.onAddButtonTap,
   }) : super(key: key);
 
@@ -106,7 +108,27 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                             });
                           },
                           height: widget.height,
-                          onOptionsTap: widget.onOptionsTap,
+                          onOptionsTap: () {
+                            SlidingPanelHelper().onPressedShowBottomSheet(
+                              OptionsPanelWidget(
+                                height: widget.height,
+                                width: widget.width,
+                                onTapClose: Navigator.of(context).pop,
+                                colors: buttonColors,
+                                onRenameTap: () {
+                                  onRenameTap(context);
+                                },
+                                onDeleteTap: () {
+                                  setState(() {
+                                    widget.lists.removeAt(index);
+                                  });
+
+                                  Navigator.of(context).pop;
+                                },
+                              ),
+                              context,
+                            );
+                          },
                           title: widget.lists[index],
                           isTapped: _selectedIndex == index,
                           onAddButtonTap: () {
@@ -122,5 +144,7 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
     );
   }
 
-
+  void Function() onRenameTap(BuildContext context) {
+    return Navigator.of(context).pop;
+  }
 }

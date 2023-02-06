@@ -23,11 +23,9 @@ class ListsPage extends StatefulWidget {
 class _ListsPageState extends State<ListsPage> {
   final listController = TextEditingController();
 
-
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
@@ -40,29 +38,14 @@ class _ListsPageState extends State<ListsPage> {
         width: widthScreen,
         onPressed: () {},
         lists: sampleLists,
-        onOptionsTap: () => SlidingPanelHelper().onOptionsTap(
-          context,
-          widthScreen,
-          heightScreen,
-          buttonColors,
-          onRenameTap(context),
-        ),
         onAddButtonTap: () => SlidingPanelHelper().onAddNewListPressed(
           widthScreen,
           heightScreen,
-          context
-
+          context,
         ),
-
       ),
     );
   }
-
-
-
-
 }
 
-void Function() onRenameTap(BuildContext context) {
-  return Navigator.of(context).pop;
-}
+

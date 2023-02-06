@@ -6,7 +6,7 @@ import 'black_button_widget.dart';
 import 'lists_widget.dart';
 
 class ListsPanelWidget extends StatefulWidget {
-  final List<Widget> lists;
+  final List<String> lists;
   final double height;
   final double width;
   final void Function() onTapClose;

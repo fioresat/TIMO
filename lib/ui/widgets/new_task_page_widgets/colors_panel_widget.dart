@@ -8,7 +8,7 @@ class ColorsPanelWidget extends StatefulWidget {
   final double height;
   final double width;
   final void Function() onTapClose;
-  final List<Widget> lists;
+  final List<String> lists;
   final List<Color> colors;
   final void Function() onAddNewListPressed;
 
