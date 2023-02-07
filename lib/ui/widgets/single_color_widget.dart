@@ -1,55 +1,39 @@
 import 'package:flutter/material.dart';
 
-class SingleColorWidget extends StatefulWidget {
+class SingleColorWidget extends StatelessWidget {
   final Color color;
+  final double bottomPadding;
+  final double topPadding;
 
   const SingleColorWidget({
     Key? key,
     required this.color,
+    required this.bottomPadding,
+    required this.topPadding,
   }) : super(key: key);
 
   @override
-  State<SingleColorWidget> createState() => _SingleColorWidgetState();
-}
-
-class _SingleColorWidgetState extends State<SingleColorWidget> {
-  double bottomPadding = 0;
-  double topPadding = 20;
-
-  @override
   Widget build(BuildContext context) {
+
     return SizedBox(
       height: 56,
       width: 10,
-      child: AnimatedPadding(
+      child: Padding(
         padding: EdgeInsets.only(
           bottom: bottomPadding,
           top: topPadding,
         ),
-        duration: const Duration(milliseconds: 1),
-        child: InkWell(
-          onTap: () {
-            _updatePadding();
-          },
-          child: Container(
-            height: 36,
-            width: 10,
-            decoration: BoxDecoration(
-              color: widget.color,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(8),
-              ),
+        child: Container(
+          height: 36,
+          width: 10,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: const BorderRadius.all(
+              Radius.circular(8),
             ),
           ),
         ),
       ),
     );
-  }
-
-  void _updatePadding() {
-    setState(() {
-      bottomPadding = (bottomPadding == 0) ? 20 : 0;
-      topPadding = (topPadding == 20) ? 0 : 20;
-    });
   }
 }

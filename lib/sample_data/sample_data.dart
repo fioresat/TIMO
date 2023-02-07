@@ -1,7 +1,5 @@
-import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
-import 'package:flutter/material.dart';
-import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/single_task_widget.dart';
+import 'package:todo_app_main_screen/models/single_task_model.dart';
 
 List<String> sampleLists = [
   TestStrings.list1,
@@ -9,81 +7,15 @@ List<String> sampleLists = [
   TestStrings.list3
 ];
 
-
-List<Widget> testTasks = [
-  const SingleTaskWidget(
-    task: TestStrings.task1,
-    active: textColor,
-    colorful: lightBlueColor,
-  ),
-  const SingleTaskWidget(
-    task: TestStrings.task2,
-    active: Colors.transparent,
-    colorful: Colors.transparent,
-  ),
-  const SingleTaskWidget(
-    task: TestStrings.task3,
-    active: Colors.transparent,
-    colorful: Colors.transparent,
-  ),
-  const SingleTaskWidget(
-    task: TestStrings.task1,
-    active: textColor,
-    colorful: lightBlueColor,
-  ),
-  const SingleTaskWidget(
-    task: TestStrings.task2,
-    active: Colors.transparent,
-    colorful: Colors.transparent,
-  ),
-  const SingleTaskWidget(
-    task: TestStrings.task3,
-    active: Colors.transparent,
-    colorful: Colors.transparent,
-  ),
-  const SingleTaskWidget(
-    task: TestStrings.task1,
-    active: textColor,
-    colorful: lightBlueColor,
-  ),
-  const SingleTaskWidget(
-    task: TestStrings.task2,
-    active: Colors.transparent,
-    colorful: Colors.transparent,
-  ),
-  const SingleTaskWidget(
-    task: TestStrings.task3,
-    active: Colors.transparent,
-    colorful: Colors.transparent,
-  ),
-  const SingleTaskWidget(
-    task: TestStrings.task1,
-    active: textColor,
-    colorful: lightBlueColor,
-  ),
-  const SingleTaskWidget(
-    task: TestStrings.task2,
-    active: Colors.transparent,
-    colorful: Colors.transparent,
-  ),
-  const SingleTaskWidget(
-    task: TestStrings.task3,
-    active: Colors.transparent,
-    colorful: Colors.transparent,
-  ),
-  const SingleTaskWidget(
-    task: TestStrings.task1,
-    active: textColor,
-    colorful: lightBlueColor,
-  ),
-  const SingleTaskWidget(
-    task: TestStrings.task2,
-    active: Colors.transparent,
-    colorful: Colors.transparent,
-  ),
-  const SingleTaskWidget(
-    task: TestStrings.task3,
-    active: Colors.transparent,
-    colorful: Colors.transparent,
-  ),
+List<SingleTaskModel> sampleTasks = [
+  SingleTaskModel(colorIndex: 0, task: TestStrings.task1, isActive: true),
+  SingleTaskModel(colorIndex: 5, task: TestStrings.task2, isActive: true),
+  SingleTaskModel(task: TestStrings.task3),
+  SingleTaskModel(task: TestStrings.task1, isActive: true),
+  SingleTaskModel(task: TestStrings.task2, ),
+  SingleTaskModel(task: TestStrings.task3, isActive: true),
+  SingleTaskModel(task: TestStrings.task1, isActive: true),
+  SingleTaskModel(task: TestStrings.task2),
+  SingleTaskModel(colorIndex: 4, task: TestStrings.task3),
 ];
+

@@ -1,13 +1,11 @@
 class SingleTaskModel {
-  bool isColorful = false;
+  int colorIndex;
   bool isActive = false;
   String task;
 
-
   SingleTaskModel({
-    this.isColorful = false,
+    this.colorIndex = -1,
     this.isActive = false,
     required this.task,
   });
-
 }

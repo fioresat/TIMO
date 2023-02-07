@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/button_colors.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
-import 'package:todo_app_main_screen/consts/strings.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
+import 'package:todo_app_main_screen/models/single_task_model.dart';
 import 'package:todo_app_main_screen/sample_data/sample_data.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_panel_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/task_page_widgets/task_page_background_widget.dart';
@@ -30,6 +30,7 @@ class _TaskPageState extends State<TaskPage> {
 
   @override
   Widget build(BuildContext context) {
+    final sampleTask = ModalRoute.of(context)!.settings.arguments as SingleTaskModel;
     double widthScreen = MediaQuery.of(context).size.width;
     double heightScreen = MediaQuery.of(context).size.height;
     final bool showFab = MediaQuery.of(context).viewInsets.bottom == 0.0;
@@ -41,9 +42,9 @@ class _TaskPageState extends State<TaskPage> {
             .onReminderTap(widthScreen, heightScreen, context),
         onTitleTap: () {},
         onMoveToTap: () {},
-        title: TestStrings.task1,
         colors: buttonColors,
         controller: textController,
+        singleTaskModel: sampleTask,
       ),
       floatingActionButton: showFab
           ? Container(

@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app_main_screen/consts/button_colors.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
+import 'package:todo_app_main_screen/models/single_task_model.dart';
 import 'package:todo_app_main_screen/ui/screens/task_page.dart';
 
 class SingleTaskWidget extends StatelessWidget {
-  final Color colorful;
-  final Color active;
-  final String task;
+  final SingleTaskModel singleTaskModel;
 
   const SingleTaskWidget({
     Key? key,
-    required this.colorful,
-    required this.active,
-    required this.task,
+    required this.singleTaskModel,
   }) : super(key: key);
 
   @override
@@ -19,7 +17,7 @@ class SingleTaskWidget extends StatelessWidget {
     return SizedBox(
       width: 378,
       child: InkWell(
-        onTap: () => Navigator.pushNamed(context, TaskPage.routeName),
+        onTap: () => Navigator.pushNamed(context, TaskPage.routeName, arguments: singleTaskModel),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -29,7 +27,7 @@ class SingleTaskWidget extends StatelessWidget {
                 bottom: 11,
               ),
               child: Text(
-                task,
+                singleTaskModel.task,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
                 style: const TextStyle(
@@ -46,7 +44,10 @@ class SingleTaskWidget extends StatelessWidget {
                   width: 32,
                   padding: const EdgeInsets.symmetric(vertical: 6),
                   decoration: BoxDecoration(
-                    color: colorful,
+                    color: singleTaskModel.colorIndex >= 0 &&
+                            singleTaskModel.colorIndex < buttonColors.length
+                        ? buttonColors[singleTaskModel.colorIndex]
+                        : Colors.transparent,
                     borderRadius: const BorderRadius.all(
                       Radius.circular(8),
                     ),
@@ -60,7 +61,9 @@ class SingleTaskWidget extends StatelessWidget {
                   width: 32,
                   padding: const EdgeInsets.symmetric(vertical: 6),
                   decoration: BoxDecoration(
-                    color: active,
+                    color: singleTaskModel.isActive
+                        ? textColor
+                        : Colors.transparent,
                     borderRadius: const BorderRadius.all(
                       Radius.circular(8),
                     ),

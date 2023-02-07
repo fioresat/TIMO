@@ -63,7 +63,6 @@ class _OptionsPanelWidgetState extends State<OptionsPanelWidget> {
             alignment: Alignment.centerLeft,
             child: ColorsWidget(
               width: widget.width,
-              colors: widget.colors,
             ),
           ),
           OptionsWidget(

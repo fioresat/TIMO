@@ -1,15 +1,16 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
+import 'package:todo_app_main_screen/models/single_task_model.dart';
+import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/single_task_widget.dart';
 
 class TasksWidget extends StatefulWidget {
   final bool isPanelOpen;
   final double height;
-  final List<Widget> tasks;
+  final List<SingleTaskModel> tasks;
   final ScrollController controller;
   final PanelController panelController;
   final void Function()? onPressed;
@@ -36,7 +37,7 @@ class _TasksWidgetState extends State<TasksWidget> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> tasks = widget.tasks;
+    List<SingleTaskModel> tasks = widget.tasks;
     return Padding(
       padding: const EdgeInsets.only(left: 25, right: 25),
       child: Column(
@@ -112,7 +113,9 @@ class _TasksWidgetState extends State<TasksWidget> {
                     ),
                     child: Card(
                       elevation: 0,
-                      child: tasks[index],
+                      child: SingleTaskWidget(
+                        singleTaskModel: tasks[index],
+                      ),
                     ),
                   );
                 }),

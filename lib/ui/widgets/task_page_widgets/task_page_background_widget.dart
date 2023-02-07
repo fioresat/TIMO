@@ -3,12 +3,13 @@ import 'package:intl/intl.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
+import 'package:todo_app_main_screen/models/single_task_model.dart';
 import 'package:todo_app_main_screen/ui/widgets/colors_widget.dart';
 
 class TaskPageBackgroundWidget extends StatefulWidget {
   final double height;
   final double width;
-  final String title;
+  final SingleTaskModel singleTaskModel;
   final void Function() onReminderTap;
   final void Function() onTitleTap;
   final void Function() onMoveToTap;
@@ -22,9 +23,9 @@ class TaskPageBackgroundWidget extends StatefulWidget {
       required this.onReminderTap,
       required this.onTitleTap,
       required this.onMoveToTap,
-      required this.title,
       required this.colors,
-      required this.controller})
+      required this.controller,
+      required this.singleTaskModel})
       : super(key: key);
 
   @override
@@ -39,17 +40,17 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
   @override
   void initState() {
     super.initState();
-    widget.controller.text = widget.title;
+    widget.controller.text = widget.singleTaskModel.task;
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTapDown: (_) {
-          setState(() {
-            FocusManager.instance.primaryFocus?.unfocus();
-            isTapped = false;
-          });
+        setState(() {
+          FocusManager.instance.primaryFocus?.unfocus();
+          isTapped = false;
+        });
       },
       child: Padding(
         padding: EdgeInsets.only(
@@ -83,13 +84,15 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
                 fontWeight: FontWeight.w900,
                 color: darkColor,
               ),
-              onChanged: (String newText) =>
-                  setState(() {
-                    widget.title == newText;
-                  }),
+              onChanged: (String newText) => setState(() {
+                widget.singleTaskModel.task == newText;
+              }),
               onSubmitted: (_) => setState(() {
                 isTapped = false;
               }),
+              onTapOutside: (_) {
+                FocusManager.instance.primaryFocus?.unfocus();
+              },
             ),
             SizedBox(
               height: widget.height * 0.03,
@@ -113,7 +116,7 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
                   ),
                   ColorsWidget(
                     width: widget.width,
-                    colors: widget.colors,
+                    selectedIndex: widget.singleTaskModel.colorIndex,
                   ),
                   SizedBox(
                     height: widget.height * 0.04,

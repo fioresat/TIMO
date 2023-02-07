@@ -71,7 +71,9 @@ class _NewTaskPageBackgroundWidgetState
               keyboardType: TextInputType.multiline,
               maxLines: 99999,
               cursorColor: Colors.black,
-              onTapOutside:(_) {FocusManager.instance.primaryFocus?.unfocus();},
+              onTapOutside: (_) {
+                FocusManager.instance.primaryFocus?.unfocus();
+              },
             ),
           ),
           Padding(

@@ -86,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
             });
           },
           isPanelOpen: panelController.isPanelOpen,
-          tasks: testTasks,
+          tasks: sampleTasks,
           controller: scrollController,
           panelController: panelController,
           height: panelController.isPanelOpen
