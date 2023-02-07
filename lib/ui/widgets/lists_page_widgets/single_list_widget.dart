@@ -66,7 +66,7 @@ class _SingleListWidgetState extends State<SingleListWidget> {
                   ),
                 ),
                 SizedBox(
-                  width: 80,
+                  width: 100,
                   child: Row(
                     children: [
                       Image.asset(
@@ -78,20 +78,26 @@ class _SingleListWidgetState extends State<SingleListWidget> {
                       const SizedBox(
                         width: 5,
                       ),
-                      Expanded(
+                      Flexible(
+                        flex: 2,
                         child: TextField(
                           maxLines: 1,
+                          scrollPhysics: const NeverScrollableScrollPhysics(),
                           style: const TextStyle(
                             color: darkColor,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.start,
                           controller: controller,
                           cursorColor: darkColor,
                           cursorHeight: 18,
                           decoration: const InputDecoration(
+                            isDense: true,
                             border: InputBorder.none,
                           ),
+                          onSubmitted: (String newText) => setState(() {
+                            widget.title == newText;
+                          }),
                         ),
                       ),
                     ],

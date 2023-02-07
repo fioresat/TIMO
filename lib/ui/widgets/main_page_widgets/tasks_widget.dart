@@ -30,6 +30,20 @@ class TasksWidget extends StatefulWidget {
 }
 
 class _TasksWidgetState extends State<TasksWidget> {
+  Timer? _timer;
+  Duration _duration = const Duration(seconds: 5);
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     List<Widget> tasks = widget.tasks;
@@ -47,12 +61,13 @@ class _TasksWidgetState extends State<TasksWidget> {
           ),
           SizedBox(
             height: 0.9 * widget.height,
-            child:
-                ReorderableListView.builder(
-                scrollController: widget.controller,
+            child: ListView.builder(
+                controller: widget.controller,
+                physics: const BouncingScrollPhysics(),
+                //scrollController: widget.controller,
                 itemCount: tasks.length,
                 //shrinkWrap: true,
-                onReorder: reorderData,
+                //onReorder: reorderData,
                 itemBuilder: (BuildContext context, int index) {
                   return Slidable(
                     key: ValueKey(tasks[index]),
@@ -180,18 +195,39 @@ class _TasksWidgetState extends State<TasksWidget> {
           });
   }
 
+  void startTimer() {
+    _timer =
+        Timer.periodic(Duration(seconds: 1), (_) => setCountDown());
+  }
+
+  void setCountDown() {
+    const reduceSecondsBy = 1;
+    setState(() {
+      final seconds = _duration.inSeconds - reduceSecondsBy;
+      if (seconds < 0) {
+        _timer!.cancel();
+        Navigator.pop(context);
+      } else {
+        _duration = Duration(seconds: seconds);
+      }
+    });
+  }
+
   void _undo(List tasks, int index) {
     Widget deletedItem = tasks.removeAt(index);
     showCupertinoModalPopup<void>(
       context: context,
       builder: (BuildContext context) => CupertinoAlertDialog(
-        title: const Text('AlertDialog Title'),
+        title: Text('The task will be deleted in ${_duration.inSeconds.remainder(60)} seconds'),
         actions: <CupertinoDialogAction>[
           CupertinoDialogAction(
               child: const Text('Undo'),
               onPressed: () {
+                startTimer();
                 setState(
-                  () => tasks.insert(index, deletedItem),
+                  () {
+                    tasks.insert(index, deletedItem);
+                  },
                 );
                 Navigator.of(context).pop();
               }),

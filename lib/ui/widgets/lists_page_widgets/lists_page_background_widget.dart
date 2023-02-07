@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/button_colors.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
-import 'package:todo_app_main_screen/ui/screens/lists_page.dart';
 import 'package:todo_app_main_screen/ui/screens/settings_page.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_page_widgets/options_panel_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_page_widgets/single_list_widget.dart';
@@ -82,15 +80,19 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
               child: widget.lists.isEmpty
                   ? Align(
                       alignment: Alignment.centerLeft,
-                      child: AddButtonWidget(
-                        onAddButtonTap: () {
-                          widget.onAddButtonTap();
-                        },
-                        width: widget.width,
-                        height: widget.height,
+                      child: Padding(
+                        padding: EdgeInsets.only(top: widget.height * 0.04),
+                        child: AddButtonWidget(
+                          onAddButtonTap: () {
+                            widget.onAddButtonTap();
+                          },
+                          width: widget.width,
+                          height: widget.height,
+                        ),
                       ),
                     )
                   : GridView.count(
+                      physics: const BouncingScrollPhysics(),
                       crossAxisCount: 2,
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,

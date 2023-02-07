@@ -32,16 +32,16 @@ class _ListsPageState extends State<ListsPage> {
     double heightScreen = MediaQuery.of(context).size.height;
     return Scaffold(
       body: ListsPageBackgroundWidget(
-        height: heightScreen,
-        width: widthScreen,
-        onPressed: () {},
-        lists: sampleLists,
-        onAddButtonTap: () => SlidingPanelHelper().onAddNewListPressed(
-          widthScreen,
-          heightScreen,
-          context,
+          height: heightScreen,
+          width: widthScreen,
+          onPressed: () {},
+          lists: sampleLists,
+          onAddButtonTap: () => SlidingPanelHelper().onAddNewListPressed(
+            widthScreen,
+            heightScreen,
+            context,
+          ),
         ),
-      ),
     );
   }
 }
