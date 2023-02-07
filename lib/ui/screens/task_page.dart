@@ -4,10 +4,9 @@ import 'package:todo_app_main_screen/consts/button_colors.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
-import 'package:todo_app_main_screen/ui/screens/lists_page.dart';
+import 'package:todo_app_main_screen/sample_data/sample_data.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_panel_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/task_page_widgets/task_page_background_widget.dart';
-import 'my_home_page.dart';
 
 class TaskPage extends StatefulWidget {
   static const routeName = '/task_page';
@@ -23,6 +22,11 @@ class TaskPage extends StatefulWidget {
 class _TaskPageState extends State<TaskPage> {
   final listController = TextEditingController();
   final textController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

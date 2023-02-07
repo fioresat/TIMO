@@ -5,8 +5,8 @@ import 'package:todo_app_main_screen/consts/strings.dart';
 import 'package:todo_app_main_screen/models/settings_model.dart';
 import 'package:todo_app_main_screen/ui/screens/language_page.dart';
 
-List<Settings> settingsList = [
-  Settings(
+List<SettingsModel> settingsList = [
+  SettingsModel(
     route: '',
     url: 'https://flutter.dev/',
     widget: SettingsWidget(
@@ -14,7 +14,7 @@ List<Settings> settingsList = [
       trailing: settingsImage,
     ),
   ),
-  Settings(
+  SettingsModel(
     route: LanguagePage.routeName,
     url: '',
     widget: const SettingsWidget(
@@ -29,7 +29,7 @@ List<Settings> settingsList = [
       ),
     ),
   ),
-  Settings(
+  SettingsModel(
     route: '',
     url: '',
     widget: SettingsWidget(
@@ -37,7 +37,7 @@ List<Settings> settingsList = [
       trailing: Container(),
     ),
   ),
-  Settings(
+  SettingsModel(
     route: '',
     url: 'https://flutter.dev/',
     widget: SettingsWidget(
@@ -45,7 +45,7 @@ List<Settings> settingsList = [
       trailing: settingsImage,
     ),
   ),
-  Settings(
+  SettingsModel(
     route: '',
     url: 'https://flutter.dev/',
     widget: SettingsWidget(

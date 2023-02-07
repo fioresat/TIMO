@@ -69,7 +69,7 @@ class _LanguagePageState extends State<LanguagePage> {
                     return const Divider();
                   },
                   itemCount: languageList.length),
-            )
+            ),
           ],
         ),
       ),

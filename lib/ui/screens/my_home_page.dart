@@ -2,93 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
-import 'package:todo_app_main_screen/consts/strings.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
+import 'package:todo_app_main_screen/sample_data/sample_data.dart';
 import 'package:todo_app_main_screen/ui/screens/lists_page.dart';
 import 'package:todo_app_main_screen/ui/screens/new_task_page.dart';
 import 'package:todo_app_main_screen/ui/style.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_panel_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/main_page_background_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/tasks_widget.dart';
-import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/single_task_widget.dart';
-
-List<Widget> testTasks = [
-  const SingleTaskWidget(
-    task: TestStrings.task1,
-    active: textColor,
-    colorful: lightBlueColor,
-  ),
-  const SingleTaskWidget(
-    task: TestStrings.task2,
-    active: Colors.transparent,
-    colorful: Colors.transparent,
-  ),
-  const SingleTaskWidget(
-    task: TestStrings.task3,
-    active: Colors.transparent,
-    colorful: Colors.transparent,
-  ),
-  const SingleTaskWidget(
-    task: TestStrings.task1,
-    active: textColor,
-    colorful: lightBlueColor,
-  ),
-  const SingleTaskWidget(
-    task: TestStrings.task2,
-    active: Colors.transparent,
-    colorful: Colors.transparent,
-  ),
-  const SingleTaskWidget(
-    task: TestStrings.task3,
-    active: Colors.transparent,
-    colorful: Colors.transparent,
-  ),
-  const SingleTaskWidget(
-    task: TestStrings.task1,
-    active: textColor,
-    colorful: lightBlueColor,
-  ),
-  const SingleTaskWidget(
-    task: TestStrings.task2,
-    active: Colors.transparent,
-    colorful: Colors.transparent,
-  ),
-  const SingleTaskWidget(
-    task: TestStrings.task3,
-    active: Colors.transparent,
-    colorful: Colors.transparent,
-  ),
-  const SingleTaskWidget(
-    task: TestStrings.task1,
-    active: textColor,
-    colorful: lightBlueColor,
-  ),
-  const SingleTaskWidget(
-    task: TestStrings.task2,
-    active: Colors.transparent,
-    colorful: Colors.transparent,
-  ),
-  const SingleTaskWidget(
-    task: TestStrings.task3,
-    active: Colors.transparent,
-    colorful: Colors.transparent,
-  ),
-  const SingleTaskWidget(
-    task: TestStrings.task1,
-    active: textColor,
-    colorful: lightBlueColor,
-  ),
-  const SingleTaskWidget(
-    task: TestStrings.task2,
-    active: Colors.transparent,
-    colorful: Colors.transparent,
-  ),
-  const SingleTaskWidget(
-    task: TestStrings.task3,
-    active: Colors.transparent,
-    colorful: Colors.transparent,
-  ),
-];
 
 
 
@@ -107,6 +28,11 @@ class _MyHomePageState extends State<MyHomePage> {
   bool isMoveTo = false; //manage add floating action button visibility
   final scrollController = ScrollController();
   final listController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -149,8 +75,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   });
                 },
                 onAddNewListPressed: () {
-                  SlidingPanelHelper().onAddNewListPressed(
-                      widthScreen, heightScreen, context);
+                  SlidingPanelHelper()
+                      .onAddNewListPressed(widthScreen, heightScreen, context);
                 },
               ),
               context,
@@ -183,6 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
               children: <Widget>[
                 isDeleted
                     ? FloatingActionButton(
+                        heroTag: "fab1",
                         backgroundColor: textColor,
                         onPressed: () {},
                         child: const Icon(Icons.undo),
@@ -191,6 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 isMoveTo
                     ? Container()
                     : FloatingActionButton(
+                        heroTag: "fab2",
                         backgroundColor: textColor,
                         onPressed: () {
                           Navigator.pushNamed(context, NewTaskPage.routeName);

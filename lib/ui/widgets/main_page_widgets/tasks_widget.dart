@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -30,18 +29,9 @@ class TasksWidget extends StatefulWidget {
 }
 
 class _TasksWidgetState extends State<TasksWidget> {
-  Timer? _timer;
-  Duration _duration = const Duration(seconds: 5);
-
   @override
   void initState() {
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    super.dispose();
   }
 
   @override
@@ -62,6 +52,7 @@ class _TasksWidgetState extends State<TasksWidget> {
           SizedBox(
             height: 0.9 * widget.height,
             child: ListView.builder(
+                padding: EdgeInsets.zero,
                 controller: widget.controller,
                 physics: const BouncingScrollPhysics(),
                 //scrollController: widget.controller,
@@ -195,44 +186,43 @@ class _TasksWidgetState extends State<TasksWidget> {
           });
   }
 
-  void startTimer() {
-    _timer =
-        Timer.periodic(Duration(seconds: 1), (_) => setCountDown());
-  }
-
-  void setCountDown() {
-    const reduceSecondsBy = 1;
-    setState(() {
-      final seconds = _duration.inSeconds - reduceSecondsBy;
-      if (seconds < 0) {
-        _timer!.cancel();
-        Navigator.pop(context);
-      } else {
-        _duration = Duration(seconds: seconds);
-      }
-    });
-  }
-
   void _undo(List tasks, int index) {
+    Duration duration = const Duration(seconds: 5);
     Widget deletedItem = tasks.removeAt(index);
     showCupertinoModalPopup<void>(
       context: context,
-      builder: (BuildContext context) => CupertinoAlertDialog(
-        title: Text('The task will be deleted in ${_duration.inSeconds.remainder(60)} seconds'),
-        actions: <CupertinoDialogAction>[
-          CupertinoDialogAction(
-              child: const Text('Undo'),
-              onPressed: () {
-                startTimer();
-                setState(
-                  () {
-                    tasks.insert(index, deletedItem);
-                  },
-                );
-                Navigator.of(context).pop();
-              }),
-        ],
-      ),
+      builder: (BuildContext context) {
+        return TweenAnimationBuilder<Duration>(
+            duration: duration,
+            tween: Tween(begin: duration, end: Duration.zero),
+            onEnd: () {
+              Navigator.of(context).pop(true);
+            },
+            builder: (BuildContext context, Duration value, Widget? child) {
+              final seconds = value.inSeconds % 60;
+              return CupertinoAlertDialog(
+                title: Text('The task will be deleted in $seconds seconds'),
+                actions: <CupertinoDialogAction>[
+                  CupertinoDialogAction(
+                      child: const Text('Undo'),
+                      onPressed: () {
+                        setState(
+                          () {
+                            tasks = tasks..insert(index, deletedItem);
+                          },
+                        );
+                        Navigator.of(context).pop();
+                      }),
+                  CupertinoDialogAction(
+                      isDestructiveAction: true,
+                      child: const Text('Delete'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      }),
+                ],
+              );
+            });
+      },
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
-import 'package:todo_app_main_screen/ui/screens/lists_page.dart';
+import 'package:todo_app_main_screen/sample_data/sample_data.dart';
 import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
 
 import 'black_button_widget.dart';
@@ -69,7 +69,7 @@ class _AddNewListPanelWidgetState extends State<AddNewListPanelWidget> {
                 if (controller.text.isNotEmpty) {
                   setState(() {
                     //sampleLists.insert(sampleLists.length-1,controller.text);
-                    sampleLists.add(controller.text);
+                    sampleLists = sampleLists..add(controller.text);
                   });
                 }
                 widget.onTapClose();
