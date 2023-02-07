@@ -94,7 +94,7 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                   : GridView.count(
                       physics: const BouncingScrollPhysics(),
                       crossAxisCount: 2,
-                      scrollDirection: Axis.vertical,
+                      //scrollDirection: Axis.vertical,
                       shrinkWrap: true,
                       childAspectRatio: 1.5 / 2.5,
                       crossAxisSpacing: widget.width * 0.1,

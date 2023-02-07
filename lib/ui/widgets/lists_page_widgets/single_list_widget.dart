@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 
-import 'add_button_widget.dart';
-
 class SingleListWidget extends StatefulWidget {
   final double height;
   final double width;
@@ -39,72 +37,73 @@ class _SingleListWidgetState extends State<SingleListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return  InkWell(
-            onTap: widget.onListTap,
-            child: Column(
+    return InkWell(
+      onTap: widget.onListTap,
+      child: Column(
+        children: [
+          Container(
+            height: widget.height * 0.20,
+            decoration: BoxDecoration(
+              color: lightBlueColor,
+              borderRadius: BorderRadius.circular(26),
+            ),
+            child: Stack(
               children: [
-                Container(
-                  height: widget.height * 0.20,
-                  decoration: BoxDecoration(
-                    color: lightBlueColor,
-                    borderRadius: BorderRadius.circular(26),
-                  ),
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        right: 10,
-                        top: 10,
-                        child: InkWell(
-                          onTap: widget.onOptionsTap,
-                          child: Image.asset(
-                            AppIcons.options,
-                            scale: 3,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  width: 100,
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        AppIcons.userPoint,
-                        scale: 3,
-                        color:
-                            widget.isTapped ? Colors.black : Colors.transparent,
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Flexible(
-                        flex: 2,
-                        child: TextField(
-                          maxLines: 1,
-                          scrollPhysics: const NeverScrollableScrollPhysics(),
-                          style: const TextStyle(
-                            color: darkColor,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          textAlign: TextAlign.start,
-                          controller: controller,
-                          cursorColor: darkColor,
-                          cursorHeight: 18,
-                          decoration: const InputDecoration(
-                            isDense: true,
-                            border: InputBorder.none,
-                          ),
-                          onSubmitted: (String newText) => setState(() {
-                            widget.title == newText;
-                          }),
-                        ),
-                      ),
-                    ],
+                Positioned(
+                  right: 10,
+                  top: 10,
+                  child: InkWell(
+                    onTap: widget.onOptionsTap,
+                    child: Image.asset(
+                      AppIcons.options,
+                      scale: 3,
+                    ),
                   ),
                 ),
               ],
             ),
-          );
+          ),
+          SizedBox(
+            width: 100,
+            height: 33,
+            child: Row(
+              children: [
+                Image.asset(
+                  AppIcons.userPoint,
+                  scale: 3,
+                  color: widget.isTapped ? Colors.black : Colors.transparent,
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Expanded(
+                  flex: 2,
+                  child: TextField(
+                    autofocus: true,
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    //scrollPhysics: const NeverScrollableScrollPhysics(),
+                    style: const TextStyle(
+                      color: darkColor,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    controller: controller,
+                    cursorColor: darkColor,
+                    cursorHeight: 18,
+                    decoration: const InputDecoration(
+                      isDense: true,
+                      border: InputBorder.none,
+                    ),
+                    onTapOutside: (_) {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

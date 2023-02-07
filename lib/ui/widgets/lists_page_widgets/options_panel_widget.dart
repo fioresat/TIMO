@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/ui/widgets/colors_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
 
@@ -71,11 +72,13 @@ class _OptionsPanelWidgetState extends State<OptionsPanelWidget> {
             },
             height: widget.height,
             optionTitle: 'Rename',
+            textColor: textColor,
           ),
           OptionsWidget(
             onOptionTap: () {},
             height: widget.height,
             optionTitle: 'Thumbnail',
+            textColor: textColor,
           ),
           OptionsWidget(
             onOptionTap: () {
@@ -83,6 +86,7 @@ class _OptionsPanelWidgetState extends State<OptionsPanelWidget> {
             },
             height: widget.height,
             optionTitle: 'Delete',
+            textColor: removeColor,
           ),
           SizedBox(
             height: 0.03 * widget.height,
@@ -97,12 +101,14 @@ class OptionsWidget extends StatelessWidget {
   final Function() onOptionTap;
   final double height;
   final String optionTitle;
+  final Color textColor;
 
   const OptionsWidget({
     Key? key,
     required this.onOptionTap,
     required this.height,
     required this.optionTitle,
+    required this.textColor,
   }) : super(key: key);
 
   @override
@@ -120,6 +126,7 @@ class OptionsWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 0.025 * height,
               fontWeight: FontWeight.w700,
+              color: textColor,
             ),
           ),
         ),
