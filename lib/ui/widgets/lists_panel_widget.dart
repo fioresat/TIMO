@@ -45,7 +45,9 @@ class _ListsPanelWidgetState extends State<ListsPanelWidget> {
           Padding(
             padding: const EdgeInsets.only(bottom: 10.0),
             child: BlackButtonWidget(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pop(context);
+              },
               width: widget.width - 50,
               borderRadius: const BorderRadius.all(
                 Radius.elliptical(12, 12),

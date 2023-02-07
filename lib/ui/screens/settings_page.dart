@@ -104,5 +104,5 @@ class _SettingsPageState extends State<SettingsPage> {
     } else {
       throw 'Could not launch $url';
     }
-  }
+   }
 }

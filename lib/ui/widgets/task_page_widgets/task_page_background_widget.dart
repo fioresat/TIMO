@@ -247,7 +247,7 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

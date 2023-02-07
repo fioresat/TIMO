@@ -77,7 +77,6 @@ class _SingleListWidgetState extends State<SingleListWidget> {
                   width: 5,
                 ),
                 Expanded(
-                  flex: 2,
                   child: TextField(
                     autofocus: true,
                     textAlign: TextAlign.center,

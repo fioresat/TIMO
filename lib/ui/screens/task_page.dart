@@ -30,7 +30,8 @@ class _TaskPageState extends State<TaskPage> {
 
   @override
   Widget build(BuildContext context) {
-    final sampleTask = ModalRoute.of(context)!.settings.arguments as SingleTaskModel;
+    final sampleTask =
+        ModalRoute.of(context)!.settings.arguments as SingleTaskModel;
     double widthScreen = MediaQuery.of(context).size.width;
     double heightScreen = MediaQuery.of(context).size.height;
     final bool showFab = MediaQuery.of(context).viewInsets.bottom == 0.0;
@@ -85,7 +86,7 @@ class _TaskPageState extends State<TaskPage> {
                       AppIcons.moveTo,
                       scale: 3,
                     ),
-                  )
+                  ),
                 ],
               ),
             )

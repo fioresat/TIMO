@@ -5,8 +5,11 @@ class PanelCloseWidget extends StatelessWidget {
   final void Function() onTapClose;
   final double height;
 
-  const PanelCloseWidget({Key? key, required this.onTapClose, required this.height})
-      : super(key: key);
+  const PanelCloseWidget({
+    Key? key,
+    required this.onTapClose,
+    required this.height,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

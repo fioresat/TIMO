@@ -17,7 +17,11 @@ class SingleTaskWidget extends StatelessWidget {
     return SizedBox(
       width: 378,
       child: InkWell(
-        onTap: () => Navigator.pushNamed(context, TaskPage.routeName, arguments: singleTaskModel),
+        onTap: () => Navigator.pushNamed(
+          context,
+          TaskPage.routeName,
+          arguments: singleTaskModel,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

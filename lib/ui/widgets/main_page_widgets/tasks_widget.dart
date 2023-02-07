@@ -189,9 +189,9 @@ class _TasksWidgetState extends State<TasksWidget> {
           });
   }
 
-  void _undo(List tasks, int index) {
+  void _undo(List<SingleTaskModel> tasks, int index) {
     Duration duration = const Duration(seconds: 5);
-    Widget deletedItem = tasks.removeAt(index);
+    SingleTaskModel deletedItem = tasks.removeAt(index);
     showCupertinoModalPopup<void>(
       context: context,
       builder: (BuildContext context) {

@@ -55,9 +55,13 @@ class _ReminderPanelWidgetState extends State<ReminderPanelWidget> {
           Padding(
             padding: const EdgeInsets.only(bottom: 10.0),
             child: BlackButtonWidget(
-              onPressed: () {Navigator.pop(context);},
+              onPressed: () {
+                Navigator.pop(context);
+              },
               width: widget.width - 50,
-              borderRadius: const BorderRadius.all(Radius.elliptical(12, 12)),
+              borderRadius: const BorderRadius.all(
+                Radius.elliptical(12, 12),
+              ),
               child: const Text(
                 TestStrings.saveReminderButton,
                 style: TextStyle(color: backgroundColor),
