@@ -26,7 +26,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool isMoveTo = false; //manage add floating action button visibility
   final scrollController = ScrollController();
   final listController = TextEditingController();
-  bool isPanelDraggable = true;
+  bool isPanelDraggable = false;
 
   @override
   void initState() {
@@ -100,42 +100,17 @@ class _MyHomePageState extends State<MyHomePage> {
               : 0.55 * heightScreen,
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Container(
-        padding: EdgeInsets.only(
-          left: 25.0,
-          right: 25.0,
-          top: 0.0086 * heightScreen, // ToDo
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                isDeleted
-                    ? FloatingActionButton(
-                        heroTag: "fab1",
-                        backgroundColor: textColor,
-                        onPressed: () {},
-                        child: const Icon(Icons.undo),
-                      )
-                    : Container(),
-                isMoveTo
-                    ? Container()
-                    : FloatingActionButton(
-                        heroTag: "fab2",
-                        backgroundColor: textColor,
-                        onPressed: () {
-                          Navigator.pushNamed(context, NewTaskPage.routeName);
-                        },
-                        child: Image.asset(AppIcons.addButton),
-                      ),
-              ],
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: isMoveTo
+          ? Container()
+          : FloatingActionButton(
+              heroTag: "fab2",
+              backgroundColor: textColor,
+              onPressed: () {
+                Navigator.pushNamed(context, NewTaskPage.routeName);
+              },
+              child: Image.asset(AppIcons.addButton),
             ),
-          ],
-        ),
-      ),
     );
   }
 }
