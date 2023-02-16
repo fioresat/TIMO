@@ -107,9 +107,14 @@ class _MyHomePageState extends State<MyHomePage> {
               heroTag: "fab2",
               backgroundColor: textColor,
               onPressed: () {
-                Navigator.pushNamed(context, NewTaskPage.routeName);
+                Navigator.pushNamed(
+                  context,
+                  NewTaskPage.routeName,
+                );
               },
-              child: Image.asset(AppIcons.addButton),
+              child: Image.asset(
+                AppIcons.addButton,
+              ),
             ),
     );
   }
