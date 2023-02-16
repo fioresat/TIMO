@@ -66,11 +66,10 @@ class _TasksWidgetState extends State<TasksWidget> {
                   return Slidable(
                     key: ValueKey(tasks[index]),
                     endActionPane: ActionPane(
-                      extentRatio: 0.6,
+                      extentRatio: 0.4,
                       dismissible: DismissiblePane(
                         onDismissed: () {
                           setState(() {
-                            // added this block
                             _undo(tasks, index);
                           });
                         },
@@ -78,23 +77,21 @@ class _TasksWidgetState extends State<TasksWidget> {
                       motion: const ScrollMotion(),
                       children: [
                         CustomSlidableAction(
+                          padding: EdgeInsets.zero,
                           //flex: 1,
                           onPressed: (BuildContext context) {
                             setState(() {});
                           },
                           child: InkWell(
                             onTap: widget.onPressed,
-                            child: SizedBox(
-                              width: 100,
-                              height: 56,
-                              child: Image.asset(
-                                AppIcons.moveTo,
-                                scale: 3,
-                              ),
+                            child: Image.asset(
+                              AppIcons.moveTo,
+                              scale: 3,
                             ),
                           ),
                         ),
                         CustomSlidableAction(
+                          padding: EdgeInsets.zero,
                           //flex: 2,
                           onPressed: (BuildContext context) {
                             setState(() {
@@ -102,13 +99,9 @@ class _TasksWidgetState extends State<TasksWidget> {
                               _undo(tasks, index);
                             });
                           },
-                          child: Container(
-                            width: 100,
-                            height: 56,
-                            child: Image.asset(
-                              AppIcons.delete,
-                              scale: 3,
-                            ),
+                          child: Image.asset(
+                            AppIcons.delete,
+                            scale: 3,
                           ),
                         ),
                       ],

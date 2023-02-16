@@ -1,3 +1,4 @@
+import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/button_colors.dart';
 import 'package:todo_app_main_screen/ui/widgets/single_color_widget.dart';
@@ -31,7 +32,8 @@ class _ColorsWidgetState extends State<ColorsWidget> {
           itemCount: buttonColors.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (BuildContext context, int index) {
-            return InkWell(
+            return ExpandTapWidget(
+              tapPadding: const EdgeInsets.all(20.0),
               onTap: () {
                 setState(() {
                   if (widget.selectedIndex != index) {
