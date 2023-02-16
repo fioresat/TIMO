@@ -4,18 +4,19 @@ import 'package:flutter/material.dart';
 class PanelCloseWidget extends StatelessWidget {
   final void Function() onTapClose;
   final String image;
+  final Alignment alignment;
 
   const PanelCloseWidget({
     Key? key,
     required this.onTapClose,
-    required this.image,
+    required this.image, required this.alignment,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     double heightScreen = MediaQuery.of(context).size.height;
     return Align(
-      alignment: Alignment.topRight,
+      alignment: alignment,
       child: ExpandTapWidget(
         onTap: onTapClose,
         tapPadding: const EdgeInsets.all(50.0),

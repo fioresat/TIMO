@@ -33,6 +33,7 @@ class _ReminderPanelWidgetState extends State<ReminderPanelWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           PanelCloseWidget(
+            alignment: Alignment.topRight,
             onTapClose: widget.onCloseTap,
             image: AppIcons.closeButton,
           ),

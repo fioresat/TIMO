@@ -36,6 +36,7 @@ class _ColorsPanelWidgetState extends State<ColorsPanelWidget> {
       child: Column(
         children: [
           PanelCloseWidget(
+            alignment: Alignment.topRight,
             onTapClose: widget.onTapClose,
             image: AppIcons.closeButton,
           ),

@@ -42,6 +42,7 @@ class _NewTaskPageBackgroundWidgetState
       child: Column(
         children: [
           PanelCloseWidget(
+            alignment: Alignment.topRight,
             onTapClose: Navigator.of(context).pop,
             image: AppIcons.close,
           ),

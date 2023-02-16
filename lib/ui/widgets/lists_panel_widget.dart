@@ -37,6 +37,7 @@ class _ListsPanelWidgetState extends State<ListsPanelWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           PanelCloseWidget(
+            alignment: Alignment.topRight,
             onTapClose: widget.onTapClose,
             image: AppIcons.closeButton,
           ),

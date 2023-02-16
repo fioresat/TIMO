@@ -1,3 +1,4 @@
+import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
@@ -35,7 +36,8 @@ class _SettingsPageState extends State<SettingsPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  InkWell(
+                  ExpandTapWidget(
+                    tapPadding: const EdgeInsets.all(50.0),
                     onTap: () => Navigator.pop(context),
                     child: Image.asset(
                       AppIcons.close,
@@ -104,5 +106,5 @@ class _SettingsPageState extends State<SettingsPage> {
     } else {
       throw 'Could not launch $url';
     }
-   }
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/button_colors.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
@@ -54,7 +55,8 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                InkWell(
+                ExpandTapWidget(
+                  tapPadding: const EdgeInsets.all(50.0),
                   onTap: () => Navigator.pushNamed(
                     context,
                     SettingsPage.routeName,

@@ -1,4 +1,3 @@
-import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
@@ -6,6 +5,7 @@ import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
 import 'package:todo_app_main_screen/models/single_task_model.dart';
 import 'package:todo_app_main_screen/ui/widgets/colors_widget.dart';
+import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
 
 class TaskPageBackgroundWidget extends StatefulWidget {
   final double height;
@@ -60,15 +60,11 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
             left: 25,
             right: 25),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ExpandTapWidget(
-              tapPadding: const EdgeInsets.all(50.0),
-              onTap: () => Navigator.pop(context),
-              child: Image.asset(
-                AppIcons.back,
-                scale: 3,
-              ),
+            PanelCloseWidget(
+              alignment: Alignment.topLeft,
+              onTapClose: () => Navigator.pop(context),
+              image: AppIcons.back,
             ),
             SizedBox(
               height: widget.height * 0.05,

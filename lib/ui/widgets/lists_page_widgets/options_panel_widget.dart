@@ -41,6 +41,7 @@ class _OptionsPanelWidgetState extends State<OptionsPanelWidget> {
             height: 0.01 * widget.height,
           ),
           PanelCloseWidget(
+            alignment: Alignment.topRight,
             onTapClose: widget.onTapClose,
             image: AppIcons.closeButton,
           ),

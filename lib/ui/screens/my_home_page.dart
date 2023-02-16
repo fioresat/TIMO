@@ -38,6 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
     double widthScreen = MediaQuery.of(context).size.width;
     double heightScreen = MediaQuery.of(context).size.height;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: secondBackgroundColor,
       body: SlidingUpPanel(
         isDraggable: isPanelDraggable,
