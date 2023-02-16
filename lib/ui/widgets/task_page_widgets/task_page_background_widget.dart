@@ -1,3 +1,4 @@
+import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
@@ -55,13 +56,14 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
       child: Padding(
         padding: EdgeInsets.only(
             bottom: widget.height * 0.017,
-            top: widget.height * 0.048,
+            top: widget.height * 0.058,
             left: 25,
             right: 25),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            InkWell(
+            ExpandTapWidget(
+              tapPadding: const EdgeInsets.all(50.0),
               onTap: () => Navigator.pop(context),
               child: Image.asset(
                 AppIcons.back,

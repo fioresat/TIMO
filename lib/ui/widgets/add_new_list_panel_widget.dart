@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
 import 'package:todo_app_main_screen/sample_data/sample_data.dart';
@@ -39,7 +40,7 @@ class _AddNewListPanelWidgetState extends State<AddNewListPanelWidget> {
         children: [
           PanelCloseWidget(
             onTapClose: widget.onTapClose,
-            height: widget.height,
+            image: AppIcons.closeButton,
           ),
           TextField(
             textCapitalization: TextCapitalization.sentences,

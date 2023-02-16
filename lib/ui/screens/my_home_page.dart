@@ -28,6 +28,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool isMoveTo = false; //manage add floating action button visibility
   final scrollController = ScrollController();
   final listController = TextEditingController();
+  bool isPanelDraggable = true;
 
   @override
   void initState() {
@@ -36,12 +37,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     double widthScreen = MediaQuery.of(context).size.width;
     double heightScreen = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: secondBackgroundColor,
       body: SlidingUpPanel(
-        isDraggable: false,
+        isDraggable: isPanelDraggable,
         backdropEnabled: true,
         backdropColor: Colors.white,
         backdropOpacity: 1,

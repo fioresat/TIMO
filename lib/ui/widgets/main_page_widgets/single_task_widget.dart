@@ -43,22 +43,25 @@ class SingleTaskWidget extends StatelessWidget {
             ),
             Row(
               children: [
-                Container(
-                  height: 5,
-                  width: 32,
-                  padding: const EdgeInsets.symmetric(vertical: 6),
-                  decoration: BoxDecoration(
-                    color: singleTaskModel.colorIndex >= 0 &&
-                            singleTaskModel.colorIndex < buttonColors.length
-                        ? buttonColors[singleTaskModel.colorIndex]
-                        : Colors.transparent,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(8),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 10,
+                singleTaskModel.colorIndex >= 0 &&
+                        singleTaskModel.colorIndex < buttonColors.length
+                    ? Container(
+                        height: 5,
+                        width: 32,
+                        padding: const EdgeInsets.symmetric(vertical: 6),
+                        decoration: BoxDecoration(
+                          color: buttonColors[singleTaskModel.colorIndex],
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(8),
+                          ),
+                        ),
+                      )
+                    : const SizedBox(),
+                SizedBox(
+                  width: singleTaskModel.colorIndex >= 0 &&
+                          singleTaskModel.colorIndex < buttonColors.length
+                      ? 10
+                      : 0,
                 ),
                 Container(
                   height: 5,

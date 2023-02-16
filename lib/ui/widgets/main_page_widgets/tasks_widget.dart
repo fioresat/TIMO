@@ -55,11 +55,13 @@ class _TasksWidgetState extends State<TasksWidget> {
             child: ListView.builder(
                 padding: EdgeInsets.zero,
                 controller: widget.controller,
-                physics: const BouncingScrollPhysics(),
+                physics: widget.panelController.isPanelOpen
+                    ? const BouncingScrollPhysics()
+                    : const NeverScrollableScrollPhysics(),
                 //scrollController: widget.controller,
                 itemCount: tasks.length,
                 //shrinkWrap: true,
-                //onReorder: reorderData,
+                //onReorder: widget.panelController.isPanelOpen ? reorderData : (){},
                 itemBuilder: (BuildContext context, int index) {
                   return Slidable(
                     key: ValueKey(tasks[index]),

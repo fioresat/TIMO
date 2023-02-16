@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
 import 'package:todo_app_main_screen/ui/widgets/black_button_widget.dart';
@@ -33,7 +34,7 @@ class _ReminderPanelWidgetState extends State<ReminderPanelWidget> {
         children: [
           PanelCloseWidget(
             onTapClose: widget.onCloseTap,
-            height: widget.height,
+            image: AppIcons.closeButton,
           ),
           Text(
             TestStrings.reminder,
@@ -42,18 +43,26 @@ class _ReminderPanelWidgetState extends State<ReminderPanelWidget> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(
-            height: 0.27 * widget.height,
-            child: CupertinoDatePicker(
-                initialDateTime: DateTime.now(),
-                onDateTimeChanged: (val) {
-                  setState(() {
-                    _chosenDateTime = val;
-                  });
-                }),
+          Padding(
+            padding: EdgeInsets.only(
+              bottom: 0.05 * widget.height,
+              top: 0.03 * widget.height,
+            ),
+            child: SizedBox(
+              height: 0.27 * widget.height,
+              child: CupertinoDatePicker(
+                  initialDateTime: DateTime.now(),
+                  onDateTimeChanged: (val) {
+                    setState(() {
+                      _chosenDateTime = val;
+                    });
+                  }),
+            ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 10.0),
+            padding: EdgeInsets.only(
+              bottom: 0.04 * widget.height,
+            ),
             child: BlackButtonWidget(
               onPressed: () {
                 Navigator.pop(context);

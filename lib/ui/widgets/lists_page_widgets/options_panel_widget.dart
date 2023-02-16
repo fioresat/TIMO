@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/ui/widgets/colors_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
@@ -41,7 +42,7 @@ class _OptionsPanelWidgetState extends State<OptionsPanelWidget> {
           ),
           PanelCloseWidget(
             onTapClose: widget.onTapClose,
-            height: widget.height,
+            image: AppIcons.closeButton,
           ),
           SizedBox(
             height: 0.01 * widget.height,

@@ -1,25 +1,27 @@
+import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_app_main_screen/consts/app_icons.dart';
 
 class PanelCloseWidget extends StatelessWidget {
   final void Function() onTapClose;
-  final double height;
+  final String image;
 
   const PanelCloseWidget({
     Key? key,
     required this.onTapClose,
-    required this.height,
+    required this.image,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    double heightScreen = MediaQuery.of(context).size.height;
     return Align(
       alignment: Alignment.topRight,
-      child: InkWell(
+      child: ExpandTapWidget(
         onTap: onTapClose,
+        tapPadding: const EdgeInsets.all(50.0),
         child: Padding(
-          padding: EdgeInsets.only(top: 0.02 * height),
-          child: Image.asset(AppIcons.closeButton, scale: 3),
+          padding: EdgeInsets.only(top: 0.02 * heightScreen),
+          child: Image.asset(image, scale: 3),
         ),
       ),
     );

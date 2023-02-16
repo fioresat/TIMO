@@ -58,3 +58,7 @@ abstract class PremiumPageStrings {
   static const and = ' and';
   static const terms = ' Terms';
 }
+
+abstract class AssetsImagesStrings {
+  static const quoteBackgroundBlur = 'assets/images/blur.png';
+}

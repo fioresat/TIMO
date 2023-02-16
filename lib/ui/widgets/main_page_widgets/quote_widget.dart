@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
-import 'dart:ui' as ui;
+
+import 'package:todo_app_main_screen/consts/strings.dart';
 
 class QuoteWidget extends StatefulWidget {
   final String author;
   final String content;
   final double? height;
 
-  const QuoteWidget(
-      {required this.content,
-      super.key,
-      required this.author,
-      required this.height});
+  const QuoteWidget({
+    super.key,
+    required this.content,
+    required this.author,
+    required this.height,
+  });
 
   @override
   State<QuoteWidget> createState() => _QuoteWidgetState();
@@ -59,12 +61,20 @@ class _QuoteWidgetState extends State<QuoteWidget> {
           Animation secondaryAnimation) {
         double widthScreen = MediaQuery.of(context).size.width;
         double heightScreen = MediaQuery.of(context).size.height;
-        return BackdropFilter(
-          filter: ui.ImageFilter.blur(sigmaX: 20.0, sigmaY: 20.0),
+        return GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
           child: Container(
             width: widthScreen,
             height: heightScreen,
-            color: Colors.white.withOpacity(1.0),
+            //color: Colors.white.withOpacity(0.8),
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(AssetsImagesStrings.quoteBackgroundBlur),
+                fit: BoxFit.fill,
+              ),
+            ),
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 25,

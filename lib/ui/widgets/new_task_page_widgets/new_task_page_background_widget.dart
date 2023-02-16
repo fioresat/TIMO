@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
+import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
 
 import '../black_button_widget.dart';
 
@@ -40,15 +41,9 @@ class _NewTaskPageBackgroundWidgetState
           right: 25),
       child: Column(
         children: [
-          Align(
-            alignment: Alignment.topRight,
-            child: InkWell(
-              onTap: Navigator.of(context).pop,
-              child: Padding(
-                padding: EdgeInsets.only(top: 0.02 * widget.height),
-                child: Image.asset(AppIcons.close, scale: 3),
-              ),
-            ),
+          PanelCloseWidget(
+            onTapClose: Navigator.of(context).pop,
+            image: AppIcons.close,
           ),
           Expanded(
             child: TextField(

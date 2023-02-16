@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
 import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
@@ -35,7 +36,7 @@ class _ListsPanelWidgetState extends State<ListsPanelWidget> {
         children: [
           PanelCloseWidget(
             onTapClose: widget.onTapClose,
-            height: widget.height,
+            image: AppIcons.closeButton,
           ),
           ListsWidget(
             height: widget.height,
