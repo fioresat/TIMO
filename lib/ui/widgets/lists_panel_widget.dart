@@ -12,6 +12,7 @@ class ListsPanelWidget extends StatefulWidget {
   final double width;
   final void Function() onTapClose;
   final void Function() onAddNewListPressed;
+  final void Function() onButtonPressed;
 
   const ListsPanelWidget({
     Key? key,
@@ -20,6 +21,7 @@ class ListsPanelWidget extends StatefulWidget {
     required this.lists,
     required this.onTapClose,
     required this.onAddNewListPressed,
+    required this.onButtonPressed,
   }) : super(key: key);
 
   @override
@@ -44,11 +46,11 @@ class _ListsPanelWidgetState extends State<ListsPanelWidget> {
             onAddNewListPressed: widget.onAddNewListPressed,
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 10.0),
+            padding: EdgeInsets.only(
+              bottom: 0.04 * widget.height,
+            ),
             child: BlackButtonWidget(
-              onPressed: () {
-                Navigator.pop(context);
-              },
+              onPressed: widget.onButtonPressed,
               width: widget.width - 50,
               borderRadius: const BorderRadius.all(
                 Radius.elliptical(12, 12),

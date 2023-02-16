@@ -11,8 +11,6 @@ import 'package:todo_app_main_screen/ui/widgets/lists_panel_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/main_page_background_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/tasks_widget.dart';
 
-
-
 class MyHomePage extends StatefulWidget {
   static const routeName = '/my_home_page';
 
@@ -37,7 +35,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     double widthScreen = MediaQuery.of(context).size.width;
     double heightScreen = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -79,6 +76,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 onAddNewListPressed: () {
                   SlidingPanelHelper()
                       .onAddNewListPressed(widthScreen, heightScreen, context);
+                },
+                onButtonPressed: () {
+                  Navigator.of(context).pop();
+                  setState(() {
+                    isMoveTo = false;
+                  });
                 },
               ),
               context,

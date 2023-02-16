@@ -79,6 +79,7 @@ class _TaskPageState extends State<TaskPage> {
                           SlidingPanelHelper().onAddNewListPressed(
                               widthScreen, heightScreen, context);
                         },
+                        onButtonPressed: Navigator.of(context).pop,
                       ),
                       context,
                     ),

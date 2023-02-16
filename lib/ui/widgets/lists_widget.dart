@@ -33,49 +33,52 @@ class _ListsWidgetState extends State<ListsWidget> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(
-          height: 0.1 * widget.height,
-          child: ListView.builder(
-              padding: EdgeInsets.zero,
-              itemCount: widget.lists.length,
-              itemBuilder: (context, index) {
-                if (widget.lists[index].isNotEmpty) {
-                  return InkWell(
-                    onTap: () {
-                      setState(() {
-                        selectedIndex = index;
-                      });
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            widget.lists[index],
-                            style: const TextStyle(
-                              fontSize: 20,
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 0.01 * widget.height),
+          child: SizedBox(
+            height: 0.05 * widget.height,
+            child: ListView.builder(
+                padding: EdgeInsets.zero,
+                itemCount: widget.lists.length,
+                itemBuilder: (context, index) {
+                  if (widget.lists[index].isNotEmpty) {
+                    return InkWell(
+                      onTap: () {
+                        setState(() {
+                          selectedIndex = index;
+                        });
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              widget.lists[index],
+                              style: const TextStyle(
+                                fontSize: 20,
+                              ),
                             ),
-                          ),
-                          Image.asset(
-                            AppIcons.check,
-                            scale: 3,
-                            color: selectedIndex == index
-                                ? Colors.black
-                                : Colors.transparent,
-                          ),
-                        ],
+                            Image.asset(
+                              AppIcons.check,
+                              scale: 3,
+                              color: selectedIndex == index
+                                  ? Colors.black
+                                  : Colors.transparent,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                }
-                return null;
-              }),
+                    );
+                  }
+                  return null;
+                }),
+          ),
         ),
         Padding(
           padding: EdgeInsets.only(
             bottom: 0.03 * widget.height,
-            top: 0.02 * widget.height,
+           // top: 0.02 * widget.height,
           ),
           child: InkWell(
             onTap: widget.onAddNewListPressed,
