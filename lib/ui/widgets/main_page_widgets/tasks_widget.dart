@@ -165,13 +165,16 @@ class _TasksWidgetState extends State<TasksWidget> {
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: const [
-                Icon(Icons.keyboard_arrow_down),
+                Icon(
+                  Icons.keyboard_arrow_down,
+                  size: 25,
+                ),
                 SizedBox(
                   width: 5,
                 ),
                 Text(
                   TestStrings.toDo,
-                  style: TextStyle(color: Colors.grey),
+                  style: TextStyle(color: Colors.grey, fontSize: 18),
                 ),
               ],
             ),
