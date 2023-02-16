@@ -64,7 +64,7 @@ class _NewTaskPageBackgroundWidgetState
               scrollPadding: const EdgeInsets.all(20.0),
               autofocus: true,
               keyboardType: TextInputType.multiline,
-              maxLines: 99999,
+              maxLines: null,
               cursorColor: Colors.black,
               onTapOutside: (_) {
                 FocusManager.instance.primaryFocus?.unfocus();
@@ -80,14 +80,20 @@ class _NewTaskPageBackgroundWidgetState
                   children: [
                     InkWell(
                       onTap: widget.onListsTap,
-                      child: Image.asset(AppIcons.lists, scale: 3),
+                      child: Image.asset(
+                        AppIcons.lists,
+                        scale: 3,
+                      ),
                     ),
                     SizedBox(
                       width: widget.width * 0.05,
                     ),
                     InkWell(
                       onTap: widget.onReminderTap,
-                      child: Image.asset(AppIcons.reminderBell, scale: 3),
+                      child: Image.asset(
+                        AppIcons.reminderBell,
+                        scale: 3,
+                      ),
                     ),
                   ],
                 ),

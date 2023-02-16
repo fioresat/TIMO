@@ -73,28 +73,33 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
             SizedBox(
               height: widget.height * 0.05,
             ),
-            TextField(
-              onTap: () => setState(() => isTapped = true),
-              controller: widget.controller,
-              cursorColor: darkColor,
-              cursorHeight: 26,
-              decoration: const InputDecoration(
-                border: InputBorder.none,
+            Flexible(
+              child: TextField(
+                onTap: () => setState(
+                  () => isTapped = true,
+                ),
+                controller: widget.controller,
+                cursorColor: darkColor,
+                cursorHeight: 26,
+                keyboardType: TextInputType.multiline,
+                minLines: 1,
+                maxLines: null,
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                ),
+                style: const TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.w900,
+                  color: darkColor,
+                ),
+                onChanged: (String newText) => setState(() {
+                  widget.singleTaskModel.task == newText;
+                }),
+                onTapOutside: (_) {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                  isTapped = false;
+                },
               ),
-              style: const TextStyle(
-                fontSize: 26,
-                fontWeight: FontWeight.w900,
-                color: darkColor,
-              ),
-              onChanged: (String newText) => setState(() {
-                widget.singleTaskModel.task == newText;
-              }),
-              onSubmitted: (_) => setState(() {
-                isTapped = false;
-              }),
-              onTapOutside: (_) {
-                FocusManager.instance.primaryFocus?.unfocus();
-              },
             ),
             SizedBox(
               height: widget.height * 0.03,
