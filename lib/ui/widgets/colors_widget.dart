@@ -34,7 +34,11 @@ class _ColorsWidgetState extends State<ColorsWidget> {
             return InkWell(
               onTap: () {
                 setState(() {
-                  widget.selectedIndex = index;
+                  if (widget.selectedIndex != index) {
+                    widget.selectedIndex = index;
+                  } else {
+                    widget.selectedIndex = -1;
+                  }
                 });
               },
               child: SingleColorWidget(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/button_colors.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
+import 'package:todo_app_main_screen/models/single_task_model.dart';
 import 'package:todo_app_main_screen/sample_data/sample_data.dart';
 import 'package:todo_app_main_screen/ui/widgets/new_task_page_widgets/new_task_page_background_widget.dart';
 
@@ -33,7 +34,22 @@ class _NewTaskPageState extends State<NewTaskPage> {
         height: heightScreen,
         controller: controller,
         width: widthScreen,
-        onBlackButtonPressed: () {},
+        onBlackButtonPressed: () {
+          if (controller.text.isNotEmpty) {
+            setState(() {
+              //sampleLists.insert(sampleLists.length-1,controller.text);
+              sampleTasks = sampleTasks
+                ..add(
+                  SingleTaskModel(
+                    colorIndex: 0,
+                    task: controller.text,
+                    isActive: true,
+                  ),
+                );
+            });
+          }
+          Navigator.pop(context);
+        },
         onListsTap: () {
           SlidingPanelHelper().onListsTap(context, widthScreen, heightScreen,
               sampleLists, buttonColors, listController);

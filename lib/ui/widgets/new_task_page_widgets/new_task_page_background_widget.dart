@@ -14,6 +14,8 @@ class NewTaskPageBackgroundWidget extends StatefulWidget {
   final void Function() onReminderTap;
   final void Function() onListsTap;
 
+
+
   const NewTaskPageBackgroundWidget(
       {Key? key,
       required this.controller,
