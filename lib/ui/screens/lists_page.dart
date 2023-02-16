@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
 import 'package:todo_app_main_screen/sample_data/sample_data.dart';
+import 'package:todo_app_main_screen/ui/screens/my_home_page.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_page_widgets/lists_page_background_widget.dart';
 
 
@@ -30,7 +31,10 @@ class _ListsPageState extends State<ListsPage> {
       body: ListsPageBackgroundWidget(
           height: heightScreen,
           width: widthScreen,
-          onPressed: () {},
+          onPressed: () => Navigator.pushNamed(
+            context,
+            MyHomePage.routeName,
+          ),
           lists: sampleLists,
           onAddButtonTap: () => SlidingPanelHelper().onAddNewListPressed(
             widthScreen,

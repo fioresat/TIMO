@@ -17,7 +17,7 @@ class ListsPageBackgroundWidget extends StatefulWidget {
 
   final void Function() onAddButtonTap;
 
-  ListsPageBackgroundWidget({
+  const ListsPageBackgroundWidget({
     Key? key,
     required this.height,
     required this.width,
