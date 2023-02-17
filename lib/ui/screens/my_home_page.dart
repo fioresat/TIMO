@@ -27,6 +27,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final scrollController = ScrollController();
   final listController = TextEditingController();
   bool isPanelDraggable = false;
+  bool isMoveToPressed = false;
 
   @override
   void initState() {
@@ -72,6 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   Navigator.of(context).pop();
                   setState(() {
                     isMoveTo = false;
+                    isMoveToPressed = false;
                   });
                 },
                 onAddNewListPressed: () {
@@ -89,7 +91,9 @@ class _MyHomePageState extends State<MyHomePage> {
             );
             setState(() {
               isMoveTo = true;
+              isMoveToPressed = true;
             });
+
           },
           isPanelOpen: panelController.isPanelOpen,
           tasks: sampleTasks,
@@ -98,6 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
           height: panelController.isPanelOpen
               ? 0.95 * heightScreen
               : 0.55 * heightScreen,
+          isMoveToPressed: isMoveToPressed,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,

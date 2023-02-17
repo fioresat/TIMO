@@ -14,6 +14,7 @@ class TasksWidget extends StatefulWidget {
   final ScrollController controller;
   final PanelController panelController;
   final void Function()? onPressed;
+  final bool isMoveToPressed;
 
   const TasksWidget({
     Key? key,
@@ -23,6 +24,7 @@ class TasksWidget extends StatefulWidget {
     required this.panelController,
     this.onPressed,
     required this.height,
+    required this.isMoveToPressed
   }) : super(key: key);
 
   @override
@@ -56,14 +58,14 @@ class _TasksWidgetState extends State<TasksWidget> {
                 padding: EdgeInsets.zero,
                 controller: widget.controller,
                 physics: widget.panelController.isPanelOpen
-                    ? const BouncingScrollPhysics()
+                    ? const AlwaysScrollableScrollPhysics()
                     : const NeverScrollableScrollPhysics(),
                 //scrollController: widget.controller,
                 itemCount: tasks.length,
                 //shrinkWrap: true,
                 //onReorder: widget.panelController.isPanelOpen ? reorderData : (){},
                 itemBuilder: (BuildContext context, int index) {
-                  return Slidable(
+                  return widget.isMoveToPressed == false ? Slidable(
                     key: ValueKey(tasks[index]),
                     endActionPane: ActionPane(
                       extentRatio: 0.4,
@@ -112,6 +114,11 @@ class _TasksWidgetState extends State<TasksWidget> {
                         singleTaskModel: tasks[index],
                       ),
                     ),
+                  ) : Card(
+                    elevation: 0,
+                    child: SingleTaskWidget(
+                      singleTaskModel: tasks[index],
+                    ),
                   );
                 }),
           ),
@@ -133,9 +140,9 @@ class _TasksWidgetState extends State<TasksWidget> {
   Widget dragHandle() => GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: _movePanel,
-        onVerticalDragUpdate: (DragUpdateDetails dets) => _movePanel(),
-        onVerticalDragEnd: (DragEndDetails dets) => _movePanel(),
-        onVerticalDragStart: (DragStartDetails dets) => _movePanel(),
+        onVerticalDragUpdate: (DragUpdateDetails details) => _movePanel(),
+        onVerticalDragEnd: (DragEndDetails details) => _movePanel(),
+        onVerticalDragStart: (DragStartDetails details) => _movePanel(),
         child: Padding(
           padding: const EdgeInsets.only(
               left: 150.0, right: 150, top: 10, bottom: 30),
