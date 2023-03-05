@@ -27,12 +27,18 @@ class _ListsWidgetState extends State<ListsWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        SizedBox(
+          height: widget.height * 0.01,
+        ),
         Text(
           'Lists',
           style: TextStyle(
             fontSize: 0.03 * widget.height,
             fontWeight: FontWeight.bold,
           ),
+        ),
+        SizedBox(
+          height: widget.height * 0.01,
         ),
         Padding(
           padding: EdgeInsets.symmetric(vertical: 0.01 * widget.height),
@@ -79,7 +85,6 @@ class _ListsWidgetState extends State<ListsWidget> {
         Padding(
           padding: EdgeInsets.only(
             bottom: 0.03 * widget.height,
-            // top: 0.02 * widget.height,
           ),
           child: ExpandTapWidget(
             tapPadding: const EdgeInsets.all(20.0),

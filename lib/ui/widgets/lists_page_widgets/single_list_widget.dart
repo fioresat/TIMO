@@ -78,7 +78,7 @@ class _SingleListWidgetState extends State<SingleListWidget> {
                 ),
                 Expanded(
                   child: TextField(
-                    autofocus: true,
+                    //autofocus: true,
                     textAlign: TextAlign.center,
                     maxLines: 2,
                     //scrollPhysics: const NeverScrollableScrollPhysics(),
