@@ -166,6 +166,7 @@ class PremiumPage extends StatelessWidget {
               BlackButtonWidget(
                   onPressed: () {},
                   width: widthScreen * 0.75,
+                  height: heightScreen * 0.07,
                   borderRadius: BorderRadius.circular(20),
                   child: const Padding(
                     padding: EdgeInsets.symmetric(vertical: 20),

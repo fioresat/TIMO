@@ -31,38 +31,48 @@ class ListsPanelWidget extends StatefulWidget {
 class _ListsPanelWidgetState extends State<ListsPanelWidget> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 25, right: 25),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          PanelCloseWidget(
-            alignment: Alignment.topRight,
-            onTapClose: widget.onTapClose,
-            image: AppIcons.closeButton,
-          ),
-          ListsWidget(
-            height: widget.height,
-            lists: widget.lists,
-            onAddNewListPressed: widget.onAddNewListPressed,
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-              bottom: 0.04 * widget.height,
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          color: backgroundColor
+      ),
+      child: Padding(
+        padding: const EdgeInsets.only(left: 25, right: 25),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            PanelCloseWidget(
+              alignment: Alignment.topRight,
+              onTapClose: widget.onTapClose,
+              image: AppIcons.closeButton,
             ),
-            child: BlackButtonWidget(
-              onPressed: widget.onButtonPressed,
-              width: widget.width - 50,
-              borderRadius: const BorderRadius.all(
-                Radius.elliptical(12, 12),
+            ListsWidget(
+              height: widget.height,
+              lists: widget.lists,
+              onAddNewListPressed: widget.onAddNewListPressed,
+            ),
+            SizedBox(
+              height: widget.height * 0.01,
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                bottom: 0.04 * widget.height,
               ),
-              child: const Text(
-                TestStrings.move,
-                style: TextStyle(color: backgroundColor),
+              child: BlackButtonWidget(
+                height: widget.height * 0.07,
+                onPressed: widget.onButtonPressed,
+                width: widget.width - 50,
+                borderRadius: const BorderRadius.all(
+                  Radius.elliptical(20, 20),
+                ),
+                child: const Text(
+                  TestStrings.move,
+                  style: TextStyle(color: backgroundColor, fontSize: 18),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

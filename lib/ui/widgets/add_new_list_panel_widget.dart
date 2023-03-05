@@ -67,6 +67,7 @@ class _AddNewListPanelWidgetState extends State<AddNewListPanelWidget> {
             padding: EdgeInsets.only(
                 bottom: keyBoardHeight > 0 ? keyBoardHeight + 10 : 10),
             child: BlackButtonWidget(
+              height: widget.height * 0.05,
               onPressed: () {
                 if (controller.text.isNotEmpty) {
                   setState(() {

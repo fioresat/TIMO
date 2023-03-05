@@ -101,6 +101,7 @@ class _NewTaskPageBackgroundWidgetState
                   ],
                 ),
                 BlackButtonWidget(
+                  height: widget.height * 0.05,
                   onPressed: widget.onBlackButtonPressed,
                   width: widget.width * 0.3,
                   borderRadius: BorderRadius.circular(22),

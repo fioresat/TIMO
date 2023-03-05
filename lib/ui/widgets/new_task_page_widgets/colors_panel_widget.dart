@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
+import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
 
 import '../colors_widget.dart';
@@ -30,44 +31,57 @@ class ColorsPanelWidget extends StatefulWidget {
 class _ColorsPanelWidgetState extends State<ColorsPanelWidget> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-          left: widget.width * 0.04, right: widget.width * 0.04),
-      child: Column(
-        children: [
-          PanelCloseWidget(
-            alignment: Alignment.topRight,
-            onTapClose: widget.onTapClose,
-            image: AppIcons.closeButton,
-          ),
-          SizedBox(
-            height: 0.01 * widget.height,
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: Text(
-              'Color',
-              style: TextStyle(
-                fontSize: 0.03 * widget.height,
-                fontWeight: FontWeight.bold,
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30), color: backgroundColor),
+      child: Padding(
+        padding: EdgeInsets.only(
+            left: widget.width * 0.05, right: widget.width * 0.05),
+        child: Column(
+          children: [
+            Padding(
+              padding:  EdgeInsets.only(top: widget.height * 0.002),
+              child: PanelCloseWidget(
+                alignment: Alignment.topRight,
+                onTapClose: widget.onTapClose,
+                image: AppIcons.closeButton,
               ),
             ),
-          ),
-          SizedBox(
-            height: 0.01 * widget.height,
-          ),
-          ColorsWidget(
-            width: widget.width,
-          ),
-          SizedBox(
-            height: 0.03 * widget.height,
-          ),
-          ListsWidget(
-            height: widget.height,
-            lists: widget.lists,
-            onAddNewListPressed: widget.onAddNewListPressed,
-          ),
-        ],
+            SizedBox(
+              height: 0.01 * widget.height,
+            ),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Text(
+                'Color',
+                style: TextStyle(
+                  fontSize: 0.03 * widget.height,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 0.01 * widget.height,
+            ),
+            Align(
+              alignment: Alignment.topLeft,
+              child: ColorsWidget(
+                width: widget.width,
+              ),
+            ),
+            SizedBox(
+              height: 0.04 * widget.height,
+            ),
+            ListsWidget(
+              height: widget.height,
+              lists: widget.lists,
+              onAddNewListPressed: widget.onAddNewListPressed,
+            ),
+            const SizedBox(
+              height: 60,
+            )
+          ],
+        ),
       ),
     );
   }

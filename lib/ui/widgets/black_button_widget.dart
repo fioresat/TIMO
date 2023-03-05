@@ -5,6 +5,7 @@ class BlackButtonWidget extends StatelessWidget {
   final Widget child;
   final void Function() onPressed;
   final double width;
+  final double height;
   final BorderRadiusGeometry? borderRadius;
 
   const BlackButtonWidget(
@@ -12,11 +13,12 @@ class BlackButtonWidget extends StatelessWidget {
       required this.onPressed,
       required this.width,
       super.key,
-      required this.borderRadius});
+      required this.borderRadius, required this.height});
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: height,
       width: width,
       decoration:  BoxDecoration(
         color: textColor,

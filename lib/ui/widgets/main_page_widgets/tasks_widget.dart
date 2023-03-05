@@ -41,7 +41,7 @@ class _TasksWidgetState extends State<TasksWidget> {
   Widget build(BuildContext context) {
     List<SingleTaskModel> tasks = widget.tasks;
     return Padding(
-      padding: const EdgeInsets.only(left: 25, right: 25),
+      padding: const EdgeInsets.only(left: 0, right: 25),
       child: Column(
         children: [
           Stack(
@@ -68,7 +68,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                   return widget.isMoveToPressed == false ? Slidable(
                     key: ValueKey(tasks[index]),
                     endActionPane: ActionPane(
-                      extentRatio: 0.4,
+                      extentRatio: 0.35,
                       dismissible: DismissiblePane(
                         onDismissed: () {
                           setState(() {
@@ -79,7 +79,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                       motion: const ScrollMotion(),
                       children: [
                         CustomSlidableAction(
-                          padding: EdgeInsets.zero,
+                          padding: const EdgeInsets.only(left: 20),
                           //flex: 1,
                           onPressed: (BuildContext context) {
                             setState(() {});
@@ -88,12 +88,12 @@ class _TasksWidgetState extends State<TasksWidget> {
                             onTap: widget.onPressed,
                             child: Image.asset(
                               AppIcons.moveTo,
-                              scale: 3,
+                              scale: 2.9,
                             ),
                           ),
                         ),
                         CustomSlidableAction(
-                          padding: EdgeInsets.zero,
+                          padding: const EdgeInsets.only(left: 20),
                           //flex: 2,
                           onPressed: (BuildContext context) {
                             setState(() {
@@ -103,21 +103,27 @@ class _TasksWidgetState extends State<TasksWidget> {
                           },
                           child: Image.asset(
                             AppIcons.delete,
-                            scale: 3,
+                            scale: 2.9,
                           ),
                         ),
                       ],
                     ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 25),
+                      child: Card(
+                        elevation: 0,
+                        child: SingleTaskWidget(
+                          singleTaskModel: tasks[index],
+                        ),
+                      ),
+                    ),
+                  ) : Padding(
+                    padding: const EdgeInsets.only(left: 25),
                     child: Card(
                       elevation: 0,
                       child: SingleTaskWidget(
                         singleTaskModel: tasks[index],
                       ),
-                    ),
-                  ) : Card(
-                    elevation: 0,
-                    child: SingleTaskWidget(
-                      singleTaskModel: tasks[index],
                     ),
                   );
                 }),
@@ -164,15 +170,12 @@ class _TasksWidgetState extends State<TasksWidget> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
-              children: const [
-                Icon(
-                  Icons.keyboard_arrow_down,
-                  size: 25,
+              children: [
+                Image.asset(AppIcons.arrowClose, scale: 3,),
+                const SizedBox(
+                  width: 13,
                 ),
-                SizedBox(
-                  width: 5,
-                ),
-                Text(
+                const Text(
                   TestStrings.toDo,
                   style: TextStyle(color: Colors.grey, fontSize: 18),
                 ),
