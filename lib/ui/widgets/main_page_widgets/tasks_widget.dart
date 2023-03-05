@@ -16,16 +16,16 @@ class TasksWidget extends StatefulWidget {
   final void Function()? onPressed;
   final bool isMoveToPressed;
 
-  const TasksWidget({
-    Key? key,
-    required this.isPanelOpen,
-    required this.tasks,
-    required this.controller,
-    required this.panelController,
-    this.onPressed,
-    required this.height,
-    required this.isMoveToPressed
-  }) : super(key: key);
+  const TasksWidget(
+      {Key? key,
+      required this.isPanelOpen,
+      required this.tasks,
+      required this.controller,
+      required this.panelController,
+      this.onPressed,
+      required this.height,
+      required this.isMoveToPressed})
+      : super(key: key);
 
   @override
   State<TasksWidget> createState() => _TasksWidgetState();
@@ -44,7 +44,7 @@ class _TasksWidgetState extends State<TasksWidget> {
       padding: const EdgeInsets.only(left: 0, right: 25),
       child: Column(
         children: [
-          Stack(
+          Column(
             children: [
               Center(
                 child: dragHandle(),
@@ -145,13 +145,12 @@ class _TasksWidgetState extends State<TasksWidget> {
 
   Widget dragHandle() => GestureDetector(
         behavior: HitTestBehavior.translucent,
-        onTap: _movePanel,
-        onVerticalDragUpdate: (DragUpdateDetails details) => _movePanel(),
         onVerticalDragEnd: (DragEndDetails details) => _movePanel(),
         onVerticalDragStart: (DragStartDetails details) => _movePanel(),
+        onVerticalDragDown: (DragDownDetails details) => _movePanel(),
         child: Padding(
           padding: const EdgeInsets.only(
-              left: 150.0, right: 150, top: 10, bottom: 30),
+              left: 150.0, right: 150, top: 10, bottom: 40),
           child: Container(
             width: 30,
             height: 5,
