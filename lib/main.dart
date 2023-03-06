@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/ui/screens/language_page.dart';
 import 'package:todo_app_main_screen/ui/screens/lists_page.dart';
@@ -6,8 +7,13 @@ import 'package:todo_app_main_screen/ui/screens/new_task_page.dart';
 import 'package:todo_app_main_screen/ui/screens/premium_page.dart';
 import 'package:todo_app_main_screen/ui/screens/settings_page.dart';
 import 'package:todo_app_main_screen/ui/screens/task_page.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 

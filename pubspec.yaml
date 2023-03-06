@@ -45,6 +45,7 @@ dependencies:
   url_launcher: ^6.1.9
   drop_shadow_image: ^0.9.1
   expand_tap_area: ^1.1.1
+  firebase_core: ^2.7.0
 
 dev_dependencies:
   flutter_test:
