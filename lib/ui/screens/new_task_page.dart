@@ -43,7 +43,8 @@ class _NewTaskPageState extends State<NewTaskPage> {
                   SingleTaskModel(
                     colorIndex: 0,
                     task: controller.text,
-                    isActive: true,
+                    isReminderActive: true,
+                    list: '',
                   ),
                 );
             });
@@ -51,12 +52,21 @@ class _NewTaskPageState extends State<NewTaskPage> {
           Navigator.pop(context);
         },
         onListsTap: () {
-          SlidingPanelHelper().onListsTap(context, widthScreen, heightScreen,
-              sampleLists, buttonColors, listController);
+          SlidingPanelHelper().onListsTap(
+            context,
+            widthScreen,
+            heightScreen,
+            sampleLists,
+            buttonColors,
+            listController,
+          );
         },
         onReminderTap: () {
-          SlidingPanelHelper()
-              .onReminderTap(widthScreen, heightScreen, context);
+          SlidingPanelHelper().onReminderTap(
+            widthScreen,
+            heightScreen,
+            context,
+          );
         },
       ),
     );

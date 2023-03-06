@@ -4,7 +4,7 @@ import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/ui/screens/premium_page.dart';
 import 'package:todo_app_main_screen/ui/widgets/settings_page_widgets/settings_list.dart';
-import 'package:url_launcher/url_launcher.dart';
+//import 'package:url_launcher/url_launcher.dart';
 
 class SettingsPage extends StatefulWidget {
   static const routeName = '/settings_page';
@@ -98,13 +98,13 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   _launchURL(String url) async {
-    if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(
-        Uri.parse(url),
-        mode: LaunchMode.externalApplication,
-      );
-    } else {
-      throw 'Could not launch $url';
-    }
+    // if (await canLaunchUrl(Uri.parse(url))) {
+    //   await launchUrl(
+    //     Uri.parse(url),
+    //     mode: LaunchMode.externalApplication,
+    //   );
+    // } else {
+    //   throw 'Could not launch $url';
+    // }
   }
 }
