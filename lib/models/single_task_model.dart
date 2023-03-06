@@ -3,8 +3,12 @@ class SingleTaskModel {
   bool isReminderActive = false;
   String task;
   String list;
+  String userID;
+  String taskID;
 
   SingleTaskModel({
+    required this.userID,
+    this.taskID = '',
     this.colorIndex = -1,
     this.isReminderActive = false,
     required this.task,
@@ -18,5 +22,6 @@ class ReminderTaskModel extends SingleTaskModel {
   ReminderTaskModel({
     required super.task,
     required this.dateTimeReminder,
+    required super.userID,
   });
 }
