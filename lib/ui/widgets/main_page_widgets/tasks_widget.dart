@@ -41,7 +41,9 @@ class _TasksWidgetState extends State<TasksWidget> {
   Widget build(BuildContext context) {
     List<SingleTaskModel> tasks = widget.tasks;
     return Padding(
-      padding: const EdgeInsets.only(left: 0, right: 25),
+      padding: const EdgeInsets.only(
+        right: 25,
+      ),
       child: Column(
         children: [
           Stack(
@@ -80,8 +82,9 @@ class _TasksWidgetState extends State<TasksWidget> {
                             motion: const ScrollMotion(),
                             children: [
                               CustomSlidableAction(
-                                padding: const EdgeInsets.only(left: 20),
-                                //flex: 1,
+                                padding: const EdgeInsets.only(
+                                  left: 20,
+                                ),
                                 onPressed: (BuildContext context) {
                                   setState(() {});
                                 },
@@ -94,8 +97,9 @@ class _TasksWidgetState extends State<TasksWidget> {
                                 ),
                               ),
                               CustomSlidableAction(
-                                padding: const EdgeInsets.only(left: 20),
-                                //flex: 2,
+                                padding: const EdgeInsets.only(
+                                  left: 20,
+                                ),
                                 onPressed: (BuildContext context) {
                                   setState(() {
                                     //ToDo
@@ -110,7 +114,9 @@ class _TasksWidgetState extends State<TasksWidget> {
                             ],
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 25),
+                            padding: const EdgeInsets.only(
+                              left: 25,
+                            ),
                             child: Card(
                               elevation: 0,
                               child: SingleTaskWidget(
@@ -120,7 +126,9 @@ class _TasksWidgetState extends State<TasksWidget> {
                           ),
                         )
                       : Padding(
-                          padding: const EdgeInsets.only(left: 25),
+                          padding: const EdgeInsets.only(
+                            left: 25,
+                          ),
                           child: Card(
                             elevation: 0,
                             child: SingleTaskWidget(

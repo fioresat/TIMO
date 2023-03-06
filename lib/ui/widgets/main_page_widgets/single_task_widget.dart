@@ -14,7 +14,8 @@ class SingleTaskWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      color: backgroundColor,
       width: 378,
       child: InkWell(
         onTap: () => Navigator.pushNamed(
@@ -68,7 +69,7 @@ class SingleTaskWidget extends StatelessWidget {
                   width: 32,
                   padding: const EdgeInsets.symmetric(vertical: 6),
                   decoration: BoxDecoration(
-                    color: singleTaskModel.isActive
+                    color: singleTaskModel.isReminderActive
                         ? textColor
                         : Colors.transparent,
                     borderRadius: const BorderRadius.all(

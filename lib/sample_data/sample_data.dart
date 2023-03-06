@@ -8,14 +8,14 @@ List<String> sampleLists = [
 ];
 
 List<SingleTaskModel> sampleTasks = [
-  SingleTaskModel(colorIndex: 0, task: TestStrings.task1, isActive: true),
-  SingleTaskModel(colorIndex: 5, task: TestStrings.task2, isActive: true),
-  SingleTaskModel(task: TestStrings.task3),
-  SingleTaskModel(task: TestStrings.task1, isActive: true),
-  SingleTaskModel(task: TestStrings.task2, ),
-  SingleTaskModel(task: TestStrings.task3, isActive: true),
-  SingleTaskModel(task: TestStrings.task1, isActive: true),
-  SingleTaskModel(task: TestStrings.task2),
-  SingleTaskModel(colorIndex: 4, task: TestStrings.task3),
+  SingleTaskModel(colorIndex: 0, task: TestStrings.task1, isReminderActive: true, list: ''),
+  SingleTaskModel(colorIndex: 5, task: TestStrings.task2, isReminderActive: true, list: ''),
+  SingleTaskModel(task: TestStrings.task3, list: ''),
+  SingleTaskModel(task: TestStrings.task1, isReminderActive: true, list: ''),
+  SingleTaskModel(task: TestStrings.task2, list: '', ),
+  SingleTaskModel(task: TestStrings.task3, isReminderActive: true, list: ''),
+  SingleTaskModel(task: TestStrings.task1, isReminderActive: true, list: ''),
+  SingleTaskModel(task: TestStrings.task2, list: ''),
+  SingleTaskModel(colorIndex: 4, task: TestStrings.task3, list: ''),
 ];
 

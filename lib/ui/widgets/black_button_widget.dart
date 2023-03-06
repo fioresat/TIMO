@@ -8,19 +8,21 @@ class BlackButtonWidget extends StatelessWidget {
   final double height;
   final BorderRadiusGeometry? borderRadius;
 
-  const BlackButtonWidget(
-      {required this.child,
-      required this.onPressed,
-      required this.width,
-      super.key,
-      required this.borderRadius, required this.height});
+  const BlackButtonWidget({
+    required this.child,
+    required this.onPressed,
+    required this.width,
+    super.key,
+    required this.borderRadius,
+    required this.height,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: height,
       width: width,
-      decoration:  BoxDecoration(
+      decoration: BoxDecoration(
         color: textColor,
         borderRadius: borderRadius,
       ),
