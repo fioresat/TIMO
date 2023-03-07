@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
+import 'package:todo_app_main_screen/consts/strings.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
+import 'package:todo_app_main_screen/models/quote_model.dart';
 import 'package:todo_app_main_screen/sample_data/sample_data.dart';
 import 'package:todo_app_main_screen/ui/screens/lists_page.dart';
 import 'package:todo_app_main_screen/ui/screens/new_task_page.dart';
@@ -60,7 +62,10 @@ class _MyHomePageState extends State<MyHomePage> {
           height: heightScreen,
           onPressed: () {
             Navigator.of(context).pushNamed(ListsPage.routeName);
-          },
+          }, quoteModel: QuoteModel(
+          author: TestStrings.quoteAuthor,
+          content: TestStrings.quoteContent,
+        ),
         ),
         panelBuilder: (controller) => TasksWidget(
           onPressed: () {

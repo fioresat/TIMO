@@ -3,17 +3,16 @@ import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 
 import 'package:todo_app_main_screen/consts/strings.dart';
+import 'package:todo_app_main_screen/models/quote_model.dart';
 
 class QuoteWidget extends StatefulWidget {
-  final String author;
-  final String content;
+  final QuoteModel quoteModel;
   final double? height;
 
   const QuoteWidget({
     super.key,
-    required this.content,
-    required this.author,
     required this.height,
+    required this.quoteModel,
   });
 
   @override
@@ -29,7 +28,7 @@ class _QuoteWidgetState extends State<QuoteWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            widget.author,
+            widget.quoteModel.author,
             style: const TextStyle(
               color: textColor,
               fontSize: 12,
@@ -40,7 +39,7 @@ class _QuoteWidgetState extends State<QuoteWidget> {
             height: 0.008 * widget.height!,
           ),
           Text(
-            widget.content,
+            widget.quoteModel.content,
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
             style: const TextStyle(
@@ -103,7 +102,7 @@ class _QuoteWidgetState extends State<QuoteWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        widget.author,
+                        widget.quoteModel.author,
                         style: const TextStyle(
                           decoration: TextDecoration.none,
                           color: Colors.black,
@@ -116,7 +115,7 @@ class _QuoteWidgetState extends State<QuoteWidget> {
                         height: heightScreen * 0.03,
                       ),
                       Text(
-                        widget.content,
+                        widget.quoteModel.content,
                         style: const TextStyle(
                           decoration: TextDecoration.none,
                           color: Colors.black,
