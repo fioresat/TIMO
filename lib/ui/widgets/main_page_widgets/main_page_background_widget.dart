@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
+import 'package:todo_app_main_screen/repository/quote_repository.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/date_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/quote_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/nav_bar_widget.dart';
+
+final quotesList = QuoteRepository.getQuotes;
 
 class MainScreenBackgroundWidget extends StatelessWidget {
   final double width;
@@ -19,6 +22,7 @@ class MainScreenBackgroundWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(quotesList);
     return Column(
       children: [
         Padding(

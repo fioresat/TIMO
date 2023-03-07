@@ -44,7 +44,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
                     colorIndex: 0,
                     task: controller.text,
                     isReminderActive: true,
-                    list: '',
+                    list: '', userID: '',
                   ),
                 );
             });

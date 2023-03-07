@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_app_main_screen/repository/quote_repository.dart';
 import 'package:todo_app_main_screen/ui/screens/language_page.dart';
 import 'package:todo_app_main_screen/ui/screens/lists_page.dart';
 import 'package:todo_app_main_screen/ui/screens/my_home_page.dart';
@@ -14,6 +15,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  QuoteRepository.getQuotesStream();
   runApp(const MyApp());
 }
 
@@ -23,7 +25,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       theme: ThemeData(
         colorSchemeSeed: Colors.white,
         fontFamily: 'CeraPro',
