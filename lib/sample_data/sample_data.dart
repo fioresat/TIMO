@@ -1,10 +1,11 @@
 import 'package:todo_app_main_screen/consts/strings.dart';
+import 'package:todo_app_main_screen/models/list_model.dart';
 import 'package:todo_app_main_screen/models/single_task_model.dart';
 
-List<String> sampleLists = [
-  TestStrings.list1,
-  TestStrings.list2,
-  TestStrings.list3
+List<ListModel> sampleLists = [
+  ListModel(list: TestStrings.list1,),
+  ListModel(list: TestStrings.list2,),
+  ListModel(list: TestStrings.list3,),
 ];
 
 List<SingleTaskModel> sampleTasks = [

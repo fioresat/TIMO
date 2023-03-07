@@ -2,10 +2,11 @@ import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
+import 'package:todo_app_main_screen/models/list_model.dart';
 
 class ListsWidget extends StatefulWidget {
   final double height;
-  final List<String> lists;
+  final List<ListModel> lists;
   final void Function() onAddNewListPressed;
 
   const ListsWidget({
@@ -48,7 +49,7 @@ class _ListsWidgetState extends State<ListsWidget> {
                 padding: EdgeInsets.zero,
                 itemCount: widget.lists.length,
                 itemBuilder: (context, index) {
-                  if (widget.lists[index].isNotEmpty) {
+                  if (widget.lists[index].list.isNotEmpty) {
                     return InkWell(
                       onTap: () {
                         setState(() {
@@ -61,7 +62,7 @@ class _ListsWidgetState extends State<ListsWidget> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              widget.lists[index],
+                              widget.lists[index].list,
                               style: const TextStyle(
                                 fontSize: 20,
                               ),

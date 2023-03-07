@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
+import 'package:todo_app_main_screen/models/list_model.dart';
 import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
 
 import '../colors_widget.dart';
@@ -10,7 +11,7 @@ class ColorsPanelWidget extends StatefulWidget {
   final double height;
   final double width;
   final void Function() onTapClose;
-  final List<String> lists;
+  final List<ListModel> lists;
   final List<Color> colors;
   final void Function() onAddNewListPressed;
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
+import 'package:todo_app_main_screen/models/list_model.dart';
 import 'package:todo_app_main_screen/sample_data/sample_data.dart';
 import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
 
@@ -72,7 +73,7 @@ class _AddNewListPanelWidgetState extends State<AddNewListPanelWidget> {
                 if (controller.text.isNotEmpty) {
                   setState(() {
                     //sampleLists.insert(sampleLists.length-1,controller.text);
-                    sampleLists = sampleLists..add(controller.text);
+                    sampleLists = sampleLists..add(ListModel(list: controller.text));
                   });
                 }
                 widget.onTapClose();

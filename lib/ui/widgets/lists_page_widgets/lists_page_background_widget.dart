@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/button_colors.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
+import 'package:todo_app_main_screen/models/list_model.dart';
 import 'package:todo_app_main_screen/ui/screens/settings_page.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_page_widgets/options_panel_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_page_widgets/single_list_widget.dart';
@@ -14,7 +15,7 @@ class ListsPageBackgroundWidget extends StatefulWidget {
   final double height;
   final double width;
   final void Function() onPressed;
-  final List lists;
+  final List<ListModel> lists;
 
   final void Function() onAddButtonTap;
 
@@ -130,7 +131,7 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                                     context,
                                   );
                                 },
-                                title: list.value,
+                                listModel: list.value,
                                 isTapped: _selectedIndex == list.key,
                                 onAddButtonTap: () {
                                   widget.onAddButtonTap();

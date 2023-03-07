@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
-import 'package:todo_app_main_screen/consts/strings.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
 import 'package:todo_app_main_screen/models/quote_model.dart';
 import 'package:todo_app_main_screen/sample_data/sample_data.dart';
+import 'package:todo_app_main_screen/service/fetch_helper.dart';
 import 'package:todo_app_main_screen/ui/screens/lists_page.dart';
 import 'package:todo_app_main_screen/ui/screens/new_task_page.dart';
 import 'package:todo_app_main_screen/ui/style.dart';
@@ -30,10 +30,16 @@ class _MyHomePageState extends State<MyHomePage> {
   final listController = TextEditingController();
   bool isPanelDraggable = false;
   bool isMoveToPressed = false;
+  final _quoteService = FetchHelper();
+  QuoteModel _quote = QuoteModel(
+    author: '',
+    content: '',
+  );
 
   @override
   void initState() {
     super.initState();
+    _updateQuote('quote1');
   }
 
   @override
@@ -62,10 +68,8 @@ class _MyHomePageState extends State<MyHomePage> {
           height: heightScreen,
           onPressed: () {
             Navigator.of(context).pushNamed(ListsPage.routeName);
-          }, quoteModel: QuoteModel(
-          author: TestStrings.quoteAuthor,
-          content: TestStrings.quoteContent,
-        ),
+          },
+          quoteModel: _quote,
         ),
         panelBuilder: (controller) => TasksWidget(
           onPressed: () {
@@ -98,7 +102,6 @@ class _MyHomePageState extends State<MyHomePage> {
               isMoveTo = true;
               isMoveToPressed = true;
             });
-
           },
           isPanelOpen: panelController.isPanelOpen,
           tasks: sampleTasks,
@@ -127,5 +130,12 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
     );
+  }
+
+  void _updateQuote(String quoteID) async {
+    final dataDecoded = await _quoteService.getData(quoteID);
+    setState(() {
+      _quote = QuoteModel.fromJson(dataDecoded);
+    });
   }
 }

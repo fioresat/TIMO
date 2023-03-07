@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
+import 'package:todo_app_main_screen/consts/button_colors.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
+import 'package:todo_app_main_screen/models/list_model.dart';
 
 class SingleListWidget extends StatefulWidget {
   final double height;
@@ -9,17 +11,19 @@ class SingleListWidget extends StatefulWidget {
   final void Function() onListTap;
   final void Function() onAddButtonTap;
   final bool isTapped;
-  String title;
+  ListModel listModel;
+
 
   SingleListWidget({
     Key? key,
     required this.height,
     required this.onOptionsTap,
-    required this.title,
+    required this.listModel,
     required this.isTapped,
     required this.onListTap,
     required this.onAddButtonTap,
     required this.width,
+
   }) : super(key: key);
 
   @override
@@ -32,7 +36,7 @@ class _SingleListWidgetState extends State<SingleListWidget> {
   @override
   void initState() {
     super.initState();
-    controller.text = widget.title;
+    controller.text = widget.listModel.list;
   }
 
   @override
@@ -44,7 +48,7 @@ class _SingleListWidgetState extends State<SingleListWidget> {
           Container(
             height: widget.height * 0.20,
             decoration: BoxDecoration(
-              color: lightBlueColor,
+              color: buttonColors[widget.listModel.colorIndex],
               borderRadius: BorderRadius.circular(26),
             ),
             child: Stack(

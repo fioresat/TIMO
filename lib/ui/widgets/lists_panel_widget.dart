@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
+import 'package:todo_app_main_screen/models/list_model.dart';
 import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
 import 'black_button_widget.dart';
 import 'lists_widget.dart';
 
 class ListsPanelWidget extends StatefulWidget {
-  final List<String> lists;
+  final List<ListModel> lists;
   final double height;
   final double width;
   final void Function() onTapClose;
