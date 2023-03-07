@@ -5,6 +5,7 @@ import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
 import 'package:todo_app_main_screen/models/quote_model.dart';
+import 'package:todo_app_main_screen/models/single_task_model.dart';
 import 'package:todo_app_main_screen/sample_data/sample_data.dart';
 import 'package:todo_app_main_screen/service/fetch_helper.dart';
 import 'package:todo_app_main_screen/ui/screens/lists_page.dart';
@@ -37,11 +38,13 @@ class _MyHomePageState extends State<MyHomePage> {
     content: '',
   );
   FirebaseFirestore db = FirebaseFirestore.instance;
+  List<SingleTaskModel> _tasks = [];
 
   @override
   void initState() {
     super.initState();
     _updateQuote('quote1');
+    _updateTasks();
   }
 
   @override
@@ -106,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
             });
           },
           isPanelOpen: panelController.isPanelOpen,
-          tasks: sampleTasks,
+          tasks: _tasks,
           controller: scrollController,
           panelController: panelController,
           height: panelController.isPanelOpen
@@ -139,5 +142,27 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _quote = QuoteModel.fromJson(dataDecoded);
     });
+  }
+
+
+  Future<void> _updateTasks() async {
+    final ref = db
+        .collection("users")
+        .doc("testUser")
+        .collection('tasks')
+        .withConverter(
+          fromFirestore: SingleTaskModel.fromFirestore,
+          toFirestore: (SingleTaskModel task, _) => task.toFirestore(),
+        )
+        .get()
+        .then(
+      (querySnapshot) {
+        print("Successfully completed");
+        for (var docSnapshot in querySnapshot.docs) {
+          _tasks.add(docSnapshot.data());
+        }
+      },
+      onError: (e) => print("Error completing: $e"),
+    );
   }
 }
