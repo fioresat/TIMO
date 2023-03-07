@@ -22,14 +22,14 @@ class SlidingPanelHelper {
   }
 
   void onAddNewListPressed(
-      double widthScreen, double heightScreen, BuildContext context) {
+      double widthScreen, double heightScreen, BuildContext context, TextEditingController controller) {
     onPressedShowBottomSheet(
         AddNewListPanelWidget(
           height: heightScreen,
           onTapClose: () {
             Navigator.of(context).pop();
           },
-          width: widthScreen,
+          width: widthScreen, controller: controller,
         ),
         context);
   }
@@ -63,7 +63,7 @@ class SlidingPanelHelper {
         colors: buttonColors,
         onAddNewListPressed: () {
           SlidingPanelHelper()
-              .onAddNewListPressed(widthScreen, heightScreen, context);
+              .onAddNewListPressed(widthScreen, heightScreen, context, controller);
         },
       ),
       context,

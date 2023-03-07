@@ -39,7 +39,7 @@ class _ListsPageState extends State<ListsPage> {
           onAddButtonTap: () => SlidingPanelHelper().onAddNewListPressed(
             widthScreen,
             heightScreen,
-            context,
+            context, listController
           ),
         ),
     );

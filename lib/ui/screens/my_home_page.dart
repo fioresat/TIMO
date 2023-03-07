@@ -92,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 },
                 onAddNewListPressed: () {
                   SlidingPanelHelper()
-                      .onAddNewListPressed(widthScreen, heightScreen, context);
+                      .onAddNewListPressed(widthScreen, heightScreen, context, listController);
                 },
                 onButtonPressed: () {
                   Navigator.of(context).pop();

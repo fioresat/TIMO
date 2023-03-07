@@ -13,12 +13,13 @@ class AddNewListPanelWidget extends StatefulWidget {
   final double height;
   final double width;
   final void Function() onTapClose;
+  final TextEditingController controller;
 
   const AddNewListPanelWidget({
     Key? key,
     required this.height,
     required this.width,
-    required this.onTapClose,
+    required this.onTapClose, required this.controller,
   }) : super(key: key);
 
   @override
@@ -26,8 +27,6 @@ class AddNewListPanelWidget extends StatefulWidget {
 }
 
 class _AddNewListPanelWidgetState extends State<AddNewListPanelWidget> {
-  TextEditingController controller = TextEditingController();
-
   @override
   void initState() {
     super.initState();
@@ -47,7 +46,7 @@ class _AddNewListPanelWidgetState extends State<AddNewListPanelWidget> {
           ),
           TextField(
             textCapitalization: TextCapitalization.sentences,
-            controller: controller,
+            controller: widget.controller,
             style: TextStyle(
               fontSize: 0.018 * widget.height,
             ),
@@ -71,12 +70,12 @@ class _AddNewListPanelWidgetState extends State<AddNewListPanelWidget> {
             child: BlackButtonWidget(
               height: widget.height * 0.05,
               onPressed: () {
-                if (controller.text.isNotEmpty) {
-                  _updateLists(controller.text);
+                if (widget.controller.text.isNotEmpty) {
+                  _updateLists(widget.controller.text);
                   setState(() {
                     //sampleLists.insert(sampleLists.length-1,controller.text);
                     sampleLists = sampleLists
-                      ..add(ListModel(list: controller.text));
+                      ..add(ListModel(list: widget.controller.text));
                   });
                 }
                 widget.onTapClose();
