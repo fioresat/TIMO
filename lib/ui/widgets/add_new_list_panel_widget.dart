@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
+import 'package:todo_app_main_screen/main.dart';
 import 'package:todo_app_main_screen/models/list_model.dart';
 import 'package:todo_app_main_screen/sample_data/sample_data.dart';
 import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
@@ -71,9 +72,11 @@ class _AddNewListPanelWidgetState extends State<AddNewListPanelWidget> {
               height: widget.height * 0.05,
               onPressed: () {
                 if (controller.text.isNotEmpty) {
+                  _updateLists(controller.text);
                   setState(() {
                     //sampleLists.insert(sampleLists.length-1,controller.text);
-                    sampleLists = sampleLists..add(ListModel(list: controller.text));
+                    sampleLists = sampleLists
+                      ..add(ListModel(list: controller.text));
                   });
                 }
                 widget.onTapClose();
@@ -89,5 +92,12 @@ class _AddNewListPanelWidgetState extends State<AddNewListPanelWidget> {
         ],
       ),
     );
+  }
+
+  Future<void> _updateLists(String text) async {
+    final data = <String, dynamic>{};
+    final docRef =
+        db.collection("users").doc('testUser').collection('lists').doc(text);
+    await docRef.set(data);
   }
 }

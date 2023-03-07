@@ -149,6 +149,8 @@ class _MyHomePageState extends State<MyHomePage> {
     final ref = db
         .collection("users")
         .doc("testUser")
+        .collection("lists")
+        .doc("ToDo")
         .collection('tasks')
         .withConverter(
           fromFirestore: SingleTaskModel.fromFirestore,

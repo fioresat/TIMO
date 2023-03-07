@@ -41,6 +41,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
             addNewTask(
               text: controller.text,
               taskID: UniqueKey().toString(),
+              list: listController.text,
             );
           }
           Navigator.pop(context);
@@ -70,18 +71,22 @@ class _NewTaskPageState extends State<NewTaskPage> {
     required String text,
     required String taskID,
     int? colorIndex,
+    String? list,
   }) async {
     final task = SingleTaskModel(
       task: text,
       taskID: taskID,
+      list: list!.isNotEmpty ? list : 'ToDo',
     );
     final docRef = db
         .collection("users")
-        .doc('testUser')
+        .doc(task.userID)
+        .collection('lists')
+        .doc(task.list)
         .collection('tasks')
         .withConverter(
-          fromFirestore: SingleTaskModel.fromFirestore,
           toFirestore: (SingleTaskModel task, options) => task.toFirestore(),
+          fromFirestore: SingleTaskModel.fromFirestore,
         )
         .doc(task.taskID);
     await docRef.set(task);

@@ -10,7 +10,7 @@ class SingleTaskModel {
   String taskID;
 
   SingleTaskModel({
-    this.userID = '',
+    this.userID = 'testUser',
     this.taskID = '',
     this.colorIndex = -1,
     this.listColorIndex = 0,
