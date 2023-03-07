@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/button_colors.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
@@ -17,7 +18,7 @@ class NewTaskPage extends StatefulWidget {
 class _NewTaskPageState extends State<NewTaskPage> {
   final controller = TextEditingController();
   final listController = TextEditingController();
-
+  FirebaseFirestore db = FirebaseFirestore.instance;
   var selectedIndex = 0;
 
   @override
@@ -27,8 +28,14 @@ class _NewTaskPageState extends State<NewTaskPage> {
 
   @override
   Widget build(BuildContext context) {
-    double widthScreen = MediaQuery.of(context).size.width;
-    double heightScreen = MediaQuery.of(context).size.height;
+    double widthScreen = MediaQuery
+        .of(context)
+        .size
+        .width;
+    double heightScreen = MediaQuery
+        .of(context)
+        .size
+        .height;
     return Scaffold(
       body: NewTaskPageBackgroundWidget(
         height: heightScreen,
@@ -36,18 +43,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
         width: widthScreen,
         onBlackButtonPressed: () {
           if (controller.text.isNotEmpty) {
-            setState(() {
-              //sampleLists.insert(sampleLists.length-1,controller.text);
-              sampleTasks = sampleTasks
-                ..add(
-                  SingleTaskModel(
-                    colorIndex: 0,
-                    task: controller.text,
-                    isReminderActive: true,
-                    list: '', userID: '',
-                  ),
-                );
-            });
+            addNewTask(controller.text);
           }
           Navigator.pop(context);
         },
@@ -70,5 +66,20 @@ class _NewTaskPageState extends State<NewTaskPage> {
         },
       ),
     );
+  }
+
+  Future<void> addNewTask(String text) async {
+    final task = SingleTaskModel(
+        task: text,
+        );
+    final docRef = db
+        .collection("users").doc('testUser').collection('tasks')
+        .withConverter(
+      fromFirestore: SingleTaskModel.fromFirestore,
+      toFirestore: (SingleTaskModel task, options) =>
+          task.toFirestore(),
+    )
+        .doc();
+    await docRef.set(task);
   }
 }

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
@@ -35,6 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
     author: '',
     content: '',
   );
+  FirebaseFirestore db = FirebaseFirestore.instance;
 
   @override
   void initState() {
