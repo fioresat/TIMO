@@ -1,9 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
+import 'package:todo_app_main_screen/main.dart';
 import 'package:todo_app_main_screen/models/quote_model.dart';
 import 'package:todo_app_main_screen/models/single_task_model.dart';
 import 'package:todo_app_main_screen/sample_data/sample_data.dart';
@@ -37,8 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
     author: '',
     content: '',
   );
-  FirebaseFirestore db = FirebaseFirestore.instance;
-  List<SingleTaskModel> _tasks = [];
+
 
   @override
   void initState() {
@@ -109,7 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
             });
           },
           isPanelOpen: panelController.isPanelOpen,
-          tasks: _tasks,
+          tasks: tasks,
           controller: scrollController,
           panelController: panelController,
           height: panelController.isPanelOpen
@@ -159,7 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
       (querySnapshot) {
         print("Successfully completed");
         for (var docSnapshot in querySnapshot.docs) {
-          _tasks.add(docSnapshot.data());
+          tasks.add(docSnapshot.data());
         }
       },
       onError: (e) => print("Error completing: $e"),

@@ -18,8 +18,8 @@ class NewTaskPage extends StatefulWidget {
 class _NewTaskPageState extends State<NewTaskPage> {
   final controller = TextEditingController();
   final listController = TextEditingController();
+
   FirebaseFirestore db = FirebaseFirestore.instance;
-  var selectedIndex = 0;
 
   @override
   void initState() {
@@ -28,14 +28,9 @@ class _NewTaskPageState extends State<NewTaskPage> {
 
   @override
   Widget build(BuildContext context) {
-    double widthScreen = MediaQuery
-        .of(context)
-        .size
-        .width;
-    double heightScreen = MediaQuery
-        .of(context)
-        .size
-        .height;
+    double widthScreen = MediaQuery.of(context).size.width;
+    double heightScreen = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: NewTaskPageBackgroundWidget(
         height: heightScreen,
@@ -43,7 +38,10 @@ class _NewTaskPageState extends State<NewTaskPage> {
         width: widthScreen,
         onBlackButtonPressed: () {
           if (controller.text.isNotEmpty) {
-            addNewTask(controller.text);
+            addNewTask(
+              text: controller.text,
+              taskID: UniqueKey().toString(),
+            );
           }
           Navigator.pop(context);
         },
@@ -68,18 +66,24 @@ class _NewTaskPageState extends State<NewTaskPage> {
     );
   }
 
-  Future<void> addNewTask(String text) async {
+  Future<void> addNewTask({
+    required String text,
+    required String taskID,
+    int? colorIndex,
+  }) async {
     final task = SingleTaskModel(
-        task: text,
-        );
+      task: text,
+      taskID: taskID,
+    );
     final docRef = db
-        .collection("users").doc('testUser').collection('tasks')
+        .collection("users")
+        .doc('testUser')
+        .collection('tasks')
         .withConverter(
-      fromFirestore: SingleTaskModel.fromFirestore,
-      toFirestore: (SingleTaskModel task, options) =>
-          task.toFirestore(),
-    )
-        .doc();
+          fromFirestore: SingleTaskModel.fromFirestore,
+          toFirestore: (SingleTaskModel task, options) => task.toFirestore(),
+        )
+        .doc(task.taskID);
     await docRef.set(task);
   }
 }
