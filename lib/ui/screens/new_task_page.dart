@@ -18,6 +18,7 @@ class NewTaskPage extends StatefulWidget {
 class _NewTaskPageState extends State<NewTaskPage> {
   final controller = TextEditingController();
   final listController = TextEditingController();
+  final taskModel = SingleTaskModel(task: '');
 
   FirebaseFirestore db = FirebaseFirestore.instance;
 
@@ -77,6 +78,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
       task: text,
       taskID: taskID,
       list: list!.isNotEmpty ? list : 'ToDo',
+      colorIndex: 1
     );
     final docRef = db
         .collection("users")

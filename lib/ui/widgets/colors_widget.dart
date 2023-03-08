@@ -1,11 +1,13 @@
 import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/button_colors.dart';
+import 'package:todo_app_main_screen/models/single_task_model.dart';
 import 'package:todo_app_main_screen/ui/widgets/single_color_widget.dart';
 
 class ColorsWidget extends StatefulWidget {
   int selectedIndex;
   final double width;
+  final taskModel = SingleTaskModel(task: '');
 
   ColorsWidget({
     Key? key,
@@ -37,18 +39,18 @@ class _ColorsWidgetState extends State<ColorsWidget> {
               onTap: () {
                 setState(() {
                   if (widget.selectedIndex != index) {
-                    widget.selectedIndex = index;
+                    widget.taskModel.colorIndex = index;
                   } else {
-                    widget.selectedIndex = -1;
+                    widget.taskModel.colorIndex = -1;
                   }
                 });
               },
               child: SingleColorWidget(
                 color: buttonColors[index],
-                bottomPadding: widget.selectedIndex == index
+                bottomPadding: widget.taskModel.colorIndex == index
                     ? bottomPadding = 20
                     : bottomPadding = 0,
-                topPadding: widget.selectedIndex == index
+                topPadding: widget.taskModel.colorIndex == index
                     ? topPadding = 0
                     : topPadding = 20,
               ),
