@@ -184,7 +184,7 @@ class _MyHomePageState extends State<MyHomePage> {
           .then(
         (querySnapshot) {
           for (var docSnapshot in querySnapshot.docs) {
-            currentTasks.add(docSnapshot.data());
+            currentTasks.add(docSnapshot.data()); //ToDo
           }
         },
         onError: (e) => print("Error completing: $e"),
