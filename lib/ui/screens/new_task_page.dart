@@ -48,7 +48,11 @@ class _NewTaskPageState extends State<NewTaskPage> {
             );
             setState(() {
               taskCurrentColorIndex = -1;
-              currentList = ListModel(list: 'ToDo');
+              listCurrentColorIndex = 0;
+              currentList = ListModel(
+                list: 'ToDo',
+                listID: 'ToDo',
+              );
             });
           }
 
