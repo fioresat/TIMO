@@ -158,9 +158,9 @@ class _MyHomePageState extends State<MyHomePage> {
         .get()
         .then(
       (querySnapshot) {
-        currentLists.clear();
+        currentLists.clear(); //ToDo
         for (var docSnapshot in querySnapshot.docs) {
-          currentLists.add(docSnapshot.data());
+          currentLists.add(docSnapshot.data()); //ToDo
         }
       },
       onError: (e) => print("Error completing: $e"),
@@ -168,7 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _updateTasks() async {
-    currentTasks.clear();
+    currentTasks.clear(); //ToDo
     for (int i = 0; i < currentLists.length; i++) {
       final ref = db
           .collection("users")
