@@ -40,7 +40,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    if(currentLists.isEmpty){addToDoList();}
+    if (currentLists.isEmpty) {
+      addToDoList();
+    }
     _updateLists();
     _updateQuote('quote1');
     _updateTasks();
@@ -158,9 +160,9 @@ class _MyHomePageState extends State<MyHomePage> {
         .get()
         .then(
       (querySnapshot) {
-        currentLists.clear();
+        currentLists.clear(); //ToDo
         for (var docSnapshot in querySnapshot.docs) {
-          currentLists.add(docSnapshot.data());
+          currentLists.add(docSnapshot.data()); //ToDo
         }
       },
       onError: (e) => print("Error completing: $e"),
@@ -168,8 +170,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _updateTasks() async {
-    currentTasks.clear();
-    for (int i = 0; i < currentLists.length; i++) {
+    currentTasks.clear();//ToDo
+    for (int i = 0; i < currentLists.length; i++)
+    {
       final ref = db
           .collection("users")
           .doc("testUser")
@@ -184,7 +187,7 @@ class _MyHomePageState extends State<MyHomePage> {
           .then(
         (querySnapshot) {
           for (var docSnapshot in querySnapshot.docs) {
-            currentTasks.add(docSnapshot.data());
+            currentTasks.add(docSnapshot.data());//ToDo
           }
         },
         onError: (e) => print("Error completing: $e"),
