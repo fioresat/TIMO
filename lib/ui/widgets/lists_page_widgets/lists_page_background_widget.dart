@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/button_colors.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
+import 'package:todo_app_main_screen/main.dart';
 import 'package:todo_app_main_screen/models/list_model.dart';
 import 'package:todo_app_main_screen/ui/screens/settings_page.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_page_widgets/options_panel_widget.dart';
@@ -35,6 +36,7 @@ class ListsPageBackgroundWidget extends StatefulWidget {
 
 class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
   int _selectedIndex = 0;
+  int _selectedColorIndex = 0;
 
   @override
   void initState() {
@@ -114,16 +116,23 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                                 onOptionsTap: () {
                                   SlidingPanelHelper().onPressedShowBottomSheet(
                                     OptionsPanelWidget(
+                                      selectedColorIndex: _selectedColorIndex,
                                       height: widget.height,
                                       width: widget.width,
-                                      onTapClose: Navigator.of(context).pop,
+                                      onTapClose: () {
+                                        _updateListColor(
+                                          oldList: widget.lists[_selectedIndex],
+                                        );
+                                        Navigator.pop(context);
+                                      },
                                       colors: buttonColors,
                                       onRenameTap: () {
                                         Navigator.pop(context);
                                       },
                                       onDeleteTap: () {
                                         setState(() {
-                                          widget.lists.removeAt(list.key);
+
+                                          _deleteList(oldList: widget.lists[_selectedIndex],);
                                         });
                                         Navigator.pop(context);
                                       },
@@ -153,5 +162,38 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
         ),
       ),
     );
+  }
+
+  Future<void> _deleteList({
+    required ListModel oldList,
+  }) async {
+    db
+        .collection("users")
+        .doc('testUser')
+        .collection('lists')
+        .doc(oldList.list)
+        .delete()
+        .then(
+          (doc) => print("Document deleted"),
+          onError: (e) => print("Error updating document $e"),
+        );
+  }
+
+  Future<void> _updateListColor({
+    required ListModel oldList,
+  }) async {
+    final docRef = db
+        .collection("users")
+        .doc('testUser')
+        .collection('lists')
+        .doc(oldList.list);
+
+    final updates = <String, int>{
+      "colorIndex": (listCurrentColorIndex == 0)
+          ? oldList.colorIndex
+          : listCurrentColorIndex,
+    };
+
+    docRef.update(updates);
   }
 }

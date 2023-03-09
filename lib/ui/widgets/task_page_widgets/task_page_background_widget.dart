@@ -14,6 +14,7 @@ class TaskPageBackgroundWidget extends StatefulWidget {
   final void Function() onReminderTap;
   final void Function() onTitleTap;
   final void Function() onMoveToTap;
+  final void Function() onCloseTap;
   final List<Color> colors;
   final TextEditingController controller;
 
@@ -26,7 +27,8 @@ class TaskPageBackgroundWidget extends StatefulWidget {
       required this.onMoveToTap,
       required this.colors,
       required this.controller,
-      required this.singleTaskModel})
+      required this.singleTaskModel,
+      required this.onCloseTap})
       : super(key: key);
 
   @override
@@ -63,7 +65,7 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
           children: [
             PanelCloseWidget(
               alignment: Alignment.topLeft,
-              onTapClose: () => Navigator.pop(context),
+              onTapClose: widget.onCloseTap,
               image: AppIcons.back,
             ),
             SizedBox(
@@ -119,7 +121,7 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
                   ),
                   ColorsWidget(
                     width: widget.width,
-                    selectedIndex: widget.singleTaskModel.colorIndex,
+                    selectedTaskColorIndex: widget.singleTaskModel.colorIndex,
                   ),
                   SizedBox(
                     height: widget.height * 0.04,

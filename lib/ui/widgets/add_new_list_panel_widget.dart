@@ -4,7 +4,6 @@ import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
 import 'package:todo_app_main_screen/main.dart';
 import 'package:todo_app_main_screen/models/list_model.dart';
-import 'package:todo_app_main_screen/sample_data/sample_data.dart';
 import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
 
 import 'black_button_widget.dart';
@@ -19,7 +18,8 @@ class AddNewListPanelWidget extends StatefulWidget {
     Key? key,
     required this.height,
     required this.width,
-    required this.onTapClose, required this.controller,
+    required this.onTapClose,
+    required this.controller,
   }) : super(key: key);
 
   @override
@@ -71,11 +71,15 @@ class _AddNewListPanelWidgetState extends State<AddNewListPanelWidget> {
               height: widget.height * 0.05,
               onPressed: () {
                 if (widget.controller.text.isNotEmpty) {
-                  _updateLists(widget.controller.text);
+                  String listID = UniqueKey().toString();
                   setState(() {
-                    //sampleLists.insert(sampleLists.length-1,controller.text);
-                    sampleLists = sampleLists
-                      ..add(ListModel(list: widget.controller.text));
+                    currentList = ListModel(
+                      list: widget.controller.text,
+                      listID: listID,
+                    );
+                    addNewList(
+                      list: currentList,
+                    );
                   });
                 }
                 widget.onTapClose();
@@ -93,10 +97,25 @@ class _AddNewListPanelWidgetState extends State<AddNewListPanelWidget> {
     );
   }
 
-  Future<void> _updateLists(String text) async {
-    final data = <String, dynamic>{};
-    final docRef =
-        db.collection("users").doc('testUser').collection('lists').doc(text);
-    await docRef.set(data);
+  // Future<void> _updateLists(String text) async {
+  //   final data = <String, dynamic>{};
+  //   final docRef =
+  //       db.collection("users").doc('testUser').collection('lists').doc(text);
+  //   await docRef.set(data);
+  // }
+
+  Future<void> addNewList({
+    required ListModel list,
+  }) async {
+    final docRef = db
+        .collection("users")
+        .doc('testUser')
+        .collection('lists')
+        .withConverter(
+          toFirestore: (ListModel task, options) => task.toFirestore(),
+          fromFirestore: ListModel.fromFirestore,
+        )
+        .doc(list.listID);
+    await docRef.set(list);
   }
 }

@@ -14,8 +14,9 @@ class ColorsPanelWidget extends StatefulWidget {
   final List<ListModel> lists;
   final List<Color> colors;
   final void Function() onAddNewListPressed;
+  int selectedIndex;
 
-  const ColorsPanelWidget({
+  ColorsPanelWidget({
     Key? key,
     required this.height,
     required this.width,
@@ -23,6 +24,7 @@ class ColorsPanelWidget extends StatefulWidget {
     required this.lists,
     required this.colors,
     required this.onAddNewListPressed,
+    this.selectedIndex = -1,
   }) : super(key: key);
 
   @override
@@ -34,14 +36,20 @@ class _ColorsPanelWidgetState extends State<ColorsPanelWidget> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30), color: backgroundColor),
+        borderRadius: BorderRadius.circular(30),
+        color: backgroundColor,
+      ),
       child: Padding(
         padding: EdgeInsets.only(
-            left: widget.width * 0.05, right: widget.width * 0.05),
+          left: widget.width * 0.05,
+          right: widget.width * 0.05,
+        ),
         child: Column(
           children: [
             Padding(
-              padding:  EdgeInsets.only(top: widget.height * 0.002),
+              padding: EdgeInsets.only(
+                top: widget.height * 0.002,
+              ),
               child: PanelCloseWidget(
                 alignment: Alignment.topRight,
                 onTapClose: widget.onTapClose,
@@ -67,6 +75,7 @@ class _ColorsPanelWidgetState extends State<ColorsPanelWidget> {
             Align(
               alignment: Alignment.topLeft,
               child: ColorsWidget(
+                selectedTaskColorIndex: widget.selectedIndex,
                 width: widget.width,
               ),
             ),

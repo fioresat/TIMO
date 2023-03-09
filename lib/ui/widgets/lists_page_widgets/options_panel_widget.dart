@@ -11,9 +11,11 @@ class OptionsPanelWidget extends StatefulWidget {
   final List<Color> colors;
   final void Function() onRenameTap;
   final void Function() onDeleteTap;
+  int selectedColorIndex;
 
-  const OptionsPanelWidget(
+  OptionsPanelWidget(
       {Key? key,
+      this.selectedColorIndex = 0,
       required this.height,
       required this.width,
       required this.onTapClose,
@@ -64,6 +66,7 @@ class _OptionsPanelWidgetState extends State<OptionsPanelWidget> {
           Align(
             alignment: Alignment.centerLeft,
             child: ColorsWidget(
+              selectedListColorIndex: widget.selectedColorIndex,
               width: widget.width,
             ),
           ),

@@ -2,8 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/button_colors.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
+import 'package:todo_app_main_screen/main.dart';
+import 'package:todo_app_main_screen/models/list_model.dart';
 import 'package:todo_app_main_screen/models/single_task_model.dart';
-import 'package:todo_app_main_screen/sample_data/sample_data.dart';
 import 'package:todo_app_main_screen/ui/widgets/new_task_page_widgets/new_task_page_background_widget.dart';
 
 class NewTaskPage extends StatefulWidget {
@@ -42,9 +43,15 @@ class _NewTaskPageState extends State<NewTaskPage> {
             addNewTask(
               text: controller.text,
               taskID: UniqueKey().toString(),
-              list: listController.text,
+              listID: currentList.listID,
+              colorIndex: taskCurrentColorIndex,
             );
+            setState(() {
+              taskCurrentColorIndex = -1;
+              currentList = ListModel(list: 'ToDo');
+            });
           }
+
           Navigator.pop(context);
         },
         onListsTap: () {
@@ -52,9 +59,10 @@ class _NewTaskPageState extends State<NewTaskPage> {
             context,
             widthScreen,
             heightScreen,
-            sampleLists,
+            currentLists,
             buttonColors,
             listController,
+            taskCurrentColorIndex,
           );
         },
         onReminderTap: () {
@@ -71,20 +79,20 @@ class _NewTaskPageState extends State<NewTaskPage> {
   Future<void> addNewTask({
     required String text,
     required String taskID,
-    int? colorIndex,
-    String? list,
+    required int colorIndex,
+    String? listID,
   }) async {
     final task = SingleTaskModel(
       task: text,
       taskID: taskID,
-      list: list!.isNotEmpty ? list : 'ToDo',
-      colorIndex: 1
+      listID: listID!.isNotEmpty ? listID : 'ToDo',
+      colorIndex: colorIndex,
     );
     final docRef = db
         .collection("users")
         .doc(task.userID)
         .collection('lists')
-        .doc(task.list)
+        .doc(task.listID)
         .collection('tasks')
         .withConverter(
           toFirestore: (SingleTaskModel task, options) => task.toFirestore(),
@@ -92,5 +100,25 @@ class _NewTaskPageState extends State<NewTaskPage> {
         )
         .doc(task.taskID);
     await docRef.set(task);
+  }
+
+  Future<void> addNewList({
+    required String text,
+    required String listID,
+  }) async {
+    final list = ListModel(
+      list: text,
+      listID: listID,
+    );
+    final docRef = db
+        .collection("users")
+        .doc('testUser')
+        .collection('lists')
+        .withConverter(
+          toFirestore: (ListModel task, options) => task.toFirestore(),
+          fromFirestore: ListModel.fromFirestore,
+        )
+        .doc(list.listID);
+    await docRef.set(list);
   }
 }

@@ -4,7 +4,7 @@ class SingleTaskModel {
   int colorIndex;
   bool isReminderActive;
   String task;
-  String list;
+  String listID;
   int listColorIndex;
   String userID;
   String taskID;
@@ -16,7 +16,7 @@ class SingleTaskModel {
     this.listColorIndex = 0,
     this.isReminderActive = false,
     required this.task,
-    this.list = "ToDo",
+    this.listID = "ToDo",
   });
 
   factory SingleTaskModel.fromFirestore(
@@ -28,7 +28,7 @@ class SingleTaskModel {
       colorIndex: data?['colorIndex'],
       isReminderActive: data?['isReminderActive'],
       task: data?['task'],
-      list: data?['list'],
+      listID: data?['listID'],
       listColorIndex: data?['listColorIndex'],
       userID: data?['userID'],
       taskID: data?['taskID'],
@@ -40,7 +40,7 @@ class SingleTaskModel {
       "colorIndex": colorIndex,
       "isReminderActive": isReminderActive,
       "task": task,
-      "list": list,
+      "listID": listID,
       "listColorIndex": listColorIndex,
       "userID": userID,
       "taskID": taskID,

@@ -1,13 +1,12 @@
-
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
 import 'package:todo_app_main_screen/main.dart';
+import 'package:todo_app_main_screen/models/list_model.dart';
 import 'package:todo_app_main_screen/models/quote_model.dart';
 import 'package:todo_app_main_screen/models/single_task_model.dart';
-import 'package:todo_app_main_screen/sample_data/sample_data.dart';
 import 'package:todo_app_main_screen/service/fetch_helper.dart';
 import 'package:todo_app_main_screen/ui/screens/lists_page.dart';
 import 'package:todo_app_main_screen/ui/screens/new_task_page.dart';
@@ -39,18 +38,21 @@ class _MyHomePageState extends State<MyHomePage> {
     content: '',
   );
 
-
   @override
   void initState() {
-    super.initState();
+    if(currentLists.isEmpty){addToDoList();}
+    _updateLists();
     _updateQuote('quote1');
     _updateTasks();
+
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     double widthScreen = MediaQuery.of(context).size.width;
     double heightScreen = MediaQuery.of(context).size.height;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: secondBackgroundColor,
@@ -82,7 +84,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ListsPanelWidget(
                 height: heightScreen,
                 width: widthScreen,
-                lists: sampleLists,
+                lists: currentLists,
                 onTapClose: () {
                   Navigator.of(context).pop();
                   setState(() {
@@ -91,8 +93,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   });
                 },
                 onAddNewListPressed: () {
-                  SlidingPanelHelper()
-                      .onAddNewListPressed(widthScreen, heightScreen, context, listController);
+                  SlidingPanelHelper().onAddNewListPressed(
+                      widthScreen, heightScreen, context, listController);
                 },
                 onButtonPressed: () {
                   Navigator.of(context).pop();
@@ -109,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
             });
           },
           isPanelOpen: panelController.isPanelOpen,
-          tasks: tasks,
+          tasks: currentTasks,
           controller: scrollController,
           panelController: panelController,
           height: panelController.isPanelOpen
@@ -144,27 +146,66 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-
-  Future<void> _updateTasks() async {
+  Future<void> _updateLists() async {
     final ref = db
         .collection("users")
         .doc("testUser")
         .collection("lists")
-        .doc("ToDo")
-        .collection('tasks')
         .withConverter(
-          fromFirestore: SingleTaskModel.fromFirestore,
-          toFirestore: (SingleTaskModel task, _) => task.toFirestore(),
+          fromFirestore: ListModel.fromFirestore,
+          toFirestore: (ListModel list, _) => list.toFirestore(),
         )
         .get()
         .then(
       (querySnapshot) {
-        print("Successfully completed");
+        currentLists.clear();
         for (var docSnapshot in querySnapshot.docs) {
-          tasks.add(docSnapshot.data());
+          currentLists.add(docSnapshot.data());
         }
       },
       onError: (e) => print("Error completing: $e"),
     );
+  }
+
+  Future<void> _updateTasks() async {
+    currentTasks.clear();
+    for (int i = 0; i < currentLists.length; i++) {
+      final ref = db
+          .collection("users")
+          .doc("testUser")
+          .collection("lists")
+          .doc(currentLists[i].listID)
+          .collection('tasks')
+          .withConverter(
+            fromFirestore: SingleTaskModel.fromFirestore,
+            toFirestore: (SingleTaskModel task, _) => task.toFirestore(),
+          )
+          .get()
+          .then(
+        (querySnapshot) {
+          for (var docSnapshot in querySnapshot.docs) {
+            currentTasks.add(docSnapshot.data());
+          }
+        },
+        onError: (e) => print("Error completing: $e"),
+      );
+    }
+  }
+
+  Future<void> addToDoList() async {
+    final list = ListModel(
+      listID: 'ToDo',
+      list: 'ToDo',
+    );
+    final docRef = db
+        .collection("users")
+        .doc('testUser')
+        .collection('lists')
+        .withConverter(
+          toFirestore: (ListModel task, options) => task.toFirestore(),
+          fromFirestore: ListModel.fromFirestore,
+        )
+        .doc('ToDo');
+    await docRef.set(list);
   }
 }

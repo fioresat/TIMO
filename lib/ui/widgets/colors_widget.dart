@@ -1,18 +1,19 @@
 import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/button_colors.dart';
-import 'package:todo_app_main_screen/models/single_task_model.dart';
+import 'package:todo_app_main_screen/main.dart';
 import 'package:todo_app_main_screen/ui/widgets/single_color_widget.dart';
 
 class ColorsWidget extends StatefulWidget {
-  int selectedIndex;
+  int selectedTaskColorIndex;
+  int selectedListColorIndex;
   final double width;
-  final taskModel = SingleTaskModel(task: '');
 
   ColorsWidget({
     Key? key,
     required this.width,
-    this.selectedIndex = -1,
+    this.selectedTaskColorIndex = -1,
+    this.selectedListColorIndex = 0,
   }) : super(key: key);
 
   @override
@@ -38,19 +39,23 @@ class _ColorsWidgetState extends State<ColorsWidget> {
               tapPadding: const EdgeInsets.all(20.0),
               onTap: () {
                 setState(() {
-                  if (widget.selectedIndex != index) {
-                    widget.taskModel.colorIndex = index;
+                  if (widget.selectedTaskColorIndex != index) {
+                    widget.selectedTaskColorIndex = index;
+                    widget.selectedListColorIndex = index;
                   } else {
-                    widget.taskModel.colorIndex = -1;
+                    widget.selectedTaskColorIndex = -1;
+                    widget.selectedListColorIndex = 0;
                   }
+                  taskCurrentColorIndex = widget.selectedTaskColorIndex;
+                  listCurrentColorIndex = widget.selectedListColorIndex;
                 });
               },
               child: SingleColorWidget(
                 color: buttonColors[index],
-                bottomPadding: widget.taskModel.colorIndex == index
+                bottomPadding: (widget.selectedTaskColorIndex == index || widget.selectedListColorIndex == index)
                     ? bottomPadding = 20
                     : bottomPadding = 0,
-                topPadding: widget.taskModel.colorIndex == index
+                topPadding: (widget.selectedTaskColorIndex == index || widget.selectedListColorIndex == index)
                     ? topPadding = 0
                     : topPadding = 20,
               ),
@@ -63,4 +68,6 @@ class _ColorsWidgetState extends State<ColorsWidget> {
       ),
     );
   }
+
+
 }

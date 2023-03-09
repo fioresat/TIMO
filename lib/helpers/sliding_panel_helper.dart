@@ -53,9 +53,11 @@ class SlidingPanelHelper {
       double heightScreen,
       List<ListModel> lists,
       List<Color> buttonColors,
-      TextEditingController controller) {
+      TextEditingController controller,
+      int selectedIndex) {
     SlidingPanelHelper().onPressedShowBottomSheet(
       ColorsPanelWidget(
+        selectedIndex: selectedIndex,
         height: heightScreen,
         width: widthScreen,
         onTapClose: Navigator.of(context).pop,

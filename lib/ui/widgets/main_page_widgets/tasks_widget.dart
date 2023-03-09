@@ -4,6 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
+import 'package:todo_app_main_screen/main.dart';
 import 'package:todo_app_main_screen/models/single_task_model.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/single_task_widget.dart';
 
@@ -120,7 +121,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                             child: Card(
                               elevation: 0,
                               child: SingleTaskWidget(
-                                singleTaskModel: tasks[index],
+                                singleTaskModel: widget.tasks[index],
                               ),
                             ),
                           ),
@@ -132,7 +133,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                           child: Card(
                             elevation: 0,
                             child: SingleTaskWidget(
-                              singleTaskModel: tasks[index],
+                              singleTaskModel: widget.tasks[index],
                             ),
                           ),
                         );
@@ -222,6 +223,7 @@ class _TasksWidgetState extends State<TasksWidget> {
             duration: duration,
             tween: Tween(begin: duration, end: Duration.zero),
             onEnd: () {
+              _deleteTask(oldTask: deletedItem);
               Navigator.of(context).pop(true);
             },
             builder: (BuildContext context, Duration value, Widget? child) {
@@ -243,12 +245,30 @@ class _TasksWidgetState extends State<TasksWidget> {
                       isDestructiveAction: true,
                       child: const Text('Delete'),
                       onPressed: () {
+                        _deleteTask(oldTask: deletedItem);
                         Navigator.of(context).pop();
                       }),
                 ],
               );
             });
       },
+    );
+  }
+
+  Future<void> _deleteTask({
+    required SingleTaskModel oldTask,
+  }) async {
+    db
+        .collection("users")
+        .doc(oldTask.userID)
+        .collection('lists')
+        .doc(oldTask.listID)
+        .collection('tasks')
+        .doc(oldTask.taskID)
+        .delete()
+        .then(
+          (doc) => print("Document deleted"),
+      onError: (e) => print("Error updating document $e"),
     );
   }
 }
