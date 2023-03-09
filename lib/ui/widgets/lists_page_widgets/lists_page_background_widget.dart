@@ -171,7 +171,7 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
         .collection("users")
         .doc('testUser')
         .collection('lists')
-        .doc(oldList.list)
+        .doc(oldList.listID)
         .delete()
         .then(
           (doc) => print("Document deleted"),
@@ -186,7 +186,7 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
         .collection("users")
         .doc('testUser')
         .collection('lists')
-        .doc(oldList.list);
+        .doc(oldList.listID);
 
     final updates = <String, int>{
       "colorIndex": (listCurrentColorIndex == 0)
