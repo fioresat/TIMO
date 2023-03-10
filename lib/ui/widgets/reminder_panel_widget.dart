@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
+import 'package:todo_app_main_screen/main.dart';
+import 'package:todo_app_main_screen/models/single_task_model.dart';
 import 'package:todo_app_main_screen/ui/widgets/black_button_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
 
@@ -10,6 +12,7 @@ class ReminderPanelWidget extends StatefulWidget {
   final double width;
   final void Function() onCloseTap;
   final void Function() onSaveTap;
+  final SingleTaskModel taskModel;
 
   const ReminderPanelWidget({
     Key? key,
@@ -17,6 +20,7 @@ class ReminderPanelWidget extends StatefulWidget {
     required this.width,
     required this.onCloseTap,
     required this.onSaveTap,
+    required this.taskModel,
   }) : super(key: key);
 
   @override
@@ -30,9 +34,7 @@ class _ReminderPanelWidgetState extends State<ReminderPanelWidget> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          color: backgroundColor
-      ),
+          borderRadius: BorderRadius.circular(30), color: backgroundColor),
       child: Padding(
         padding: const EdgeInsets.only(left: 25, right: 25),
         child: Column(
@@ -72,6 +74,11 @@ class _ReminderPanelWidgetState extends State<ReminderPanelWidget> {
               ),
               child: BlackButtonWidget(
                 onPressed: () {
+                  _updateTaskReminder(
+                    oldTask: widget.taskModel,
+                    dateTimeReminder: _chosenDateTime.toString(),
+                    isReminderActive: true,
+                  );
                   widget.onSaveTap;
                   Navigator.pop(context);
                 },
@@ -90,5 +97,25 @@ class _ReminderPanelWidgetState extends State<ReminderPanelWidget> {
         ),
       ),
     );
+  }
+
+  Future<void> _updateTaskReminder({
+    required SingleTaskModel oldTask,
+    required dateTimeReminder,
+    required isReminderActive,
+  }) async {
+    final docRef = db
+        .collection("users")
+        .doc('testUser')
+        .collection('lists')
+        .doc(oldTask.listID)
+        .collection('tasks')
+        .doc(oldTask.taskID);
+
+    final updates = <String, dynamic>{
+      "dateTimeReminder": dateTimeReminder,
+      "isReminderActive": isReminderActive,
+    };
+    docRef.update(updates);
   }
 }

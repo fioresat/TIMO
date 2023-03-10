@@ -73,7 +73,8 @@ class _NewTaskPageState extends State<NewTaskPage> {
           SlidingPanelHelper().onReminderTap(
             widthScreen,
             heightScreen,
-            context, () {}
+            context, () {},
+            taskModel,
           );
         },
       ),
@@ -106,23 +107,5 @@ class _NewTaskPageState extends State<NewTaskPage> {
     await docRef.set(task);
   }
 
-  Future<void> addNewList({
-    required String text,
-    required String listID,
-  }) async {
-    final list = ListModel(
-      list: text,
-      listID: listID,
-    );
-    final docRef = db
-        .collection("users")
-        .doc('testUser')
-        .collection('lists')
-        .withConverter(
-          toFirestore: (ListModel task, options) => task.toFirestore(),
-          fromFirestore: ListModel.fromFirestore,
-        )
-        .doc(list.listID);
-    await docRef.set(list);
-  }
+
 }

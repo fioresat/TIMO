@@ -35,20 +35,20 @@ class _TaskPageState extends State<TaskPage> {
     double widthScreen = MediaQuery.of(context).size.width;
     double heightScreen = MediaQuery.of(context).size.height;
     final bool showFab = MediaQuery.of(context).viewInsets.bottom == 0.0;
-    print(isCurrentReminderActive.toString());
+
     return Scaffold(
       backgroundColor: backgroundColor,
       resizeToAvoidBottomInset: false,
       body: TaskPageBackgroundWidget(
         height: heightScreen,
         width: widthScreen,
-        onReminderTap: () => SlidingPanelHelper()
-            .onReminderTap(widthScreen, heightScreen, context, () {
-          setState(() {
-            sampleTask.isReminderActive = true;
-            isCurrentReminderActive = sampleTask.isReminderActive;
-          });
-        }),
+        onReminderTap: () => SlidingPanelHelper().onReminderTap(
+          widthScreen,
+          heightScreen,
+          context,
+          () {},
+          sampleTask,
+        ),
         onTitleTap: () {},
         onMoveToTap: () {},
         colors: buttonColors,
@@ -64,7 +64,9 @@ class _TaskPageState extends State<TaskPage> {
       floatingActionButton: showFab
           ? Container(
               padding: EdgeInsets.only(
-                  left: widthScreen * 0.1, right: widthScreen * 0.02),
+                left: widthScreen * 0.1,
+                right: widthScreen * 0.02,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -132,41 +134,22 @@ class _TaskPageState extends State<TaskPage> {
   Future<void> _updateTask({
     required SingleTaskModel oldTask,
   }) async {
-    SingleTaskModel task = SingleTaskModel(
-      isReminderActive: isCurrentReminderActive == false
-          ? oldTask.isReminderActive
-          : isCurrentReminderActive,
-      taskID: oldTask.taskID,
-      task: textController.text,
-      userID: oldTask.userID,
-      colorIndex: (taskCurrentColorIndex == -1)
-          ? oldTask.colorIndex
-          : taskCurrentColorIndex,
-      listID: (currentList.list == 'ToDo') ? oldTask.listID : currentList.list,
-    );
-    db
+    final docRef = db
         .collection("users")
-        .doc(oldTask.userID)
+        .doc('testUser')
         .collection('lists')
         .doc(oldTask.listID)
         .collection('tasks')
-        .doc(oldTask.taskID)
-        .delete()
-        .then(
-          (doc) => print("Document deleted"),
-          onError: (e) => print("Error updating document $e"),
-        );
-    final docRef = db
-        .collection("users")
-        .doc(task.userID)
-        .collection('lists')
-        .doc(task.listID)
-        .collection('tasks')
-        .withConverter(
-          toFirestore: (SingleTaskModel task, options) => task.toFirestore(),
-          fromFirestore: SingleTaskModel.fromFirestore,
-        )
-        .doc(task.taskID);
-    await docRef.set(task);
+        .doc(oldTask.taskID);
+
+    final updates = <String, dynamic>{
+      'task': textController.text,
+      'colorIndex': (taskCurrentColorIndex == -1)
+          ? oldTask.colorIndex
+          : taskCurrentColorIndex,
+      'listID':
+          (currentList.list == 'ToDo') ? oldTask.listID : currentList.listID,
+    };
+    docRef.update(updates);
   }
 }

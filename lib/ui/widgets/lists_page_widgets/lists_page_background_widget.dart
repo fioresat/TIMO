@@ -17,7 +17,6 @@ class ListsPageBackgroundWidget extends StatefulWidget {
   final double width;
   final void Function() onPressed;
   final List<ListModel> lists;
-
   final void Function() onAddButtonTap;
 
   const ListsPageBackgroundWidget({
@@ -36,7 +35,6 @@ class ListsPageBackgroundWidget extends StatefulWidget {
 
 class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
   int _selectedIndex = 0;
-  int _selectedColorIndex = 0;
 
   @override
   void initState() {
@@ -117,7 +115,7 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                                   _selectedIndex = list.key;
                                   SlidingPanelHelper().onPressedShowBottomSheet(
                                     OptionsPanelWidget(
-                                      selectedListColorIndex: _selectedColorIndex,
+                                      selectedListColorIndex: widget.lists[_selectedIndex].listColorIndex,
                                       height: widget.height,
                                       width: widget.width,
                                       onTapClose: () {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/button_colors.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
+import 'package:todo_app_main_screen/main.dart';
 import 'package:todo_app_main_screen/models/list_model.dart';
 
 class SingleListWidget extends StatefulWidget {
@@ -13,7 +14,6 @@ class SingleListWidget extends StatefulWidget {
   final bool isTapped;
   ListModel listModel;
 
-
   SingleListWidget({
     Key? key,
     required this.height,
@@ -23,7 +23,6 @@ class SingleListWidget extends StatefulWidget {
     required this.onListTap,
     required this.onAddButtonTap,
     required this.width,
-
   }) : super(key: key);
 
   @override
@@ -100,6 +99,9 @@ class _SingleListWidgetState extends State<SingleListWidget> {
                     onTapOutside: (_) {
                       FocusManager.instance.primaryFocus?.unfocus();
                     },
+                    onChanged: (text) {
+                      _updateListText(oldList: widget.listModel);
+                    },
                   ),
                 ),
               ],
@@ -108,5 +110,20 @@ class _SingleListWidgetState extends State<SingleListWidget> {
         ],
       ),
     );
+  }
+
+  Future<void> _updateListText({
+    required ListModel oldList,
+  }) async {
+    final docRef = db
+        .collection("users")
+        .doc('testUser')
+        .collection('lists')
+        .doc(oldList.listID);
+
+    final updates = <String, String>{
+      "list": controller.text,
+    };
+    docRef.update(updates);
   }
 }

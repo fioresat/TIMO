@@ -3,7 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
-import 'package:todo_app_main_screen/main.dart';
 import 'package:todo_app_main_screen/models/single_task_model.dart';
 import 'package:todo_app_main_screen/ui/widgets/colors_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
@@ -38,7 +37,7 @@ class TaskPageBackgroundWidget extends StatefulWidget {
 }
 
 class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
-  DateTime date = DateTime.now();
+
   bool isTapped = false;
 
   @override
@@ -49,6 +48,7 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
 
   @override
   Widget build(BuildContext context) {
+    DateTime date = DateTime.parse(widget.singleTaskModel.dateTimeReminder);
     return GestureDetector(
       onTapDown: (_) {
         setState(() {
