@@ -10,13 +10,13 @@ import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
 class TaskPageBackgroundWidget extends StatefulWidget {
   final double height;
   final double width;
-  final SingleTaskModel singleTaskModel;
+  final TaskModel taskModel;
   final void Function() onReminderTap;
   final void Function() onTitleTap;
   final void Function() onMoveToTap;
   final void Function() onCloseTap;
-  final List<Color> colors;
-  final TextEditingController controller;
+  final List<Color> colorsList;
+  final TextEditingController taskController;
 
   const TaskPageBackgroundWidget(
       {Key? key,
@@ -25,9 +25,9 @@ class TaskPageBackgroundWidget extends StatefulWidget {
       required this.onReminderTap,
       required this.onTitleTap,
       required this.onMoveToTap,
-      required this.colors,
-      required this.controller,
-      required this.singleTaskModel,
+      required this.colorsList,
+      required this.taskController,
+      required this.taskModel,
       required this.onCloseTap,})
       : super(key: key);
 
@@ -43,12 +43,12 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
   @override
   void initState() {
     super.initState();
-    widget.controller.text = widget.singleTaskModel.task;
+    widget.taskController.text = widget.taskModel.task;
   }
 
   @override
   Widget build(BuildContext context) {
-    DateTime date = DateTime.parse(widget.singleTaskModel.dateTimeReminder);
+    DateTime date = DateTime.parse(widget.taskModel.dateTimeReminder);
     return GestureDetector(
       onTapDown: (_) {
         setState(() {
@@ -77,7 +77,7 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
                 onTap: () => setState(
                   () => isTapped = true,
                 ),
-                controller: widget.controller,
+                controller: widget.taskController,
                 cursorColor: darkColor,
                 cursorHeight: 26,
                 keyboardType: TextInputType.multiline,
@@ -92,7 +92,7 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
                   color: darkColor,
                 ),
                 onChanged: (String newText) => setState(() {
-                  widget.singleTaskModel.task == newText;
+                  widget.taskModel.task == newText;
                 }),
                 onTapOutside: (_) {
                   FocusManager.instance.primaryFocus?.unfocus();
@@ -122,7 +122,7 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
                   ),
                   ColorsWidget(
                     width: widget.width,
-                    selectedTaskColorIndex: widget.singleTaskModel.colorIndex,
+                    selectedTaskColorIndex: widget.taskModel.colorIndex,
                   ),
                   SizedBox(
                     height: widget.height * 0.04,
@@ -174,7 +174,7 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
                   ),
                   InkWell(
                     onTap: widget.onReminderTap,
-                    child: (widget.singleTaskModel.isReminderActive == true) ? Row(
+                    child: (widget.taskModel.isReminderActive == true) ? Row(
                       children: [
                         Text(
                           '${date.hour}-${date.minute.toString().padLeft(2, "0")}',

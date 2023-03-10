@@ -17,9 +17,9 @@ class NewTaskPage extends StatefulWidget {
 }
 
 class _NewTaskPageState extends State<NewTaskPage> {
-  final controller = TextEditingController();
+  final taskController = TextEditingController();
   final listController = TextEditingController();
-  final taskModel = SingleTaskModel(task: '');
+  final taskModel = TaskModel(task: '');
 
   FirebaseFirestore db = FirebaseFirestore.instance;
 
@@ -36,12 +36,12 @@ class _NewTaskPageState extends State<NewTaskPage> {
     return Scaffold(
       body: NewTaskPageBackgroundWidget(
         height: heightScreen,
-        controller: controller,
+        taskController: taskController,
         width: widthScreen,
         onBlackButtonPressed: () {
-          if (controller.text.isNotEmpty) {
+          if (taskController.text.isNotEmpty) {
             addNewTask(
-              text: controller.text,
+              text: taskController.text,
               taskID: UniqueKey().toString(),
               listID: currentList.listID,
               colorIndex: taskCurrentColorIndex,
@@ -87,7 +87,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
     required int colorIndex,
     String? listID,
   }) async {
-    final task = SingleTaskModel(
+    final newTask = TaskModel(
       task: text,
       taskID: taskID,
       listID: listID!.isNotEmpty ? listID : 'ToDo',
@@ -95,16 +95,16 @@ class _NewTaskPageState extends State<NewTaskPage> {
     );
     final docRef = db
         .collection("users")
-        .doc(task.userID)
+        .doc(newTask.userID)
         .collection('lists')
-        .doc(task.listID)
+        .doc(newTask.listID)
         .collection('tasks')
         .withConverter(
-          toFirestore: (SingleTaskModel task, options) => task.toFirestore(),
-          fromFirestore: SingleTaskModel.fromFirestore,
+          toFirestore: (TaskModel task, options) => task.toFirestore(),
+          fromFirestore: TaskModel.fromFirestore,
         )
-        .doc(task.taskID);
-    await docRef.set(task);
+        .doc(newTask.taskID);
+    await docRef.set(newTask);
   }
 
 

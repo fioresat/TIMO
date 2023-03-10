@@ -5,11 +5,11 @@ import 'package:todo_app_main_screen/models/single_task_model.dart';
 import 'package:todo_app_main_screen/ui/screens/task_page.dart';
 
 class SingleTaskWidget extends StatelessWidget {
-  final SingleTaskModel singleTaskModel;
+  final TaskModel taskModel;
 
   const SingleTaskWidget({
     Key? key,
-    required this.singleTaskModel,
+    required this.taskModel,
   }) : super(key: key);
 
   @override
@@ -21,7 +21,7 @@ class SingleTaskWidget extends StatelessWidget {
         onTap: () => Navigator.pushNamed(
           context,
           TaskPage.routeName,
-          arguments: singleTaskModel,
+          arguments: taskModel,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,7 +32,7 @@ class SingleTaskWidget extends StatelessWidget {
                 bottom: 11,
               ),
               child: Text(
-                singleTaskModel.task,
+                taskModel.task,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
                 style: const TextStyle(
@@ -44,14 +44,14 @@ class SingleTaskWidget extends StatelessWidget {
             ),
             Row(
               children: [
-                singleTaskModel.colorIndex >= 0 &&
-                        singleTaskModel.colorIndex < buttonColors.length
+                taskModel.colorIndex >= 0 &&
+                        taskModel.colorIndex < buttonColors.length
                     ? Container(
                         height: 5,
                         width: 32,
                         padding: const EdgeInsets.symmetric(vertical: 6),
                         decoration: BoxDecoration(
-                          color: buttonColors[singleTaskModel.colorIndex],
+                          color: buttonColors[taskModel.colorIndex],
                           borderRadius: const BorderRadius.all(
                             Radius.circular(8),
                           ),
@@ -59,8 +59,8 @@ class SingleTaskWidget extends StatelessWidget {
                       )
                     : const SizedBox(),
                 SizedBox(
-                  width: singleTaskModel.colorIndex >= 0 &&
-                          singleTaskModel.colorIndex < buttonColors.length
+                  width: taskModel.colorIndex >= 0 &&
+                          taskModel.colorIndex < buttonColors.length
                       ? 10
                       : 0,
                 ),
@@ -69,7 +69,7 @@ class SingleTaskWidget extends StatelessWidget {
                   width: 32,
                   padding: const EdgeInsets.symmetric(vertical: 6),
                   decoration: BoxDecoration(
-                    color: singleTaskModel.isReminderActive
+                    color: taskModel.isReminderActive
                         ? textColor
                         : Colors.transparent,
                     borderRadius: const BorderRadius.all(

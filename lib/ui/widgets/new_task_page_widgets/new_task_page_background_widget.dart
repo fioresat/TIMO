@@ -6,7 +6,7 @@ import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
 import '../black_button_widget.dart';
 
 class NewTaskPageBackgroundWidget extends StatefulWidget {
-  final TextEditingController controller;
+  final TextEditingController taskController;
   final double height;
   final double width;
   final void Function() onBlackButtonPressed;
@@ -15,7 +15,7 @@ class NewTaskPageBackgroundWidget extends StatefulWidget {
 
   const NewTaskPageBackgroundWidget(
       {Key? key,
-      required this.controller,
+      required this.taskController,
       required this.height,
       required this.width,
       required this.onBlackButtonPressed,
@@ -48,7 +48,7 @@ class _NewTaskPageBackgroundWidgetState
           Expanded(
             child: TextField(
               textCapitalization: TextCapitalization.sentences,
-              controller: widget.controller,
+              controller: widget.taskController,
               style: const TextStyle(
                 fontSize: 26,
               ),

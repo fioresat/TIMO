@@ -13,7 +13,7 @@ import 'package:todo_app_main_screen/ui/screens/task_page.dart';
 import 'firebase_options.dart';
 
 FirebaseFirestore db = FirebaseFirestore.instance;
-List<SingleTaskModel> currentTasks = [];
+List<TaskModel> currentTasks = [];
 List<ListModel> currentLists = [];
 int taskCurrentColorIndex = -1;
 int listCurrentColorIndex = 0;

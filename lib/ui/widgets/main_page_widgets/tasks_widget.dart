@@ -11,8 +11,8 @@ import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/single_task_wi
 class TasksWidget extends StatefulWidget {
   final bool isPanelOpen;
   final double height;
-  final List<SingleTaskModel> tasks;
-  final ScrollController controller;
+  final List<TaskModel> tasksList;
+  final ScrollController scrollController;
   final PanelController panelController;
   final void Function()? onPressed;
   final bool isMoveToPressed;
@@ -20,8 +20,8 @@ class TasksWidget extends StatefulWidget {
   const TasksWidget(
       {Key? key,
       required this.isPanelOpen,
-      required this.tasks,
-      required this.controller,
+      required this.tasksList,
+      required this.scrollController,
       required this.panelController,
       this.onPressed,
       required this.height,
@@ -40,7 +40,7 @@ class _TasksWidgetState extends State<TasksWidget> {
 
   @override
   Widget build(BuildContext context) {
-    List<SingleTaskModel> tasks = widget.tasks;
+    List<TaskModel> tasks = widget.tasksList;
     return Padding(
       padding: const EdgeInsets.only(
         right: 25,
@@ -59,7 +59,7 @@ class _TasksWidgetState extends State<TasksWidget> {
             height: 0.9 * widget.height,
             child: ListView.builder(
                 padding: EdgeInsets.zero,
-                controller: widget.controller,
+                controller: widget.scrollController,
                 physics: widget.panelController.isPanelOpen
                     ? const AlwaysScrollableScrollPhysics()
                     : const NeverScrollableScrollPhysics(),
@@ -121,7 +121,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                             child: Card(
                               elevation: 0,
                               child: SingleTaskWidget(
-                                singleTaskModel: widget.tasks[index],
+                                taskModel: widget.tasksList[index],
                               ),
                             ),
                           ),
@@ -133,7 +133,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                           child: Card(
                             elevation: 0,
                             child: SingleTaskWidget(
-                              singleTaskModel: widget.tasks[index],
+                              taskModel: widget.tasksList[index],
                             ),
                           ),
                         );
@@ -149,8 +149,8 @@ class _TasksWidgetState extends State<TasksWidget> {
       if (newIndex > oldIndex) {
         newIndex -= 1;
       }
-      final items = widget.tasks.removeAt(oldIndex);
-      widget.tasks.insert(newIndex, items);
+      final items = widget.tasksList.removeAt(oldIndex);
+      widget.tasksList.insert(newIndex, items);
     });
   }
 
@@ -213,9 +213,9 @@ class _TasksWidgetState extends State<TasksWidget> {
           });
   }
 
-  void _undo(List<SingleTaskModel> tasks, int index) {
+  void _undo(List<TaskModel> tasks, int index) {
     Duration duration = const Duration(seconds: 5);
-    SingleTaskModel deletedItem = tasks.removeAt(index);
+    TaskModel deletedItem = tasks.removeAt(index);
     showCupertinoModalPopup<void>(
       context: context,
       builder: (BuildContext context) {
@@ -223,7 +223,7 @@ class _TasksWidgetState extends State<TasksWidget> {
             duration: duration,
             tween: Tween(begin: duration, end: Duration.zero),
             onEnd: () {
-              _deleteTask(oldTask: deletedItem);
+              _deleteTask(deletedTask: deletedItem);
               Navigator.of(context).pop(true);
             },
             builder: (BuildContext context, Duration value, Widget? child) {
@@ -245,7 +245,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                       isDestructiveAction: true,
                       child: const Text('Delete'),
                       onPressed: () {
-                        _deleteTask(oldTask: deletedItem);
+                        _deleteTask(deletedTask: deletedItem);
                         Navigator.of(context).pop();
                       }),
                 ],
@@ -256,15 +256,15 @@ class _TasksWidgetState extends State<TasksWidget> {
   }
 
   Future<void> _deleteTask({
-    required SingleTaskModel oldTask,
+    required TaskModel deletedTask,
   }) async {
     db
         .collection("users")
-        .doc(oldTask.userID)
+        .doc(deletedTask.userID)
         .collection('lists')
-        .doc(oldTask.listID)
+        .doc(deletedTask.listID)
         .collection('tasks')
-        .doc(oldTask.taskID)
+        .doc(deletedTask.taskID)
         .delete()
         .then(
           (doc) => print("Document deleted"),

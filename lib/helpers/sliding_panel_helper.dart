@@ -45,7 +45,7 @@ class SlidingPanelHelper {
     double heightScreen,
     BuildContext context,
     void Function() onSaveTap,
-      SingleTaskModel taskModel,
+      TaskModel taskModel,
   ) {
     onPressedShowBottomSheet(
         ReminderPanelWidget(
@@ -70,12 +70,12 @@ class SlidingPanelHelper {
       int selectedIndex) {
     SlidingPanelHelper().onPressedShowBottomSheet(
       ColorsPanelWidget(
-        selectedIndex: selectedIndex,
+        selectedTaskColorIndex: selectedIndex,
         height: heightScreen,
         width: widthScreen,
         onTapClose: Navigator.of(context).pop,
         lists: lists,
-        colors: buttonColors,
+        colorsList: buttonColors,
         onAddNewListPressed: () {
           SlidingPanelHelper().onAddNewListPressed(
               widthScreen, heightScreen, context, controller);

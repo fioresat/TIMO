@@ -43,9 +43,9 @@ class _MyHomePageState extends State<MyHomePage> {
     if (currentLists.isEmpty) {
       addToDoList();
     }
-    _updateLists();
+    _getLists();
     _updateQuote('quote1');
-    _updateTasks();
+    _getTasks();
 
     super.initState();
   }
@@ -113,8 +113,8 @@ class _MyHomePageState extends State<MyHomePage> {
             });
           },
           isPanelOpen: panelController.isPanelOpen,
-          tasks: currentTasks,
-          controller: scrollController,
+          tasksList: currentTasks,
+          scrollController: scrollController,
           panelController: panelController,
           height: panelController.isPanelOpen
               ? 0.95 * heightScreen
@@ -148,7 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  Future<void> _updateLists() async {
+  Future<void> _getLists() async {
     final ref = db
         .collection("users")
         .doc("testUser")
@@ -169,7 +169,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Future<void> _updateTasks() async {
+  Future<void> _getTasks() async {
     currentTasks.clear();//ToDo
     for (int i = 0; i < currentLists.length; i++)
     {
@@ -180,8 +180,8 @@ class _MyHomePageState extends State<MyHomePage> {
           .doc(currentLists[i].listID)
           .collection('tasks')
           .withConverter(
-            fromFirestore: SingleTaskModel.fromFirestore,
-            toFirestore: (SingleTaskModel task, _) => task.toFirestore(),
+            fromFirestore: TaskModel.fromFirestore,
+            toFirestore: (TaskModel task, _) => task.toFirestore(),
           )
           .get()
           .then(

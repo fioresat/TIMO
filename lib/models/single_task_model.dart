@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class SingleTaskModel {
+class TaskModel {
   int colorIndex;
   bool isReminderActive;
   String task;
@@ -10,7 +10,7 @@ class SingleTaskModel {
   String taskID;
   String dateTimeReminder;
 
-  SingleTaskModel({
+  TaskModel({
     this.dateTimeReminder = '',
     this.userID = 'testUser',
     this.taskID = '',
@@ -21,12 +21,12 @@ class SingleTaskModel {
     this.listID = "ToDo",
   });
 
-  factory SingleTaskModel.fromFirestore(
+  factory TaskModel.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
     SnapshotOptions? options,
   ) {
     final data = snapshot.data();
-    return SingleTaskModel(
+    return TaskModel(
       colorIndex: data?['colorIndex'],
       dateTimeReminder: data?['dateTimeReminder'],
       isReminderActive: data?['isReminderActive'],

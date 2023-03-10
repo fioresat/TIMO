@@ -12,9 +12,9 @@ class ColorsPanelWidget extends StatefulWidget {
   final double width;
   final void Function() onTapClose;
   final List<ListModel> lists;
-  final List<Color> colors;
+  final List<Color> colorsList;
   final void Function() onAddNewListPressed;
-  int selectedIndex;
+  int selectedTaskColorIndex;
 
   ColorsPanelWidget({
     Key? key,
@@ -22,9 +22,9 @@ class ColorsPanelWidget extends StatefulWidget {
     required this.width,
     required this.onTapClose,
     required this.lists,
-    required this.colors,
+    required this.colorsList,
     required this.onAddNewListPressed,
-    this.selectedIndex = -1,
+    this.selectedTaskColorIndex = -1,
   }) : super(key: key);
 
   @override
@@ -75,7 +75,7 @@ class _ColorsPanelWidgetState extends State<ColorsPanelWidget> {
             Align(
               alignment: Alignment.topLeft,
               child: ColorsWidget(
-                selectedTaskColorIndex: widget.selectedIndex,
+                selectedTaskColorIndex: widget.selectedTaskColorIndex,
                 width: widget.width,
               ),
             ),

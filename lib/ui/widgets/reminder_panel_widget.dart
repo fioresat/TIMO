@@ -12,7 +12,7 @@ class ReminderPanelWidget extends StatefulWidget {
   final double width;
   final void Function() onCloseTap;
   final void Function() onSaveTap;
-  final SingleTaskModel taskModel;
+  final TaskModel taskModel;
 
   const ReminderPanelWidget({
     Key? key,
@@ -100,7 +100,7 @@ class _ReminderPanelWidgetState extends State<ReminderPanelWidget> {
   }
 
   Future<void> _updateTaskReminder({
-    required SingleTaskModel oldTask,
+    required TaskModel oldTask,
     required dateTimeReminder,
     required isReminderActive,
   }) async {

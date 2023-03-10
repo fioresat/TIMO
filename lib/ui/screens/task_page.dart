@@ -30,8 +30,8 @@ class _TaskPageState extends State<TaskPage> {
 
   @override
   Widget build(BuildContext context) {
-    final sampleTask =
-        ModalRoute.of(context)!.settings.arguments as SingleTaskModel;
+    final taskModelFromMainScreen =
+        ModalRoute.of(context)!.settings.arguments as TaskModel;
     double widthScreen = MediaQuery.of(context).size.width;
     double heightScreen = MediaQuery.of(context).size.height;
     final bool showFab = MediaQuery.of(context).viewInsets.bottom == 0.0;
@@ -47,16 +47,16 @@ class _TaskPageState extends State<TaskPage> {
           heightScreen,
           context,
           () {},
-          sampleTask,
+          taskModelFromMainScreen,
         ),
         onTitleTap: () {},
         onMoveToTap: () {},
-        colors: buttonColors,
-        controller: textController,
-        singleTaskModel: sampleTask,
+        colorsList: buttonColors,
+        taskController: textController,
+        taskModel: taskModelFromMainScreen,
         onCloseTap: () {
           _updateTask(
-            oldTask: sampleTask,
+            updatedTask: taskModelFromMainScreen,
           );
           Navigator.pop(context);
         },
@@ -75,7 +75,7 @@ class _TaskPageState extends State<TaskPage> {
                     elevation: 0,
                     backgroundColor: removeColor,
                     onPressed: () {
-                      _deleteTask(oldTask: sampleTask);
+                      _deleteTask(oldTask: taskModelFromMainScreen);
                       Navigator.of(context).pop;
                     },
                     child: Image.asset(
@@ -115,7 +115,7 @@ class _TaskPageState extends State<TaskPage> {
   }
 
   Future<void> _deleteTask({
-    required SingleTaskModel oldTask,
+    required TaskModel oldTask,
   }) async {
     db
         .collection("users")
@@ -132,23 +132,23 @@ class _TaskPageState extends State<TaskPage> {
   }
 
   Future<void> _updateTask({
-    required SingleTaskModel oldTask,
+    required TaskModel updatedTask,
   }) async {
     final docRef = db
         .collection("users")
         .doc('testUser')
         .collection('lists')
-        .doc(oldTask.listID)
+        .doc(updatedTask.listID)
         .collection('tasks')
-        .doc(oldTask.taskID);
+        .doc(updatedTask.taskID);
 
     final updates = <String, dynamic>{
       'task': textController.text,
       'colorIndex': (taskCurrentColorIndex == -1)
-          ? oldTask.colorIndex
+          ? updatedTask.colorIndex
           : taskCurrentColorIndex,
       'listID':
-          (currentList.list == 'ToDo') ? oldTask.listID : currentList.listID,
+          (currentList.list == 'ToDo') ? updatedTask.listID : currentList.listID,
     };
     docRef.update(updates);
   }
