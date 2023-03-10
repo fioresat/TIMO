@@ -8,8 +8,10 @@ class SingleTaskModel {
   int listColorIndex;
   String userID;
   String taskID;
+  String dateTimeReminder;
 
   SingleTaskModel({
+    this.dateTimeReminder = '',
     this.userID = 'testUser',
     this.taskID = '',
     this.colorIndex = -1,
@@ -26,6 +28,7 @@ class SingleTaskModel {
     final data = snapshot.data();
     return SingleTaskModel(
       colorIndex: data?['colorIndex'],
+      dateTimeReminder: data?['dateTimeReminder'],
       isReminderActive: data?['isReminderActive'],
       task: data?['task'],
       listID: data?['listID'],
@@ -37,6 +40,7 @@ class SingleTaskModel {
 
   Map<String, dynamic> toFirestore() {
     return {
+      "dateTimeReminder" : dateTimeReminder,
       "colorIndex": colorIndex,
       "isReminderActive": isReminderActive,
       "task": task,
@@ -48,12 +52,12 @@ class SingleTaskModel {
   }
 }
 
-class ReminderTaskModel extends SingleTaskModel {
-  DateTime dateTimeReminder;
-
-  ReminderTaskModel({
-    required super.task,
-    required this.dateTimeReminder,
-    required super.userID,
-  });
-}
+// class ReminderTaskModel extends SingleTaskModel {
+//   DateTime dateTimeReminder;
+//
+//   ReminderTaskModel({
+//     required super.task,
+//     required this.dateTimeReminder,
+//     required super.userID,
+//   });
+// }
