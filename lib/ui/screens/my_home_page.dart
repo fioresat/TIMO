@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
@@ -14,6 +16,7 @@ import 'package:todo_app_main_screen/ui/style.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_panel_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/main_page_background_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/tasks_widget.dart';
+import 'dart:developer';
 
 class MyHomePage extends StatefulWidget {
   static const routeName = '/my_home_page';
@@ -40,13 +43,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    if (currentLists.isEmpty) {
-      addToDoList();
-    }
-    _getLists();
     _updateQuote('quote1');
+    _getLists();
     _getTasks();
-
     super.initState();
   }
 
@@ -159,40 +158,34 @@ class _MyHomePageState extends State<MyHomePage> {
         )
         .get()
         .then(
-      (querySnapshot) {
-        currentLists.clear(); //ToDo
-        for (var docSnapshot in querySnapshot.docs) {
-          currentLists.add(docSnapshot.data()); //ToDo
-        }
-      },
-      onError: (e) => print("Error completing: $e"),
-    );
+          (querySnapshot) =>
+              querySnapshot.docs.map((doc) => doc.data()).toList(),
+          onError: (e) => print("Error completing: $e"),
+        );
+    currentLists = await ref;
+    log(currentLists.length.toString());
+    if (currentLists.isEmpty) {
+      addToDoList();
+    }
   }
 
   Future<void> _getTasks() async {
-    currentTasks.clear();//ToDo
-    for (int i = 0; i < currentLists.length; i++)
-    {
-      final ref = db
-          .collection("users")
-          .doc("testUser")
-          .collection("lists")
-          .doc(currentLists[i].listID)
-          .collection('tasks')
-          .withConverter(
-            fromFirestore: TaskModel.fromFirestore,
-            toFirestore: (TaskModel task, _) => task.toFirestore(),
-          )
-          .get()
-          .then(
-        (querySnapshot) {
-          for (var docSnapshot in querySnapshot.docs) {
-            currentTasks.add(docSnapshot.data());//ToDo
-          }
-        },
-        onError: (e) => print("Error completing: $e"),
-      );
-    }
+    currentTasks.clear();
+
+    final tasksRef = db
+        .collectionGroup('tasks')
+        .withConverter(
+          fromFirestore: TaskModel.fromFirestore,
+          toFirestore: (TaskModel task, _) => task.toFirestore(),
+        )
+        .get()
+        .then(
+          (querySnapshot) =>
+              querySnapshot.docs.map((doc) => doc.data()).toList(),
+          onError: (e) => print("Error completing: $e"),
+        );
+
+    currentTasks = await tasksRef;
   }
 
   Future<void> addToDoList() async {

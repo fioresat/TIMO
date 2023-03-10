@@ -32,6 +32,7 @@ class _ReminderPanelWidgetState extends State<ReminderPanelWidget> {
 
   @override
   Widget build(BuildContext context) {
+    DateTime date = DateTime.parse(widget.taskModel.dateTimeReminder);
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30), color: backgroundColor),
@@ -60,7 +61,9 @@ class _ReminderPanelWidgetState extends State<ReminderPanelWidget> {
               child: SizedBox(
                 height: 0.27 * widget.height,
                 child: CupertinoDatePicker(
-                    initialDateTime: DateTime.now(),
+                    initialDateTime: (widget.taskModel.isReminderActive)
+                        ? date
+                        : DateTime.now(),
                     onDateTimeChanged: (val) {
                       setState(() {
                         _chosenDateTime = val;
@@ -75,7 +78,7 @@ class _ReminderPanelWidgetState extends State<ReminderPanelWidget> {
               child: BlackButtonWidget(
                 onPressed: () {
                   _updateTaskReminder(
-                    oldTask: widget.taskModel,
+                    updatedTask: widget.taskModel,
                     dateTimeReminder: _chosenDateTime.toString(),
                     isReminderActive: true,
                   );
@@ -100,7 +103,7 @@ class _ReminderPanelWidgetState extends State<ReminderPanelWidget> {
   }
 
   Future<void> _updateTaskReminder({
-    required TaskModel oldTask,
+    required TaskModel updatedTask,
     required dateTimeReminder,
     required isReminderActive,
   }) async {
@@ -108,9 +111,9 @@ class _ReminderPanelWidgetState extends State<ReminderPanelWidget> {
         .collection("users")
         .doc('testUser')
         .collection('lists')
-        .doc(oldTask.listID)
+        .doc(updatedTask.listID)
         .collection('tasks')
-        .doc(oldTask.taskID);
+        .doc(updatedTask.taskID);
 
     final updates = <String, dynamic>{
       "dateTimeReminder": dateTimeReminder,
