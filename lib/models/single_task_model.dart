@@ -11,7 +11,7 @@ class TaskModel {
   String dateTimeReminder;
 
   TaskModel({
-    this.dateTimeReminder = '',
+    this.dateTimeReminder = '2000-01-01 00:00:00',
     this.userID = 'testUser',
     this.taskID = '',
     this.colorIndex = -1,

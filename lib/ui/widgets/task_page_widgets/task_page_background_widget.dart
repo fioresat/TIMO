@@ -18,18 +18,18 @@ class TaskPageBackgroundWidget extends StatefulWidget {
   final List<Color> colorsList;
   final TextEditingController taskController;
 
-  const TaskPageBackgroundWidget(
-      {Key? key,
-      required this.height,
-      required this.width,
-      required this.onReminderTap,
-      required this.onTitleTap,
-      required this.onMoveToTap,
-      required this.colorsList,
-      required this.taskController,
-      required this.taskModel,
-      required this.onCloseTap,})
-      : super(key: key);
+  const TaskPageBackgroundWidget({
+    Key? key,
+    required this.height,
+    required this.width,
+    required this.onReminderTap,
+    required this.onTitleTap,
+    required this.onMoveToTap,
+    required this.colorsList,
+    required this.taskController,
+    required this.taskModel,
+    required this.onCloseTap,
+  }) : super(key: key);
 
   @override
   State<TaskPageBackgroundWidget> createState() =>
@@ -37,7 +37,6 @@ class TaskPageBackgroundWidget extends StatefulWidget {
 }
 
 class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
-
   bool isTapped = false;
 
   @override
@@ -49,6 +48,7 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
   @override
   Widget build(BuildContext context) {
     DateTime date = DateTime.parse(widget.taskModel.dateTimeReminder);
+
     return GestureDetector(
       onTapDown: (_) {
         setState(() {
@@ -174,27 +174,29 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
                   ),
                   InkWell(
                     onTap: widget.onReminderTap,
-                    child: (widget.taskModel.isReminderActive == true) ? Row(
-                      children: [
-                        Text(
-                          '${date.hour}-${date.minute.toString().padLeft(2, "0")}',
-                          style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w900,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          '${date.day} ${DateFormat("MMMM").format(date).toLowerCase().substring(0, 3)}.',
-                          style: const TextStyle(
-                            color: paleTextColor,
-                            fontSize: 20,
-                          ),
-                        ),
-                      ],
-                    ) : Container(),
+                    child: (widget.taskModel.isReminderActive == true)
+                        ? Row(
+                            children: [
+                              Text(
+                                '${date.hour}-${date.minute.toString().padLeft(2, "0")}',
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w900,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                '${date.day} ${DateFormat("MMMM").format(date).toLowerCase().substring(0, 3)}.',
+                                style: const TextStyle(
+                                  color: paleTextColor,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ],
+                          )
+                        : Container(),
                   ),
                   SizedBox(
                     height: widget.height * 0.02,
