@@ -48,7 +48,7 @@ class _SingleListWidgetState extends State<SingleListWidget> {
           Container(
             height: widget.height * 0.20,
             decoration: BoxDecoration(
-              color: buttonColors[widget.listModel.colorIndex],
+              color: buttonColors[widget.listModel.listColorIndex],
               borderRadius: BorderRadius.circular(26),
             ),
             child: Stack(

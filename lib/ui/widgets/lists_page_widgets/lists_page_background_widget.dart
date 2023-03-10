@@ -114,9 +114,10 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                                 },
                                 height: widget.height,
                                 onOptionsTap: () {
+                                  _selectedIndex = list.key;
                                   SlidingPanelHelper().onPressedShowBottomSheet(
                                     OptionsPanelWidget(
-                                      selectedColorIndex: _selectedColorIndex,
+                                      selectedListColorIndex: _selectedColorIndex,
                                       height: widget.height,
                                       width: widget.width,
                                       onTapClose: () {
@@ -131,7 +132,6 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                                       },
                                       onDeleteTap: () {
                                         setState(() {
-
                                           _deleteList(oldList: widget.lists[_selectedIndex],);
                                         });
                                         Navigator.pop(context);
@@ -171,7 +171,7 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
         .collection("users")
         .doc('testUser')
         .collection('lists')
-        .doc(oldList.list)
+        .doc(oldList.listID)
         .delete()
         .then(
           (doc) => print("Document deleted"),
@@ -186,14 +186,11 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
         .collection("users")
         .doc('testUser')
         .collection('lists')
-        .doc(oldList.list);
+        .doc(oldList.listID);
 
     final updates = <String, int>{
-      "colorIndex": (listCurrentColorIndex == 0)
-          ? oldList.colorIndex
-          : listCurrentColorIndex,
+      "listColorIndex": listCurrentColorIndex,
     };
-
     docRef.update(updates);
   }
 }

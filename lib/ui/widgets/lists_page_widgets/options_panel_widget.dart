@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
-import 'package:todo_app_main_screen/ui/widgets/colors_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
+import 'list_colors_widget.dart';
 
 class OptionsPanelWidget extends StatefulWidget {
   final double height;
@@ -11,11 +11,11 @@ class OptionsPanelWidget extends StatefulWidget {
   final List<Color> colors;
   final void Function() onRenameTap;
   final void Function() onDeleteTap;
-  int selectedColorIndex;
+  int selectedListColorIndex;
 
   OptionsPanelWidget(
       {Key? key,
-      this.selectedColorIndex = 0,
+      this.selectedListColorIndex = 0,
       required this.height,
       required this.width,
       required this.onTapClose,
@@ -65,8 +65,8 @@ class _OptionsPanelWidgetState extends State<OptionsPanelWidget> {
           ),
           Align(
             alignment: Alignment.centerLeft,
-            child: ColorsWidget(
-              selectedListColorIndex: widget.selectedColorIndex,
+            child: ListColorsWidget(
+              selectedListColorIndex: widget.selectedListColorIndex,
               width: widget.width,
             ),
           ),

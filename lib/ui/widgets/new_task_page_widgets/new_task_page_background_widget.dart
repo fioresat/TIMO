@@ -3,7 +3,6 @@ import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
 import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
-
 import '../black_button_widget.dart';
 
 class NewTaskPageBackgroundWidget extends StatefulWidget {
@@ -13,8 +12,6 @@ class NewTaskPageBackgroundWidget extends StatefulWidget {
   final void Function() onBlackButtonPressed;
   final void Function() onReminderTap;
   final void Function() onListsTap;
-
-
 
   const NewTaskPageBackgroundWidget(
       {Key? key,

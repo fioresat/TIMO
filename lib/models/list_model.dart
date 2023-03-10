@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ListModel {
-  int colorIndex;
+  int listColorIndex;
   String list;
   String listID;
 
   ListModel({
     this.listID = '',
-    this.colorIndex = 0,
+    this.listColorIndex = 0,
     required this.list,
   });
 
@@ -17,7 +17,7 @@ class ListModel {
   ) {
     final data = snapshot.data();
     return ListModel(
-      colorIndex: data?['colorIndex'],
+      listColorIndex: data?['listColorIndex'],
       list: data?['list'],
       listID: data?['listID'],
     );
@@ -25,7 +25,7 @@ class ListModel {
 
   Map<String, dynamic> toFirestore() {
     return {
-      "colorIndex": colorIndex,
+      "listColorIndex": listColorIndex,
       "list": list,
       "listID": listID,
     };

@@ -4,21 +4,21 @@ import 'package:todo_app_main_screen/consts/button_colors.dart';
 import 'package:todo_app_main_screen/main.dart';
 import 'package:todo_app_main_screen/ui/widgets/single_color_widget.dart';
 
-class ColorsWidget extends StatefulWidget {
-  int selectedTaskColorIndex;
+class ListColorsWidget extends StatefulWidget {
+  int selectedListColorIndex;
   final double width;
 
-  ColorsWidget({
+  ListColorsWidget({
     Key? key,
     required this.width,
-    this.selectedTaskColorIndex = -1,
+    this.selectedListColorIndex = 0,
   }) : super(key: key);
 
   @override
-  State<ColorsWidget> createState() => _ColorsWidgetState();
+  State<ListColorsWidget> createState() => _ListColorsWidgetState();
 }
 
-class _ColorsWidgetState extends State<ColorsWidget> {
+class _ListColorsWidgetState extends State<ListColorsWidget> {
   double bottomPadding = 0;
   double topPadding = 20;
 
@@ -37,20 +37,17 @@ class _ColorsWidgetState extends State<ColorsWidget> {
               tapPadding: const EdgeInsets.all(20.0),
               onTap: () {
                 setState(() {
-                  if (widget.selectedTaskColorIndex != index) {
-                    widget.selectedTaskColorIndex = index;
-                  } else {
-                    widget.selectedTaskColorIndex = -1;
-                  }
-                  taskCurrentColorIndex = widget.selectedTaskColorIndex;
+                  (widget.selectedListColorIndex != index) ?
+                  widget.selectedListColorIndex = index : widget.selectedListColorIndex = 0;
+                  listCurrentColorIndex = widget.selectedListColorIndex;
                 });
               },
               child: SingleColorWidget(
                 color: buttonColors[index],
-                bottomPadding: (widget.selectedTaskColorIndex == index)
+                bottomPadding: (widget.selectedListColorIndex == index)
                     ? bottomPadding = 20
                     : bottomPadding = 0,
-                topPadding: (widget.selectedTaskColorIndex == index)
+                topPadding: (widget.selectedListColorIndex == index)
                     ? topPadding = 0
                     : topPadding = 20,
               ),
