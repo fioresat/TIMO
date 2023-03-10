@@ -17,8 +17,6 @@ List<SingleTaskModel> currentTasks = [];
 List<ListModel> currentLists = [];
 int taskCurrentColorIndex = -1;
 int listCurrentColorIndex = 0;
-bool isCurrentReminderActive = false;
-String currentReminder = '';
 ListModel currentList = ListModel(list: 'ToDo', listID: 'ToDo');
 
 void main() async {
