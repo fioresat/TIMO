@@ -177,7 +177,7 @@ class _MyHomePageState extends State<MyHomePage> {
           .collection("users")
           .doc("testUser")
           .collection("lists")
-          .doc("ToDo")
+          .doc(currentLists[i].list)
           .collection('tasks')
           .withConverter(
             fromFirestore: SingleTaskModel.fromFirestore,

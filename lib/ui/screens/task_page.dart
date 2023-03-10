@@ -35,17 +35,20 @@ class _TaskPageState extends State<TaskPage> {
     double widthScreen = MediaQuery.of(context).size.width;
     double heightScreen = MediaQuery.of(context).size.height;
     final bool showFab = MediaQuery.of(context).viewInsets.bottom == 0.0;
+    print(isCurrentReminderActive.toString());
     return Scaffold(
       backgroundColor: backgroundColor,
       resizeToAvoidBottomInset: false,
       body: TaskPageBackgroundWidget(
         height: heightScreen,
         width: widthScreen,
-        onReminderTap: () => SlidingPanelHelper().onReminderTap(
-          widthScreen,
-          heightScreen,
-          context,
-        ),
+        onReminderTap: () => SlidingPanelHelper()
+            .onReminderTap(widthScreen, heightScreen, context, () {
+          setState(() {
+            sampleTask.isReminderActive = true;
+            isCurrentReminderActive = sampleTask.isReminderActive;
+          });
+        }),
         onTitleTap: () {},
         onMoveToTap: () {},
         colors: buttonColors,
@@ -130,6 +133,9 @@ class _TaskPageState extends State<TaskPage> {
     required SingleTaskModel oldTask,
   }) async {
     SingleTaskModel task = SingleTaskModel(
+      isReminderActive: isCurrentReminderActive == false
+          ? oldTask.isReminderActive
+          : isCurrentReminderActive,
       taskID: oldTask.taskID,
       task: textController.text,
       userID: oldTask.userID,

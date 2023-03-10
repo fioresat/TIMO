@@ -35,7 +35,7 @@ class SlidingPanelHelper {
   }
 
   void onReminderTap(
-      double widthScreen, double heightScreen, BuildContext context) {
+      double widthScreen, double heightScreen, BuildContext context, void Function() onSaveTap) {
     onPressedShowBottomSheet(
         ReminderPanelWidget(
           height: heightScreen,
@@ -43,6 +43,7 @@ class SlidingPanelHelper {
             Navigator.of(context).pop();
           },
           width: widthScreen,
+          onSaveTap: onSaveTap,
         ),
         context);
   }

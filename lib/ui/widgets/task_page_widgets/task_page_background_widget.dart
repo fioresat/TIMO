@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
+import 'package:todo_app_main_screen/main.dart';
 import 'package:todo_app_main_screen/models/single_task_model.dart';
 import 'package:todo_app_main_screen/ui/widgets/colors_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
@@ -28,7 +29,7 @@ class TaskPageBackgroundWidget extends StatefulWidget {
       required this.colors,
       required this.controller,
       required this.singleTaskModel,
-      required this.onCloseTap})
+      required this.onCloseTap,})
       : super(key: key);
 
   @override
@@ -145,23 +146,26 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
                           color: greyTextColor,
                         ),
                       ),
-                      Row(
-                        children: const [
-                          Text(
-                            '+',
-                            style: TextStyle(
-                              fontSize: 24,
-                              color: greyTextColor,
+                      InkWell(
+                        onTap: widget.onReminderTap,
+                        child: Row(
+                          children: const [
+                            Text(
+                              '+',
+                              style: TextStyle(
+                                fontSize: 24,
+                                color: greyTextColor,
+                              ),
                             ),
-                          ),
-                          Text(
-                            ' add',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: greyTextColor,
+                            Text(
+                              ' add',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: greyTextColor,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -170,7 +174,7 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
                   ),
                   InkWell(
                     onTap: widget.onReminderTap,
-                    child: Row(
+                    child: (widget.singleTaskModel.isReminderActive == true) ? Row(
                       children: [
                         Text(
                           '${date.hour}-${date.minute.toString().padLeft(2, "0")}',
@@ -190,7 +194,7 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
                           ),
                         ),
                       ],
-                    ),
+                    ) : Container(),
                   ),
                   SizedBox(
                     height: widget.height * 0.02,

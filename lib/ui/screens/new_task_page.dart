@@ -73,7 +73,7 @@ class _NewTaskPageState extends State<NewTaskPage> {
           SlidingPanelHelper().onReminderTap(
             widthScreen,
             heightScreen,
-            context,
+            context, () {}
           );
         },
       ),

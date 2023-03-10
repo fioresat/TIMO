@@ -9,12 +9,14 @@ class ReminderPanelWidget extends StatefulWidget {
   final double height;
   final double width;
   final void Function() onCloseTap;
+  final void Function() onSaveTap;
 
   const ReminderPanelWidget({
     Key? key,
     required this.height,
     required this.width,
     required this.onCloseTap,
+    required this.onSaveTap,
   }) : super(key: key);
 
   @override
@@ -70,6 +72,7 @@ class _ReminderPanelWidgetState extends State<ReminderPanelWidget> {
               ),
               child: BlackButtonWidget(
                 onPressed: () {
+                  widget.onSaveTap;
                   Navigator.pop(context);
                 },
                 width: widget.width - 50,
