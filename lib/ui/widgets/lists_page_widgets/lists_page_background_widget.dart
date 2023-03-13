@@ -18,6 +18,8 @@ class ListsPageBackgroundWidget extends StatefulWidget {
   final void Function() onPressed;
   final List<ListModel> lists;
   final void Function() onAddButtonTap;
+  final FocusNode focusNode;
+  final TextEditingController controller;
 
   const ListsPageBackgroundWidget({
     Key? key,
@@ -25,7 +27,7 @@ class ListsPageBackgroundWidget extends StatefulWidget {
     required this.width,
     required this.onPressed,
     required this.lists,
-    required this.onAddButtonTap,
+    required this.onAddButtonTap, required this.focusNode, required this.controller,
   }) : super(key: key);
 
   @override
@@ -97,7 +99,6 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                   : GridView.count(
                       physics: const BouncingScrollPhysics(),
                       crossAxisCount: 2,
-                      //scrollDirection: Axis.vertical,
                       shrinkWrap: true,
                       childAspectRatio: 1.5 / 2.5,
                       crossAxisSpacing: widget.width * 0.1,
@@ -126,7 +127,10 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                                       },
                                       colors: buttonColors,
                                       onRenameTap: () {
+                                        widget.focusNode.requestFocus();
+                                        _updateListText(oldList: widget.lists[_selectedIndex]);
                                         Navigator.pop(context);
+
                                       },
                                       onDeleteTap: () {
                                         setState(() {
@@ -144,6 +148,7 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                                   widget.onAddButtonTap();
                                 },
                                 width: widget.width,
+                                focusNode: widget.focusNode,
                               ),
                             ),
                         AddButtonWidget(
@@ -188,6 +193,21 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
 
     final updates = <String, int>{
       "listColorIndex": listCurrentColorIndex,
+    };
+    docRef.update(updates);
+  }
+
+  Future<void> _updateListText({
+    required ListModel oldList,
+  }) async {
+    final docRef = db
+        .collection("users")
+        .doc('testUser')
+        .collection('lists')
+        .doc(oldList.listID);
+
+    final updates = <String, String>{
+      "list": widget.controller.text,
     };
     docRef.update(updates);
   }

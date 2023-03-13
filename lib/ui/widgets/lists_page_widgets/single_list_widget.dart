@@ -12,6 +12,7 @@ class SingleListWidget extends StatefulWidget {
   final void Function() onListTap;
   final void Function() onAddButtonTap;
   final bool isTapped;
+  final FocusNode focusNode;
   ListModel listModel;
 
   SingleListWidget({
@@ -23,6 +24,7 @@ class SingleListWidget extends StatefulWidget {
     required this.onListTap,
     required this.onAddButtonTap,
     required this.width,
+    required this.focusNode,
   }) : super(key: key);
 
   @override
@@ -81,7 +83,8 @@ class _SingleListWidgetState extends State<SingleListWidget> {
                 ),
                 Expanded(
                   child: TextField(
-                    //autofocus: true,
+                    focusNode: widget.focusNode,
+                    autofocus: false,
                     textAlign: TextAlign.center,
                     maxLines: 2,
                     //scrollPhysics: const NeverScrollableScrollPhysics(),

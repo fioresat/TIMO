@@ -15,10 +15,18 @@ class ListsPage extends StatefulWidget {
 
 class _ListsPageState extends State<ListsPage> {
   final listController = TextEditingController();
+  late final focusNode;
 
   @override
   void initState() {
+    focusNode = FocusNode();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    focusNode.dispose;
+    super.dispose();
   }
 
   @override
@@ -41,13 +49,9 @@ class _ListsPageState extends State<ListsPage> {
             context,
             listController,
           );
-
         },
+        focusNode: focusNode, controller: listController,
       ),
     );
   }
-
-
-
-
 }
