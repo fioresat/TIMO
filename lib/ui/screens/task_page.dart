@@ -35,7 +35,6 @@ class _TaskPageState extends State<TaskPage> {
     double widthScreen = MediaQuery.of(context).size.width;
     double heightScreen = MediaQuery.of(context).size.height;
     final bool showFab = MediaQuery.of(context).viewInsets.bottom == 0.0;
-
     return Scaffold(
       backgroundColor: backgroundColor,
       resizeToAvoidBottomInset: false,

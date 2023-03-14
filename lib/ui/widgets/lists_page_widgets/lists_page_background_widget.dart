@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/button_colors.dart';
@@ -94,67 +97,84 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                         ),
                       ),
                     )
-                  : GridView.count(
-                      physics: const BouncingScrollPhysics(),
-                      crossAxisCount: 2,
-                      //scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      childAspectRatio: 1.5 / 2.5,
-                      crossAxisSpacing: widget.width * 0.1,
-                      mainAxisSpacing: widget.width * 0.01,
-                      children: [
-                        ...widget.lists.asMap().entries.map(
-                              (list) => SingleListWidget(
-                                onListTap: () {
-                                  setState(() {
-                                    _selectedIndex = list.key;
-                                  });
-                                },
-                                height: widget.height,
-                                onOptionsTap: () {
-                                  _selectedIndex = list.key;
-                                  SlidingPanelHelper().onPressedShowBottomSheet(
-                                    OptionsPanelWidget(
-                                      selectedListColorIndex: widget.lists[_selectedIndex].listColorIndex,
-                                      height: widget.height,
-                                      width: widget.width,
-                                      onTapClose: () {
-                                        _updateListColor(
-                                          oldList: widget.lists[_selectedIndex],
-                                        );
-                                        Navigator.pop(context);
-                                      },
-                                      colors: buttonColors,
-                                      onRenameTap: () {
-                                        Navigator.pop(context);
-                                      },
-                                      onDeleteTap: () {
+                  : FutureBuilder(
+                      future: _getLists(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          return GridView.count(
+                            physics: const BouncingScrollPhysics(),
+                            crossAxisCount: 2,
+                            //scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            childAspectRatio: 1.5 / 2.5,
+                            crossAxisSpacing: widget.width * 0.1,
+                            mainAxisSpacing: widget.width * 0.01,
+                            children: [
+                              ...widget.lists.asMap().entries.map(
+                                    (list) => SingleListWidget(
+                                      onListTap: () {
                                         setState(() {
-                                          _deleteList(oldList: widget.lists[_selectedIndex],);
+                                          _selectedIndex = list.key;
                                         });
-                                        Navigator.pop(context);
                                       },
+                                      height: widget.height,
+                                      onOptionsTap: () {
+                                        _selectedIndex = list.key;
+                                        SlidingPanelHelper()
+                                            .onPressedShowBottomSheet(
+                                          OptionsPanelWidget(
+                                            selectedListColorIndex: widget
+                                                .lists[_selectedIndex]
+                                                .listColorIndex,
+                                            height: widget.height,
+                                            width: widget.width,
+                                            onTapClose: () {
+                                              _updateListColor(
+                                                oldList: widget
+                                                    .lists[_selectedIndex],
+                                              );
+                                              Navigator.pop(context);
+                                            },
+                                            colors: buttonColors,
+                                            onRenameTap: () {
+                                              Navigator.pop(context);
+                                            },
+                                            onDeleteTap: () {
+                                              setState(() {
+                                                _deleteList(
+                                                  oldList: widget
+                                                      .lists[_selectedIndex],
+                                                );
+                                              });
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                          context,
+                                        );
+                                      },
+                                      listModel: list.value,
+                                      isTapped: _selectedIndex == list.key,
+                                      onAddButtonTap: () {
+                                        widget.onAddButtonTap();
+                                      },
+                                      width: widget.width,
                                     ),
-                                    context,
-                                  );
-                                },
-                                listModel: list.value,
-                                isTapped: _selectedIndex == list.key,
+                                  ),
+                              AddButtonWidget(
                                 onAddButtonTap: () {
                                   widget.onAddButtonTap();
                                 },
                                 width: widget.width,
+                                height: widget.height,
                               ),
-                            ),
-                        AddButtonWidget(
-                          onAddButtonTap: () {
-                            widget.onAddButtonTap();
-                          },
-                          width: widget.width,
-                          height: widget.height,
-                        ),
-                      ],
-                    ),
+                            ],
+                          );
+                        } else if (snapshot.connectionState ==
+                            ConnectionState.none) {
+                          return const Text("No data");
+                        }
+                        return const Center(child: CircularProgressIndicator());
+                      }),
             ),
           ],
         ),
@@ -190,5 +210,25 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
       "listColorIndex": listCurrentColorIndex,
     };
     docRef.update(updates);
+  }
+  var qs;
+  Future<QuerySnapshot> _getLists() async {
+    final ref = db
+        .collection("users")
+        .doc("testUser")
+        .collection("lists")
+        .withConverter(
+          fromFirestore: ListModel.fromFirestore,
+          toFirestore: (ListModel list, _) => list.toFirestore(),
+        )
+        .get()
+        .then(
+          (querySnapshot) =>
+              qs = querySnapshot.docs.map((doc) => doc.data()).toList(),
+          onError: (e) => print("Error completing: $e"),
+        );
+    currentLists = await ref;
+    log(currentLists.length.toString());
+    return qs;
   }
 }

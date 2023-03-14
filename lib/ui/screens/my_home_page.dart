@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
@@ -16,7 +17,6 @@ import 'package:todo_app_main_screen/ui/style.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_panel_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/main_page_background_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/tasks_widget.dart';
-import 'dart:developer';
 
 class MyHomePage extends StatefulWidget {
   static const routeName = '/my_home_page';
@@ -53,7 +53,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     double widthScreen = MediaQuery.of(context).size.width;
     double heightScreen = MediaQuery.of(context).size.height;
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: secondBackgroundColor,
@@ -79,47 +78,56 @@ class _MyHomePageState extends State<MyHomePage> {
           },
           quoteModel: _quote,
         ),
-        panelBuilder: (controller) => TasksWidget(
-          onPressed: () {
-            SlidingPanelHelper().onPressedShowBottomSheet(
-              ListsPanelWidget(
-                height: heightScreen,
-                width: widthScreen,
-                lists: currentLists,
-                onTapClose: () {
-                  Navigator.of(context).pop();
-                  setState(() {
-                    isMoveTo = false;
-                    isMoveToPressed = false;
-                  });
-                },
-                onAddNewListPressed: () {
-                  SlidingPanelHelper().onAddNewListPressed(
-                      widthScreen, heightScreen, context, listController);
-                },
-                onButtonPressed: () {
-                  Navigator.of(context).pop();
-                  setState(() {
-                    isMoveTo = false;
-                  });
-                },
-              ),
-              context,
-            );
-            setState(() {
-              isMoveTo = true;
-              isMoveToPressed = true;
-            });
-          },
-          isPanelOpen: panelController.isPanelOpen,
-          tasksList: currentTasks,
-          scrollController: scrollController,
-          panelController: panelController,
-          height: panelController.isPanelOpen
-              ? 0.95 * heightScreen
-              : 0.55 * heightScreen,
-          isMoveToPressed: isMoveToPressed,
-        ),
+        panelBuilder: (controller) => FutureBuilder(
+            future: _getTasks(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return TasksWidget(
+                  onPressed: () {
+                    SlidingPanelHelper().onPressedShowBottomSheet(
+                      ListsPanelWidget(
+                        height: heightScreen,
+                        width: widthScreen,
+                        lists: currentLists,
+                        onTapClose: () {
+                          Navigator.of(context).pop();
+                          setState(() {
+                            isMoveTo = false;
+                            isMoveToPressed = false;
+                          });
+                        },
+                        onAddNewListPressed: () {
+                          SlidingPanelHelper().onAddNewListPressed(widthScreen,
+                              heightScreen, context, listController);
+                        },
+                        onButtonPressed: () {
+                          Navigator.of(context).pop();
+                          setState(() {
+                            isMoveTo = false;
+                          });
+                        },
+                      ),
+                      context,
+                    );
+                    setState(() {
+                      isMoveTo = true;
+                      isMoveToPressed = true;
+                    });
+                  },
+                  isPanelOpen: panelController.isPanelOpen,
+                  tasksList: currentTasks,
+                  scrollController: scrollController,
+                  panelController: panelController,
+                  height: panelController.isPanelOpen
+                      ? 0.95 * heightScreen
+                      : 0.55 * heightScreen,
+                  isMoveToPressed: isMoveToPressed,
+                );
+              } else if (snapshot.connectionState == ConnectionState.none) {
+                return Text("No data");
+              }
+              return const Center(child: CircularProgressIndicator());
+            }),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: isMoveTo
@@ -168,10 +176,8 @@ class _MyHomePageState extends State<MyHomePage> {
       addToDoList();
     }
   }
-
   Future<void> _getTasks() async {
     currentTasks.clear();
-
     final tasksRef = db
         .collectionGroup('tasks')
         .withConverter(
@@ -184,7 +190,6 @@ class _MyHomePageState extends State<MyHomePage> {
               querySnapshot.docs.map((doc) => doc.data()).toList(),
           onError: (e) => print("Error completing: $e"),
         );
-
     currentTasks = await tasksRef;
   }
 
