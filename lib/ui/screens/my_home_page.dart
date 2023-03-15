@@ -43,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    _updateQuote('quote1');
+    _updateQuote('en');
     _getLists();
     _getTasks();
     super.initState();
@@ -140,8 +140,8 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _updateQuote(String quoteID) async {
-    final dataDecoded = await _quoteService.getData(quoteID);
+  void _updateQuote(String locale) async {
+    final dataDecoded = await _quoteService.getData(locale);
     setState(() {
       _quote = QuoteModel.fromJson(dataDecoded);
     });
