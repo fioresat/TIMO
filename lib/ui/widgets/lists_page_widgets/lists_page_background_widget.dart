@@ -18,7 +18,6 @@ class ListsPageBackgroundWidget extends StatefulWidget {
   final void Function() onPressed;
   final List<ListModel> lists;
   final void Function() onAddButtonTap;
-  final FocusNode focusNode;
   final TextEditingController controller;
 
   const ListsPageBackgroundWidget({
@@ -27,7 +26,7 @@ class ListsPageBackgroundWidget extends StatefulWidget {
     required this.width,
     required this.onPressed,
     required this.lists,
-    required this.onAddButtonTap, required this.focusNode, required this.controller,
+    required this.onAddButtonTap, required this.controller,
   }) : super(key: key);
 
   @override
@@ -37,10 +36,20 @@ class ListsPageBackgroundWidget extends StatefulWidget {
 
 class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
   int _selectedIndex = 0;
+  late List<FocusNode> focusNodeList;
 
   @override
   void initState() {
+    focusNodeList = List.generate(currentLists.length, (index) => FocusNode());
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    for (int i = 0; i <= currentLists.length; i++) {
+      focusNodeList[i].dispose();
+    }
+    super.dispose();
   }
 
   @override
@@ -127,10 +136,8 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                                       },
                                       colors: buttonColors,
                                       onRenameTap: () {
-                                        widget.focusNode.requestFocus();
-                                        _updateListText(oldList: widget.lists[_selectedIndex]);
+                                        FocusScope.of(context).requestFocus(focusNodeList[list.key]);
                                         Navigator.pop(context);
-
                                       },
                                       onDeleteTap: () {
                                         setState(() {
@@ -148,7 +155,7 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                                   widget.onAddButtonTap();
                                 },
                                 width: widget.width,
-                                focusNode: widget.focusNode,
+                                focusNode: focusNodeList[list.key],
                               ),
                             ),
                         AddButtonWidget(
@@ -193,21 +200,6 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
 
     final updates = <String, int>{
       "listColorIndex": listCurrentColorIndex,
-    };
-    docRef.update(updates);
-  }
-
-  Future<void> _updateListText({
-    required ListModel oldList,
-  }) async {
-    final docRef = db
-        .collection("users")
-        .doc('testUser')
-        .collection('lists')
-        .doc(oldList.listID);
-
-    final updates = <String, String>{
-      "list": widget.controller.text,
     };
     docRef.update(updates);
   }
