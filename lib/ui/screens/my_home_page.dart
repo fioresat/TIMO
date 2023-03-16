@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
@@ -16,7 +15,6 @@ import 'package:todo_app_main_screen/ui/style.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_panel_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/main_page_background_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/tasks_widget.dart';
-import 'dart:developer';
 
 class MyHomePage extends StatefulWidget {
   static const routeName = '/my_home_page';
