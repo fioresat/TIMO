@@ -19,6 +19,7 @@ class _ListsPageState extends State<ListsPage> {
   @override
   void initState() {
     super.initState();
+
   }
 
   @override
@@ -41,13 +42,9 @@ class _ListsPageState extends State<ListsPage> {
             context,
             listController,
           );
-
         },
+        controller: listController,
       ),
     );
   }
-
-
-
-
 }
