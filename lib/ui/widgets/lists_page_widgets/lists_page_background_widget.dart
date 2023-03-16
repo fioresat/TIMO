@@ -40,13 +40,13 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
 
   @override
   void initState() {
-    focusNodeList = List.generate(currentLists.length, (index) => FocusNode());
+    focusNodeList = List.generate(widget.lists.length, (index) => FocusNode());
     super.initState();
   }
 
   @override
   void dispose() {
-    for (int i = 0; i <= currentLists.length; i++) {
+    for (int i = 0; i <= widget.lists.length; i++) {
       focusNodeList[i].dispose();
     }
     super.dispose();
