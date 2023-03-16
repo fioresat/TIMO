@@ -18,6 +18,7 @@ class ListsPageBackgroundWidget extends StatefulWidget {
   final void Function() onPressed;
   final List<ListModel> lists;
   final void Function() onAddButtonTap;
+  final TextEditingController controller;
 
   const ListsPageBackgroundWidget({
     Key? key,
@@ -25,7 +26,7 @@ class ListsPageBackgroundWidget extends StatefulWidget {
     required this.width,
     required this.onPressed,
     required this.lists,
-    required this.onAddButtonTap,
+    required this.onAddButtonTap, required this.controller,
   }) : super(key: key);
 
   @override
@@ -35,10 +36,20 @@ class ListsPageBackgroundWidget extends StatefulWidget {
 
 class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
   int _selectedIndex = 0;
+  late List<FocusNode> focusNodeList;
 
   @override
   void initState() {
+    focusNodeList = List.generate(widget.lists.length, (index) => FocusNode());
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    for (int i = 0; i <= widget.lists.length; i++) {
+      focusNodeList[i].dispose();
+    }
+    super.dispose();
   }
 
   @override
@@ -97,7 +108,6 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                   : GridView.count(
                       physics: const BouncingScrollPhysics(),
                       crossAxisCount: 2,
-                      //scrollDirection: Axis.vertical,
                       shrinkWrap: true,
                       childAspectRatio: 1.5 / 2.5,
                       crossAxisSpacing: widget.width * 0.1,
@@ -126,6 +136,7 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                                       },
                                       colors: buttonColors,
                                       onRenameTap: () {
+                                        FocusScope.of(context).requestFocus(focusNodeList[list.key]);
                                         Navigator.pop(context);
                                       },
                                       onDeleteTap: () {
@@ -144,6 +155,7 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                                   widget.onAddButtonTap();
                                 },
                                 width: widget.width,
+                                focusNode: focusNodeList[list.key],
                               ),
                             ),
                         AddButtonWidget(
