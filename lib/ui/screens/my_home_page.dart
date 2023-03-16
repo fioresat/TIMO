@@ -141,7 +141,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _updateQuote(String locale) async {
-    final dataDecoded = await _quoteService.getData(locale);
+
+    final dataDecoded =
+        await _quoteService.getData(locale);
+
     setState(() {
       _quote = QuoteModel.fromJson(dataDecoded);
     });
