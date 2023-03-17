@@ -1,0 +1,21 @@
+{
+  "@@locale": "ru",
+  "language": "Русский",
+  "lists": "списки",
+  "monday": "понедельник",
+  "tuesday": "вторник",
+  "wednesday": "среда",
+  "thursday": "четверг",
+  "friday": "пятница",
+  "saturday": "суббота",
+  "sunday": "воскресенье",
+  "settings": "Настройки",
+  "aboutUs": "About us",
+  "languageTitle": "Язык",
+  "reportProblem": "Сообщить о проблеме",
+  "termsOfUsing": "Правила использования",
+  "privacyPolicy": "Политика конфиденциальности",
+  "getPremium": "Попробуй премиум",
+  "perMonth": "в месяц",
+  "perYear": "в год"
+}

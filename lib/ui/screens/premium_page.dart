@@ -5,6 +5,7 @@ import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/consts/premium_features.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
+import 'package:todo_app_main_screen/generated/l10n.dart';
 import 'package:todo_app_main_screen/ui/widgets/black_button_widget.dart';
 
 class PremiumPage extends StatelessWidget {
@@ -48,10 +49,10 @@ class PremiumPage extends StatelessWidget {
               SizedBox(
                 height: heightScreen * 0.01,
               ),
-              const Center(
+               Center(
                 child: Text(
-                  PremiumPageStrings.getPremium,
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                  S.of(context).getPremium,
+                  style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                 ),
               ),
               Padding(
@@ -107,8 +108,8 @@ class PremiumPage extends StatelessWidget {
                           Positioned(
                               top: heightScreen * 0.09,
                               left: widthScreen * 0.07,
-                              child: const Text(
-                                PremiumPageStrings.perMonth,
+                              child: Text(
+                                S.of(context).perMonth,
                                 style: TextStyle(fontSize: 16),
                               ))
                         ],
@@ -135,9 +136,9 @@ class PremiumPage extends StatelessWidget {
                           Positioned(
                               top: heightScreen * 0.09,
                               left: widthScreen * 0.1,
-                              child: const Text(
-                                PremiumPageStrings.perYear,
-                                style: TextStyle(fontSize: 16),
+                              child: Text(
+                                  S.of(context).perYear,
+                                style: const TextStyle(fontSize: 16),
                               )),
                           Positioned(
                               left: widthScreen * 0.2,

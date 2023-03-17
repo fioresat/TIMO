@@ -1,6 +1,9 @@
 import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
+import 'package:todo_app_main_screen/l10n/locales.dart';
+import 'package:todo_app_main_screen/service/locale_provider.dart';
 import 'package:todo_app_main_screen/ui/widgets/language_page_widgets/language_list.dart';
 
 class LanguagePage extends StatefulWidget {
@@ -46,6 +49,9 @@ class _LanguagePageState extends State<LanguagePage> {
                     var language = languageList[index];
                     return InkWell(
                       onTap: () {
+                        final provider = Provider.of<LocaleProvider>(context, listen: false);
+                        final locale = Locales.allLocales[index];
+                        provider.setLocale(locale);
                         setState(() {
                           _selectedIndex = index;
                         });

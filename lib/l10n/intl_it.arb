@@ -1,0 +1,21 @@
+{
+  "@@locale": "it",
+  "language": "Italiano",
+  "lists": "liste",
+  "monday": "lunedì",
+  "tuesday": "martedì",
+  "wednesday": "mercoledì",
+  "thursday": "giovedì",
+  "friday": "venerdì",
+  "saturday": "sabato",
+  "sunday": "domenica",
+  "settings": "Configurazione",
+  "aboutUs": "Chi siamo",
+  "languageTitle": "Lingua",
+  "reportProblem": "Segnala un problema",
+  "termsOfUsing": "Regole d'uso",
+  "privacyPolicy": "Informativa sulla privacy",
+  "getPremium": "Prova il premio",
+  "perMonth": "al mese",
+  "perYear": "all'anno"
+}

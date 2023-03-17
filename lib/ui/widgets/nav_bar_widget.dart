@@ -2,6 +2,7 @@ import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
+import 'package:todo_app_main_screen/generated/l10n.dart';
 
 class NavBarWidget extends StatelessWidget {
   final double height;
@@ -48,7 +49,7 @@ class NavBarWidget extends StatelessWidget {
                 horizontal: 0.033 * width,
               ),
               child: Text(
-                TestStrings.lists,
+                S.of(context).lists,
                 style: TextStyle(color: titleColor, fontSize: 14),
               ),
             ),

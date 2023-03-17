@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
+import 'package:todo_app_main_screen/generated/l10n.dart';
 
 class DateWidget extends StatelessWidget {
   final DateTime dateTime;
@@ -15,7 +16,7 @@ class DateWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String weekDay =
-        DateFormat('EEEEE', 'en_US').format(dateTime).toLowerCase();
+        DateFormat('EEEEE', Localizations.localeOf(context).toString()).format(dateTime).toLowerCase();
     String date = DateFormat('d', 'en_US').format(dateTime).toLowerCase();
     return Stack(
       children: [

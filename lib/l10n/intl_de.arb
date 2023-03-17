@@ -1,0 +1,21 @@
+{
+  "@@locale": "de",
+  "language": "Deutsch",
+  "lists": "listen",
+  "monday": "montag",
+  "tuesday": "dienstag",
+  "wednesday": "mittwoch",
+  "thursday": "donnerstag",
+  "friday": "freitag",
+  "saturday": "samstag",
+  "sunday": "sonntag",
+  "settings": "Einstellungen",
+  "aboutUs": "About us",
+  "languageTitle": "Sprache",
+  "reportProblem": "Ein Problem melden",
+  "termsOfUsing": "Regeln für die Verwendung",
+  "privacyPolicy": "Datenschutzbestimmungen",
+  "getPremium": "Probieren Sie Premium",
+  "perMonth": "pro monat",
+  "perYear": "per annum"
+}
