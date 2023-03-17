@@ -1,7 +1,7 @@
 import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
-import 'package:todo_app_main_screen/consts/strings.dart';
+import 'package:todo_app_main_screen/generated/l10n.dart';
 import 'package:todo_app_main_screen/main.dart';
 import 'package:todo_app_main_screen/models/list_model.dart';
 
@@ -33,7 +33,7 @@ class _ListsWidgetState extends State<ListsWidget> {
           height: widget.height * 0.01,
         ),
         Text(
-          'Lists',
+          S.of(context).chooseLists,
           style: TextStyle(
             fontSize: 0.03 * widget.height,
             fontWeight: FontWeight.bold,
@@ -93,7 +93,7 @@ class _ListsWidgetState extends State<ListsWidget> {
             tapPadding: const EdgeInsets.all(20.0),
             onTap: widget.onAddNewListPressed,
             child: Text(
-              TestStrings.addNewList,
+              S.of(context).addNewList,
               style: TextStyle(
                 fontSize: 0.018 * widget.height,
                 color: Colors.grey,

@@ -20,20 +20,56 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(seconds) => "The task will be deleted in ${seconds}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "aboutUs": MessageLookupByLibrary.simpleMessage("About us"),
+        "activeReminder": MessageLookupByLibrary.simpleMessage(
+            "The active reminder will be displayed below the task as a black item"),
+        "add": MessageLookupByLibrary.simpleMessage("add"),
+        "addNewList": MessageLookupByLibrary.simpleMessage("add new list"),
+        "and": MessageLookupByLibrary.simpleMessage(" and "),
+        "bySubscribing": MessageLookupByLibrary.simpleMessage(
+            "By subscribing you accept our"),
+        "chooseLists": MessageLookupByLibrary.simpleMessage("Lists"),
+        "color": MessageLookupByLibrary.simpleMessage("Color"),
+        "create": MessageLookupByLibrary.simpleMessage("create"),
+        "createNewList":
+            MessageLookupByLibrary.simpleMessage("create new list"),
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "deletingTask": m0,
         "getPremium": MessageLookupByLibrary.simpleMessage("Get Premium"),
+        "goPremium": MessageLookupByLibrary.simpleMessage("Go Premium"),
+        "hintText": MessageLookupByLibrary.simpleMessage(" Type new task..."),
         "language": MessageLookupByLibrary.simpleMessage("English"),
         "languageTitle": MessageLookupByLibrary.simpleMessage("Language"),
         "lists": MessageLookupByLibrary.simpleMessage("lists"),
+        "move": MessageLookupByLibrary.simpleMessage("move"),
+        "newList": MessageLookupByLibrary.simpleMessage(" new list"),
         "perMonth": MessageLookupByLibrary.simpleMessage("per month"),
         "perYear": MessageLookupByLibrary.simpleMessage("per year"),
+        "premColorsQuotes":
+            MessageLookupByLibrary.simpleMessage("New colors and full quotes"),
+        "premFuture":
+            MessageLookupByLibrary.simpleMessage("New features in future"),
+        "premLists": MessageLookupByLibrary.simpleMessage(
+            "Different lists and customization"),
+        "premTasks": MessageLookupByLibrary.simpleMessage("Unlimited tasks"),
         "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
+        "privacyPolicyPremium":
+            MessageLookupByLibrary.simpleMessage("\nPrivacy policy"),
+        "recurringPayment":
+            MessageLookupByLibrary.simpleMessage("This is Recurring Payment"),
+        "reminder": MessageLookupByLibrary.simpleMessage("Reminder"),
+        "rename": MessageLookupByLibrary.simpleMessage("Rename"),
         "reportProblem":
             MessageLookupByLibrary.simpleMessage("Report a problem"),
+        "saveReminder": MessageLookupByLibrary.simpleMessage("save reminder"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
-        "termsOfUsing": MessageLookupByLibrary.simpleMessage("Terms of Using")
+        "terms": MessageLookupByLibrary.simpleMessage("Terms"),
+        "termsOfUsing": MessageLookupByLibrary.simpleMessage("Terms of Using"),
+        "thumbnail": MessageLookupByLibrary.simpleMessage("Thumbnail"),
+        "undo": MessageLookupByLibrary.simpleMessage("Undo")
       };
 }

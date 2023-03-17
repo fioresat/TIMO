@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
-import 'package:todo_app_main_screen/consts/strings.dart';
+import 'package:todo_app_main_screen/generated/l10n.dart';
 import 'package:todo_app_main_screen/models/single_task_model.dart';
 import 'package:todo_app_main_screen/ui/widgets/colors_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
@@ -107,11 +107,11 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
               opacity: isTapped == true ? 0.2 : 1,
               child: Column(
                 children: [
-                  const Align(
+                  Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      'Color',
-                      style: TextStyle(
+                      S.of(context).color,
+                      style: const TextStyle(
                         fontSize: 20,
                         color: greyTextColor,
                       ),
@@ -139,9 +139,9 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
-                        TestStrings.reminder,
-                        style: TextStyle(
+                      Text(
+                        S.of(context).reminder,
+                        style: const TextStyle(
                           fontSize: 20,
                           color: greyTextColor,
                         ),
@@ -149,8 +149,8 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
                       InkWell(
                         onTap: widget.onReminderTap,
                         child: Row(
-                          children: const [
-                            Text(
+                          children: [
+                            const Text(
                               '+',
                               style: TextStyle(
                                 fontSize: 24,
@@ -158,8 +158,8 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
                               ),
                             ),
                             Text(
-                              ' add',
-                              style: TextStyle(
+                              S.of(context).add,
+                              style: const TextStyle(
                                 fontSize: 18,
                                 color: greyTextColor,
                               ),
@@ -214,9 +214,9 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
                             child: RichText(
                               text: TextSpan(
                                 children: [
-                                  const TextSpan(
-                                    text: TestStrings.activeReminder,
-                                    style: TextStyle(
+                                  TextSpan(
+                                    text: S.of(context).activeReminder,
+                                    style: const TextStyle(
                                       color: activeReminderText,
                                       fontSize: 14,
                                     ),

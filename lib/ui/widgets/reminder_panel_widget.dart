@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
-import 'package:todo_app_main_screen/consts/strings.dart';
+import 'package:todo_app_main_screen/generated/l10n.dart';
 import 'package:todo_app_main_screen/main.dart';
 import 'package:todo_app_main_screen/models/single_task_model.dart';
 import 'package:todo_app_main_screen/ui/widgets/black_button_widget.dart';
@@ -47,7 +47,7 @@ class _ReminderPanelWidgetState extends State<ReminderPanelWidget> {
               image: AppIcons.closeButton,
             ),
             Text(
-              TestStrings.reminder,
+              S.of(context).reminder,
               style: TextStyle(
                 fontSize: 0.03 * widget.height,
                 fontWeight: FontWeight.bold,
@@ -90,9 +90,9 @@ class _ReminderPanelWidgetState extends State<ReminderPanelWidget> {
                   Radius.circular(20),
                 ),
                 height: widget.height * 0.07,
-                child: const Text(
-                  TestStrings.saveReminderButton,
-                  style: TextStyle(color: backgroundColor, fontSize: 18),
+                child: Text(
+                  S.of(context).saveReminder,
+                  style: const TextStyle(color: backgroundColor, fontSize: 18),
                 ),
               ),
             ),

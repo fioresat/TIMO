@@ -20,21 +20,60 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'es';
 
+  static String m0(seconds) => "La tarea se eliminará en ${seconds}";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "aboutUs": MessageLookupByLibrary.simpleMessage("About us"),
+        "aboutUs": MessageLookupByLibrary.simpleMessage("Sobre nosotros"),
+        "activeReminder": MessageLookupByLibrary.simpleMessage(
+            "El recordatorio activo se mostrará debajo de la tarea como un elemento negro"),
+        "add": MessageLookupByLibrary.simpleMessage("agregar"),
+        "addNewList":
+            MessageLookupByLibrary.simpleMessage("añadir nueva lista"),
+        "and": MessageLookupByLibrary.simpleMessage(" y "),
+        "bySubscribing": MessageLookupByLibrary.simpleMessage(
+            "Al suscribirte aceptas nuestra"),
+        "chooseLists": MessageLookupByLibrary.simpleMessage("Listas"),
+        "color": MessageLookupByLibrary.simpleMessage("color"),
+        "create": MessageLookupByLibrary.simpleMessage("crear"),
+        "createNewList":
+            MessageLookupByLibrary.simpleMessage("crear nueva lista"),
         "delete": MessageLookupByLibrary.simpleMessage("Borrar"),
+        "deletingTask": m0,
         "getPremium": MessageLookupByLibrary.simpleMessage("Vuélvete Premium"),
+        "goPremium": MessageLookupByLibrary.simpleMessage("Hazte Premium"),
+        "hintText":
+            MessageLookupByLibrary.simpleMessage(" Escribe nueva tarea..."),
         "language": MessageLookupByLibrary.simpleMessage("Español"),
         "languageTitle": MessageLookupByLibrary.simpleMessage("Idioma"),
         "lists": MessageLookupByLibrary.simpleMessage("listas"),
+        "move": MessageLookupByLibrary.simpleMessage("mover"),
+        "newList": MessageLookupByLibrary.simpleMessage(" lista nueva"),
         "perMonth": MessageLookupByLibrary.simpleMessage("al mes"),
         "perYear": MessageLookupByLibrary.simpleMessage("al año"),
+        "premColorsQuotes": MessageLookupByLibrary.simpleMessage(
+            "Nuevos colores y comillas completas"),
+        "premFuture": MessageLookupByLibrary.simpleMessage(
+            "Nuevas características en el futuro"),
+        "premLists": MessageLookupByLibrary.simpleMessage(
+            "Diferentes listas y personalización"),
+        "premTasks": MessageLookupByLibrary.simpleMessage("Tareas ilimitadas"),
         "privacyPolicy":
             MessageLookupByLibrary.simpleMessage("Política de privacidad"),
+        "privacyPolicyPremium":
+            MessageLookupByLibrary.simpleMessage("\nPolítica de Privacidad"),
+        "recurringPayment":
+            MessageLookupByLibrary.simpleMessage("Este es el Pago Recurrente"),
+        "reminder": MessageLookupByLibrary.simpleMessage("Recordatorio"),
+        "rename": MessageLookupByLibrary.simpleMessage("Rebautizar"),
         "reportProblem":
             MessageLookupByLibrary.simpleMessage("Notificar un problema"),
+        "saveReminder":
+            MessageLookupByLibrary.simpleMessage("Guardar recordatorio"),
         "settings": MessageLookupByLibrary.simpleMessage("Ajustes"),
-        "termsOfUsing": MessageLookupByLibrary.simpleMessage("Normas de uso")
+        "terms": MessageLookupByLibrary.simpleMessage("Términos"),
+        "termsOfUsing": MessageLookupByLibrary.simpleMessage("Normas de uso"),
+        "thumbnail": MessageLookupByLibrary.simpleMessage("Miniatura"),
+        "undo": MessageLookupByLibrary.simpleMessage("Deshacer")
       };
 }

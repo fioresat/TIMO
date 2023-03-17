@@ -8,6 +8,10 @@
   "@lists": {
     "description": "lists title"
   },
+  "chooseLists": "Lists",
+  "@chooseList": {
+    "description": "list to choose"
+  },
   "settings": "Settings",
   "@settings": {
     "description": "settings title"
@@ -47,5 +51,111 @@
   "delete": "Delete",
   "@delete": {
     "description": "delete button"
+  },
+  "rename": "Rename",
+  "@rename": {
+    "description": "rename button"
+  },
+  "thumbnail": "Thumbnail",
+  "@thumbnail": {
+    "description": "thumbnail button"
+  },
+  "reminder": "Reminder",
+  "@reminder": {
+    "description": "Reminder"
+  },
+  "activeReminder": "The active reminder will be displayed below the task as a black item",
+  "@activeReminder": {
+    "description": "active reminder info"
+  },
+  "saveReminder": "save reminder",
+  "@saveReminder": {
+    "description": "save reminder button"
+  },
+  "color": "Color",
+  "@color": {
+    "description": "color"
+  },
+  "add": "add",
+  "@add": {
+    "description": "add button"
+  },
+  "move": "move",
+  "@move": {
+    "description": "move button"
+  },
+  "addNewList": "add new list",
+  "@addNewList": {
+    "description": "add new list button"
+  },
+  "createNewList": "create new list",
+  "@createNewList": {
+    "description": "create new list button"
+  },
+  "newList": " new list",
+  "@newList": {
+    "description": "new list"
+  },
+  "create": "create",
+  "@create": {
+    "description": "create button"
+  },
+  "hintText": " Type new task...",
+  "@hintText": {
+    "description": "hint text  Type new task..."
+  },
+  "undo": "Undo",
+  "@undo": {
+    "description": "undo button"
+  },
+  "deletingTask": "The task will be deleted in {seconds}",
+  "@deletingTask": {
+    "description": "Delete task in some seconds",
+    "placeholders": {
+      "seconds": {
+        "type": "int",
+        "example": "4"
+      }
+    }
+  },
+  "recurringPayment": "This is Recurring Payment",
+  "@recurringPayment": {
+    "description": "This is Recurring Payment"
+  },
+  "goPremium": "Go Premium",
+  "@goPremium": {
+    "description": "Go Premium"
+  },
+  "bySubscribing": "By subscribing you accept our",
+  "@bySubscribing": {
+    "description": "By subscribing you accept our"
+  },
+  "terms": "Terms",
+  "@terms": {
+    "description": "Terms"
+  },
+  "privacyPolicyPremium": "\nPrivacy policy",
+  "@privacyPolicyPremium": {
+    "description": "Privacy policy"
+  },
+  "and": " and ",
+  "@and": {
+    "description": "and"
+  },
+  "premTasks": "Unlimited tasks",
+  "@premTasks": {
+    "description": "Unlimited tasks"
+  },
+  "premColorsQuotes": "New colors and full quotes",
+  "@premColorsQuotes": {
+    "description": "New colors and full quotes"
+  },
+  "premLists": "Different lists and customization",
+  "@premLists": {
+    "description": "Different lists and customization"
+  },
+  "premFuture": "New features in future",
+  "@premFuture": {
+    "description": "New features in future"
   }
 }
