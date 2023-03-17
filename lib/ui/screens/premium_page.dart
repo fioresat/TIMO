@@ -1,4 +1,3 @@
-import 'package:drop_shadow_image/drop_shadow_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
@@ -110,7 +109,7 @@ class PremiumPage extends StatelessWidget {
                               left: widthScreen * 0.07,
                               child: Text(
                                 S.of(context).perMonth,
-                                style: TextStyle(fontSize: 16),
+                                style: const TextStyle(fontSize: 16),
                               ))
                         ],
                       ),

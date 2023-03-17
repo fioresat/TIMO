@@ -23,24 +23,17 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "aboutUs": MessageLookupByLibrary.simpleMessage("About us"),
-        "friday": MessageLookupByLibrary.simpleMessage("viernes"),
         "getPremium": MessageLookupByLibrary.simpleMessage("Vuélvete Premium"),
         "language": MessageLookupByLibrary.simpleMessage("Español"),
         "languageTitle": MessageLookupByLibrary.simpleMessage("Idioma"),
         "lists": MessageLookupByLibrary.simpleMessage("listas"),
-        "monday": MessageLookupByLibrary.simpleMessage("lunes"),
         "perMonth": MessageLookupByLibrary.simpleMessage("al mes"),
         "perYear": MessageLookupByLibrary.simpleMessage("al año"),
         "privacyPolicy":
             MessageLookupByLibrary.simpleMessage("Política de privacidad"),
         "reportProblem":
             MessageLookupByLibrary.simpleMessage("Notificar un problema"),
-        "saturday": MessageLookupByLibrary.simpleMessage("sábado"),
         "settings": MessageLookupByLibrary.simpleMessage("Ajustes"),
-        "sunday": MessageLookupByLibrary.simpleMessage("domingo"),
-        "termsOfUsing": MessageLookupByLibrary.simpleMessage("Normas de uso"),
-        "thursday": MessageLookupByLibrary.simpleMessage("jueves"),
-        "tuesday": MessageLookupByLibrary.simpleMessage("martes"),
-        "wednesday": MessageLookupByLibrary.simpleMessage("miércoles")
+        "termsOfUsing": MessageLookupByLibrary.simpleMessage("Normas de uso")
       };
 }

@@ -1,7 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
-import 'package:todo_app_main_screen/generated/l10n.dart';
 
 class DateWidget extends StatelessWidget {
   final DateTime dateTime;

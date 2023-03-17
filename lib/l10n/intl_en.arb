@@ -8,34 +8,6 @@
   "@lists": {
     "description": "lists title"
   },
-  "monday": "monday",
-  "@monday": {
-    "description": "day of week title"
-  },
-  "tuesday": "tuesday",
-  "@tuesday": {
-    "description": "day of week title"
-  },
-  "wednesday": "wednesday",
-  "@wednesday": {
-    "description": "day of week title"
-  },
-  "thursday": "thursday",
-  "@thursday": {
-    "description": "day of week title"
-  },
-  "friday": "friday",
-  "@friday": {
-    "description": "day of week title"
-  },
-  "saturday": "saturday",
-  "@saturday": {
-    "description": "day of week title"
-  },
-  "sunday": "sunday",
-  "@sunday": {
-    "description": "day of week title"
-  },
   "settings": "Settings",
   "@settings": {
     "description": "settings title"

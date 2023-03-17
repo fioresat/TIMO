@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           locale: provider.locale,
           localizationsDelegates: const [
-            AppLocalizationDelegate(),
+            S.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
           ),
           routes: {
             MyHomePage.routeName: (context) => const MyHomePage(),
-            NewTaskPage.routeName: (context) => NewTaskPage(),
+            NewTaskPage.routeName: (context) => const NewTaskPage(),
             TaskPage.routeName: (context) => const TaskPage(),
             ListsPage.routeName: (context) => const ListsPage(),
             SettingsPage.routeName: (context) => const SettingsPage(),
