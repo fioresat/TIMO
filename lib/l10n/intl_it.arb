@@ -10,5 +10,6 @@
   "privacyPolicy": "Informativa sulla privacy",
   "getPremium": "Prova il premio",
   "perMonth": "al mese",
-  "perYear": "all'anno"
+  "perYear": "all'anno",
+  "delete": "Cancellare"
 }

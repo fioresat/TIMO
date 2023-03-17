@@ -10,5 +10,6 @@
   "privacyPolicy": "Политика конфиденциальности",
   "getPremium": "Попробуй премиум",
   "perMonth": "в месяц",
-  "perYear": "в год"
+  "perYear": "в год",
+  "delete": "Удалить"
 }

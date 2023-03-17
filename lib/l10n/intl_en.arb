@@ -43,5 +43,9 @@
   "perYear": "per year",
   "@perYear": {
     "description": "per month"
+  },
+  "delete": "Delete",
+  "@delete": {
+    "description": "delete button"
   }
 }

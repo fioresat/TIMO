@@ -10,5 +10,6 @@
   "privacyPolicy": "Datenschutzbestimmungen",
   "getPremium": "Probieren Sie Premium",
   "perMonth": "pro monat",
-  "perYear": "per annum"
+  "perYear": "per annum",
+  "delete": "Löschen"
 }
