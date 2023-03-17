@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:todo_app_main_screen/l10n/locales.dart';
 import 'package:todo_app_main_screen/models/list_model.dart';
 import 'package:todo_app_main_screen/models/single_task_model.dart';
+import 'package:todo_app_main_screen/models/user_model.dart';
 import 'package:todo_app_main_screen/service/locale_provider.dart';
 import 'package:todo_app_main_screen/ui/screens/language_page.dart';
 import 'package:todo_app_main_screen/ui/screens/lists_page.dart';
@@ -23,6 +24,7 @@ List<ListModel> currentLists = [];
 int taskCurrentColorIndex = -1;
 int listCurrentColorIndex = 0;
 ListModel currentList = ListModel(list: 'ToDo', listID: 'ToDo');
+UserModel currentUser = UserModel();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

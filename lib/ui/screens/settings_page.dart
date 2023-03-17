@@ -2,10 +2,14 @@ import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
+import 'package:todo_app_main_screen/consts/strings.dart';
 import 'package:todo_app_main_screen/generated/l10n.dart';
+import 'package:todo_app_main_screen/main.dart';
+import 'package:todo_app_main_screen/ui/screens/language_page.dart';
 import 'package:todo_app_main_screen/ui/screens/premium_page.dart';
-import 'package:todo_app_main_screen/ui/widgets/settings_page_widgets/settings_list.dart';
-//import 'package:url_launcher/url_launcher.dart';
+import 'package:todo_app_main_screen/ui/widgets/language_page_widgets/language_list.dart';
+import 'package:todo_app_main_screen/ui/widgets/settings_page_widgets/settings_widget.dart';
+
 
 class SettingsPage extends StatefulWidget {
   static const routeName = '/settings_page';
@@ -73,23 +77,58 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                 ),
               ),
+              // SizedBox(
+              //   height: 0.9 * heightScreen,
+              //   child: ListView.separated(
+              //       shrinkWrap: true,
+              //       itemBuilder: (context, index) {
+              //
+              //         return settingsList[index];
+              //       },
+              //       separatorBuilder: (context, index) {
+              //         return const Divider();
+              //       },
+              //       itemCount: settingsList.length),
+              // ),
               SizedBox(
                 height: 0.9 * heightScreen,
-                child: ListView.separated(
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      final setting = settingsList[index];
-                      return InkWell(
-                        onTap: () => setting.url.isNotEmpty
-                            ? _launchURL(setting.url)
-                            : Navigator.pushNamed(context, setting.route),
-                        child: setting.widget,
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return const Divider();
-                    },
-                    itemCount: settingsList.length),
+                child: ListView(children: [ SettingsWidget(
+                  route: '',
+                  url: 'https://flutter.dev/',
+                  title: SettingsStrings.aboutUs,
+                  trailing: settingsImage,
+                ),
+                  SettingsWidget(
+                    route: LanguagePage.routeName,
+                    url: '',
+                    title: SettingsStrings.language,
+                    trailing: Text(
+                      currentUser.locale>=0 ? languageList[currentUser.locale].name : '',
+                      style: const TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.normal,
+                        color: paleTextColor,
+                      ),
+                    ),
+                  ),
+                  SettingsWidget(
+                    route: '',
+                    url: '',
+                    title: SettingsStrings.report,
+                    trailing: Container(),
+                  ),
+                  SettingsWidget(
+                    route: '',
+                    url: 'https://flutter.dev/',
+                    title: SettingsStrings.termsOfUsing,
+                    trailing: settingsImage,
+                  ),
+                  SettingsWidget(
+                    route: '',
+                    url: 'https://flutter.dev/',
+                    title: SettingsStrings.privacyPolicy,
+                    trailing: settingsImage,
+                  ),],),
               ),
             ],
           ),
@@ -98,14 +137,5 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  _launchURL(String url) async {
-    // if (await canLaunchUrl(Uri.parse(url))) {
-    //   await launchUrl(
-    //     Uri.parse(url),
-    //     mode: LaunchMode.externalApplication,
-    //   );
-    // } else {
-    //   throw 'Could not launch $url';
-    // }
-  }
+
 }
