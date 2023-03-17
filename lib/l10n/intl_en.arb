@@ -138,7 +138,7 @@
   "@privacyPolicyPremium": {
     "description": "Privacy policy"
   },
-  "and": "and",
+  "and": " and ",
   "@and": {
     "description": "and"
   },

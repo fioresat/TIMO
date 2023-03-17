@@ -29,7 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "The active reminder will be displayed below the task as a black item"),
         "add": MessageLookupByLibrary.simpleMessage("add"),
         "addNewList": MessageLookupByLibrary.simpleMessage("add new list"),
-        "and": MessageLookupByLibrary.simpleMessage("and"),
+        "and": MessageLookupByLibrary.simpleMessage(" and "),
         "bySubscribing": MessageLookupByLibrary.simpleMessage(
             "By subscribing you accept our"),
         "chooseLists": MessageLookupByLibrary.simpleMessage("Lists"),

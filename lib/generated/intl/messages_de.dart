@@ -30,7 +30,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "add": MessageLookupByLibrary.simpleMessage("hinzufügen"),
         "addNewList":
             MessageLookupByLibrary.simpleMessage("neue Liste hinzufügen"),
-        "and": MessageLookupByLibrary.simpleMessage("und"),
+        "and": MessageLookupByLibrary.simpleMessage(" und "),
         "bySubscribing": MessageLookupByLibrary.simpleMessage(
             "Indem Sie sich anmelden, akzeptieren Sie unsere"),
         "chooseLists": MessageLookupByLibrary.simpleMessage("Listen"),

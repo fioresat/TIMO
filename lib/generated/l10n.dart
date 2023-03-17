@@ -380,10 +380,10 @@ class S {
     );
   }
 
-  /// `and`
+  /// ` and `
   String get and {
     return Intl.message(
-      'and',
+      ' and ',
       name: 'and',
       desc: 'and',
       args: [],
