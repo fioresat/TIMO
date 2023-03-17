@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
-import 'package:todo_app_main_screen/consts/strings.dart';
+import 'package:todo_app_main_screen/generated/l10n.dart';
 import 'package:todo_app_main_screen/models/list_model.dart';
 import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
 import 'black_button_widget.dart';
@@ -66,9 +66,9 @@ class _ListsPanelWidgetState extends State<ListsPanelWidget> {
                 borderRadius: const BorderRadius.all(
                   Radius.elliptical(20, 20),
                 ),
-                child: const Text(
-                  TestStrings.move,
-                  style: TextStyle(color: backgroundColor, fontSize: 18),
+                child: Text(
+                  S.of(context).move,
+                  style: const TextStyle(color: backgroundColor, fontSize: 18,),
                 ),
               ),
             ),

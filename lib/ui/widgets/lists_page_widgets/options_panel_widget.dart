@@ -54,7 +54,7 @@ class _OptionsPanelWidgetState extends State<OptionsPanelWidget> {
           Align(
             alignment: Alignment.topLeft,
             child: Text(
-              'Color',
+              S.of(context).color,
               style: TextStyle(
                 fontSize: 0.025 * widget.height,
                 fontWeight: FontWeight.w700,
@@ -76,13 +76,13 @@ class _OptionsPanelWidgetState extends State<OptionsPanelWidget> {
               widget.onRenameTap();
             },
             height: widget.height,
-            optionTitle: 'Rename',
+            optionTitle: S.of(context).rename,
             textColor: textColor,
           ),
           OptionsWidget(
             onOptionTap: () {},
             height: widget.height,
-            optionTitle: 'Thumbnail',
+            optionTitle: S.of(context).thumbnail,
             textColor: textColor,
           ),
           OptionsWidget(

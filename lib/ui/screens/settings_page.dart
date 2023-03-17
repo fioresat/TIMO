@@ -2,14 +2,12 @@ import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
-import 'package:todo_app_main_screen/consts/strings.dart';
 import 'package:todo_app_main_screen/generated/l10n.dart';
 import 'package:todo_app_main_screen/main.dart';
 import 'package:todo_app_main_screen/ui/screens/language_page.dart';
 import 'package:todo_app_main_screen/ui/screens/premium_page.dart';
 import 'package:todo_app_main_screen/ui/widgets/language_page_widgets/language_list.dart';
 import 'package:todo_app_main_screen/ui/widgets/settings_page_widgets/settings_widget.dart';
-
 
 class SettingsPage extends StatefulWidget {
   static const routeName = '/settings_page';
@@ -49,7 +47,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       scale: 3,
                     ),
                   ),
-                   Text(
+                  Text(
                     S.of(context).settings,
                     style: const TextStyle(
                       fontSize: 22,
@@ -92,43 +90,49 @@ class _SettingsPageState extends State<SettingsPage> {
               // ),
               SizedBox(
                 height: 0.9 * heightScreen,
-                child: ListView(children: [ SettingsWidget(
-                  route: '',
-                  url: 'https://flutter.dev/',
-                  title: SettingsStrings.aboutUs,
-                  trailing: settingsImage,
-                ),
-                  SettingsWidget(
-                    route: LanguagePage.routeName,
-                    url: '',
-                    title: SettingsStrings.language,
-                    trailing: Text(
-                      currentUser.locale>=0 ? languageList[currentUser.locale].name : '',
-                      style: const TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.normal,
-                        color: paleTextColor,
+                child: ListView(
+                  children: [
+                    SettingsWidget(
+                      route: '',
+                      url: 'https://flutter.dev/',
+                      title: S.of(context).aboutUs,
+                      trailing: settingsImage,
+                    ),
+                    SettingsWidget(
+                      route: LanguagePage.routeName,
+                      url: '',
+                      title: S.of(context).language,
+                      trailing: Text(
+                        currentUser.locale >= 0
+                            ? languageList[currentUser.locale].name
+                            : '',
+                        style: const TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.normal,
+                          color: paleTextColor,
+                        ),
                       ),
                     ),
-                  ),
-                  SettingsWidget(
-                    route: '',
-                    url: '',
-                    title: SettingsStrings.report,
-                    trailing: Container(),
-                  ),
-                  SettingsWidget(
-                    route: '',
-                    url: 'https://flutter.dev/',
-                    title: SettingsStrings.termsOfUsing,
-                    trailing: settingsImage,
-                  ),
-                  SettingsWidget(
-                    route: '',
-                    url: 'https://flutter.dev/',
-                    title: SettingsStrings.privacyPolicy,
-                    trailing: settingsImage,
-                  ),],),
+                    SettingsWidget(
+                      route: '',
+                      url: '',
+                      title: S.of(context).reportProblem,
+                      trailing: Container(),
+                    ),
+                    SettingsWidget(
+                      route: '',
+                      url: 'https://flutter.dev/',
+                      title: S.of(context).termsOfUsing,
+                      trailing: settingsImage,
+                    ),
+                    SettingsWidget(
+                      route: '',
+                      url: 'https://flutter.dev/',
+                      title: S.of(context).privacyPolicy,
+                      trailing: settingsImage,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -136,6 +140,4 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
     );
   }
-
-
 }

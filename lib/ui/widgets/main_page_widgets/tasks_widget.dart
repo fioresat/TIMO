@@ -4,6 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
+import 'package:todo_app_main_screen/generated/l10n.dart';
 import 'package:todo_app_main_screen/main.dart';
 import 'package:todo_app_main_screen/models/single_task_model.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/single_task_widget.dart';
@@ -229,10 +230,10 @@ class _TasksWidgetState extends State<TasksWidget> {
             builder: (BuildContext context, Duration value, Widget? child) {
               final seconds = value.inSeconds % 60;
               return CupertinoAlertDialog(
-                title: Text('The task will be deleted in $seconds seconds'),
+                title: Text(S.of(context).deletingTask(seconds)),
                 actions: <CupertinoDialogAction>[
                   CupertinoDialogAction(
-                      child: const Text('Undo'),
+                      child: Text(S.of(context).undo),
                       onPressed: () {
                         setState(
                           () {
@@ -243,7 +244,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                       }),
                   CupertinoDialogAction(
                       isDestructiveAction: true,
-                      child: const Text('Delete'),
+                      child: Text(S.of(context).delete),
                       onPressed: () {
                         _deleteTask(deletedTask: deletedItem);
                         Navigator.of(context).pop();
