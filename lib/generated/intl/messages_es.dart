@@ -30,11 +30,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "add": MessageLookupByLibrary.simpleMessage("agregar"),
         "addNewList":
             MessageLookupByLibrary.simpleMessage("añadir nueva lista"),
+        "allFeatures": MessageLookupByLibrary.simpleMessage(
+            "Todas las funciones sin límites"),
         "and": MessageLookupByLibrary.simpleMessage(" y "),
         "bySubscribing": MessageLookupByLibrary.simpleMessage(
             "Al suscribirte aceptas nuestra"),
         "chooseLists": MessageLookupByLibrary.simpleMessage("Listas"),
-        "color": MessageLookupByLibrary.simpleMessage("color"),
+        "color": MessageLookupByLibrary.simpleMessage("Color"),
         "create": MessageLookupByLibrary.simpleMessage("crear"),
         "createNewList":
             MessageLookupByLibrary.simpleMessage("crear nueva lista"),
@@ -56,16 +58,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "premFuture": MessageLookupByLibrary.simpleMessage(
             "Nuevas características en el futuro"),
         "premLists": MessageLookupByLibrary.simpleMessage(
-            "Diferentes listas y personalización"),
+            "Diferentes listas personalizables"),
         "premTasks": MessageLookupByLibrary.simpleMessage("Tareas ilimitadas"),
         "privacyPolicy":
             MessageLookupByLibrary.simpleMessage("Política de privacidad"),
         "privacyPolicyPremium":
             MessageLookupByLibrary.simpleMessage("\nPolítica de Privacidad"),
         "recurringPayment":
-            MessageLookupByLibrary.simpleMessage("Este es el Pago Recurrente"),
+            MessageLookupByLibrary.simpleMessage("Este es el pago recurrente"),
         "reminder": MessageLookupByLibrary.simpleMessage("Recordatorio"),
-        "rename": MessageLookupByLibrary.simpleMessage("Rebautizar"),
+        "rename": MessageLookupByLibrary.simpleMessage("Renombrar"),
         "reportProblem":
             MessageLookupByLibrary.simpleMessage("Notificar un problema"),
         "saveReminder":
@@ -73,7 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings": MessageLookupByLibrary.simpleMessage("Ajustes"),
         "terms": MessageLookupByLibrary.simpleMessage("Términos"),
         "termsOfUsing": MessageLookupByLibrary.simpleMessage("Normas de uso"),
-        "thumbnail": MessageLookupByLibrary.simpleMessage("Miniatura"),
+        "thumbnail": MessageLookupByLibrary.simpleMessage("Portada"),
         "undo": MessageLookupByLibrary.simpleMessage("Deshacer")
       };
 }

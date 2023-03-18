@@ -30,6 +30,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "add": MessageLookupByLibrary.simpleMessage("добавить"),
         "addNewList":
             MessageLookupByLibrary.simpleMessage("добавить новый список"),
+        "allFeatures": MessageLookupByLibrary.simpleMessage(
+            "Все функции\nбез ограничений"),
         "and": MessageLookupByLibrary.simpleMessage(" и "),
         "bySubscribing": MessageLookupByLibrary.simpleMessage(
             "Подписываясь, вы принимаете наши"),
@@ -75,7 +77,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "terms": MessageLookupByLibrary.simpleMessage("Условия"),
         "termsOfUsing":
             MessageLookupByLibrary.simpleMessage("Правила использования"),
-        "thumbnail": MessageLookupByLibrary.simpleMessage("Миниатюра (Иконка)"),
+        "thumbnail": MessageLookupByLibrary.simpleMessage("Обложка"),
         "undo": MessageLookupByLibrary.simpleMessage("Отменить")
       };
 }

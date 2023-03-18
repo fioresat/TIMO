@@ -30,6 +30,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "add": MessageLookupByLibrary.simpleMessage("hinzufügen"),
         "addNewList":
             MessageLookupByLibrary.simpleMessage("neue Liste hinzufügen"),
+        "allFeatures": MessageLookupByLibrary.simpleMessage(
+            "Alle Funktionen\nohne Einschränkungen"),
         "and": MessageLookupByLibrary.simpleMessage(" und "),
         "bySubscribing": MessageLookupByLibrary.simpleMessage(
             "Indem Sie sich anmelden, akzeptieren Sie unsere"),
@@ -40,8 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("neue Liste erstellen"),
         "delete": MessageLookupByLibrary.simpleMessage("Löschen"),
         "deletingTask": m0,
-        "getPremium":
-            MessageLookupByLibrary.simpleMessage("Probieren Sie Premium"),
+        "getPremium": MessageLookupByLibrary.simpleMessage("Hol dir Premium"),
         "goPremium": MessageLookupByLibrary.simpleMessage("Werde Premium"),
         "hintText": MessageLookupByLibrary.simpleMessage(
             " Geben Sie neue Aufgabe ein..."),
@@ -76,7 +77,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "terms": MessageLookupByLibrary.simpleMessage("Bedingungen"),
         "termsOfUsing":
             MessageLookupByLibrary.simpleMessage("Regeln für die Verwendung"),
-        "thumbnail": MessageLookupByLibrary.simpleMessage("Miniaturansicht"),
+        "thumbnail": MessageLookupByLibrary.simpleMessage("Vorschaubild"),
         "undo": MessageLookupByLibrary.simpleMessage("Rückgängig machen")
       };
 }

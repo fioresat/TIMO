@@ -69,11 +69,52 @@ class _SettingsPageState extends State<SettingsPage> {
                   PremiumPage.routeName,
                 ),
                 child: Center(
-                  child: Image.asset(
-                    'assets/images/banner.png',
-                    scale: 3,
-                  ),
-                ),
+                    child: Stack(
+                  children: [
+                    Positioned(
+                        child: Image.asset(
+                      AppIcons.vector,
+                      scale: 3,
+                    )),
+                    Positioned(
+                      left: widthScreen * 0.07,
+                      top: heightScreen * 0.017,
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            AppIcons.diamond,
+                            scale: 3,
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                S.of(context).getPremium,
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 7,
+                              ),
+                              Text(
+                                S.of(context).allFeatures,
+                                style: const TextStyle(
+                                  fontSize: 17,
+                                  color: allFeaturesColor,
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                )),
               ),
               // SizedBox(
               //   height: 0.9 * heightScreen,
@@ -101,7 +142,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     SettingsWidget(
                       route: LanguagePage.routeName,
                       url: '',
-                      title: S.of(context).language,
+                      title: S.of(context).languageTitle,
                       trailing: Text(
                         currentUser.locale >= 0
                             ? languageList[currentUser.locale].name

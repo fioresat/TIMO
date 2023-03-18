@@ -34,4 +34,5 @@ abstract class AppIcons {
   static const lightning = 'assets/icons/lightning_icon.png';
   static const whitePlate = 'assets/icons/white_plate_icon.png';
   static const bluePlate = 'assets/icons/blue_plate_icon.png';
+  static const vector = 'assets/icons/vector_icon.png';
 }

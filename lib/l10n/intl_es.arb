@@ -13,12 +13,12 @@
   "perMonth": "al mes",
   "perYear": "al año",
   "delete": "Borrar",
-  "rename": "Rebautizar",
-  "thumbnail": "Miniatura",
+  "rename": "Renombrar",
+  "thumbnail": "Portada",
   "reminder": "Recordatorio",
   "saveReminder": "Guardar recordatorio",
   "activeReminder": "El recordatorio activo se mostrará debajo de la tarea como un elemento negro",
-  "color": "color",
+  "color": "Color",
   "add": "agregar",
   "move": "mover",
   "addNewList": "añadir nueva lista",
@@ -28,7 +28,7 @@
   "hintText": " Escribe nueva tarea...",
   "undo": "Deshacer",
   "deletingTask": "La tarea se eliminará en {seconds}",
-  "recurringPayment": "Este es el Pago Recurrente",
+  "recurringPayment": "Este es el pago recurrente",
   "goPremium": "Hazte Premium",
   "bySubscribing": "Al suscribirte aceptas nuestra",
   "terms": "Términos",
@@ -36,7 +36,7 @@
   "and": " y ",
   "premTasks": "Tareas ilimitadas",
   "premColorsQuotes": "Nuevos colores y comillas completas",
-  "premLists": "Diferentes listas y personalización",
-  "premFuture": "Nuevas características en el futuro"
-
+  "premLists": "Diferentes listas personalizables",
+  "premFuture": "Nuevas características en el futuro",
+  "allFeatures": "Todas las funciones sin límites"
 }

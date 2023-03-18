@@ -9,12 +9,12 @@
   "reportProblem": "Ein Problem melden",
   "termsOfUsing": "Regeln für die Verwendung",
   "privacyPolicy": "Datenschutzbestimmungen",
-  "getPremium": "Probieren Sie Premium",
+  "getPremium": "Hol dir Premium",
   "perMonth": "pro monat",
   "perYear": "per annum",
   "delete": "Löschen",
   "rename": "Umbenennen",
-  "thumbnail": "Miniaturansicht",
+  "thumbnail": "Vorschaubild",
   "reminder": "Erinnerung",
   "saveReminder": "Erinnerung speichern",
   "activeReminder": "Die aktive Erinnerung wird unterhalb der Aufgabe als schwarzes Element angezeigt",
@@ -37,6 +37,6 @@
   "premTasks": "Unbegrenzte Aufgaben",
   "premColorsQuotes": "Neue Farben und vollständige Anführungszeichen",
   "premLists": "Verschiedene Listen und Anpassung",
-  "premFuture": "Neue Features in Zukunft"
-
+  "premFuture": "Neue Features in Zukunft",
+  "allFeatures": "Alle Funktionen\nohne Einschränkungen"
 }

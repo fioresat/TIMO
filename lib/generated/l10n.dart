@@ -429,6 +429,16 @@ class S {
       args: [],
     );
   }
+
+  /// `All features without limits`
+  String get allFeatures {
+    return Intl.message(
+      'All features without limits',
+      name: 'allFeatures',
+      desc: 'All features',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

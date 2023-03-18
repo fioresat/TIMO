@@ -157,5 +157,9 @@
   "premFuture": "New features in future",
   "@premFuture": {
     "description": "New features in future"
+  },
+  "allFeatures": "All features without limits",
+  "@allFeatures": {
+    "description": "All features"
   }
 }

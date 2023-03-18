@@ -97,7 +97,7 @@ class PremiumPage extends StatelessWidget {
                           ),
                           Positioned(
                               top: heightScreen * 0.09,
-                              left: widthScreen * 0.07,
+                              left: widthScreen * 0.08,
                               child: Text(
                                 S.of(context).perMonth,
                                 style: const TextStyle(fontSize: 16),

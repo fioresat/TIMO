@@ -30,6 +30,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "add": MessageLookupByLibrary.simpleMessage("aggiungere"),
         "addNewList":
             MessageLookupByLibrary.simpleMessage("aggiungere una nuova lista"),
+        "allFeatures": MessageLookupByLibrary.simpleMessage(
+            "Tutte le funzioni senza limiti"),
         "and": MessageLookupByLibrary.simpleMessage(" e i "),
         "bySubscribing": MessageLookupByLibrary.simpleMessage(
             "Iscrivendoti accetti la nostra"),
@@ -40,7 +42,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("creare una nuova lista"),
         "delete": MessageLookupByLibrary.simpleMessage("Cancellare"),
         "deletingTask": m0,
-        "getPremium": MessageLookupByLibrary.simpleMessage("Prova il premio"),
+        "getPremium": MessageLookupByLibrary.simpleMessage("Diventa premium"),
         "goPremium": MessageLookupByLibrary.simpleMessage("Vai Premium"),
         "hintText":
             MessageLookupByLibrary.simpleMessage(" Digita nuova attività..."),
@@ -48,7 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "languageTitle": MessageLookupByLibrary.simpleMessage("Lingua"),
         "lists": MessageLookupByLibrary.simpleMessage("liste"),
         "move": MessageLookupByLibrary.simpleMessage("mossa"),
-        "newList": MessageLookupByLibrary.simpleMessage(" nuovo elenco"),
+        "newList": MessageLookupByLibrary.simpleMessage(" nuova lista"),
         "perMonth": MessageLookupByLibrary.simpleMessage("al mese"),
         "perYear": MessageLookupByLibrary.simpleMessage("all\'anno"),
         "premColorsQuotes": MessageLookupByLibrary.simpleMessage(
@@ -56,7 +58,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "premFuture": MessageLookupByLibrary.simpleMessage(
             "Nuove funzionalità in futuro"),
         "premLists": MessageLookupByLibrary.simpleMessage(
-            "Diverse liste e personalizzazione"),
+            "Diverse liste personalizzabile"),
         "premTasks":
             MessageLookupByLibrary.simpleMessage("Attività illimitate"),
         "privacyPolicy":
@@ -70,11 +72,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "reportProblem":
             MessageLookupByLibrary.simpleMessage("Segnala un problema"),
         "saveReminder":
-            MessageLookupByLibrary.simpleMessage("Salva promemoria"),
+            MessageLookupByLibrary.simpleMessage("Salvare promemoria"),
         "settings": MessageLookupByLibrary.simpleMessage("Configurazione"),
         "terms": MessageLookupByLibrary.simpleMessage("Termini"),
         "termsOfUsing": MessageLookupByLibrary.simpleMessage("Regole d\'uso"),
-        "thumbnail": MessageLookupByLibrary.simpleMessage("Miniatura"),
+        "thumbnail": MessageLookupByLibrary.simpleMessage("Copertura"),
         "undo": MessageLookupByLibrary.simpleMessage("Disfare")
       };
 }
