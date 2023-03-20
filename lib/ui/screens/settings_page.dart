@@ -2,9 +2,12 @@ import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
+import 'package:todo_app_main_screen/generated/l10n.dart';
+import 'package:todo_app_main_screen/main.dart';
+import 'package:todo_app_main_screen/ui/screens/language_page.dart';
 import 'package:todo_app_main_screen/ui/screens/premium_page.dart';
-import 'package:todo_app_main_screen/ui/widgets/settings_page_widgets/settings_list.dart';
-//import 'package:url_launcher/url_launcher.dart';
+import 'package:todo_app_main_screen/ui/widgets/language_page_widgets/language_list.dart';
+import 'package:todo_app_main_screen/ui/widgets/settings_page_widgets/settings_widget.dart';
 
 class SettingsPage extends StatefulWidget {
   static const routeName = '/settings_page';
@@ -44,9 +47,9 @@ class _SettingsPageState extends State<SettingsPage> {
                       scale: 3,
                     ),
                   ),
-                  const Text(
-                    'Settings',
-                    style: TextStyle(
+                  Text(
+                    S.of(context).settings,
+                    style: const TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w500,
                       color: darkColor,
@@ -66,45 +69,116 @@ class _SettingsPageState extends State<SettingsPage> {
                   PremiumPage.routeName,
                 ),
                 child: Center(
-                  child: Image.asset(
-                    'assets/images/banner.png',
-                    scale: 3,
-                  ),
-                ),
+                    child: Stack(
+                  children: [
+                    Positioned(
+                        child: Image.asset(
+                      AppIcons.vector,
+                      scale: 3,
+                    )),
+                    Positioned(
+                      left: widthScreen * 0.07,
+                      top: heightScreen * 0.017,
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            AppIcons.diamond,
+                            scale: 3,
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                S.of(context).getPremium,
+                                style: const TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 7,
+                              ),
+                              Text(
+                                S.of(context).allFeatures,
+                                style: const TextStyle(
+                                  fontSize: 17,
+                                  color: allFeaturesColor,
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                )),
               ),
+              // SizedBox(
+              //   height: 0.9 * heightScreen,
+              //   child: ListView.separated(
+              //       shrinkWrap: true,
+              //       itemBuilder: (context, index) {
+              //
+              //         return settingsList[index];
+              //       },
+              //       separatorBuilder: (context, index) {
+              //         return const Divider();
+              //       },
+              //       itemCount: settingsList.length),
+              // ),
               SizedBox(
                 height: 0.9 * heightScreen,
-                child: ListView.separated(
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      final setting = settingsList[index];
-                      return InkWell(
-                        onTap: () => setting.url.isNotEmpty
-                            ? _launchURL(setting.url)
-                            : Navigator.pushNamed(context, setting.route),
-                        child: setting.widget,
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return const Divider();
-                    },
-                    itemCount: settingsList.length),
+                child: ListView(
+                  children: [
+                    SettingsWidget(
+                      route: '',
+                      url: 'https://flutter.dev/',
+                      title: S.of(context).aboutUs,
+                      trailing: settingsImage,
+                    ),
+                    SettingsWidget(
+                      route: LanguagePage.routeName,
+                      url: '',
+                      title: S.of(context).languageTitle,
+                      trailing: Text(
+                        currentUser.locale >= 0
+                            ? languageList[currentUser.locale].name
+                            : '',
+                        style: const TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.normal,
+                          color: paleTextColor,
+                        ),
+                      ),
+                    ),
+                    SettingsWidget(
+                      route: '',
+                      url: '',
+                      title: S.of(context).reportProblem,
+                      trailing: Container(),
+                    ),
+                    SettingsWidget(
+                      route: '',
+                      url: 'https://flutter.dev/',
+                      title: S.of(context).termsOfUsing,
+                      trailing: settingsImage,
+                    ),
+                    SettingsWidget(
+                      route: '',
+                      url: 'https://flutter.dev/',
+                      title: S.of(context).privacyPolicy,
+                      trailing: settingsImage,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
         ),
       ),
     );
-  }
-
-  _launchURL(String url) async {
-    // if (await canLaunchUrl(Uri.parse(url))) {
-    //   await launchUrl(
-    //     Uri.parse(url),
-    //     mode: LaunchMode.externalApplication,
-    //   );
-    // } else {
-    //   throw 'Could not launch $url';
-    // }
   }
 }

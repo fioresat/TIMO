@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
+import 'package:todo_app_main_screen/generated/l10n.dart';
 import 'package:todo_app_main_screen/models/list_model.dart';
 import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
 
@@ -62,7 +63,7 @@ class _ColorsPanelWidgetState extends State<ColorsPanelWidget> {
             Align(
               alignment: Alignment.topLeft,
               child: Text(
-                'Color',
+                S.of(context).color,
                 style: TextStyle(
                   fontSize: 0.03 * widget.height,
                   fontWeight: FontWeight.bold,

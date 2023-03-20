@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
-import 'package:todo_app_main_screen/consts/strings.dart';
+import 'package:todo_app_main_screen/generated/l10n.dart';
 import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
 import '../black_button_widget.dart';
 
@@ -52,9 +52,9 @@ class _NewTaskPageBackgroundWidgetState
               style: const TextStyle(
                 fontSize: 26,
               ),
-              decoration: const InputDecoration(
-                hintText: TestStrings.hintText,
-                hintStyle: TextStyle(
+              decoration: InputDecoration(
+                hintText: S.of(context).hintText,
+                hintStyle: const TextStyle(
                   color: hintTextColor,
                   fontSize: 26,
                   height: 2,
@@ -102,8 +102,8 @@ class _NewTaskPageBackgroundWidgetState
                   onPressed: widget.onBlackButtonPressed,
                   width: widget.width * 0.3,
                   borderRadius: BorderRadius.circular(22),
-                  child: const Text(
-                    TestStrings.create,
+                  child: Text(
+                    S.of(context).create,
                     style: TextStyle(color: backgroundColor),
                   ),
                 ),

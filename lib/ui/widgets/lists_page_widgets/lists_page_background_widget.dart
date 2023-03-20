@@ -26,7 +26,8 @@ class ListsPageBackgroundWidget extends StatefulWidget {
     required this.width,
     required this.onPressed,
     required this.lists,
-    required this.onAddButtonTap, required this.controller,
+    required this.onAddButtonTap,
+    required this.controller,
   }) : super(key: key);
 
   @override

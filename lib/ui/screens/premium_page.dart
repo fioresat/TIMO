@@ -1,10 +1,9 @@
-import 'package:drop_shadow_image/drop_shadow_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
-import 'package:todo_app_main_screen/consts/premium_features.dart';
 import 'package:todo_app_main_screen/consts/strings.dart';
+import 'package:todo_app_main_screen/generated/l10n.dart';
 import 'package:todo_app_main_screen/ui/widgets/black_button_widget.dart';
 
 class PremiumPage extends StatelessWidget {
@@ -41,48 +40,38 @@ class PremiumPage extends StatelessWidget {
               ),
               Center(
                 child: Image.asset(
-                    AppIcons.diamond,
-                    scale: 3,
-                  ),
+                  AppIcons.diamond,
+                  scale: 3,
+                ),
               ),
               SizedBox(
                 height: heightScreen * 0.01,
               ),
-              const Center(
+              Center(
                 child: Text(
-                  PremiumPageStrings.getPremium,
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                  S.of(context).getPremium,
+                  style: const TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: widthScreen * 0.04),
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) {
-                    return ListTile(
-                      contentPadding: EdgeInsets.zero,
-                      leading: Image.asset(
-                        AppIcons.userPoint,
-                        scale: 3,
-                      ),
-                      title: Transform.translate(
-                        offset: const Offset(-40, -8),
-                        child: Text(
-                          premiumFeatures[index],
-                          style: const TextStyle(
-                              fontSize: 19, fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                    );
-                  },
-                  itemCount: premiumFeatures.length,
-                ),
+                child: ListView(shrinkWrap: true, children: [
+                  pros(S.of(context).premTasks),
+                  pros(S.of(context).premColorsQuotes),
+                  pros(S.of(context).premLists),
+                  pros(S.of(context).premFuture),
+                ]),
               ),
               SizedBox(
                 height: heightScreen * 0.03,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: widthScreen * 0.07),
+                padding: EdgeInsets.symmetric(
+                  horizontal: widthScreen * 0.07,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -101,15 +90,17 @@ class PremiumPage extends StatelessWidget {
                             child: const Text(
                               PremiumPageStrings.monthlyPrice,
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 36),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 36,
+                              ),
                             ),
                           ),
                           Positioned(
                               top: heightScreen * 0.09,
-                              left: widthScreen * 0.07,
-                              child: const Text(
-                                PremiumPageStrings.perMonth,
-                                style: TextStyle(fontSize: 16),
+                              left: widthScreen * 0.08,
+                              child: Text(
+                                S.of(context).perMonth,
+                                style: const TextStyle(fontSize: 16),
                               ))
                         ],
                       ),
@@ -129,15 +120,17 @@ class PremiumPage extends StatelessWidget {
                             child: const Text(
                               PremiumPageStrings.yearlyPrice,
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 36),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 36,
+                              ),
                             ),
                           ),
                           Positioned(
                               top: heightScreen * 0.09,
                               left: widthScreen * 0.1,
-                              child: const Text(
-                                PremiumPageStrings.perYear,
-                                style: TextStyle(fontSize: 16),
+                              child: Text(
+                                S.of(context).perYear,
+                                style: const TextStyle(fontSize: 16),
                               )),
                           Positioned(
                               left: widthScreen * 0.2,
@@ -154,10 +147,13 @@ class PremiumPage extends StatelessWidget {
               SizedBox(
                 height: heightScreen * 0.04,
               ),
-              const Center(
+              Center(
                 child: Text(
-                  PremiumPageStrings.recurringPayment,
-                  style: TextStyle(fontSize: 14, color: recurringPaymentColor),
+                  S.of(context).recurringPayment,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: recurringPaymentColor,
+                  ),
                 ),
               ),
               SizedBox(
@@ -168,11 +164,14 @@ class PremiumPage extends StatelessWidget {
                   width: widthScreen * 0.75,
                   height: heightScreen * 0.07,
                   borderRadius: BorderRadius.circular(20),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20),
+                  child: Center(
+
                     child: Text(
-                      PremiumPageStrings.goPremium,
-                      style: TextStyle(fontSize: 20, color: backgroundColor),
+                      S.of(context).goPremium,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        color: backgroundColor,
+                      ),
                     ),
                   )),
               SizedBox(
@@ -181,26 +180,54 @@ class PremiumPage extends StatelessWidget {
               RichText(
                   textAlign: TextAlign.center,
                   text: TextSpan(
-                      text: PremiumPageStrings.bySubscribing,
-                      style: const TextStyle(color: recurringPaymentColor),
+                      text: S.of(context).bySubscribing,
+                      style: const TextStyle(
+                        color: recurringPaymentColor,
+                      ),
                       children: [
-                    TextSpan(
-                      text: PremiumPageStrings.privacyPolicy,
-                      style: const TextStyle(
-                          color: textColor, fontWeight: FontWeight.w800, ),
-                      recognizer: TapGestureRecognizer()..onTap = () {},
-                    ),
-                    const TextSpan(
-                        text: PremiumPageStrings.and,
-                        style: TextStyle(color: recurringPaymentColor)),
-                    TextSpan(
-                      text: PremiumPageStrings.terms,
-                      style: const TextStyle(
-                          color: textColor, fontWeight: FontWeight.w800),
-                      recognizer: TapGestureRecognizer()..onTap = () {},
-                    )
-                  ]))
+                        TextSpan(
+                          text: S.of(context).privacyPolicyPremium,
+                          style: const TextStyle(
+                            color: textColor,
+                            fontWeight: FontWeight.w800,
+                          ),
+                          recognizer: TapGestureRecognizer()..onTap = () {},
+                        ),
+                        TextSpan(
+                            text: S.of(context).and,
+                            style: const TextStyle(
+                              color: recurringPaymentColor,
+                            )),
+                        TextSpan(
+                          text: S.of(context).terms,
+                          style: const TextStyle(
+                            color: textColor,
+                            fontWeight: FontWeight.w800,
+                          ),
+                          recognizer: TapGestureRecognizer()..onTap = () {},
+                        )
+                      ]))
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget pros(String text) {
+    return ListTile(
+      contentPadding: EdgeInsets.zero,
+      leading: Image.asset(
+        AppIcons.userPoint,
+        scale: 3,
+      ),
+      title: Transform.translate(
+        offset: const Offset(-40, -8),
+        child: Text(
+          text,
+          style: const TextStyle(
+            fontSize: 19,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ),

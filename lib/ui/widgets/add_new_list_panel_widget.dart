@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
-import 'package:todo_app_main_screen/consts/strings.dart';
+import 'package:todo_app_main_screen/generated/l10n.dart';
 import 'package:todo_app_main_screen/main.dart';
 import 'package:todo_app_main_screen/models/list_model.dart';
 import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
@@ -51,7 +51,7 @@ class _AddNewListPanelWidgetState extends State<AddNewListPanelWidget> {
               fontSize: 0.018 * widget.height,
             ),
             decoration: InputDecoration(
-              hintText: TestStrings.hintTextList,
+              hintText: S.of(context).newList,
               hintStyle: TextStyle(
                 color: hintTextColor,
                 fontSize: 0.018 * widget.height,
@@ -86,8 +86,8 @@ class _AddNewListPanelWidgetState extends State<AddNewListPanelWidget> {
               },
               width: widget.width - 50,
               borderRadius: const BorderRadius.all(Radius.elliptical(12, 12)),
-              child: const Text(
-                TestStrings.createNewList,
+              child: Text(
+                S.of(context).createNewList,
                 style: TextStyle(color: backgroundColor),
               ),
             ),
