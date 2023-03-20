@@ -191,9 +191,9 @@ class _TasksWidgetState extends State<TasksWidget> {
                   const SizedBox(
                     width: 13,
                   ),
-                  const Text(
-                    TestStrings.toDo,
-                    style: TextStyle(color: Colors.grey, fontSize: 18),
+                   Text(
+                    currentList.list,
+                    style: const TextStyle(color: Colors.grey, fontSize: 18),
                   ),
                 ],
               ),

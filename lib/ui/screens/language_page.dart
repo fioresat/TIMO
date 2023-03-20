@@ -59,7 +59,7 @@ class _LanguagePageState extends State<LanguagePage> {
                             context, listen: false);
                         final locale = Locales.allLocales[index];
                         provider.setLocale(locale);
-                        _updateUser(locale: index);
+                         _updateUser(locale: index);
                         setState(() {
                           _selectedIndex = index;
                           currentUser.locale = index;

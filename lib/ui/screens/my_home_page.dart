@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
+import 'package:todo_app_main_screen/consts/button_colors.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
 import 'package:todo_app_main_screen/main.dart';
@@ -53,11 +54,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     double widthScreen = MediaQuery.of(context).size.width;
     double heightScreen = MediaQuery.of(context).size.height;
-
     return Builder(builder: (context) {
       return Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: secondBackgroundColor,
+        backgroundColor: buttonColors[listCurrentColorIndex],
         body: SlidingUpPanel(
           isDraggable: isPanelDraggable,
           backdropEnabled: true,
@@ -174,9 +174,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> _getTasks() async {
     currentTasks.clear();
-
     final tasksRef = db
-        .collectionGroup('tasks')
+        .collection("users")
+        .doc("testUser")
+        .collection("lists")
+        .doc(currentList.listID)
+        .collection("tasks")
         .withConverter(
           fromFirestore: TaskModel.fromFirestore,
           toFirestore: (TaskModel task, _) => task.toFirestore(),

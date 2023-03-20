@@ -5,6 +5,7 @@ import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
 import 'package:todo_app_main_screen/main.dart';
 import 'package:todo_app_main_screen/models/list_model.dart';
+import 'package:todo_app_main_screen/ui/screens/my_home_page.dart';
 import 'package:todo_app_main_screen/ui/screens/settings_page.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_page_widgets/options_panel_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_page_widgets/single_list_widget.dart';
@@ -119,6 +120,10 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                                 onListTap: () {
                                   setState(() {
                                     _selectedIndex = list.key;
+                                    currentList.listID = widget.lists[_selectedIndex].listID;
+                                    currentList.list = widget.lists[_selectedIndex].list;
+                                    listCurrentColorIndex = widget.lists[_selectedIndex].listColorIndex;
+                                    Navigator.of(context).pushReplacementNamed(MyHomePage.routeName);
                                   });
                                 },
                                 height: widget.height,
