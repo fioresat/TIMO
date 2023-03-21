@@ -34,7 +34,6 @@ class _MyHomePageState extends State<MyHomePage> {
   final scrollController = ScrollController();
   final listController = TextEditingController();
   bool isPanelDraggable = false;
-  bool isMoveToPressed = false;
   final _quoteService = FetchHelper();
   QuoteModel _quote = QuoteModel(
     author: '',
@@ -83,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
             quoteModel: _quote,
           ),
           panelBuilder: (controller) => TasksWidget(
-            onPressed: () {
+            onMoveToPressed: () {
               SlidingPanelHelper().onPressedShowBottomSheet(
                 ListsPanelWidget(
                   height: heightScreen,
@@ -93,7 +92,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     Navigator.of(context).pop();
                     setState(() {
                       isMoveTo = false;
-                      isMoveToPressed = false;
                     });
                   },
                   onAddNewListPressed: () {
@@ -105,9 +103,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     );
                   },
                   onButtonPressed: () {
+                    _updateTask(updatedTask: currentTasks[selectedTaskIndex]);
                     Navigator.of(context).pop();
                     setState(() {
                       isMoveTo = false;
+                      selectedTaskIndex = -1;
                     });
                   },
                 ),
@@ -115,7 +115,6 @@ class _MyHomePageState extends State<MyHomePage> {
               );
               setState(() {
                 isMoveTo = true;
-                isMoveToPressed = true;
               });
             },
             isPanelOpen: panelController.isPanelOpen,
@@ -125,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
             height: panelController.isPanelOpen
                 ? 0.95 * heightScreen
                 : 0.55 * heightScreen,
-            isMoveToPressed: isMoveToPressed,
+            isMoveToPressed: isMoveTo,
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
@@ -146,6 +145,53 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
       );
     });
+  }
+
+  Future<void> _updateTask({
+    required TaskModel updatedTask,
+  }) async {
+    db
+        .collection("users")
+        .doc('testUser')
+        .collection('lists')
+        .doc(updatedTask.listID)
+        .collection('tasks')
+        .doc(updatedTask.taskID)
+        .delete()
+        .then(
+          (doc) => print("Document deleted"),
+      onError: (e) => print("Error updating document $e"),
+    );
+    addNewTask(
+      newTask: TaskModel(
+        task: updatedTask.task,
+        colorIndex: updatedTask.colorIndex,
+        listID: currentLists[moveToListIndex].listID,
+        dateTimeReminder: updatedTask.dateTimeReminder,
+        userID: updatedTask.userID,
+        isReminderActive: updatedTask.isReminderActive,
+        taskID: updatedTask.taskID,
+      ),
+    );
+    moveToListIndex = -1;
+  }
+
+  Future<void> addNewTask({
+    required final newTask,
+  }) async {
+    final docRef = db
+        .collection("users")
+        .doc(newTask.userID)
+        .collection('lists')
+        .doc(newTask.listID)
+        .collection('tasks')
+        .withConverter(
+      toFirestore: (TaskModel task, options) => task.toFirestore(),
+      fromFirestore: TaskModel.fromFirestore,
+    )
+        .doc(newTask.taskID);
+    await docRef.set(newTask);
+    currentList = ListModel(list: 'ToDo', listID: 'ToDo');
   }
 
   void _updateQuote() async {

@@ -26,6 +26,7 @@ int listCurrentColorIndex = 0;
 ListModel currentList = ListModel(list: 'ToDo', listID: 'ToDo');
 UserModel currentUser = UserModel();
 int selectedListIndex = -1;
+int selectedTaskIndex = -1;
 int moveToListIndex = -1;
 
 void main() async {

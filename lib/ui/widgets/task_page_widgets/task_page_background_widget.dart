@@ -48,7 +48,6 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
   @override
   Widget build(BuildContext context) {
     DateTime date = DateTime.parse(widget.taskModel.dateTimeReminder);
-
     return GestureDetector(
       onTapDown: (_) {
         setState(() {

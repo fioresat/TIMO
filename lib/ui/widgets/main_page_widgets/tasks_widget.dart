@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
-import 'package:todo_app_main_screen/consts/strings.dart';
 import 'package:todo_app_main_screen/generated/l10n.dart';
 import 'package:todo_app_main_screen/main.dart';
+import 'package:todo_app_main_screen/models/list_model.dart';
 import 'package:todo_app_main_screen/models/single_task_model.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/single_task_widget.dart';
 
@@ -15,7 +15,7 @@ class TasksWidget extends StatefulWidget {
   final List<TaskModel> tasksList;
   final ScrollController scrollController;
   final PanelController panelController;
-  final void Function()? onPressed;
+  final void Function()? onMoveToPressed;
   final bool isMoveToPressed;
 
   const TasksWidget(
@@ -24,7 +24,7 @@ class TasksWidget extends StatefulWidget {
       required this.tasksList,
       required this.scrollController,
       required this.panelController,
-      this.onPressed,
+      this.onMoveToPressed,
       required this.height,
       required this.isMoveToPressed})
       : super(key: key);
@@ -88,10 +88,16 @@ class _TasksWidgetState extends State<TasksWidget> {
                                   left: 20,
                                 ),
                                 onPressed: (BuildContext context) {
-                                  setState(() {});
+                                  setState(() {
+                                  });
                                 },
                                 child: InkWell(
-                                  onTap: widget.onPressed,
+                                  onTap: () {
+                                    setState(() {
+                                      selectedTaskIndex = index;
+                                    });
+                                    widget.onMoveToPressed!();
+                                  },
                                   child: Image.asset(
                                     AppIcons.moveTo,
                                     scale: 2.9,
@@ -145,6 +151,7 @@ class _TasksWidgetState extends State<TasksWidget> {
     );
   }
 
+
   void reorderData(int oldIndex, int newIndex) {
     setState(() {
       if (newIndex > oldIndex) {
@@ -192,7 +199,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                     width: 13,
                   ),
                    Text(
-                    currentList.list,
+                    currentLists[selectedListIndex].list,
                     style: const TextStyle(color: Colors.grey, fontSize: 18),
                   ),
                 ],
@@ -272,4 +279,5 @@ class _TasksWidgetState extends State<TasksWidget> {
       onError: (e) => print("Error updating document $e"),
     );
   }
+
 }
