@@ -57,7 +57,9 @@ class _MyHomePageState extends State<MyHomePage> {
     return Builder(builder: (context) {
       return Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: buttonColors[listCurrentColorIndex],
+        backgroundColor: (selectedListIndex >= 0)
+            ? buttonColors[currentLists[selectedListIndex].listColorIndex]
+            : buttonColors[0],
         body: SlidingUpPanel(
           isDraggable: isPanelDraggable,
           backdropEnabled: true,
@@ -96,7 +98,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                   onAddNewListPressed: () {
                     SlidingPanelHelper().onAddNewListPressed(
-                        widthScreen, heightScreen, context, listController);
+                      widthScreen,
+                      heightScreen,
+                      context,
+                      listController,
+                    );
                   },
                   onButtonPressed: () {
                     Navigator.of(context).pop();
@@ -166,7 +172,6 @@ class _MyHomePageState extends State<MyHomePage> {
           onError: (e) => print("Error completing: $e"),
         );
     currentLists = await ref;
-    log(currentLists.length.toString());
     if (currentLists.isEmpty) {
       addToDoList();
     }
@@ -178,7 +183,9 @@ class _MyHomePageState extends State<MyHomePage> {
         .collection("users")
         .doc("testUser")
         .collection("lists")
-        .doc(currentList.listID)
+        .doc((currentLists.isNotEmpty)
+            ? currentLists[selectedListIndex].listID
+            : 'ToDo')
         .collection("tasks")
         .withConverter(
           fromFirestore: TaskModel.fromFirestore,

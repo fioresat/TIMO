@@ -48,7 +48,7 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
 
   @override
   void dispose() {
-    for (int i = 0; i <= widget.lists.length; i++) {
+    for (int i = 0; i < widget.lists.length; i++) {
       focusNodeList[i].dispose();
     }
     super.dispose();
@@ -120,9 +120,7 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                                 onListTap: () {
                                   setState(() {
                                     _selectedIndex = list.key;
-                                    currentList.listID = widget.lists[_selectedIndex].listID;
-                                    currentList.list = widget.lists[_selectedIndex].list;
-                                    listCurrentColorIndex = widget.lists[_selectedIndex].listColorIndex;
+                                    selectedListIndex = _selectedIndex;
                                     Navigator.of(context).pushReplacementNamed(MyHomePage.routeName);
                                   });
                                 },

@@ -38,7 +38,9 @@ class MainScreenBackgroundWidget extends StatelessWidget {
                 height: height!,
                 onPressed: onPressed,
                 titleColor: textColor,
-                buttonColor: buttonColors[listCurrentColorIndex],
+                buttonColor: (selectedListIndex >= 0)
+                    ? buttonColors[currentLists[selectedListIndex].listColorIndex]
+                    : buttonColors[0],
               ),
               DateWidget(
                 dateTime: DateTime.now(),

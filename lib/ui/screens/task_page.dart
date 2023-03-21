@@ -4,6 +4,7 @@ import 'package:todo_app_main_screen/consts/button_colors.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
 import 'package:todo_app_main_screen/main.dart';
+import 'package:todo_app_main_screen/models/list_model.dart';
 import 'package:todo_app_main_screen/models/single_task_model.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_panel_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/task_page_widgets/task_page_background_widget.dart';
@@ -76,7 +77,7 @@ class _TaskPageState extends State<TaskPage> {
                     backgroundColor: removeColor,
                     onPressed: () {
                       _deleteTask(oldTask: taskModelFromMainScreen);
-                      Navigator.of(context).pop;
+                      Navigator.pop(context);
                     },
                     child: Image.asset(
                       AppIcons.delete,
@@ -95,8 +96,12 @@ class _TaskPageState extends State<TaskPage> {
                         lists: currentLists,
                         onTapClose: Navigator.of(context).pop,
                         onAddNewListPressed: () {
-                          SlidingPanelHelper().onAddNewListPressed(widthScreen,
-                              heightScreen, context, listController);
+                          SlidingPanelHelper().onAddNewListPressed(
+                            widthScreen,
+                            heightScreen,
+                            context,
+                            listController,
+                          );
                         },
                         onButtonPressed: Navigator.of(context).pop,
                       ),
@@ -134,22 +139,67 @@ class _TaskPageState extends State<TaskPage> {
   Future<void> _updateTask({
     required TaskModel updatedTask,
   }) async {
+    if (selectedListIndex == moveToListIndex) {
+      final docRef = db
+          .collection("users")
+          .doc('testUser')
+          .collection('lists')
+          .doc(updatedTask.listID)
+          .collection('tasks')
+          .doc(updatedTask.taskID);
+
+      final updates = <String, dynamic>{
+        'task': textController.text,
+        'colorIndex': (taskCurrentColorIndex == -1)
+            ? updatedTask.colorIndex
+            : taskCurrentColorIndex,
+      };
+      docRef.update(updates);
+    } else {
+      db
+          .collection("users")
+          .doc('testUser')
+          .collection('lists')
+          .doc(updatedTask.listID)
+          .collection('tasks')
+          .doc(updatedTask.taskID)
+          .delete()
+          .then(
+            (doc) => print("Document deleted"),
+            onError: (e) => print("Error updating document $e"),
+          );
+      addNewTask(
+        newTask: TaskModel(
+          task: textController.text,
+          colorIndex: (taskCurrentColorIndex == -1)
+              ? updatedTask.colorIndex
+              : taskCurrentColorIndex,
+          listID: currentLists[moveToListIndex].listID,
+          dateTimeReminder: updatedTask.dateTimeReminder,
+          userID: updatedTask.userID,
+          isReminderActive: updatedTask.isReminderActive,
+          taskID: updatedTask.taskID,
+        ),
+      );
+    }
+    moveToListIndex = -1;
+  }
+
+  Future<void> addNewTask({
+    required final newTask,
+  }) async {
     final docRef = db
         .collection("users")
-        .doc('testUser')
+        .doc(newTask.userID)
         .collection('lists')
-        .doc(updatedTask.listID)
+        .doc(newTask.listID)
         .collection('tasks')
-        .doc(updatedTask.taskID);
-
-    final updates = <String, dynamic>{
-      'task': textController.text,
-      'colorIndex': (taskCurrentColorIndex == -1)
-          ? updatedTask.colorIndex
-          : taskCurrentColorIndex,
-      'listID':
-          (currentList.list == 'ToDo') ? updatedTask.listID : currentList.listID,
-    };
-    docRef.update(updates);
+        .withConverter(
+          toFirestore: (TaskModel task, options) => task.toFirestore(),
+          fromFirestore: TaskModel.fromFirestore,
+        )
+        .doc(newTask.taskID);
+    await docRef.set(newTask);
+    currentList = ListModel(list: 'ToDo', listID: 'ToDo');
   }
 }
