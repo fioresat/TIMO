@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/button_colors.dart';
@@ -33,6 +35,8 @@ class _TaskPageState extends State<TaskPage> {
   Widget build(BuildContext context) {
     final taskModelFromMainScreen =
         ModalRoute.of(context)!.settings.arguments as TaskModel;
+
+
     double widthScreen = MediaQuery.of(context).size.width;
     double heightScreen = MediaQuery.of(context).size.height;
     final bool showFab = MediaQuery.of(context).viewInsets.bottom == 0.0;
@@ -139,10 +143,10 @@ class _TaskPageState extends State<TaskPage> {
   Future<void> _updateTask({
     required TaskModel updatedTask,
   }) async {
-    if (selectedListIndex == moveToListIndex) {
+    if (selectedListIndex == moveToListIndex || moveToListIndex == -1) {
       final docRef = db
           .collection("users")
-          .doc('testUser')
+          .doc(updatedTask.userID)
           .collection('lists')
           .doc(updatedTask.listID)
           .collection('tasks')
@@ -158,7 +162,7 @@ class _TaskPageState extends State<TaskPage> {
     } else {
       db
           .collection("users")
-          .doc('testUser')
+          .doc(updatedTask.userID)
           .collection('lists')
           .doc(updatedTask.listID)
           .collection('tasks')
@@ -183,6 +187,7 @@ class _TaskPageState extends State<TaskPage> {
       );
     }
     moveToListIndex = -1;
+    taskCurrentColorIndex = -1;
   }
 
   Future<void> addNewTask({

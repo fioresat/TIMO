@@ -10,7 +10,9 @@ import 'package:todo_app_main_screen/ui/widgets/new_task_page_widgets/new_task_p
 class NewTaskPage extends StatefulWidget {
   static const routeName = '/new_task_page';
 
-  const NewTaskPage({Key? key}) : super(key: key);
+  const NewTaskPage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<NewTaskPage> createState() => _NewTaskPageState();
@@ -32,7 +34,6 @@ class _NewTaskPageState extends State<NewTaskPage> {
   Widget build(BuildContext context) {
     double widthScreen = MediaQuery.of(context).size.width;
     double heightScreen = MediaQuery.of(context).size.height;
-
     return Scaffold(
       body: NewTaskPageBackgroundWidget(
         height: heightScreen,
@@ -45,6 +46,8 @@ class _NewTaskPageState extends State<NewTaskPage> {
               taskID: UniqueKey().toString(),
               listID: currentList.listID,
               colorIndex: taskCurrentColorIndex,
+              dateTimeReminder: currentDateTimeReminder,
+              isReminderActive: currentIsReminderActive,
             );
             setState(() {
               taskCurrentColorIndex = -1;
@@ -53,6 +56,8 @@ class _NewTaskPageState extends State<NewTaskPage> {
                 list: 'ToDo',
                 listID: 'ToDo',
               );
+              currentDateTimeReminder = '2000-01-01 00:00:00';
+              currentIsReminderActive = false;
             });
           }
 
@@ -73,7 +78,8 @@ class _NewTaskPageState extends State<NewTaskPage> {
           SlidingPanelHelper().onReminderTap(
             widthScreen,
             heightScreen,
-            context, () {},
+            context,
+            () {},
             taskModel,
           );
         },
@@ -86,12 +92,17 @@ class _NewTaskPageState extends State<NewTaskPage> {
     required String taskID,
     required int colorIndex,
     String? listID,
+    required String dateTimeReminder,
+    bool? isReminderActive,
   }) async {
     final newTask = TaskModel(
       task: text,
+      userID: currentUser.userID,
       taskID: taskID,
       listID: listID!.isNotEmpty ? listID : 'ToDo',
       colorIndex: colorIndex,
+      dateTimeReminder: dateTimeReminder,
+      isReminderActive: isReminderActive ?? false,
     );
     final docRef = db
         .collection("users")
@@ -105,7 +116,6 @@ class _NewTaskPageState extends State<NewTaskPage> {
         )
         .doc(newTask.taskID);
     await docRef.set(newTask);
+
   }
-
-
 }
