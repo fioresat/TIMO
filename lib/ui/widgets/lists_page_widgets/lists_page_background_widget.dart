@@ -154,7 +154,7 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                                   );
                                 },
                                 listModel: list.value,
-                                isTapped: _selectedIndex == list.key,
+                                isTapped: selectedListIndex == list.key,
                                 onAddButtonTap: () {
                                   widget.onAddButtonTap();
                                 },
