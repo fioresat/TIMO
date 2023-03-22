@@ -15,6 +15,7 @@ import 'package:todo_app_main_screen/ui/screens/new_task_page.dart';
 import 'package:todo_app_main_screen/ui/screens/premium_page.dart';
 import 'package:todo_app_main_screen/ui/screens/settings_page.dart';
 import 'package:todo_app_main_screen/ui/screens/task_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'generated/l10n.dart';
 
@@ -28,13 +29,15 @@ UserModel currentUser = UserModel();
 int selectedListIndex = -1;
 int selectedTaskIndex = -1;
 int moveToListIndex = -1;
+String currentDateTimeReminder = '2000-01-01 00:00:00';
+bool currentIsReminderActive = false;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
+  currentUser = await UserModel.getUserModel();
   runApp(const MyApp());
 }
 
@@ -62,7 +65,7 @@ class MyApp extends StatelessWidget {
           ),
           routes: {
             MyHomePage.routeName: (context) => const MyHomePage(),
-            NewTaskPage.routeName: (context) => const NewTaskPage(),
+            NewTaskPage.routeName: (context) => NewTaskPage(),
             TaskPage.routeName: (context) => const TaskPage(),
             ListsPage.routeName: (context) => const ListsPage(),
             SettingsPage.routeName: (context) => const SettingsPage(),

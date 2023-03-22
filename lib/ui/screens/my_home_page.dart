@@ -150,32 +150,30 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _updateTask({
     required TaskModel updatedTask,
   }) async {
-    if (selectedListIndex == moveToListIndex || moveToListIndex == -1) {
-      db
-          .collection("users")
-          .doc('testUser')
-          .collection('lists')
-          .doc(updatedTask.listID)
-          .collection('tasks')
-          .doc(updatedTask.taskID)
-          .delete()
-          .then(
-            (doc) => print("Document deleted"),
-            onError: (e) => print("Error updating document $e"),
-          );
-      addNewTask(
-        newTask: TaskModel(
-          task: updatedTask.task,
-          colorIndex: updatedTask.colorIndex,
-          listID: currentLists[moveToListIndex].listID,
-          dateTimeReminder: updatedTask.dateTimeReminder,
-          userID: updatedTask.userID,
-          isReminderActive: updatedTask.isReminderActive,
-          taskID: updatedTask.taskID,
-        ),
-      );
-      moveToListIndex = -1;
-    }
+    db
+        .collection("users")
+        .doc(updatedTask.userID)
+        .collection('lists')
+        .doc(updatedTask.listID)
+        .collection('tasks')
+        .doc(updatedTask.taskID)
+        .delete()
+        .then(
+          (doc) => print("Document deleted"),
+          onError: (e) => print("Error updating document $e"),
+        );
+    addNewTask(
+      newTask: TaskModel(
+        task: updatedTask.task,
+        colorIndex: updatedTask.colorIndex,
+        listID: currentLists[moveToListIndex].listID,
+        dateTimeReminder: updatedTask.dateTimeReminder,
+        userID: updatedTask.userID,
+        isReminderActive: updatedTask.isReminderActive,
+        taskID: updatedTask.taskID,
+      ),
+    );
+    moveToListIndex = -1;
   }
 
   Future<void> addNewTask({
@@ -207,7 +205,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _getLists() async {
     final ref = db
         .collection("users")
-        .doc("testUser")
+        .doc(currentUser.userID)
         .collection("lists")
         .withConverter(
           fromFirestore: ListModel.fromFirestore,
@@ -252,12 +250,15 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _getUsers() async {
-    final ref = db.collection("users").doc("testUser").withConverter(
+    final ref = db.collection("users").doc(currentUser.userID).withConverter(
           fromFirestore: UserModel.fromFirestore,
           toFirestore: (UserModel user, _) => user.toFirestore(),
         );
     final docSnap = await ref.get();
-    currentUser = docSnap.data()!;
+    if(docSnap.data() != null) {
+      currentUser = docSnap.data()!;
+    }
+    else {addNewUser();}
   }
 
   Future<void> addToDoList() async {
@@ -267,13 +268,26 @@ class _MyHomePageState extends State<MyHomePage> {
     );
     final docRef = db
         .collection("users")
-        .doc('testUser')
+        .doc(currentUser.userID)
         .collection('lists')
         .withConverter(
-          toFirestore: (ListModel task, options) => task.toFirestore(),
+          toFirestore: (ListModel list, options) => list.toFirestore(),
           fromFirestore: ListModel.fromFirestore,
         )
         .doc('ToDo');
     await docRef.set(list);
   }
+
+  Future<void> addNewUser() async {
+    final docRef = db
+        .collection("users")
+        .withConverter(
+          toFirestore: (UserModel user, options) => user.toFirestore(),
+          fromFirestore: UserModel.fromFirestore,
+        )
+        .doc(currentUser.userID);
+    await docRef.set(currentUser);
+  }
+
+
 }

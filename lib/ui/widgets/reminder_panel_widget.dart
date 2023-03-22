@@ -35,9 +35,14 @@ class _ReminderPanelWidgetState extends State<ReminderPanelWidget> {
     DateTime date = DateTime.parse(widget.taskModel.dateTimeReminder);
     return Container(
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30), color: backgroundColor),
+        borderRadius: BorderRadius.circular(30),
+        color: backgroundColor,
+      ),
       child: Padding(
-        padding: const EdgeInsets.only(left: 25, right: 25),
+        padding: const EdgeInsets.only(
+          left: 25,
+          right: 25,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -47,7 +52,9 @@ class _ReminderPanelWidgetState extends State<ReminderPanelWidget> {
               image: AppIcons.closeButton,
             ),
             Text(
-              S.of(context).reminder,
+              S
+                  .of(context)
+                  .reminder,
               style: TextStyle(
                 fontSize: 0.03 * widget.height,
                 fontWeight: FontWeight.bold,
@@ -77,11 +84,19 @@ class _ReminderPanelWidgetState extends State<ReminderPanelWidget> {
               ),
               child: BlackButtonWidget(
                 onPressed: () {
-                  _updateTaskReminder(
-                    updatedTask: widget.taskModel,
-                    dateTimeReminder: _chosenDateTime.toString(),
-                    isReminderActive: true,
-                  );
+                  if (_chosenDateTime!.isAfter(DateTime.now())) {
+                    if (widget.taskModel.taskID == '') {
+                      setState(() {
+                        currentDateTimeReminder = _chosenDateTime.toString();
+                        currentIsReminderActive = true;
+                      });
+                    }
+                    else {
+                      _updateTaskReminder(updatedTask: widget.taskModel,
+                          dateTimeReminder: _chosenDateTime.toString(),
+                          isReminderActive: true);
+                    }
+                  }
                   widget.onSaveTap;
                   Navigator.pop(context);
                 },
@@ -91,7 +106,9 @@ class _ReminderPanelWidgetState extends State<ReminderPanelWidget> {
                 ),
                 height: widget.height * 0.07,
                 child: Text(
-                  S.of(context).saveReminder,
+                  S
+                      .of(context)
+                      .saveReminder,
                   style: const TextStyle(color: backgroundColor, fontSize: 18),
                 ),
               ),

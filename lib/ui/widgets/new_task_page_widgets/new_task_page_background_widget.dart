@@ -104,7 +104,7 @@ class _NewTaskPageBackgroundWidgetState
                   borderRadius: BorderRadius.circular(22),
                   child: Text(
                     S.of(context).create,
-                    style: TextStyle(color: backgroundColor),
+                    style: const TextStyle(color: backgroundColor),
                   ),
                 ),
               ],
