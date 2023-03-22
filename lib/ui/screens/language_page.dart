@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/l10n/locales.dart';
 import 'package:todo_app_main_screen/main.dart';
@@ -98,6 +99,9 @@ class _LanguagePageState extends State<LanguagePage> {
   Future<void> _updateUser({
     required int locale,
   }) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setInt('locale', locale);
+
     final docRef = db
         .collection("users")
         .doc(currentUser.userID);

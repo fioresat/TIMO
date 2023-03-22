@@ -202,26 +202,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  Future<void> _getLists() async {
-    final ref = db
-        .collection("users")
-        .doc(currentUser.userID)
-        .collection("lists")
-        .withConverter(
-          fromFirestore: ListModel.fromFirestore,
-          toFirestore: (ListModel list, _) => list.toFirestore(),
-        )
-        .get()
-        .then(
-          (querySnapshot) =>
-              querySnapshot.docs.map((doc) => doc.data()).toList(),
-          onError: (e) => print("Error completing: $e"),
-        );
-    currentLists = await ref;
-    if (currentLists.isEmpty) {
-      addToDoList();
-    }
-  }
+
 
   Future<void> _getTasks() async {
     currentTasks.clear();
@@ -249,16 +230,25 @@ class _MyHomePageState extends State<MyHomePage> {
     currentTasks = await tasksRef;
   }
 
-  Future<void> _getUsers() async {
-    final ref = db.collection("users").doc(currentUser.userID).withConverter(
-          fromFirestore: UserModel.fromFirestore,
-          toFirestore: (UserModel user, _) => user.toFirestore(),
-        );
-    final docSnap = await ref.get();
-    if(docSnap.data() != null) {
-      currentUser = docSnap.data()!;
+  Future<void> _getLists() async {
+    final ref = db
+        .collection("users")
+        .doc(currentUser.userID)
+        .collection("lists")
+        .withConverter(
+      fromFirestore: ListModel.fromFirestore,
+      toFirestore: (ListModel list, _) => list.toFirestore(),
+    )
+        .get()
+        .then(
+          (querySnapshot) =>
+          querySnapshot.docs.map((doc) => doc.data()).toList(),
+      onError: (e) => print("Error completing: $e"),
+    );
+    currentLists = await ref;
+    if (currentLists.isEmpty) {
+      addToDoList();
     }
-    else {addNewUser();}
   }
 
   Future<void> addToDoList() async {
@@ -278,6 +268,22 @@ class _MyHomePageState extends State<MyHomePage> {
     await docRef.set(list);
   }
 
+  //ToDo move to main
+  Future<void> _getUsers() async {
+    final ref = db.collection("users").doc(currentUser.userID).withConverter(
+      fromFirestore: UserModel.fromFirestore,
+      toFirestore: (UserModel user, _) => user.toFirestore(),
+    );
+    final docSnap = await ref.get();
+    if (docSnap.data() != null) {
+      currentUser = docSnap.data()!;
+    } else {
+      addNewUser();
+    }
+  }
+
+
+  //ToDo move to main
   Future<void> addNewUser() async {
     final docRef = db
         .collection("users")
@@ -288,6 +294,4 @@ class _MyHomePageState extends State<MyHomePage> {
         .doc(currentUser.userID);
     await docRef.set(currentUser);
   }
-
-
 }
