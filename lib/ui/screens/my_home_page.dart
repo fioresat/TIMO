@@ -150,30 +150,32 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _updateTask({
     required TaskModel updatedTask,
   }) async {
-    db
-        .collection("users")
-        .doc('testUser')
-        .collection('lists')
-        .doc(updatedTask.listID)
-        .collection('tasks')
-        .doc(updatedTask.taskID)
-        .delete()
-        .then(
-          (doc) => print("Document deleted"),
-      onError: (e) => print("Error updating document $e"),
-    );
-    addNewTask(
-      newTask: TaskModel(
-        task: updatedTask.task,
-        colorIndex: updatedTask.colorIndex,
-        listID: currentLists[moveToListIndex].listID,
-        dateTimeReminder: updatedTask.dateTimeReminder,
-        userID: updatedTask.userID,
-        isReminderActive: updatedTask.isReminderActive,
-        taskID: updatedTask.taskID,
-      ),
-    );
-    moveToListIndex = -1;
+    if (selectedListIndex == moveToListIndex || moveToListIndex == -1) {
+      db
+          .collection("users")
+          .doc('testUser')
+          .collection('lists')
+          .doc(updatedTask.listID)
+          .collection('tasks')
+          .doc(updatedTask.taskID)
+          .delete()
+          .then(
+            (doc) => print("Document deleted"),
+            onError: (e) => print("Error updating document $e"),
+          );
+      addNewTask(
+        newTask: TaskModel(
+          task: updatedTask.task,
+          colorIndex: updatedTask.colorIndex,
+          listID: currentLists[moveToListIndex].listID,
+          dateTimeReminder: updatedTask.dateTimeReminder,
+          userID: updatedTask.userID,
+          isReminderActive: updatedTask.isReminderActive,
+          taskID: updatedTask.taskID,
+        ),
+      );
+      moveToListIndex = -1;
+    }
   }
 
   Future<void> addNewTask({
@@ -186,9 +188,9 @@ class _MyHomePageState extends State<MyHomePage> {
         .doc(newTask.listID)
         .collection('tasks')
         .withConverter(
-      toFirestore: (TaskModel task, options) => task.toFirestore(),
-      fromFirestore: TaskModel.fromFirestore,
-    )
+          toFirestore: (TaskModel task, options) => task.toFirestore(),
+          fromFirestore: TaskModel.fromFirestore,
+        )
         .doc(newTask.taskID);
     await docRef.set(newTask);
     currentList = ListModel(list: 'ToDo', listID: 'ToDo');
@@ -227,10 +229,12 @@ class _MyHomePageState extends State<MyHomePage> {
     currentTasks.clear();
     final tasksRef = db
         .collection("users")
-        .doc("testUser")
+        .doc(currentUser.userID)
         .collection("lists")
         .doc((currentLists.isNotEmpty)
-            ? currentLists[selectedListIndex].listID
+            ? (selectedListIndex >= 0)
+                ? currentLists[selectedListIndex].listID
+                : currentLists[0].listID
             : 'ToDo')
         .collection("tasks")
         .withConverter(
