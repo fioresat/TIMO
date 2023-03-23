@@ -98,7 +98,7 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
                   minLines: 1,
                   maxLines: null,
                   decoration: InputDecoration(
-                    hintText: widget.taskController.text.isEmpty ? "Введите задачу..." : '',
+                    hintText: widget.taskController.text.isEmpty ? S.of(context).hintTaskText : '',
                     hintStyle: const TextStyle(
                       color: hintTextColor,
                       fontSize: 26,

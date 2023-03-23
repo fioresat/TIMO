@@ -161,5 +161,9 @@
   "allFeatures": "All features without limits",
   "@allFeatures": {
     "description": "All features"
+  },
+  "hintTaskText": " Type the task...",
+  "@hintTaskText": {
+    "description": "hint text Type the task..."
   }
 }

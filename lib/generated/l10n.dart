@@ -439,6 +439,16 @@ class S {
       args: [],
     );
   }
+
+  /// ` Type the task...`
+  String get hintTaskText {
+    return Intl.message(
+      ' Type the task...',
+      name: 'hintTaskText',
+      desc: 'hint text Type the task...',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

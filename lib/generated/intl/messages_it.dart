@@ -44,6 +44,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "deletingTask": m0,
         "getPremium": MessageLookupByLibrary.simpleMessage("Diventa premium"),
         "goPremium": MessageLookupByLibrary.simpleMessage("Vai Premium"),
+        "hintTaskText":
+            MessageLookupByLibrary.simpleMessage("Digita l\'attività..."),
         "hintText":
             MessageLookupByLibrary.simpleMessage(" Digita nuova attività..."),
         "language": MessageLookupByLibrary.simpleMessage("Italiano"),
