@@ -28,6 +28,7 @@ class AddNewListPanelWidget extends StatefulWidget {
 }
 
 class _AddNewListPanelWidgetState extends State<AddNewListPanelWidget> {
+  final shakeKey = GlobalKey<ShakeWidgetState>();
   late final focusNode;
 
   @override
@@ -45,7 +46,7 @@ class _AddNewListPanelWidgetState extends State<AddNewListPanelWidget> {
   @override
   Widget build(BuildContext context) {
     double keyBoardHeight = MediaQuery.of(context).viewInsets.bottom;
-    final shakeKey = GlobalKey<ShakeWidgetState>();
+
     return Padding(
       padding: const EdgeInsets.only(left: 25, right: 25),
       child: Column(
@@ -59,8 +60,9 @@ class _AddNewListPanelWidgetState extends State<AddNewListPanelWidget> {
             key: shakeKey,
             shakeOffset: 10,
             shakeCount: 3,
-            shakeDuration: const Duration(milliseconds: 500),
+            shakeDuration: const Duration(milliseconds: 700),
             child: TextField(
+              focusNode: focusNode,
               textCapitalization: TextCapitalization.sentences,
               controller: widget.controller,
               style: TextStyle(
@@ -84,31 +86,36 @@ class _AddNewListPanelWidgetState extends State<AddNewListPanelWidget> {
           Padding(
             padding: EdgeInsets.only(
                 bottom: keyBoardHeight > 0 ? keyBoardHeight + 10 : 10),
-            child: BlackButtonWidget(
-              height: widget.height * 0.05,
-              onPressed: () {
-                if (widget.controller.text.isNotEmpty) {
-                  String listID = UniqueKey().toString();
-                  setState(() {
-                    currentList = ListModel(
-                      list: widget.controller.text,
-                      listID: listID,
-                    );
-                    addNewList(
-                      list: currentList,
-                    );
-                  });
-                  widget.onTapClose();
-                } else {
-                  shakeKey.currentState?.shake();
-                }
-              },
-              width: widget.width - 50,
-              borderRadius: const BorderRadius.all(Radius.elliptical(12, 12)),
-              child: Text(
-                S.of(context).createNewList,
-                style: const TextStyle(color: backgroundColor),
-              ),
+            child: Column(
+              children: [
+                BlackButtonWidget(
+                  height: widget.height * 0.05,
+                  onPressed: () {
+                    if (widget.controller.text.isNotEmpty) {
+                      String listID = UniqueKey().toString();
+                      setState(() {
+                        currentList = ListModel(
+                          list: widget.controller.text,
+                          listID: listID,
+                        );
+                        addNewList(
+                          list: currentList,
+                        );
+                      });
+                      widget.onTapClose();
+                    } else {
+                      FocusScope.of(context).requestFocus(focusNode);
+                      shakeKey.currentState?.shake();
+                    }
+                  },
+                  width: widget.width - 50,
+                  borderRadius: const BorderRadius.all(Radius.elliptical(12, 12)),
+                  child: Text(
+                    S.of(context).createNewList,
+                    style: const TextStyle(color: backgroundColor),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
