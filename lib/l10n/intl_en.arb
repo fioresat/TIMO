@@ -165,5 +165,9 @@
   "hintTaskText": " Type the task...",
   "@hintTaskText": {
     "description": "hint text Type the task..."
+  },
+  "letsDoSmth": "Let's do something",
+  "@letsDoSmth": {
+    "description": "initial text"
   }
 }

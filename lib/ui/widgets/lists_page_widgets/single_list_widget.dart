@@ -115,7 +115,8 @@ class _SingleListWidgetState extends State<SingleListWidget> {
                         }
                       },
                       onChanged: (text) {
-                        _updateListText(oldList: widget.listModel);
+                        if (controller.text.isNotEmpty) {
+                          _updateListText(oldList: widget.listModel);}
                       },
                     ),
                   ),

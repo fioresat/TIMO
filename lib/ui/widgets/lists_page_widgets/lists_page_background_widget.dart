@@ -10,7 +10,6 @@ import 'package:todo_app_main_screen/ui/screens/settings_page.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_page_widgets/options_panel_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_page_widgets/single_list_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/nav_bar_widget.dart';
-
 import 'add_button_widget.dart';
 
 class ListsPageBackgroundWidget extends StatefulWidget {
@@ -121,7 +120,8 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                                   setState(() {
                                     _selectedIndex = list.key;
                                     selectedListIndex = _selectedIndex;
-                                    Navigator.of(context).pushReplacementNamed(MyHomePage.routeName);
+                                    Navigator.of(context).pushReplacementNamed(
+                                        MyHomePage.routeName);
                                   });
                                 },
                                 height: widget.height,
@@ -129,7 +129,8 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                                   _selectedIndex = list.key;
                                   SlidingPanelHelper().onPressedShowBottomSheet(
                                     OptionsPanelWidget(
-                                      selectedListColorIndex: widget.lists[_selectedIndex].listColorIndex,
+                                      selectedListColorIndex: widget
+                                          .lists[_selectedIndex].listColorIndex,
                                       height: widget.height,
                                       width: widget.width,
                                       onTapClose: () {
@@ -140,12 +141,16 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                                       },
                                       colors: buttonColors,
                                       onRenameTap: () {
-                                        FocusScope.of(context).requestFocus(focusNodeList[list.key]);
+                                        FocusScope.of(context).requestFocus(
+                                            focusNodeList[list.key]);
                                         Navigator.pop(context);
                                       },
                                       onDeleteTap: () {
                                         setState(() {
-                                          _deleteList(oldList: widget.lists[_selectedIndex],);
+                                          _deleteList(
+                                            oldList:
+                                                widget.lists[_selectedIndex],
+                                          );
                                         });
                                         Navigator.pop(context);
                                       },

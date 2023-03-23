@@ -50,6 +50,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(" Введите новую задачу..."),
         "language": MessageLookupByLibrary.simpleMessage("Русский"),
         "languageTitle": MessageLookupByLibrary.simpleMessage("Язык"),
+        "letsDoSmth":
+            MessageLookupByLibrary.simpleMessage("Давай создадим задачу"),
         "lists": MessageLookupByLibrary.simpleMessage("списки"),
         "move": MessageLookupByLibrary.simpleMessage("переместить"),
         "newList": MessageLookupByLibrary.simpleMessage(" новый список"),

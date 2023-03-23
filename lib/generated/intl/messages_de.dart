@@ -50,6 +50,8 @@ class MessageLookup extends MessageLookupByLibrary {
             " Geben Sie neue Aufgabe ein..."),
         "language": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "languageTitle": MessageLookupByLibrary.simpleMessage("Sprache"),
+        "letsDoSmth":
+            MessageLookupByLibrary.simpleMessage("Erstellen wir eine Aufgabe"),
         "lists": MessageLookupByLibrary.simpleMessage("listen"),
         "move": MessageLookupByLibrary.simpleMessage("Umzug"),
         "newList": MessageLookupByLibrary.simpleMessage(" neue Liste"),

@@ -48,6 +48,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "hintText": MessageLookupByLibrary.simpleMessage(" Type new task..."),
         "language": MessageLookupByLibrary.simpleMessage("English"),
         "languageTitle": MessageLookupByLibrary.simpleMessage("Language"),
+        "letsDoSmth":
+            MessageLookupByLibrary.simpleMessage("Let\'s do something"),
         "lists": MessageLookupByLibrary.simpleMessage("lists"),
         "move": MessageLookupByLibrary.simpleMessage("move"),
         "newList": MessageLookupByLibrary.simpleMessage(" new list"),

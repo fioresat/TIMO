@@ -19,7 +19,7 @@ class NewTaskPage extends StatefulWidget {
   State<NewTaskPage> createState() => _NewTaskPageState();
 }
 
-class _NewTaskPageState extends State<NewTaskPage> with SingleTickerProviderStateMixin {
+class _NewTaskPageState extends State<NewTaskPage> {
   final taskController = TextEditingController();
   final listController = TextEditingController();
   final taskModel = TaskModel(task: '');
@@ -49,7 +49,7 @@ class _NewTaskPageState extends State<NewTaskPage> with SingleTickerProviderStat
             addNewTask(
               text: taskController.text,
               taskID: UniqueKey().toString(),
-              listID: currentList.listID,
+              listID: currentLists[selectedListIndex].listID,
               colorIndex: taskCurrentColorIndex,
               dateTimeReminder: currentDateTimeReminder,
               isReminderActive: currentIsReminderActive,
@@ -57,10 +57,6 @@ class _NewTaskPageState extends State<NewTaskPage> with SingleTickerProviderStat
             setState(() {
               taskCurrentColorIndex = -1;
               listCurrentColorIndex = 0;
-              currentList = ListModel(
-                list: 'ToDo',
-                listID: 'ToDo',
-              );
               currentDateTimeReminder = '2000-01-01 00:00:00';
               currentIsReminderActive = false;
             });

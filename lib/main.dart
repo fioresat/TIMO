@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
           ),
           routes: {
             MyHomePage.routeName: (context) => const MyHomePage(),
-            NewTaskPage.routeName: (context) => NewTaskPage(),
+            NewTaskPage.routeName: (context) => const NewTaskPage(),
             TaskPage.routeName: (context) => const TaskPage(),
             ListsPage.routeName: (context) => const ListsPage(),
             SettingsPage.routeName: (context) => const SettingsPage(),

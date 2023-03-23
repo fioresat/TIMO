@@ -39,5 +39,6 @@
   "premLists": "Diferentes listas personalizables",
   "premFuture": "Nuevas características en el futuro",
   "allFeatures": "Todas las funciones sin límites",
-  "hintTaskText": " Escriba la tarea..."
+  "hintTaskText": " Escriba la tarea...",
+  "letsDoSmth": "Creemos una tarea"
 }

@@ -1,11 +1,15 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
+import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/generated/l10n.dart';
 import 'package:todo_app_main_screen/main.dart';
 import 'package:todo_app_main_screen/models/single_task_model.dart';
+import 'package:todo_app_main_screen/ui/screens/new_task_page.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/single_task_widget.dart';
 
 class TasksWidget extends StatefulWidget {
@@ -33,9 +37,16 @@ class TasksWidget extends StatefulWidget {
 }
 
 class _TasksWidgetState extends State<TasksWidget> {
+  bool _isLoading = true;
+
   @override
   void initState() {
     super.initState();
+    Timer(const Duration(milliseconds: 1100), () {
+      setState(() {
+        _isLoading = false;
+      });
+    });
   }
 
   @override
@@ -57,7 +68,20 @@ class _TasksWidgetState extends State<TasksWidget> {
           ),
           SizedBox(
             height: 0.9 * widget.height,
-            child: ListView.builder(
+            child: _isLoading == true? Container() : widget.tasksList.isEmpty ? Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(NewTaskPage.routeName);
+                  },
+                  child: Text(S.of(context).letsDoSmth, style: const TextStyle(
+                    fontSize: 50, color: textColor, fontWeight: FontWeight.bold
+                  ),),
+                ),
+              ),
+            ): ListView.builder(
                 padding: EdgeInsets.zero,
                 controller: widget.scrollController,
                 physics: widget.panelController.isPanelOpen
@@ -198,7 +222,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                     width: 13,
                   ),
                    Text(
-                    currentList.listID == "ToDo" ? currentList.list : currentLists[selectedListIndex].list,
+                     selectedListIndex == -1 ? currentList.list : currentLists[selectedListIndex].list,
                     style: const TextStyle(color: Colors.grey, fontSize: 18),
                   ),
                 ],

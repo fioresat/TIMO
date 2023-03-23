@@ -449,6 +449,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Let's do something`
+  String get letsDoSmth {
+    return Intl.message(
+      'Let\'s do something',
+      name: 'letsDoSmth',
+      desc: 'initial text',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
