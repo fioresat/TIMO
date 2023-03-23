@@ -6,6 +6,7 @@ import 'package:todo_app_main_screen/generated/l10n.dart';
 import 'package:todo_app_main_screen/models/single_task_model.dart';
 import 'package:todo_app_main_screen/ui/widgets/colors_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
+import 'package:todo_app_main_screen/ui/widgets/shake_error_widget.dart';
 
 class TaskPageBackgroundWidget extends StatefulWidget {
   final double height;
@@ -38,9 +39,11 @@ class TaskPageBackgroundWidget extends StatefulWidget {
 
 class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
   bool isTapped = false;
+  final shakeKey = GlobalKey<ShakeWidgetState>();
 
   @override
   void initState() {
+    shakeKey.currentState?.deactivate();
     super.initState();
     widget.taskController.text = widget.taskModel.task;
   }
@@ -65,38 +68,57 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
           children: [
             PanelCloseWidget(
               alignment: Alignment.topLeft,
-              onTapClose: widget.onCloseTap,
+              onTapClose: () {
+                if (widget.taskController.text.isEmpty) {
+                  isTapped = true;
+                  shakeKey.currentState?.shake();
+                } else {
+                  widget.onCloseTap();
+                }
+              },
               image: AppIcons.back,
             ),
             SizedBox(
               height: widget.height * 0.05,
             ),
             Flexible(
-              child: TextField(
-                onTap: () => setState(
-                  () => isTapped = true,
+              child: ShakeWidget(
+                key: shakeKey,
+                shakeOffset: 10,
+                shakeCount: 3,
+                shakeDuration: const Duration(milliseconds: 500),
+                child: TextField(
+                  onTap: () => setState(
+                    () => isTapped = true,
+                  ),
+                  controller: widget.taskController,
+                  cursorColor: darkColor,
+                  cursorHeight: 26,
+                  keyboardType: TextInputType.multiline,
+                  minLines: 1,
+                  maxLines: null,
+                  decoration: InputDecoration(
+                    hintText: widget.taskController.text.isEmpty ? "Введите задачу..." : '',
+                    hintStyle: const TextStyle(
+                      color: hintTextColor,
+                      fontSize: 26,
+                      height: 2,
+                    ),
+                    border: InputBorder.none,
+                  ),
+                  style: const TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.w900,
+                    color: darkColor,
+                  ),
+                  onChanged: (String newText) => setState(() {
+                    widget.taskModel.task == newText;
+                  }),
+                  onTapOutside: (_) {
+                    FocusManager.instance.primaryFocus?.unfocus();
+                    isTapped = false;
+                  },
                 ),
-                controller: widget.taskController,
-                cursorColor: darkColor,
-                cursorHeight: 26,
-                keyboardType: TextInputType.multiline,
-                minLines: 1,
-                maxLines: null,
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                ),
-                style: const TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.w900,
-                  color: darkColor,
-                ),
-                onChanged: (String newText) => setState(() {
-                  widget.taskModel.task == newText;
-                }),
-                onTapOutside: (_) {
-                  FocusManager.instance.primaryFocus?.unfocus();
-                  isTapped = false;
-                },
               ),
             ),
             SizedBox(

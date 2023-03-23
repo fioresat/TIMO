@@ -202,8 +202,6 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-
-
   Future<void> _getTasks() async {
     currentTasks.clear();
     final tasksRef = db

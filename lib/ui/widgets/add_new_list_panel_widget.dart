@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/generated/l10n.dart';
 import 'package:todo_app_main_screen/main.dart';
 import 'package:todo_app_main_screen/models/list_model.dart';
 import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
-
+import 'package:todo_app_main_screen/ui/widgets/shake_error_widget.dart';
 import 'black_button_widget.dart';
 
 class AddNewListPanelWidget extends StatefulWidget {
@@ -27,14 +28,24 @@ class AddNewListPanelWidget extends StatefulWidget {
 }
 
 class _AddNewListPanelWidgetState extends State<AddNewListPanelWidget> {
+  late final focusNode;
+
   @override
   void initState() {
+    focusNode = FocusNode();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    focusNode.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     double keyBoardHeight = MediaQuery.of(context).viewInsets.bottom;
+    final shakeKey = GlobalKey<ShakeWidgetState>();
     return Padding(
       padding: const EdgeInsets.only(left: 25, right: 25),
       child: Column(
@@ -44,25 +55,31 @@ class _AddNewListPanelWidgetState extends State<AddNewListPanelWidget> {
             onTapClose: widget.onTapClose,
             image: AppIcons.closeButton,
           ),
-          TextField(
-            textCapitalization: TextCapitalization.sentences,
-            controller: widget.controller,
-            style: TextStyle(
-              fontSize: 0.018 * widget.height,
-            ),
-            decoration: InputDecoration(
-              hintText: S.of(context).newList,
-              hintStyle: TextStyle(
-                color: hintTextColor,
+          ShakeWidget(
+            key: shakeKey,
+            shakeOffset: 10,
+            shakeCount: 3,
+            shakeDuration: const Duration(milliseconds: 500),
+            child: TextField(
+              textCapitalization: TextCapitalization.sentences,
+              controller: widget.controller,
+              style: TextStyle(
                 fontSize: 0.018 * widget.height,
               ),
-              border: InputBorder.none,
+              decoration: InputDecoration(
+                hintText: S.of(context).newList,
+                hintStyle: TextStyle(
+                  color: hintTextColor,
+                  fontSize: 0.018 * widget.height,
+                ),
+                border: InputBorder.none,
+              ),
+              scrollPadding: const EdgeInsets.all(20.0),
+              autofocus: true,
+              keyboardType: TextInputType.multiline,
+              maxLines: 2,
+              cursorColor: Colors.black,
             ),
-            scrollPadding: const EdgeInsets.all(20.0),
-            autofocus: true,
-            keyboardType: TextInputType.multiline,
-            maxLines: 2,
-            cursorColor: Colors.black,
           ),
           Padding(
             padding: EdgeInsets.only(
@@ -81,14 +98,16 @@ class _AddNewListPanelWidgetState extends State<AddNewListPanelWidget> {
                       list: currentList,
                     );
                   });
+                  widget.onTapClose();
+                } else {
+                  shakeKey.currentState?.shake();
                 }
-                widget.onTapClose();
               },
               width: widget.width - 50,
               borderRadius: const BorderRadius.all(Radius.elliptical(12, 12)),
               child: Text(
                 S.of(context).createNewList,
-                style: TextStyle(color: backgroundColor),
+                style: const TextStyle(color: backgroundColor),
               ),
             ),
           ),

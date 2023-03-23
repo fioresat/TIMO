@@ -6,6 +6,7 @@ import 'package:todo_app_main_screen/main.dart';
 import 'package:todo_app_main_screen/models/list_model.dart';
 import 'package:todo_app_main_screen/models/single_task_model.dart';
 import 'package:todo_app_main_screen/ui/widgets/new_task_page_widgets/new_task_page_background_widget.dart';
+import 'package:todo_app_main_screen/ui/widgets/shake_error_widget.dart';
 
 class NewTaskPage extends StatefulWidget {
   static const routeName = '/new_task_page';
@@ -18,16 +19,20 @@ class NewTaskPage extends StatefulWidget {
   State<NewTaskPage> createState() => _NewTaskPageState();
 }
 
-class _NewTaskPageState extends State<NewTaskPage> {
+class _NewTaskPageState extends State<NewTaskPage> with SingleTickerProviderStateMixin {
   final taskController = TextEditingController();
   final listController = TextEditingController();
   final taskModel = TaskModel(task: '');
-
   FirebaseFirestore db = FirebaseFirestore.instance;
 
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -60,7 +65,6 @@ class _NewTaskPageState extends State<NewTaskPage> {
               currentIsReminderActive = false;
             });
           }
-
           Navigator.pop(context);
         },
         onListsTap: () {

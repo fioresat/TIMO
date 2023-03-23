@@ -3,6 +3,7 @@ import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/generated/l10n.dart';
 import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
+import 'package:todo_app_main_screen/ui/widgets/shake_error_widget.dart';
 import '../black_button_widget.dart';
 
 class NewTaskPageBackgroundWidget extends StatefulWidget {
@@ -30,6 +31,8 @@ class NewTaskPageBackgroundWidget extends StatefulWidget {
 
 class _NewTaskPageBackgroundWidgetState
     extends State<NewTaskPageBackgroundWidget> {
+  final shakeKey = GlobalKey<ShakeWidgetState>();
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -46,29 +49,35 @@ class _NewTaskPageBackgroundWidgetState
             image: AppIcons.close,
           ),
           Expanded(
-            child: TextField(
-              textCapitalization: TextCapitalization.sentences,
-              controller: widget.taskController,
-              style: const TextStyle(
-                fontSize: 26,
-              ),
-              decoration: InputDecoration(
-                hintText: S.of(context).hintText,
-                hintStyle: const TextStyle(
-                  color: hintTextColor,
+            child: ShakeWidget(
+              key: shakeKey,
+              shakeOffset: 10,
+              shakeCount: 3,
+              shakeDuration: const Duration(milliseconds: 500),
+              child: TextField(
+                textCapitalization: TextCapitalization.sentences,
+                controller: widget.taskController,
+                style: const TextStyle(
                   fontSize: 26,
-                  height: 2,
                 ),
-                border: InputBorder.none,
+                decoration: InputDecoration(
+                  hintText: S.of(context).hintText,
+                  hintStyle: const TextStyle(
+                    color: hintTextColor,
+                    fontSize: 26,
+                    height: 2,
+                  ),
+                  border: InputBorder.none,
+                ),
+                scrollPadding: const EdgeInsets.all(20.0),
+                autofocus: true,
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                cursorColor: Colors.black,
+                onTapOutside: (_) {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                },
               ),
-              scrollPadding: const EdgeInsets.all(20.0),
-              autofocus: true,
-              keyboardType: TextInputType.multiline,
-              maxLines: null,
-              cursorColor: Colors.black,
-              onTapOutside: (_) {
-                FocusManager.instance.primaryFocus?.unfocus();
-              },
             ),
           ),
           Padding(
@@ -99,7 +108,13 @@ class _NewTaskPageBackgroundWidgetState
                 ),
                 BlackButtonWidget(
                   height: widget.height * 0.05,
-                  onPressed: widget.onBlackButtonPressed,
+                  onPressed: () {
+                    if (widget.taskController.text.isEmpty) {
+                      shakeKey.currentState?.shake();
+                    } else {
+                      widget.onBlackButtonPressed();
+                    }
+                  },
                   width: widget.width * 0.3,
                   borderRadius: BorderRadius.circular(22),
                   child: Text(

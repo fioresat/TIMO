@@ -5,7 +5,6 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/generated/l10n.dart';
 import 'package:todo_app_main_screen/main.dart';
-import 'package:todo_app_main_screen/models/list_model.dart';
 import 'package:todo_app_main_screen/models/single_task_model.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/single_task_widget.dart';
 
@@ -199,7 +198,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                     width: 13,
                   ),
                    Text(
-                    currentLists[selectedListIndex].list,
+                    currentList.listID == "ToDo" ? currentList.list : currentLists[selectedListIndex].list,
                     style: const TextStyle(color: Colors.grey, fontSize: 18),
                   ),
                 ],
@@ -210,7 +209,6 @@ class _TasksWidgetState extends State<TasksWidget> {
             height: 22,
           );
   }
-
   void _movePanel() {
     widget.panelController.isPanelOpen
         ? setState(() {
@@ -220,7 +218,6 @@ class _TasksWidgetState extends State<TasksWidget> {
             widget.panelController.open();
           });
   }
-
   void _undo(List<TaskModel> tasks, int index) {
     Duration duration = const Duration(seconds: 5);
     TaskModel deletedItem = tasks.removeAt(index);
