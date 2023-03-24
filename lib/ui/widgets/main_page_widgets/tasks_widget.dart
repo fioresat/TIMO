@@ -220,7 +220,6 @@ class _TasksWidgetState extends State<TasksWidget> {
         ? Padding(
             padding: const EdgeInsets.only(left: 25, top: 15),
             child: InkWell(
-              onTap: () => widget.dragController.dispose(),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
@@ -254,10 +253,10 @@ class _TasksWidgetState extends State<TasksWidget> {
   void _movePanel() {
     widget.dragController.isAttached
         ? setState(() {
-            widget.dragController.dispose();
+
           })
         : setState(() {
-            widget.dragController.reset();
+
           });
   }
 
