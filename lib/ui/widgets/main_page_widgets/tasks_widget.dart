@@ -229,9 +229,15 @@ class _TasksWidgetState extends State<TasksWidget> {
                   const SizedBox(
                     width: 13,
                   ),
-                  Text(
-                    currentLists[selectedListIndex].list,
-                    style: const TextStyle(color: Colors.grey, fontSize: 18),
+                  Expanded(
+                    child: Text(
+                      currentLists[selectedListIndex].list,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 18,
+                      ),
+                    ),
                   ),
                 ],
               ),
