@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/button_colors.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
 import 'package:todo_app_main_screen/main.dart';
-import 'package:todo_app_main_screen/models/list_model.dart';
 import 'package:todo_app_main_screen/models/single_task_model.dart';
 import 'package:todo_app_main_screen/ui/widgets/new_task_page_widgets/new_task_page_background_widget.dart';
-import 'package:todo_app_main_screen/ui/widgets/shake_error_widget.dart';
 
 class NewTaskPage extends StatefulWidget {
   static const routeName = '/new_task_page';

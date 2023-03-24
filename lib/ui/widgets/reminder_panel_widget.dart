@@ -52,9 +52,7 @@ class _ReminderPanelWidgetState extends State<ReminderPanelWidget> {
               image: AppIcons.closeButton,
             ),
             Text(
-              S
-                  .of(context)
-                  .reminder,
+              S.of(context).reminder,
               style: TextStyle(
                 fontSize: 0.03 * widget.height,
                 fontWeight: FontWeight.bold,
@@ -82,35 +80,72 @@ class _ReminderPanelWidgetState extends State<ReminderPanelWidget> {
               padding: EdgeInsets.only(
                 bottom: 0.04 * widget.height,
               ),
-              child: BlackButtonWidget(
-                onPressed: () {
-                  if (_chosenDateTime!.isAfter(DateTime.now())) {
-                    if (widget.taskModel.taskID == '') {
-                      setState(() {
-                        currentDateTimeReminder = _chosenDateTime.toString();
-                        currentIsReminderActive = true;
-                      });
-                    }
-                    else {
-                      _updateTaskReminder(updatedTask: widget.taskModel,
-                          dateTimeReminder: _chosenDateTime.toString(),
-                          isReminderActive: true);
-                    }
-                  }
-                  widget.onSaveTap;
-                  Navigator.pop(context);
-                },
-                width: widget.width - 50,
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(20),
-                ),
-                height: widget.height * 0.07,
-                child: Text(
-                  S
-                      .of(context)
-                      .saveReminder,
-                  style: const TextStyle(color: backgroundColor, fontSize: 18),
-                ),
+              child: Column(
+                children: [
+                  BlackButtonWidget(
+                    onPressed: () {
+                      if (_chosenDateTime == null ||
+                          _chosenDateTime!.isBefore(DateTime.now())) {
+                        _wrongReminder();
+                      } else if (_chosenDateTime!.isAfter(DateTime.now())) {
+                        if (widget.taskModel.taskID == '') {
+                          setState(() {
+                            currentDateTimeReminder =
+                                _chosenDateTime.toString();
+                            currentIsReminderActive = true;
+                          });
+                        } else {
+                          _updateTaskReminder(
+                              updatedTask: widget.taskModel,
+                              dateTimeReminder: _chosenDateTime.toString(),
+                              isReminderActive: true);
+                        }
+                        widget.onSaveTap();
+                        Navigator.pop(context);
+                      }
+                    },
+                    width: widget.width - 50,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                    height: widget.height * 0.07,
+                    child: Text(
+                      S.of(context).saveReminder,
+                      style:
+                          const TextStyle(color: backgroundColor, fontSize: 18),
+                    ),
+                  ),
+                  (currentIsReminderActive || widget.taskModel.isReminderActive == true)
+                      ? Column(
+                        children: [
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          BlackButtonWidget(
+                              onPressed: () {
+                                setState(() {
+                                  currentIsReminderActive = false;
+                                  _updateTaskReminder(
+                                      updatedTask: widget.taskModel,
+                                      dateTimeReminder: _chosenDateTime.toString(),
+                                      isReminderActive: false);
+                                });
+                                Navigator.pop(context);
+                              },
+                              width: widget.width - 50,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20)),
+                              height: widget.height * 0.07,
+                              child: Text(
+                                S.of(context).delete,
+                                style: const TextStyle(
+                                    color: backgroundColor, fontSize: 18),
+                              ),
+                            ),
+                        ],
+                      )
+                      : Container()
+                ],
               ),
             ),
           ],
@@ -137,5 +172,32 @@ class _ReminderPanelWidgetState extends State<ReminderPanelWidget> {
       "isReminderActive": isReminderActive,
     };
     docRef.update(updates);
+  }
+
+  void _wrongReminder() {
+    Duration duration = const Duration(seconds: 3);
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return TweenAnimationBuilder<Duration>(
+            duration: duration,
+            tween: Tween(begin: duration, end: Duration.zero),
+            onEnd: () {
+              Navigator.of(context).pop(true);
+            },
+            builder: (BuildContext context, Duration value, Widget? child) {
+              return CupertinoAlertDialog(
+                title: Text(S.of(context).wrongReminder),
+                actions: <CupertinoDialogAction>[
+                  CupertinoDialogAction(
+                      child: Text(S.of(context).undo),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      }),
+                ],
+              );
+            });
+      },
+    );
   }
 }

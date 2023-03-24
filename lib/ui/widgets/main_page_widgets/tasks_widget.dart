@@ -77,7 +77,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                     Navigator.of(context).pushNamed(NewTaskPage.routeName);
                   },
                   child: Text(S.of(context).letsDoSmth, style: const TextStyle(
-                    fontSize: 50, color: textColor, fontWeight: FontWeight.bold
+                    fontSize: 46, color: textColor, fontWeight: FontWeight.bold
                   ),),
                 ),
               ),

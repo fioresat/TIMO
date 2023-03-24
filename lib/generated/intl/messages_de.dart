@@ -82,6 +82,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "termsOfUsing":
             MessageLookupByLibrary.simpleMessage("Regeln für die Verwendung"),
         "thumbnail": MessageLookupByLibrary.simpleMessage("Vorschaubild"),
-        "undo": MessageLookupByLibrary.simpleMessage("Rückgängig machen")
+        "undo": MessageLookupByLibrary.simpleMessage("Rückgängig machen"),
+        "wrongReminder":
+            MessageLookupByLibrary.simpleMessage("Falsche Erinnerungszeit")
       };
 }

@@ -81,6 +81,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "terms": MessageLookupByLibrary.simpleMessage("Termini"),
         "termsOfUsing": MessageLookupByLibrary.simpleMessage("Regole d\'uso"),
         "thumbnail": MessageLookupByLibrary.simpleMessage("Copertura"),
-        "undo": MessageLookupByLibrary.simpleMessage("Disfare")
+        "undo": MessageLookupByLibrary.simpleMessage("Disfare"),
+        "wrongReminder":
+            MessageLookupByLibrary.simpleMessage("Orario di promemoria errato")
       };
 }

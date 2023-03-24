@@ -40,5 +40,6 @@
   "premFuture": "Neue Features in Zukunft",
   "allFeatures": "Alle Funktionen\nohne Einschränkungen",
   "hintTaskText": " Geben Sie die Aufgabe ein...",
-  "letsDoSmth": "Erstellen wir eine Aufgabe"
+  "letsDoSmth": "Erstellen wir eine Aufgabe",
+  "wrongReminder": "Falsche Erinnerungszeit"
 }

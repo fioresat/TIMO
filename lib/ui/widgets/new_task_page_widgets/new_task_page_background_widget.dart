@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/generated/l10n.dart';
+import 'package:todo_app_main_screen/main.dart';
 import 'package:todo_app_main_screen/ui/widgets/panel_close_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/shake_error_widget.dart';
 import '../black_button_widget.dart';
@@ -100,7 +101,9 @@ class _NewTaskPageBackgroundWidgetState
                     InkWell(
                       onTap: widget.onReminderTap,
                       child: Image.asset(
-                        AppIcons.reminderBell,
+                        currentIsReminderActive
+                            ? AppIcons.reminderBellActive
+                            : AppIcons.reminderBell,
                         scale: 3,
                       ),
                     ),

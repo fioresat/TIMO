@@ -76,6 +76,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "terms": MessageLookupByLibrary.simpleMessage("Terms"),
         "termsOfUsing": MessageLookupByLibrary.simpleMessage("Terms of Using"),
         "thumbnail": MessageLookupByLibrary.simpleMessage("Thumbnail"),
-        "undo": MessageLookupByLibrary.simpleMessage("Undo")
+        "undo": MessageLookupByLibrary.simpleMessage("Undo"),
+        "wrongReminder":
+            MessageLookupByLibrary.simpleMessage("Wrong reminder time")
       };
 }

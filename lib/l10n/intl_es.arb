@@ -40,5 +40,6 @@
   "premFuture": "Nuevas características en el futuro",
   "allFeatures": "Todas las funciones sin límites",
   "hintTaskText": " Escriba la tarea...",
-  "letsDoSmth": "Creemos una tarea"
+  "letsDoSmth": "Creemos una tarea",
+  "wrongReminder": "Hora de recordatorio incorrecta"
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/generated/l10n.dart';
@@ -40,10 +41,12 @@ class TaskPageBackgroundWidget extends StatefulWidget {
 class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
   bool isTapped = false;
   final shakeKey = GlobalKey<ShakeWidgetState>();
+  bool isClosePanelTapped = false;
 
   @override
   void initState() {
     shakeKey.currentState?.deactivate();
+    loadBool();
     super.initState();
     widget.taskController.text = widget.taskModel.task;
   }
@@ -222,7 +225,7 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
                   SizedBox(
                     height: widget.height * 0.02,
                   ),
-                  Container(
+                  isClosePanelTapped == false ? Container(
                     decoration: BoxDecoration(
                       color: separatorColor,
                       borderRadius: BorderRadius.circular(10),
@@ -268,6 +271,12 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
                             width: widget.width * 0.05,
                           ),
                           InkWell(
+                            onTap: () {
+                              setState(() {
+                                isClosePanelTapped = !isClosePanelTapped;
+                                updateBool(isTapped: isClosePanelTapped);
+                              });
+                            },
                             child: Image.asset(
                               AppIcons.closeButton,
                               scale: 3,
@@ -276,7 +285,7 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
                         ],
                       ),
                     ),
-                  ),
+                  ) : Container(),
                 ],
               ),
             ),
@@ -285,4 +294,16 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
       ),
     );
   }
+
+  void updateBool({required bool isTapped}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('bool', isTapped);
+  }
+  void loadBool() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isClosePanelTapped = prefs.getBool('bool')!;
+    });
+  }
 }
+

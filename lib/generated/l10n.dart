@@ -459,6 +459,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Wrong reminder time`
+  String get wrongReminder {
+    return Intl.message(
+      'Wrong reminder time',
+      name: 'wrongReminder',
+      desc: 'wrong reminder message',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

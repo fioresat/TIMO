@@ -40,5 +40,6 @@
   "premFuture": "Nuove funzionalità in futuro",
   "allFeatures": "Tutte le funzioni senza limiti",
   "hintTaskText": "Digita l'attività...",
-  "letsDoSmth": "Creiamo una attività"
+  "letsDoSmth": "Creiamo una attività",
+  "wrongReminder": "Orario di promemoria errato"
 }

@@ -82,6 +82,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "termsOfUsing":
             MessageLookupByLibrary.simpleMessage("Правила использования"),
         "thumbnail": MessageLookupByLibrary.simpleMessage("Обложка"),
-        "undo": MessageLookupByLibrary.simpleMessage("Отменить")
+        "undo": MessageLookupByLibrary.simpleMessage("Отменить"),
+        "wrongReminder":
+            MessageLookupByLibrary.simpleMessage("Неверное время напоминания")
       };
 }
