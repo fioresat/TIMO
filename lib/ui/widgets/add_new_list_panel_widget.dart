@@ -143,5 +143,8 @@ class _AddNewListPanelWidgetState extends State<AddNewListPanelWidget> {
         )
         .doc(list.listID);
     await docRef.set(list);
+    currentLists.add(list);
   }
+
+
 }

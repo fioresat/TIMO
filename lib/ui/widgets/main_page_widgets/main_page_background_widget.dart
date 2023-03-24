@@ -38,7 +38,7 @@ class MainScreenBackgroundWidget extends StatelessWidget {
                 height: height!,
                 onPressed: onPressed,
                 titleColor: textColor,
-                buttonColor: (selectedListIndex >= 0)
+                buttonColor: (currentLists.isNotEmpty)
                     ? buttonColors[currentLists[selectedListIndex].listColorIndex]
                     : buttonColors[0],
               ),

@@ -44,7 +44,6 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     _updateQuote();
     _getUsers();
-    _getLists();
     _getTasks();
     super.initState();
   }
@@ -56,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Builder(builder: (context) {
       return Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: (selectedListIndex >= 0)
+        backgroundColor: (currentLists.isNotEmpty)
             ? buttonColors[currentLists[selectedListIndex].listColorIndex]
             : buttonColors[0],
         body: SlidingUpPanel(
@@ -204,15 +203,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<void> _getTasks() async {
     currentTasks.clear();
+    await _getLists();
     final tasksRef = db
         .collection("users")
         .doc(currentUser.userID)
         .collection("lists")
-        .doc((currentLists.isNotEmpty)
-            ? (selectedListIndex >= 0)
-                ? currentLists[selectedListIndex].listID
-                : currentLists[0].listID
-            : 'ToDo')
+        .doc(currentLists[selectedListIndex].listID)
         .collection("tasks")
         .withConverter(
           fromFirestore: TaskModel.fromFirestore,
@@ -234,18 +230,25 @@ class _MyHomePageState extends State<MyHomePage> {
         .doc(currentUser.userID)
         .collection("lists")
         .withConverter(
-      fromFirestore: ListModel.fromFirestore,
-      toFirestore: (ListModel list, _) => list.toFirestore(),
-    )
+          fromFirestore: ListModel.fromFirestore,
+          toFirestore: (ListModel list, _) => list.toFirestore(),
+        )
         .get()
         .then(
           (querySnapshot) =>
-          querySnapshot.docs.map((doc) => doc.data()).toList(),
-      onError: (e) => print("Error completing: $e"),
-    );
+              querySnapshot.docs.map((doc) => doc.data()).toList(),
+          onError: (e) => print("Error completing: $e"),
+        );
+
     currentLists = await ref;
     if (currentLists.isEmpty) {
       addToDoList();
+      currentLists = [
+        ListModel(
+          listID: 'ToDo',
+          list: 'ToDo',
+        ),
+      ];
     }
   }
 
@@ -269,9 +272,9 @@ class _MyHomePageState extends State<MyHomePage> {
   //ToDo move to main
   Future<void> _getUsers() async {
     final ref = db.collection("users").doc(currentUser.userID).withConverter(
-      fromFirestore: UserModel.fromFirestore,
-      toFirestore: (UserModel user, _) => user.toFirestore(),
-    );
+          fromFirestore: UserModel.fromFirestore,
+          toFirestore: (UserModel user, _) => user.toFirestore(),
+        );
     final docSnap = await ref.get();
     if (docSnap.data() != null) {
       currentUser = docSnap.data()!;
@@ -279,7 +282,6 @@ class _MyHomePageState extends State<MyHomePage> {
       addNewUser();
     }
   }
-
 
   //ToDo move to main
   Future<void> addNewUser() async {
