@@ -32,6 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool isMoveTo = false; //manage add floating action button visibility
   final scrollController = ScrollController();
   final listController = TextEditingController();
+  final dragController = DraggableScrollableController();
   bool isPanelDraggable = true;
   final _quoteService = FetchHelper();
   QuoteModel _quote = QuoteModel(
@@ -68,11 +69,12 @@ class _MyHomePageState extends State<MyHomePage> {
               quoteModel: _quote,
             ),
             DraggableScrollableSheet(
+              controller: dragController,
                 minChildSize: 0.58,
                 maxChildSize: 1,
                 initialChildSize: 0.59,
                 builder: (context, scrlCtrl) {
-                  print(scrlCtrl.offset.toString());
+                  //print(scrlCtrl.offset.toString());
               return TasksWidget(
                 onMoveToPressed: () {
                   SlidingPanelHelper().onPressedShowBottomSheet(
@@ -110,11 +112,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     isMoveTo = true;
                   });
                 },
-                isPanelOpen: true,
+                isPanelOpen: dragController.isAttached,
                 tasksList: currentTasks,
                 scrollController: scrlCtrl,
-                height: 0.55 * heightScreen,
-                isMoveToPressed: isMoveTo,
+                height: dragController.isAttached ?
+                    0.95 * heightScreen :
+                0.55 * heightScreen,
+
+                isMoveToPressed: isMoveTo, dragController: dragController,
               );
             }),
           ],
