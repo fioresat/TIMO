@@ -28,12 +28,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final panelController = PanelController();
   bool isDeleted = false; //manage undo floating action button visibility
   bool isMoveTo = false; //manage add floating action button visibility
   final scrollController = ScrollController();
   final listController = TextEditingController();
-  bool isPanelDraggable = false;
+  bool isPanelDraggable = true;
   final _quoteService = FetchHelper();
   QuoteModel _quote = QuoteModel(
     author: '',
@@ -58,73 +57,67 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: (currentLists.isNotEmpty)
             ? buttonColors[currentLists[selectedListIndex].listColorIndex]
             : buttonColors[0],
-        body: SlidingUpPanel(
-          isDraggable: isPanelDraggable,
-          backdropEnabled: true,
-          backdropColor: Colors.white,
-          backdropOpacity: 1,
-          boxShadow: const [
-            BoxShadow(blurRadius: 0, color: Color.fromRGBO(0, 0, 0, 0))
-          ],
-          minHeight: 0.58 * heightScreen,
-          maxHeight: 0.95 * heightScreen,
-          borderRadius: commonBorderRadius,
-          controller: panelController,
-          onPanelOpened: () => setState(() {}),
-          onPanelClosed: () => setState(() {}),
-          body: MainScreenBackgroundWidget(
-            width: widthScreen,
-            height: heightScreen,
-            onPressed: () {
-              Navigator.of(context).pushNamed(ListsPage.routeName);
-            },
-            quoteModel: _quote,
-          ),
-          panelBuilder: (controller) => TasksWidget(
-            onMoveToPressed: () {
-              SlidingPanelHelper().onPressedShowBottomSheet(
-                ListsPanelWidget(
-                  height: heightScreen,
-                  width: widthScreen,
-                  lists: currentLists,
-                  onTapClose: () {
-                    Navigator.of(context).pop();
-                    setState(() {
-                      isMoveTo = false;
-                    });
-                  },
-                  onAddNewListPressed: () {
-                    SlidingPanelHelper().onAddNewListPressed(
-                      widthScreen,
-                      heightScreen,
-                      context,
-                      listController,
-                    );
-                  },
-                  onButtonPressed: () {
-                    _updateTask(updatedTask: currentTasks[selectedTaskIndex]);
-                    Navigator.of(context).pop();
-                    setState(() {
-                      isMoveTo = false;
-                      selectedTaskIndex = -1;
-                    });
-                  },
-                ),
-                context,
+        body: Stack(
+          children: [
+            MainScreenBackgroundWidget(
+              width: widthScreen,
+              height: heightScreen,
+              onPressed: () {
+                Navigator.of(context).pushNamed(ListsPage.routeName);
+              },
+              quoteModel: _quote,
+            ),
+            DraggableScrollableSheet(
+                minChildSize: 0.58,
+                maxChildSize: 1,
+                initialChildSize: 0.59,
+                builder: (context, scrlCtrl) {
+                  print(scrlCtrl.offset.toString());
+              return TasksWidget(
+                onMoveToPressed: () {
+                  SlidingPanelHelper().onPressedShowBottomSheet(
+                    ListsPanelWidget(
+                      height: heightScreen,
+                      width: widthScreen,
+                      lists: currentLists,
+                      onTapClose: () {
+                        Navigator.of(context).pop();
+                        setState(() {
+                          isMoveTo = false;
+                        });
+                      },
+                      onAddNewListPressed: () {
+                        SlidingPanelHelper().onAddNewListPressed(
+                          widthScreen,
+                          heightScreen,
+                          context,
+                          listController,
+                        );
+                      },
+                      onButtonPressed: () {
+                        _updateTask(
+                            updatedTask: currentTasks[selectedTaskIndex]);
+                        Navigator.of(context).pop();
+                        setState(() {
+                          isMoveTo = false;
+                          selectedTaskIndex = -1;
+                        });
+                      },
+                    ),
+                    context,
+                  );
+                  setState(() {
+                    isMoveTo = true;
+                  });
+                },
+                isPanelOpen: true,
+                tasksList: currentTasks,
+                scrollController: scrlCtrl,
+                height: 0.55 * heightScreen,
+                isMoveToPressed: isMoveTo,
               );
-              setState(() {
-                isMoveTo = true;
-              });
-            },
-            isPanelOpen: panelController.isPanelOpen,
-            tasksList: currentTasks,
-            scrollController: scrollController,
-            panelController: panelController,
-            height: panelController.isPanelOpen
-                ? 0.95 * heightScreen
-                : 0.55 * heightScreen,
-            isMoveToPressed: isMoveTo,
-          ),
+            }),
+          ],
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: isMoveTo

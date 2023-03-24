@@ -1,6 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -17,19 +17,19 @@ class TasksWidget extends StatefulWidget {
   final double height;
   final List<TaskModel> tasksList;
   final ScrollController scrollController;
-  final PanelController panelController;
   final void Function()? onMoveToPressed;
   final bool isMoveToPressed;
+  bool isPanelDraggable;
 
-  const TasksWidget(
+  TasksWidget(
       {Key? key,
       required this.isPanelOpen,
       required this.tasksList,
       required this.scrollController,
-      required this.panelController,
       this.onMoveToPressed,
       required this.height,
-      required this.isMoveToPressed})
+      required this.isMoveToPressed,
+      this.isPanelDraggable = true})
       : super(key: key);
 
   @override
@@ -52,7 +52,11 @@ class _TasksWidgetState extends State<TasksWidget> {
   @override
   Widget build(BuildContext context) {
     List<TaskModel> tasks = widget.tasksList;
-    return Padding(
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20)
+      ),
       padding: const EdgeInsets.only(
         right: 25,
       ),
@@ -92,10 +96,6 @@ class _TasksWidgetState extends State<TasksWidget> {
                       )
                     : ReorderableListView.builder(
                         padding: EdgeInsets.zero,
-                        //controller: widget.scrollController,
-                        physics: widget.panelController.isPanelOpen
-                            ? const AlwaysScrollableScrollPhysics()
-                            : const NeverScrollableScrollPhysics(),
                         scrollController: widget.scrollController,
                         itemCount: tasks.length,
                         shrinkWrap: true,
@@ -103,69 +103,70 @@ class _TasksWidgetState extends State<TasksWidget> {
                         itemBuilder: (BuildContext context, int index) {
                           return widget.isMoveToPressed == false
                               ? Slidable(
-                                  closeOnScroll: false,
-                                  key: ValueKey(tasks[index]),
-                                  endActionPane: ActionPane(
-                                    extentRatio: 0.35,
-                                    dismissible: DismissiblePane(
-                                      onDismissed: () {
-                                        setState(() {
-                                          _undo(tasks, index);
-                                        });
-                                      },
-                                    ),
-                                    motion: const ScrollMotion(),
-                                    children: [
-                                      CustomSlidableAction(
-                                        padding: const EdgeInsets.only(
-                                          left: 20,
-                                        ),
-                                        onPressed: (BuildContext context) {
-                                          setState(() {});
-                                        },
-                                        child: InkWell(
-                                          onTap: () {
-                                            setState(() {
-                                              selectedTaskIndex = index;
-                                            });
-                                            widget.onMoveToPressed!();
-                                          },
-                                          child: Image.asset(
-                                            AppIcons.moveTo,
-                                            scale: 2.9,
-                                          ),
-                                        ),
+                                key: ValueKey(tasks[index]),
+                                closeOnScroll: false,
+                                endActionPane: ActionPane(
+                                  extentRatio: 0.35,
+                                  dismissible: DismissiblePane(
+                                    onDismissed: () {
+                                      setState(() {
+                                        _undo(tasks, index);
+                                      });
+                                    },
+                                  ),
+                                  motion: const ScrollMotion(),
+                                  children: [
+                                    CustomSlidableAction(
+                                      padding: const EdgeInsets.only(
+                                        left: 20,
                                       ),
-                                      CustomSlidableAction(
-                                        padding: const EdgeInsets.only(
-                                          left: 20,
-                                        ),
-                                        onPressed: (BuildContext context) {
+                                      onPressed: (BuildContext context) {
+                                        setState(() {});
+                                      },
+                                      child: InkWell(
+                                        onTap: () {
                                           setState(() {
-                                            //ToDo
-                                            _undo(tasks, index);
+                                            selectedTaskIndex = index;
                                           });
+                                          widget.onMoveToPressed!();
                                         },
                                         child: Image.asset(
-                                          AppIcons.delete,
+                                          AppIcons.moveTo,
                                           scale: 2.9,
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                      left: 25,
                                     ),
-                                    child: Card(
-                                      elevation: 0,
-                                      child: SingleTaskWidget(
-                                        taskModel: widget.tasksList[index],
+                                    CustomSlidableAction(
+                                      padding: const EdgeInsets.only(
+                                        left: 20,
+                                      ),
+                                      onPressed: (BuildContext context) {
+                                        setState(() {
+                                          //ToDo
+                                          _undo(tasks, index);
+                                        });
+                                      },
+                                      child: Image.asset(
+                                        AppIcons.delete,
+                                        scale: 2.9,
                                       ),
                                     ),
+                                  ],
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                    left: 25,
                                   ),
-                                )
+                                  child: Card(
+                                    elevation: 0,
+                                    child: SingleTaskWidget(
+                                      taskModel: widget.tasksList[index],
+                                    ),
+                                  ),
+                                ),
+                              )
                               : Padding(
+                                  key: ValueKey(tasks[index]),
                                   padding: const EdgeInsets.only(
                                     left: 25,
                                   ),
@@ -195,9 +196,9 @@ class _TasksWidgetState extends State<TasksWidget> {
 
   Widget dragHandle() => GestureDetector(
         behavior: HitTestBehavior.translucent,
-        onVerticalDragEnd: (DragEndDetails details) => _movePanel(),
-        onVerticalDragStart: (DragStartDetails details) => _movePanel(),
-        onVerticalDragDown: (DragDownDetails details) => _movePanel(),
+        // onVerticalDragEnd: (DragEndDetails details) => _movePanel(),
+        // onVerticalDragStart: (DragStartDetails details) => _movePanel(),
+        // onVerticalDragDown: (DragDownDetails details) => _movePanel(),
         child: Padding(
           padding: const EdgeInsets.only(
               left: 150.0, right: 150, top: 10, bottom: 20),
@@ -217,7 +218,6 @@ class _TasksWidgetState extends State<TasksWidget> {
         ? Padding(
             padding: const EdgeInsets.only(left: 25, top: 15),
             child: InkWell(
-              onTap: widget.panelController.close,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
@@ -248,7 +248,7 @@ class _TasksWidgetState extends State<TasksWidget> {
           );
   }
 
-  void _movePanel() {
+  /*void _movePanel() {
     widget.panelController.isPanelOpen
         ? setState(() {
             widget.panelController.close();
@@ -256,7 +256,7 @@ class _TasksWidgetState extends State<TasksWidget> {
         : setState(() {
             widget.panelController.open();
           });
-  }
+  }*/
 
   void _undo(List<TaskModel> tasks, int index) {
     Duration duration = const Duration(seconds: 5);
