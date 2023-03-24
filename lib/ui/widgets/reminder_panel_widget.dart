@@ -97,7 +97,7 @@ class _ReminderPanelWidgetState extends State<ReminderPanelWidget> {
                         } else {
                           _updateTaskReminder(
                               updatedTask: widget.taskModel,
-                              dateTimeReminder: _chosenDateTime.toString(),
+                              dateTimeReminder: date.toString(),
                               isReminderActive: true);
                         }
                         widget.onSaveTap();
