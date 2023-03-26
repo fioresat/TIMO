@@ -173,5 +173,19 @@
   "wrongReminder": "Wrong reminder time",
   "@wrongReminder": {
     "description": "wrong reminder message"
+  },
+  "deletingReminder": "The reminder will be deleted in {seconds}",
+  "@deletingReminder": {
+    "description": "Delete task in some seconds",
+    "placeholders": {
+      "seconds": {
+        "type": "int",
+        "example": "4"
+      }
+    }
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "cancel button"
   }
 }

@@ -41,5 +41,7 @@
   "allFeatures": "Alle Funktionen\nohne Einschränkungen",
   "hintTaskText": " Geben Sie die Aufgabe ein...",
   "letsDoSmth": "Erstellen wir eine Aufgabe",
-  "wrongReminder": "Falsche Erinnerungszeit"
+  "wrongReminder": "Falsche Erinnerungszeit",
+  "deletingReminder": "Die Erinnerungszeit wird in {seconds} gelöscht",
+  "cancel": "Kündigen"
 }

@@ -20,7 +20,9 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'it';
 
-  static String m0(seconds) => "L\'attività verrà eliminata tra ${seconds}";
+  static String m0(seconds) => "Il promemoria verrà eliminata tra ${seconds}";
+
+  static String m1(seconds) => "L\'attività verrà eliminata tra ${seconds}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -35,13 +37,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "and": MessageLookupByLibrary.simpleMessage(" e i "),
         "bySubscribing": MessageLookupByLibrary.simpleMessage(
             "Iscrivendoti accetti la nostra"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Annullare"),
         "chooseLists": MessageLookupByLibrary.simpleMessage("Liste"),
         "color": MessageLookupByLibrary.simpleMessage("Colore"),
         "create": MessageLookupByLibrary.simpleMessage("creare"),
         "createNewList":
             MessageLookupByLibrary.simpleMessage("creare una nuova lista"),
         "delete": MessageLookupByLibrary.simpleMessage("Cancellare"),
-        "deletingTask": m0,
+        "deletingReminder": m0,
+        "deletingTask": m1,
         "getPremium": MessageLookupByLibrary.simpleMessage("Diventa premium"),
         "goPremium": MessageLookupByLibrary.simpleMessage("Vai Premium"),
         "hintTaskText":

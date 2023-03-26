@@ -190,7 +190,7 @@ class _ReminderPanelWidgetState extends State<ReminderPanelWidget> {
                 title: Text(S.of(context).wrongReminder),
                 actions: <CupertinoDialogAction>[
                   CupertinoDialogAction(
-                      child: Text(S.of(context).undo),
+                      child: Text(S.of(context).cancel),
                       onPressed: () {
                         Navigator.of(context).pop();
                       }),

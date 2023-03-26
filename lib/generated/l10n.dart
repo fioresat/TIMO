@@ -469,6 +469,26 @@ class S {
       args: [],
     );
   }
+
+  /// `The reminder will be deleted in {seconds}`
+  String deletingReminder(int seconds) {
+    return Intl.message(
+      'The reminder will be deleted in $seconds',
+      name: 'deletingReminder',
+      desc: 'Delete task in some seconds',
+      args: [seconds],
+    );
+  }
+
+  /// `Cancel`
+  String get cancel {
+    return Intl.message(
+      'Cancel',
+      name: 'cancel',
+      desc: 'cancel button',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
