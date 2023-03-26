@@ -42,5 +42,6 @@
   "hintTaskText": " Введите задачу...",
   "letsDoSmth": "Давай создадим задачу",
   "wrongReminder": "Неверное время напоминания",
-  "deletingReminder": "Напоминание будет удалено через {seconds}"
+  "deletingReminder": "Напоминание будет удалено через {seconds}",
+  "cancel": "Отмена"
 }

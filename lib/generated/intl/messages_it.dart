@@ -37,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "and": MessageLookupByLibrary.simpleMessage(" e i "),
         "bySubscribing": MessageLookupByLibrary.simpleMessage(
             "Iscrivendoti accetti la nostra"),
+        "cancel": MessageLookupByLibrary.simpleMessage("Annullare"),
         "chooseLists": MessageLookupByLibrary.simpleMessage("Liste"),
         "color": MessageLookupByLibrary.simpleMessage("Colore"),
         "create": MessageLookupByLibrary.simpleMessage("creare"),

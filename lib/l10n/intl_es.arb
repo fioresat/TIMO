@@ -42,5 +42,6 @@
   "hintTaskText": " Escriba la tarea...",
   "letsDoSmth": "Creemos una tarea",
   "wrongReminder": "Hora de recordatorio incorrecta",
-  "deletingReminder": "El recordatorio se eliminará en {seconds}"
+  "deletingReminder": "El recordatorio se eliminará en {seconds}",
+  "cancel": "Cancelar"
 }

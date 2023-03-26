@@ -42,5 +42,6 @@
   "hintTaskText": "Digita l'attività...",
   "letsDoSmth": "Creiamo una attività",
   "wrongReminder": "Orario di promemoria errato",
-  "deletingReminder": "Il promemoria verrà eliminata tra {seconds}"
+  "deletingReminder": "Il promemoria verrà eliminata tra {seconds}",
+  "cancel": "Annullare"
 }

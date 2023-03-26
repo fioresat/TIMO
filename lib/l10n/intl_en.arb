@@ -183,5 +183,9 @@
         "example": "4"
       }
     }
+  },
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "cancel button"
   }
 }
