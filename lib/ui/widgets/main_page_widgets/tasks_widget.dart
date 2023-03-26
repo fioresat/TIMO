@@ -11,7 +11,7 @@ import 'package:todo_app_main_screen/ui/screens/new_task_page.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/single_task_widget.dart';
 
 class TasksWidget extends StatefulWidget {
-  final bool isPanelOpen;
+  bool isPanelOpen;
   final double height;
   final List<TaskModel> tasksList;
   final ScrollController scrollController;
@@ -63,7 +63,7 @@ class _TasksWidgetState extends State<TasksWidget> {
           Stack(
             children: [
               Center(
-                child: widget.isPanelOpen ? Container() : dragHandle(),
+                child: widget.isPanelOpen == false ? Container() : dragHandle(),
               ),
               todoButton(),
             ],
@@ -73,27 +73,32 @@ class _TasksWidgetState extends State<TasksWidget> {
             child: _isLoading == true
                 ? Container()
                 : widget.tasksList.isEmpty
-                    ? Align(
-                        alignment: Alignment.topLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 15),
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.of(context)
-                                  .pushNamed(NewTaskPage.routeName);
-                            },
-                            child: Text(
-                              S.of(context).letsDoSmth,
-                              style: const TextStyle(
-                                  fontSize: 46,
-                                  color: textColor,
-                                  fontWeight: FontWeight.bold),
+                    ? ListView(
+                        controller: widget.scrollController,
+                        children: [
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 15),
+                              child: TextButton(
+                                onPressed: () {
+                                  Navigator.of(context)
+                                      .pushNamed(NewTaskPage.routeName);
+                                },
+                                child: Text(
+                                  S.of(context).letsDoSmth,
+                                  style: const TextStyle(
+                                      fontSize: 46,
+                                      color: textColor,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
+                          )
+                        ],
                       )
                     : ReorderableListView.builder(
-                        physics: widget.dragController.isAttached
+                        physics: widget.isPanelOpen
                             ? const AlwaysScrollableScrollPhysics()
                             : const NeverScrollableScrollPhysics(),
                         padding: EdgeInsets.zero,
@@ -102,7 +107,6 @@ class _TasksWidgetState extends State<TasksWidget> {
                         shrinkWrap: true,
                         onReorder: reorderData,
                         itemBuilder: (BuildContext context, int index) {
-                          //print(widget.scrollController.position.toString());
                           return widget.isMoveToPressed == false
                               ? Slidable(
                                   key: ValueKey(tasks[index]),
@@ -198,9 +202,9 @@ class _TasksWidgetState extends State<TasksWidget> {
 
   Widget dragHandle() => GestureDetector(
         behavior: HitTestBehavior.translucent,
-        // onVerticalDragEnd: (DragEndDetails details) => _movePanel(),
-        // onVerticalDragStart: (DragStartDetails details) => _movePanel(),
-        // onVerticalDragDown: (DragDownDetails details) => _movePanel(),
+        onVerticalDragEnd: (DragEndDetails details) => _movePanel(),
+        onVerticalDragStart: (DragStartDetails details) => _movePanel(),
+        onVerticalDragDown: (DragDownDetails details) => _movePanel(),
         child: Padding(
           padding: const EdgeInsets.only(
               left: 150.0, right: 150, top: 10, bottom: 20),
@@ -216,8 +220,11 @@ class _TasksWidgetState extends State<TasksWidget> {
       );
 
   Widget todoButton() {
-    return widget.isPanelOpen
-        ? Padding(
+    return widget.isPanelOpen == true
+        ? const SizedBox(
+            height: 22,
+          )
+        : Padding(
             padding: const EdgeInsets.only(left: 25, top: 15),
             child: InkWell(
               child: Row(
@@ -244,19 +251,20 @@ class _TasksWidgetState extends State<TasksWidget> {
                 ],
               ),
             ),
-          )
-        : const SizedBox(
-            height: 22,
           );
   }
 
   void _movePanel() {
-    widget.dragController.isAttached
+    widget.isPanelOpen
         ? setState(() {
-
+            widget.isPanelOpen = false;
+            widget.dragController.animateTo(0.55,
+                duration: const Duration(seconds: 1), curve: Curves.easeIn);
           })
         : setState(() {
-
+            widget.isPanelOpen = true;
+            widget.dragController.animateTo(0.95,
+                duration: const Duration(seconds: 1), curve: Curves.easeIn);
           });
   }
 

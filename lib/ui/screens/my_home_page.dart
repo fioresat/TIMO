@@ -31,6 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final listController = TextEditingController();
   final dragController = DraggableScrollableController();
   bool isPanelDraggable = true;
+  bool fabVisibility = false;
   final _quoteService = FetchHelper();
   QuoteModel _quote = QuoteModel(
     author: '',
@@ -52,10 +53,15 @@ class _MyHomePageState extends State<MyHomePage> {
     return Builder(builder: (context) {
       return Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: dragController.isAttached && dragController.pixels == MediaQuery.of(context).size.height * 0.95 ? Colors.white : (currentLists.isNotEmpty)
-            ? buttonColors[currentLists[selectedListIndex].listColorIndex]
-            : buttonColors[0],
+        backgroundColor: dragController.isAttached &&
+                dragController.pixels ==
+                    MediaQuery.of(context).size.height * 0.95
+            ? Colors.white
+            : (currentLists.isNotEmpty)
+                ? buttonColors[currentLists[selectedListIndex].listColorIndex]
+                : buttonColors[0],
         body: Stack(
+          fit: StackFit.expand,
           children: [
             MainScreenBackgroundWidget(
               width: widthScreen,
@@ -65,60 +71,75 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               quoteModel: _quote,
             ),
-            DraggableScrollableSheet(
-                controller: dragController,
-                minChildSize: 0.58,
-                maxChildSize: 0.95,
-                initialChildSize: 0.59,
-                builder: (context, scrlCtrl) {
-                  //print(scrlCtrl.offset.toString());
-                  return TasksWidget(
-                    onMoveToPressed: () {
-                      SlidingPanelHelper().onPressedShowBottomSheet(
-                        ListsPanelWidget(
-                          height: heightScreen,
-                          width: widthScreen,
-                          lists: currentLists,
-                          onTapClose: () {
-                            Navigator.of(context).pop();
-                            setState(() {
-                              isMoveTo = false;
-                            });
-                          },
-                          onAddNewListPressed: () {
-                            SlidingPanelHelper().onAddNewListPressed(
-                              widthScreen,
-                              heightScreen,
-                              context,
-                              listController,
-                            );
-                          },
-                          onButtonPressed: () {
-                            _updateTask(
-                                updatedTask: currentTasks[selectedTaskIndex]);
-                            Navigator.of(context).pop();
-                            setState(() {
-                              isMoveTo = false;
-                              selectedTaskIndex = -1;
-                            });
-                          },
-                        ),
-                        context,
+            NotificationListener<DraggableScrollableNotification>(
+                onNotification:
+                    (DraggableScrollableNotification dsNotification) {
+                  if (fabVisibility && dsNotification.extent >= 0.95) {
+                    setState(() {
+                      fabVisibility = false;
+                    });
+                  } else if (!fabVisibility && dsNotification.extent < 0.95) {
+                    setState(() {
+                      fabVisibility = true;
+                    });
+                  }
+                  return fabVisibility;
+                },
+                child: DraggableScrollableSheet(
+                    controller: dragController,
+                    minChildSize: 0.58,
+                    maxChildSize: 0.95,
+                    initialChildSize: 0.59,
+                    builder: (context, scrlCtrl) {
+                      //print(scrlCtrl.offset.toString());
+                      return TasksWidget(
+                        onMoveToPressed: () {
+                          SlidingPanelHelper().onPressedShowBottomSheet(
+                            ListsPanelWidget(
+                              height: heightScreen,
+                              width: widthScreen,
+                              lists: currentLists,
+                              onTapClose: () {
+                                Navigator.of(context).pop();
+                                setState(() {
+                                  isMoveTo = false;
+                                });
+                              },
+                              onAddNewListPressed: () {
+                                SlidingPanelHelper().onAddNewListPressed(
+                                  widthScreen,
+                                  heightScreen,
+                                  context,
+                                  listController,
+                                );
+                              },
+                              onButtonPressed: () {
+                                _updateTask(
+                                    updatedTask:
+                                        currentTasks[selectedTaskIndex]);
+                                Navigator.of(context).pop();
+                                setState(() {
+                                  isMoveTo = false;
+                                  selectedTaskIndex = -1;
+                                });
+                              },
+                            ),
+                            context,
+                          );
+                          setState(() {
+                            isMoveTo = true;
+                          });
+                        },
+                        isPanelOpen: fabVisibility,
+                        tasksList: currentTasks,
+                        scrollController: scrlCtrl,
+                        height: fabVisibility == false
+                            ? 0.95 * heightScreen
+                            : 0.55 * heightScreen,
+                        isMoveToPressed: isMoveTo,
+                        dragController: dragController,
                       );
-                      setState(() {
-                        isMoveTo = true;
-                      });
-                    },
-                    isPanelOpen: dragController.isAttached && dragController.pixels >= MediaQuery.of(context).size.height * 0.95,
-                    tasksList: currentTasks,
-                    scrollController: scrlCtrl,
-                    height: dragController.isAttached && dragController.pixels == MediaQuery.of(context).size.height * 0.95
-                        ? 0.95 * heightScreen
-                        : 0.55 * heightScreen,
-                    isMoveToPressed: isMoveTo,
-                    dragController: dragController,
-                  );
-                }),
+                    })),
           ],
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
