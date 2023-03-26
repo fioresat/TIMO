@@ -20,7 +20,9 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ru';
 
-  static String m0(seconds) => "Задача будет удалена через ${seconds}";
+  static String m0(seconds) => "Напоминание будет удалено через ${seconds}";
+
+  static String m1(seconds) => "Задача будет удалена через ${seconds}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -41,7 +43,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "createNewList":
             MessageLookupByLibrary.simpleMessage("создать новый список"),
         "delete": MessageLookupByLibrary.simpleMessage("Удалить"),
-        "deletingTask": m0,
+        "deletingReminder": m0,
+        "deletingTask": m1,
         "getPremium": MessageLookupByLibrary.simpleMessage("Попробуй премиум"),
         "goPremium": MessageLookupByLibrary.simpleMessage("Перейти на Премиум"),
         "hintTaskText":

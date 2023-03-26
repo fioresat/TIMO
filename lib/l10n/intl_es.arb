@@ -41,5 +41,6 @@
   "allFeatures": "Todas las funciones sin límites",
   "hintTaskText": " Escriba la tarea...",
   "letsDoSmth": "Creemos una tarea",
-  "wrongReminder": "Hora de recordatorio incorrecta"
+  "wrongReminder": "Hora de recordatorio incorrecta",
+  "deletingReminder": "El recordatorio se eliminará en {seconds}"
 }

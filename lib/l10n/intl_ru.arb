@@ -41,5 +41,6 @@
   "allFeatures": "Все функции\nбез ограничений",
   "hintTaskText": " Введите задачу...",
   "letsDoSmth": "Давай создадим задачу",
-  "wrongReminder": "Неверное время напоминания"
+  "wrongReminder": "Неверное время напоминания",
+  "deletingReminder": "Напоминание будет удалено через {seconds}"
 }

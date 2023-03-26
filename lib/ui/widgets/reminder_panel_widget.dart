@@ -137,7 +137,7 @@ class _ReminderPanelWidgetState extends State<ReminderPanelWidget> {
                                   const BorderRadius.all(Radius.circular(20)),
                               height: widget.height * 0.07,
                               child: Text(
-                                S.of(context).delete,
+                                S.of(context).undo,
                                 style: const TextStyle(
                                     color: backgroundColor, fontSize: 18),
                               ),

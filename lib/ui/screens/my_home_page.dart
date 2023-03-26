@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/button_colors.dart';
@@ -31,7 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final listController = TextEditingController();
   final dragController = DraggableScrollableController();
   bool isPanelDraggable = true;
-  bool fabVisibility = false;
+  bool fabVisibility = true;
   final _quoteService = FetchHelper();
   QuoteModel _quote = QuoteModel(
     author: '',
@@ -174,8 +176,8 @@ class _MyHomePageState extends State<MyHomePage> {
         .doc(updatedTask.taskID)
         .delete()
         .then(
-          (doc) => print("Document deleted"),
-          onError: (e) => print("Error updating document $e"),
+          (doc) => log("Document deleted"),
+          onError: (e) => log("Error updating document $e"),
         );
     addNewTask(
       newTask: TaskModel(
@@ -234,7 +236,7 @@ class _MyHomePageState extends State<MyHomePage> {
         .then(
           (querySnapshot) =>
               querySnapshot.docs.map((doc) => doc.data()).toList(),
-          onError: (e) => print("Error completing: $e"),
+          onError: (e) => log("Error completing: $e"),
         );
 
     currentTasks = await tasksRef;
@@ -253,7 +255,7 @@ class _MyHomePageState extends State<MyHomePage> {
         .then(
           (querySnapshot) =>
               querySnapshot.docs.map((doc) => doc.data()).toList(),
-          onError: (e) => print("Error completing: $e"),
+          onError: (e) => log("Error completing: $e"),
         );
 
     currentLists = await ref;
