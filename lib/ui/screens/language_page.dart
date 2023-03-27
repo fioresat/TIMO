@@ -35,7 +35,9 @@ class _LanguagePageState extends State<LanguagePage> {
             Align(
               alignment: Alignment.centerLeft,
               child: ExpandTapWidget(
-                onTap: () => Navigator.pop(context),
+                onTap: () => context.read<AppBloc>().add(
+                  const AppEventGoToSettings(),
+                ),
                 tapPadding: const EdgeInsets.all(50.0),
                 child: Image.asset(
                   AppIcons.back,

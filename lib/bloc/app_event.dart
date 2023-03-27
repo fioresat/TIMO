@@ -89,3 +89,8 @@ class AppEventAddNewTask implements AppEvent {
 class AppEventGoToNewTask implements AppEvent {
   const AppEventGoToNewTask() : super();
 }
+
+@immutable
+class AppEventGoToMainView implements AppEvent {
+  const AppEventGoToMainView() : super();
+}

@@ -71,6 +71,11 @@ class _NewTaskPageState extends State<NewTaskPage> {
             taskModel,
           );
         },
+        onCloseTap: () {
+          context.read<AppBloc>().add(
+                const AppEventGoToMainView(),
+              );
+        },
       ),
     );
   }

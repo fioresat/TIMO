@@ -32,10 +32,11 @@ class _ListsPageState extends State<ListsPage> {
       body: ListsPageBackgroundWidget(
         height: heightScreen,
         width: widthScreen,
-        onPressed: () => Navigator.pushNamed(
-          context,
-          MyHomePage.routeName,
-        ),
+        onPressed: () {
+          context.read<AppBloc>().add(
+            const AppEventGoToMainView(),
+          );
+        },
         lists: currentLists,
         onAddButtonTap: () {
           SlidingPanelHelper().onAddNewListPressed(

@@ -47,6 +47,13 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         const AddNewTaskAppState(),
       );
     });
+    on<AppEventGoToMainView>((event, emit) async {
+      final tasksList = await _getTasks();
+      final QuoteModel quote = await updateQuote();
+      emit(
+        LoadedAppState(tasksList: tasksList, quoteModel: quote),
+      );
+    });
     on<AppEventAddNewTask>((event, emit) async {
       createNewTask(
         taskController: event.taskController,

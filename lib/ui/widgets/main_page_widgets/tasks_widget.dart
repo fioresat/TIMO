@@ -2,7 +2,9 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:todo_app_main_screen/bloc/app_bloc.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/generated/l10n.dart';
@@ -38,24 +40,23 @@ class TasksWidget extends StatefulWidget {
 }
 
 class _TasksWidgetState extends State<TasksWidget> {
-  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(milliseconds: 1100), () {
-      setState(() {
-        _isLoading = false;
-      });
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     List<TaskModel> tasks = widget.tasksList;
     return Container(
-      decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(20)),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(21),
+          topRight: Radius.circular(21),
+        ),
+      ),
       padding: const EdgeInsets.only(
         right: 25,
       ),
@@ -72,9 +73,7 @@ class _TasksWidgetState extends State<TasksWidget> {
           Expanded(
             child: SizedBox(
               height: 0.9 * widget.height,
-              child: _isLoading == true
-                  ? Container()
-                  : widget.tasksList.isEmpty
+              child: widget.tasksList.isEmpty
                       ? ListView(
                           controller: widget.scrollController,
                           children: [
@@ -84,8 +83,9 @@ class _TasksWidgetState extends State<TasksWidget> {
                                 padding: const EdgeInsets.only(left: 15),
                                 child: TextButton(
                                   onPressed: () {
-                                    Navigator.of(context)
-                                        .pushNamed(NewTaskPage.routeName);
+                                    context.read<AppBloc>().add(
+                                      const AppEventGoToNewTask(),
+                                    );
                                   },
                                   child: Text(
                                     S.of(context).letsDoSmth,

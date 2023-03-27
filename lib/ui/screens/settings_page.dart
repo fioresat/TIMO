@@ -42,7 +42,9 @@ class _SettingsPageState extends State<SettingsPage> {
                 children: [
                   ExpandTapWidget(
                     tapPadding: const EdgeInsets.all(50.0),
-                    onTap: () => Navigator.pop(context),
+                    onTap: () => context.read<AppBloc>().add(
+                      const AppEventGoToLists(),
+                    ),
                     child: Image.asset(
                       AppIcons.close,
                       scale: 3,

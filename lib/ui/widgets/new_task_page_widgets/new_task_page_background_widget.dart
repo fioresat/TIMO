@@ -14,6 +14,7 @@ class NewTaskPageBackgroundWidget extends StatefulWidget {
   final void Function() onBlackButtonPressed;
   final void Function() onReminderTap;
   final void Function() onListsTap;
+  final void Function() onCloseTap;
 
   const NewTaskPageBackgroundWidget(
       {Key? key,
@@ -22,7 +23,7 @@ class NewTaskPageBackgroundWidget extends StatefulWidget {
       required this.width,
       required this.onBlackButtonPressed,
       required this.onReminderTap,
-      required this.onListsTap})
+      required this.onListsTap, required this.onCloseTap})
       : super(key: key);
 
   @override
@@ -46,7 +47,7 @@ class _NewTaskPageBackgroundWidgetState
         children: [
           PanelCloseWidget(
             alignment: Alignment.topRight,
-            onTapClose: Navigator.of(context).pop,
+            onTapClose: widget.onCloseTap,
             image: AppIcons.close,
           ),
           Expanded(

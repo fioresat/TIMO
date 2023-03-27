@@ -91,7 +91,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   maxChildSize: 0.95,
                   initialChildSize: 0.59,
                   builder: (context, scrlCtrl) {
-                    //print(scrlCtrl.offset.toString());
                     return TasksWidget(
                       onMoveToPressed: () {
                         SlidingPanelHelper().onPressedShowBottomSheet(
