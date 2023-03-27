@@ -166,6 +166,7 @@ class _TasksWidgetState extends State<TasksWidget> {
                                   ),
                                 )
                               : Padding(
+                            key: ValueKey(tasks[index]),
                                   padding: const EdgeInsets.only(
                                     left: 25,
                                   ),

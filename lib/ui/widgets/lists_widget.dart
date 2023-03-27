@@ -63,10 +63,13 @@ class _ListsWidgetState extends State<ListsWidget> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              widget.lists[index].list,
-                              style: const TextStyle(
-                                fontSize: 20,
+                            Expanded(
+                              child: Text(
+                                widget.lists[index].list,
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  overflow: TextOverflow.ellipsis
+                                ),
                               ),
                             ),
                             Image.asset(
