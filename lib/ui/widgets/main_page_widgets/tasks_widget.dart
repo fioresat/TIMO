@@ -230,6 +230,7 @@ class _TasksWidgetState extends State<TasksWidget> {
         : Padding(
             padding: const EdgeInsets.only(left: 25, top: 15),
             child: InkWell(
+              onTap: () {widget.dragController.jumpTo(0.58);},
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
