@@ -5,23 +5,21 @@ import 'package:todo_app_main_screen/consts/colors.dart';
 class SettingsWidget extends StatelessWidget {
   final String title;
   final Widget trailing;
-  final String route;
+  final void Function() navigateTo;
   final String url;
 
   const SettingsWidget({
     Key? key,
     required this.title,
     required this.trailing,
-    required this.route,
     required this.url,
+    required this.navigateTo,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => url.isNotEmpty
-          ? _launchURL(url)
-          : Navigator.pushNamed(context, route),
+      onTap: () => url.isNotEmpty ? _launchURL(url) : navigateTo(),
       child: Card(
         color: Colors.transparent,
         elevation: 0,

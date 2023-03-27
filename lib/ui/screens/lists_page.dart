@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app_main_screen/bloc/app_bloc.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
 import 'package:todo_app_main_screen/main.dart';
 import 'package:todo_app_main_screen/ui/screens/my_home_page.dart';
@@ -44,6 +46,11 @@ class _ListsPageState extends State<ListsPage> {
           );
         },
         controller: listController,
+        onSettingsButtonTap: () {
+          context.read<AppBloc>().add(
+            const AppEventGoToSettings(),
+          );
+        },
       ),
     );
   }

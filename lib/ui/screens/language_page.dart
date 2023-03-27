@@ -3,31 +3,26 @@ import 'dart:developer';
 import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:todo_app_main_screen/bloc/app_bloc.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
-import 'package:todo_app_main_screen/l10n/locales.dart';
-import 'package:todo_app_main_screen/main.dart';
-import 'package:todo_app_main_screen/service/locale_provider.dart';
 import 'package:todo_app_main_screen/ui/widgets/language_page_widgets/language_list.dart';
 
 class LanguagePage extends StatefulWidget {
+  final int selectedIndex;
   static const routeName = '/language_page';
 
-  const LanguagePage({Key? key}) : super(key: key);
+
+  const LanguagePage({Key? key, required this.selectedIndex}) : super(key: key);
 
   @override
   State<LanguagePage> createState() => _LanguagePageState();
 }
 
 class _LanguagePageState extends State<LanguagePage> {
-  int _selectedIndex = currentUser.locale;
 
   @override
   Widget build(BuildContext context) {
-    double heightScreen = MediaQuery
-        .of(context)
-        .size
-        .height;
+    double heightScreen = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(
@@ -56,16 +51,10 @@ class _LanguagePageState extends State<LanguagePage> {
                     var language = languageList[index];
                     return InkWell(
                       onTap: () {
-                        final provider = Provider.of<LocaleProvider>(
-                            context, listen: false);
-                        final locale = Locales.allLocales[index];
-                        provider.setLocale(locale);
-                         _updateUser(locale: index);
-                        setState(() {
-                          _selectedIndex = index;
-                          currentUser.locale = index;
-
-                        });
+                        context.read<AppBloc>().add(
+                              AppEventChangeLocale(
+                                  context: context, index: index),
+                            );
                       },
                       child: ListTile(
                         contentPadding: EdgeInsets.zero,
@@ -77,7 +66,7 @@ class _LanguagePageState extends State<LanguagePage> {
                         trailing: Image.asset(
                           AppIcons.check,
                           scale: 3,
-                          color: _selectedIndex == index
+                          color: widget.selectedIndex == index
                               ? Colors.black
                               : Colors.transparent,
                         ),
@@ -93,23 +82,5 @@ class _LanguagePageState extends State<LanguagePage> {
         ),
       ),
     );
-  }
-
-
-  Future<void> _updateUser({
-    required int locale,
-  }) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setInt('locale', locale);
-
-    final docRef = db
-        .collection("users")
-        .doc(currentUser.userID);
-
-    final updates = <String, dynamic>{
-      'locale': locale,
-    };
-    await docRef.update(updates);
-
   }
 }

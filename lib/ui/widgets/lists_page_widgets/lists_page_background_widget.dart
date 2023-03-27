@@ -6,7 +6,6 @@ import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
 import 'package:todo_app_main_screen/main.dart';
 import 'package:todo_app_main_screen/models/list_model.dart';
 import 'package:todo_app_main_screen/ui/screens/my_home_page.dart';
-import 'package:todo_app_main_screen/ui/screens/settings_page.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_page_widgets/options_panel_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_page_widgets/single_list_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/nav_bar_widget.dart';
@@ -18,6 +17,7 @@ class ListsPageBackgroundWidget extends StatefulWidget {
   final void Function() onPressed;
   final List<ListModel> lists;
   final void Function() onAddButtonTap;
+  final void Function() onSettingsButtonTap;
   final TextEditingController controller;
 
   const ListsPageBackgroundWidget({
@@ -27,7 +27,7 @@ class ListsPageBackgroundWidget extends StatefulWidget {
     required this.onPressed,
     required this.lists,
     required this.onAddButtonTap,
-    required this.controller,
+    required this.controller, required this.onSettingsButtonTap,
   }) : super(key: key);
 
   @override
@@ -70,10 +70,7 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
               children: [
                 ExpandTapWidget(
                   tapPadding: const EdgeInsets.all(50.0),
-                  onTap: () => Navigator.pushNamed(
-                    context,
-                    SettingsPage.routeName,
-                  ),
+                  onTap: widget.onSettingsButtonTap,
                   child: const Icon(
                     Icons.settings,
                     size: 30,
