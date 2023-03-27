@@ -230,7 +230,10 @@ class _TasksWidgetState extends State<TasksWidget> {
         : Padding(
             padding: const EdgeInsets.only(left: 25, top: 15),
             child: InkWell(
-              onTap: () {widget.dragController.jumpTo(0.58);},
+              onTap: () {
+                widget.dragController.jumpTo(0.58);
+                widget.isPanelOpen = false;
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
@@ -259,17 +262,10 @@ class _TasksWidgetState extends State<TasksWidget> {
   }
 
   void _movePanel() {
-    widget.isPanelOpen
-        ? setState(() {
-            // widget.isPanelOpen = false;
-            // widget.dragController.animateTo(0.55,
-            //     duration: const Duration(seconds: 1), curve: Curves.easeIn);
-          })
-        : setState(() {
-            // widget.isPanelOpen = true;
-            // widget.dragController.animateTo(0.95,
-            //     duration: const Duration(seconds: 1), curve: Curves.easeIn);
-          });
+    setState(() {
+      widget.isPanelOpen = true;
+      widget.dragController.jumpTo(0.95);
+    });
   }
 
   void _undo(List<TaskModel> tasks, int index) {
