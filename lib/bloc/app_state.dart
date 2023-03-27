@@ -8,6 +8,7 @@ abstract class AppState {
 @immutable
 class InitAppState extends AppState {
   final QuoteModel quoteModel;
+
   const InitAppState({required this.quoteModel});
 }
 
@@ -24,7 +25,12 @@ class AppStateSplashScreen extends AppState {
 @immutable
 class LoadedAppState extends AppState {
   final QuoteModel quoteModel;
-  const LoadedAppState({required this.quoteModel});
+  final List<TaskModel> tasksList;
+
+  const LoadedAppState({
+    required this.tasksList,
+    required this.quoteModel,
+  });
 }
 
 @immutable
@@ -35,6 +41,11 @@ class LoadedListsAppState extends AppState {
 @immutable
 class SettingsAppState extends AppState {
   const SettingsAppState();
+}
+
+@immutable
+class AddNewTaskAppState extends AppState {
+  const AddNewTaskAppState();
 }
 
 @immutable

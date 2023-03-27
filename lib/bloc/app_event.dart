@@ -75,3 +75,17 @@ class AppEventUpdateTask implements AppEvent {
 class AppEventDeleteTask implements AppEvent {
   const AppEventDeleteTask();
 }
+
+@immutable
+class AppEventAddNewTask implements AppEvent {
+  final TextEditingController taskController;
+
+  const AppEventAddNewTask({
+    required this.taskController,
+  });
+}
+
+@immutable
+class AppEventGoToNewTask implements AppEvent {
+  const AppEventGoToNewTask() : super();
+}

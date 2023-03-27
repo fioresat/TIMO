@@ -12,6 +12,7 @@ import 'package:todo_app_main_screen/service/locale_provider.dart';
 import 'package:todo_app_main_screen/ui/screens/language_page.dart';
 import 'package:todo_app_main_screen/ui/screens/lists_page.dart';
 import 'package:todo_app_main_screen/ui/screens/my_home_page.dart';
+import 'package:todo_app_main_screen/ui/screens/new_task_page.dart';
 import 'package:todo_app_main_screen/ui/screens/settings_page.dart';
 import 'package:todo_app_main_screen/ui/screens/splash_view.dart';
 
@@ -73,23 +74,22 @@ class MyApp extends StatelessWidget {
                 builder: (context, appState) {
                   if (appState is AppStateSplashScreen) {
                     return const SplashView();
-                  } else if (appState is InitAppState) {
-                    return MyHomePage(quoteModel: appState.quoteModel);
                   } else if (appState is LoadedAppState) {
-                    return MyHomePage(quoteModel: appState.quoteModel,);
-
-                  }
-                  else if(appState is LoadedListsAppState) {
+                    return MyHomePage(
+                      quoteModel: appState.quoteModel,
+                      tasksList: appState.tasksList,
+                    );
+                  } else if (appState is LoadedListsAppState) {
                     return const ListsPage();
-                  }
-                  else if(appState is SettingsAppState) {
+                  } else if (appState is AddNewTaskAppState) {
+                    return const NewTaskPage();
+                  } else if (appState is SettingsAppState) {
                     return const SettingsPage();
-                  }
-                  else if(appState is LanguageAppState) {
-                    return LanguagePage( selectedIndex: appState.locale,);
-                  }
-
-                  else {
+                  } else if (appState is LanguageAppState) {
+                    return LanguagePage(
+                      selectedIndex: appState.locale,
+                    );
+                  } else {
                     return Container();
                   }
                 },

@@ -27,18 +27,37 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         );
         await _getUsers();
         await _getLists();
-        await _getTasks();
+        final tasksList = await _getTasks();
         final QuoteModel quote = await updateQuote();
-        if (currentTasks.isEmpty) {
-          emit(InitAppState(quoteModel: quote));
-        } else {
-          emit(LoadedAppState(quoteModel: quote));
-        }
+        emit(
+          LoadedAppState(
+            quoteModel: quote,
+            tasksList: tasksList,
+          ),
+        );
       },
     );
     on<AppEventGoToLists>((event, emit) async {
       emit(
         const LoadedListsAppState(),
+      );
+    });
+    on<AppEventGoToNewTask>((event, emit) async {
+      emit(
+        const AddNewTaskAppState(),
+      );
+    });
+    on<AppEventAddNewTask>((event, emit) async {
+      createNewTask(
+        taskController: event.taskController,
+      );
+      final tasksList = await _getTasks();
+      final QuoteModel quote = await updateQuote(); // ToDo add lists
+      emit(
+        LoadedAppState(
+          quoteModel: quote,
+          tasksList: tasksList,
+        ),
       );
     });
     on<AppEventGoToSettings>((event, emit) async {
@@ -60,6 +79,26 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     });
   }
 
+  void createNewTask({
+    required TextEditingController taskController,
+  }) {
+    if (taskController.text.isNotEmpty) {
+      addNewTask(
+        text: taskController.text,
+        taskID: UniqueKey().toString(),
+        listID: currentLists[selectedListIndex].listID,
+        colorIndex: taskCurrentColorIndex,
+        dateTimeReminder: currentDateTimeReminder,
+        isReminderActive: currentIsReminderActive,
+      );
+
+      taskCurrentColorIndex = -1;
+      listCurrentColorIndex = 0;
+      currentDateTimeReminder = '2000-01-01 00:00:00';
+      currentIsReminderActive = false;
+    }
+  }
+
   Future<void> _updateTask({
     required TaskModel updatedTask,
   }) async {
@@ -75,7 +114,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
           (doc) => print("Document deleted"),
           onError: (e) => print("Error updating document $e"),
         );
-    addNewTask(
+    addNewTaskUpdate(
       newTask: TaskModel(
         task: updatedTask.task,
         colorIndex: updatedTask.colorIndex,
@@ -89,7 +128,8 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     moveToListIndex = -1;
   }
 
-  Future<void> addNewTask({
+  Future<void> addNewTaskUpdate({
+    //ToDo two different
     required final newTask,
   }) async {
     final docRef = db
@@ -107,7 +147,39 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     currentList = ListModel(list: 'ToDo', listID: 'ToDo');
   }
 
-  Future<void> _getTasks() async {
+  Future<void> addNewTask({
+    //ToDo
+    required String text,
+    required String taskID,
+    required int colorIndex,
+    String? listID,
+    required String dateTimeReminder,
+    bool? isReminderActive,
+  }) async {
+    final newTask = TaskModel(
+      task: text,
+      userID: currentUser.userID,
+      taskID: taskID,
+      listID: listID!.isNotEmpty ? listID : 'ToDo',
+      colorIndex: colorIndex,
+      dateTimeReminder: dateTimeReminder,
+      isReminderActive: isReminderActive ?? false,
+    );
+    final docRef = db
+        .collection("users")
+        .doc(newTask.userID)
+        .collection('lists')
+        .doc(newTask.listID)
+        .collection('tasks')
+        .withConverter(
+          toFirestore: (TaskModel task, options) => task.toFirestore(),
+          fromFirestore: TaskModel.fromFirestore,
+        )
+        .doc(newTask.taskID);
+    await docRef.set(newTask);
+  }
+
+  Future<List<TaskModel>> _getTasks() async {
     currentTasks.clear();
     await _getLists();
     final tasksRef = db
@@ -127,7 +199,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
           onError: (e) => print("Error completing: $e"),
         );
 
-    currentTasks = await tasksRef;
+    return await tasksRef;
   }
 
   Future<void> _getLists() async {

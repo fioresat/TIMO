@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app_main_screen/bloc/app_bloc.dart';
 import 'package:todo_app_main_screen/consts/button_colors.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
 import 'package:todo_app_main_screen/main.dart';
@@ -43,23 +45,11 @@ class _NewTaskPageState extends State<NewTaskPage> {
         taskController: taskController,
         width: widthScreen,
         onBlackButtonPressed: () {
-          if (taskController.text.isNotEmpty) {
-            addNewTask(
-              text: taskController.text,
-              taskID: UniqueKey().toString(),
-              listID: currentLists[selectedListIndex].listID,
-              colorIndex: taskCurrentColorIndex,
-              dateTimeReminder: currentDateTimeReminder,
-              isReminderActive: currentIsReminderActive,
-            );
-            setState(() {
-              taskCurrentColorIndex = -1;
-              listCurrentColorIndex = 0;
-              currentDateTimeReminder = '2000-01-01 00:00:00';
-              currentIsReminderActive = false;
-            });
-          }
-          Navigator.pop(context);
+          context.read<AppBloc>().add(
+                AppEventAddNewTask(
+                  taskController: taskController,
+                ),
+              );
         },
         onListsTap: () {
           SlidingPanelHelper().onListsTap(
@@ -83,37 +73,5 @@ class _NewTaskPageState extends State<NewTaskPage> {
         },
       ),
     );
-  }
-
-  Future<void> addNewTask({
-    required String text,
-    required String taskID,
-    required int colorIndex,
-    String? listID,
-    required String dateTimeReminder,
-    bool? isReminderActive,
-  }) async {
-    final newTask = TaskModel(
-      task: text,
-      userID: currentUser.userID,
-      taskID: taskID,
-      listID: listID!.isNotEmpty ? listID : 'ToDo',
-      colorIndex: colorIndex,
-      dateTimeReminder: dateTimeReminder,
-      isReminderActive: isReminderActive ?? false,
-    );
-    final docRef = db
-        .collection("users")
-        .doc(newTask.userID)
-        .collection('lists')
-        .doc(newTask.listID)
-        .collection('tasks')
-        .withConverter(
-          toFirestore: (TaskModel task, options) => task.toFirestore(),
-          fromFirestore: TaskModel.fromFirestore,
-        )
-        .doc(newTask.taskID);
-    await docRef.set(newTask);
-
   }
 }

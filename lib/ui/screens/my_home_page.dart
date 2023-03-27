@@ -18,9 +18,14 @@ import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/tasks_widget.d
 
 class MyHomePage extends StatefulWidget {
   final QuoteModel quoteModel;
+  final List<TaskModel> tasksList;
   static const routeName = '/my_home_page';
 
-  const MyHomePage({Key? key, required this.quoteModel}) : super(key: key);
+  const MyHomePage({
+    Key? key,
+    required this.quoteModel,
+    required this.tasksList,
+  }) : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -125,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         });
                       },
                       isPanelOpen: fabVisibility,
-                      tasksList: currentTasks,
+                      tasksList: widget.tasksList,
                       scrollController: scrlCtrl,
                       height: fabVisibility == false
                           ? 0.95 * heightScreen
@@ -144,9 +149,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 heroTag: "fab2",
                 backgroundColor: textColor,
                 onPressed: () {
-                  Navigator.pushNamed(
-                    context,
-                    NewTaskPage.routeName,
+                  context.read<AppBloc>().add(
+                    const AppEventGoToNewTask(),
                   );
                 },
                 child: Image.asset(
