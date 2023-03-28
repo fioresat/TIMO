@@ -11,7 +11,6 @@ import 'package:todo_app_main_screen/main.dart';
 import 'package:todo_app_main_screen/models/list_model.dart';
 import 'package:todo_app_main_screen/models/quote_model.dart';
 import 'package:todo_app_main_screen/models/single_task_model.dart';
-import 'package:todo_app_main_screen/ui/screens/new_task_page.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_panel_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/main_page_background_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/tasks_widget.dart';
@@ -136,6 +135,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           : 0.55 * heightScreen,
                       isMoveToPressed: isMoveTo,
                       dragController: dragController,
+                      onTaskTap: () {
+
+                      },
                     );
                   }),
             ),

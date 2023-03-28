@@ -15,7 +15,7 @@ import 'package:todo_app_main_screen/ui/screens/my_home_page.dart';
 import 'package:todo_app_main_screen/ui/screens/new_task_page.dart';
 import 'package:todo_app_main_screen/ui/screens/settings_page.dart';
 import 'package:todo_app_main_screen/ui/screens/splash_view.dart';
-
+import 'package:todo_app_main_screen/ui/screens/task_page.dart';
 import 'bloc/app_bloc.dart';
 import 'firebase_options.dart';
 import 'generated/l10n.dart';
@@ -73,7 +73,24 @@ class MyApp extends StatelessWidget {
                 listener: (context, appState) {},
                 builder: (context, appState) {
                   if (appState is AppStateSplashScreen) {
-                    return const SplashView();
+                    return AnimatedSwitcher(
+                      transitionBuilder:
+                          (Widget child, Animation<double> animation) {
+                        return SlideTransition(
+                          position: Tween<Offset>(
+                            begin:Offset.zero,
+                            end: const Offset(0, -0.2),
+                          ).animate(animation),
+                          child: child,
+                        );
+                      },
+                      switchOutCurve: const Threshold(0),
+                      duration: const Duration(milliseconds: 4000),
+                      child: Container(
+                        key: UniqueKey(),
+                        child: const SplashView(),
+                      ),
+                    );
                   } else if (appState is LoadedAppState) {
                     return MyHomePage(
                       quoteModel: appState.quoteModel,
@@ -88,6 +105,10 @@ class MyApp extends StatelessWidget {
                   } else if (appState is LanguageAppState) {
                     return LanguagePage(
                       selectedIndex: appState.locale,
+                    );
+                  } else if (appState is SingleTaskAppState) {
+                    return TaskPage(
+                      taskModel: appState.taskModel,
                     );
                   } else {
                     return Container();

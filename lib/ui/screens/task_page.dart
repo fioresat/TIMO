@@ -13,9 +13,10 @@ import 'package:todo_app_main_screen/ui/widgets/task_page_widgets/task_page_back
 
 class TaskPage extends StatefulWidget {
   static const routeName = '/task_page';
+  final TaskModel taskModel;
 
   const TaskPage({
-    Key? key,
+    Key? key, required this.taskModel,
   }) : super(key: key);
 
   @override
@@ -35,12 +36,9 @@ class _TaskPageState extends State<TaskPage> {
   Widget build(BuildContext context) {
     final taskModelFromMainScreen =
         ModalRoute.of(context)!.settings.arguments as TaskModel;
-
-
     double widthScreen = MediaQuery.of(context).size.width;
     double heightScreen = MediaQuery.of(context).size.height;
     final bool showFab = MediaQuery.of(context).viewInsets.bottom == 0.0;
-
     return Scaffold(
       backgroundColor: backgroundColor,
       resizeToAvoidBottomInset: false,
@@ -52,16 +50,16 @@ class _TaskPageState extends State<TaskPage> {
           heightScreen,
           context,
           () {},
-          taskModelFromMainScreen,
+          widget.taskModel,
         ),
         onTitleTap: () {},
         onMoveToTap: () {},
         colorsList: buttonColors,
         taskController: textController,
-        taskModel: taskModelFromMainScreen,
+        taskModel: widget.taskModel,
         onCloseTap: () {
           _updateTask(
-            updatedTask: taskModelFromMainScreen,
+            updatedTask: widget.taskModel,
           );
           Navigator.pop(context);
         },
@@ -80,7 +78,7 @@ class _TaskPageState extends State<TaskPage> {
                     elevation: 0,
                     backgroundColor: removeColor,
                     onPressed: () {
-                      _deleteTask(oldTask: taskModelFromMainScreen);
+                      _deleteTask(oldTask: widget.taskModel,);
                       Navigator.pop(context);
                     },
                     child: Image.asset(
@@ -135,8 +133,8 @@ class _TaskPageState extends State<TaskPage> {
         .doc(oldTask.taskID)
         .delete()
         .then(
-          (doc) => print("Document deleted"),
-          onError: (e) => print("Error updating document $e"),
+          (doc) => log("Document deleted"),
+          onError: (e) => log("Error updating document $e"),
         );
   }
 
@@ -169,8 +167,8 @@ class _TaskPageState extends State<TaskPage> {
           .doc(updatedTask.taskID)
           .delete()
           .then(
-            (doc) => print("Document deleted"),
-            onError: (e) => print("Error updating document $e"),
+            (doc) => log("Document deleted"),
+            onError: (e) => log("Error updating document $e"),
           );
       addNewTask(
         newTask: TaskModel(

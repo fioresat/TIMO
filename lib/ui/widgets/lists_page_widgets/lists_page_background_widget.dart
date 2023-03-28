@@ -1,11 +1,12 @@
 import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app_main_screen/bloc/app_bloc.dart';
 import 'package:todo_app_main_screen/consts/button_colors.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
 import 'package:todo_app_main_screen/main.dart';
 import 'package:todo_app_main_screen/models/list_model.dart';
-import 'package:todo_app_main_screen/ui/screens/my_home_page.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_page_widgets/options_panel_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_page_widgets/single_list_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/nav_bar_widget.dart';
@@ -114,12 +115,9 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                         ...widget.lists.asMap().entries.map(
                               (list) => SingleListWidget(
                                 onListTap: () {
-                                  setState(() {
-                                    _selectedIndex = list.key;
-                                    selectedListIndex = _selectedIndex;
-                                    Navigator.of(context).pushReplacementNamed(
-                                        MyHomePage.routeName);
-                                  });
+                                  context.read<AppBloc>().add(
+                                    AppEventChangeList(index: list.key),
+                                  );
                                 },
                                 height: widget.height,
                                 onOptionsTap: () {

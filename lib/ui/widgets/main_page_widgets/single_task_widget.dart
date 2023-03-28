@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app_main_screen/bloc/app_bloc.dart';
 import 'package:todo_app_main_screen/consts/button_colors.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/models/single_task_model.dart';
-import 'package:todo_app_main_screen/ui/screens/task_page.dart';
 
 class SingleTaskWidget extends StatelessWidget {
   final TaskModel taskModel;
@@ -18,11 +19,9 @@ class SingleTaskWidget extends StatelessWidget {
       color: backgroundColor,
       width: 378,
       child: InkWell(
-        onTap: () => Navigator.pushNamed(
-          context,
-          TaskPage.routeName,
-          arguments: taskModel,
-        ),
+      onTap: () => context.read<AppBloc>().add(
+        AppEventGoToSingleTask(taskModel: taskModel),
+      ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

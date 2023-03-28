@@ -59,3 +59,9 @@ class LanguageAppState extends AppState {
 class ErrorAppState extends AppState {
   const ErrorAppState();
 }
+
+@immutable
+class SingleTaskAppState extends AppState {
+  final TaskModel taskModel;
+  const SingleTaskAppState({required this.taskModel});
+}

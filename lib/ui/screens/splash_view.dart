@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app_main_screen/consts/strings.dart';
 
 class SplashView extends StatelessWidget {
   const SplashView({
@@ -9,10 +10,10 @@ class SplashView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Container(
-        color: Colors.white,
-        child: FlutterLogo(
-          size: MediaQuery.of(context).size.height,
+      backgroundColor: Colors.black,
+      body: Center(
+        child: Image.asset(
+          AssetsImagesStrings.splashViewImage
         ),
       ),
     );

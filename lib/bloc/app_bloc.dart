@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
@@ -72,6 +73,11 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         const SettingsAppState(),
       );
     });
+    on<AppEventGoToSingleTask>((event, emit) async {
+      emit(
+        SingleTaskAppState(taskModel: event.taskModel),
+      );
+    });
     on<AppEventGoToLanguage>((event, emit) async {
       emit(
         LanguageAppState(locale: currentUser.locale),
@@ -82,6 +88,14 @@ class AppBloc extends Bloc<AppEvent, AppState> {
           changeLocale(context: event.context, index: event.index);
       emit(
         LanguageAppState(locale: locale),
+      );
+    });
+    on<AppEventChangeList>((event, emit) async {
+      changeList(index: event.index);
+      final tasksList = await _getTasks();
+      final QuoteModel quote = await updateQuote();
+      emit(
+        LoadedAppState(tasksList: tasksList, quoteModel: quote),
       );
     });
   }
@@ -203,7 +217,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         .then(
           (querySnapshot) =>
               querySnapshot.docs.map((doc) => doc.data()).toList(),
-          onError: (e) => print("Error completing: $e"),
+          onError: (e) => log("Error completing: $e"),
         );
 
     return await tasksRef;
@@ -222,7 +236,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         .then(
           (querySnapshot) =>
               querySnapshot.docs.map((doc) => doc.data()).toList(),
-          onError: (e) => print("Error completing: $e"),
+          onError: (e) => log("Error completing: $e"),
         );
 
     currentLists = await ref;
@@ -289,6 +303,13 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     currentUser.locale = index;
     return index;
   }
+
+  int changeList({required int index}) {
+    selectedListIndex = index;
+    return selectedListIndex;
+  }
+
+
 
   Future<void> _updateUser({
     required int locale,

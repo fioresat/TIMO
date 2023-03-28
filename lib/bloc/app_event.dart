@@ -94,3 +94,17 @@ class AppEventGoToNewTask implements AppEvent {
 class AppEventGoToMainView implements AppEvent {
   const AppEventGoToMainView() : super();
 }
+
+@immutable
+class AppEventGoToSingleTask implements AppEvent {
+  final TaskModel taskModel;
+  const AppEventGoToSingleTask({required this.taskModel}) : super();
+}
+@immutable
+class AppEventChangeList implements AppEvent {
+  final int index;
+
+  const AppEventChangeList({
+    required this.index,
+  }) : super();
+}
