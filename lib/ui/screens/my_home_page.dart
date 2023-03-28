@@ -8,6 +8,7 @@ import 'package:todo_app_main_screen/consts/button_colors.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
 import 'package:todo_app_main_screen/main.dart';
+import 'package:todo_app_main_screen/models/list_model.dart';
 import 'package:todo_app_main_screen/models/quote_model.dart';
 import 'package:todo_app_main_screen/models/single_task_model.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_panel_widget.dart';
@@ -19,12 +20,14 @@ class MyHomePage extends StatefulWidget {
   final List<TaskModel> tasksList;
   final int selectedListIndex;
   static const routeName = '/my_home_page';
+  final List<ListModel> listsList;
 
   const MyHomePage({
     Key? key,
     required this.quoteModel,
     required this.tasksList,
     required this.selectedListIndex,
+    required this.listsList,
   }) : super(key: key);
 
   @override
@@ -56,9 +59,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 dragController.pixels ==
                     MediaQuery.of(context).size.height * 0.95
             ? Colors.white
-            : (currentLists.isNotEmpty)
+            : (widget.listsList.isNotEmpty)
                 ? buttonColors[
-                    currentLists[widget.selectedListIndex].listColorIndex]
+                    widget.listsList[widget.selectedListIndex].listColorIndex]
                 : buttonColors[0],
         body: Stack(
           fit: StackFit.expand,
@@ -72,9 +75,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     );
               },
               quoteModel: widget.quoteModel,
-              buttonColor: (currentLists.isNotEmpty)
+              buttonColor: (widget.listsList.isNotEmpty)
                   ? buttonColors[
-                      currentLists[widget.selectedListIndex].listColorIndex]
+                      widget.listsList[widget.selectedListIndex].listColorIndex]
                   : buttonColors[0],
             ),
             NotificationListener<DraggableScrollableNotification>(
@@ -102,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ListsPanelWidget(
                             height: heightScreen,
                             width: widthScreen,
-                            lists: currentLists,
+                            lists: widget.listsList,
                             onTapClose: () {
                               Navigator.pop(context);
                               setState(() {
@@ -114,7 +117,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                 widthScreen: widthScreen,
                                 heightScreen: heightScreen,
                                 context: context,
-                                onBlackButtonTap: (listController) {},
+                                onBlackButtonTap: (listController) {
+                                  Navigator.pop(context);
+                                  context.read<AppBloc>().add(
+                                        AppEventAddNewListFromMainScreen(
+                                            listController: listController,
+                                            context: context),
+                                      );
+                                },
                               );
                             },
                             onButtonPressed: () {
@@ -170,6 +180,4 @@ class _MyHomePageState extends State<MyHomePage> {
       );
     });
   }
-
-
 }

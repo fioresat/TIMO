@@ -116,10 +116,11 @@ class _SingleListWidgetState extends State<SingleListWidget> {
                           FocusManager.instance.primaryFocus?.unfocus();
                         }
                       },
-                      onChanged: (text) {
-                        if (controller.text.isNotEmpty) {
-                          _updateListText(oldList: widget.listModel);}
-                      },
+                      // onChanged: (text) {
+                      //   if (controller.text.isNotEmpty) {
+                      //
+                      //     }
+                      // },
                     ),
                   ),
                 ],
@@ -131,18 +132,5 @@ class _SingleListWidgetState extends State<SingleListWidget> {
     );
   }
 
-  Future<void> _updateListText({
-    required ListModel oldList,
-  }) async {
-    final docRef = db
-        .collection("users")
-        .doc('testUser')
-        .collection('lists')
-        .doc(oldList.listID);
 
-    final updates = <String, String>{
-      "list": controller.text,
-    };
-    docRef.update(updates);
-  }
 }

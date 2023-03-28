@@ -125,6 +125,30 @@ class AppEventAddNewListFromListScreen implements AppEvent {
 }
 
 @immutable
+class AppEventAddNewListFromMainScreen implements AppEvent {
+  final TextEditingController listController;
+  final BuildContext context;
+
+  const AppEventAddNewListFromMainScreen({
+    required this.listController,
+    required this.context,
+  });
+}
+
+@immutable
+class AppEventAddNewListFromTaskScreen implements AppEvent {
+  final TextEditingController listController;
+  final BuildContext context;
+  final TaskModel taskModel;
+
+  const AppEventAddNewListFromTaskScreen({
+    required this.listController,
+    required this.context,
+    required this.taskModel
+  });
+}
+
+@immutable
 class AppEventGoToNewTask implements AppEvent {
   const AppEventGoToNewTask() : super();
 }

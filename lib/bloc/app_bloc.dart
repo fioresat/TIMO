@@ -19,23 +19,28 @@ class AppBloc extends Bloc<AppEvent, AppState> {
           const AppStateSplashScreen(),
         );
         await getUsers();
-        await getLists();
-        final tasksList =
-            await getTasks(listModel: currentLists[selectedListIndex]);
+        final listsList = await getLists();
+        final tasksList = await getTasks(
+          listModel: listsList[selectedListIndex],
+        );
         final QuoteModel quote = await updateQuote();
         emit(
           LoadedAppState(
-            selectedListIndex: selectedListIndex,
-            quoteModel: quote,
-            tasksList: tasksList,
-          ),
+              tasksList: tasksList,
+              quoteModel: quote,
+              selectedListIndex: selectedListIndex,
+              listsList: listsList),
         );
       },
     );
     on<AppEventGoToLists>((event, emit) async {
       final listsList = await getLists();
+      final focusNodeList = List.generate(listsList.length, (index) => FocusNode());
       emit(
-        LoadedListsAppState(listsList: listsList),
+        LoadedListsAppState(
+            listsList: listsList,
+            focusNodeList: focusNodeList
+        ),
       );
     });
     on<AppEventGoToNewTask>((event, emit) async {
@@ -44,32 +49,34 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       );
     });
     on<AppEventGoToMainView>((event, emit) async {
+      final listsList = await getLists();
       final tasksList = await getTasks(
-        listModel: currentLists[selectedListIndex],
+        listModel: listsList[selectedListIndex],
       );
       final QuoteModel quote = await updateQuote();
       emit(
         LoadedAppState(
-          selectedListIndex: selectedListIndex,
-          tasksList: tasksList,
-          quoteModel: quote,
-        ),
+            tasksList: tasksList,
+            quoteModel: quote,
+            selectedListIndex: selectedListIndex,
+            listsList: listsList),
       );
     });
     on<AppEventAddNewTask>((event, emit) async {
       createNewTask(
         taskController: event.taskController,
       );
+      final listsList = await getLists();
       final tasksList = await getTasks(
-        listModel: currentLists[selectedListIndex],
+        listModel: listsList[selectedListIndex],
       );
-      final QuoteModel quote = await updateQuote(); // ToDo add lists
+      final QuoteModel quote = await updateQuote();
       emit(
         LoadedAppState(
-          selectedListIndex: selectedListIndex,
-          quoteModel: quote,
-          tasksList: tasksList,
-        ),
+            tasksList: tasksList,
+            quoteModel: quote,
+            selectedListIndex: selectedListIndex,
+            listsList: listsList),
       );
     });
     on<AppEventGoToSettings>((event, emit) async {
@@ -78,6 +85,14 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       );
     });
     on<AppEventGoToSingleTask>((event, emit) async {
+      final taskModel = event.taskModel;
+      emit(
+        SingleTaskAppState(taskModel: taskModel),
+      );
+    });
+    on<AppEventAddNewListFromTaskScreen>((event, emit) async {
+      await createNewList(listController: event.listController);
+      await getLists();
       final taskModel = event.taskModel;
       emit(
         SingleTaskAppState(taskModel: taskModel),
@@ -97,39 +112,42 @@ class AppBloc extends Bloc<AppEvent, AppState> {
     });
     on<AppEventDeleteTask>((event, emit) async {
       await deleteTask(oldTask: event.taskModel);
+      final listsList = await getLists();
       final tasksList = await getTasks(
-        listModel: currentLists[selectedListIndex],
+        listModel: listsList[selectedListIndex],
       );
       final QuoteModel quote = await updateQuote();
       emit(
         LoadedAppState(
-          selectedListIndex: 0,
-          quoteModel: quote,
-          tasksList: tasksList,
-        ),
+            tasksList: tasksList,
+            quoteModel: quote,
+            selectedListIndex: selectedListIndex,
+            listsList: listsList),
       );
     });
     on<AppEventMoveToTask>((event, emit) async {
       await moveToFromMainScreenTask(updatedTask: event.taskModel);
+      final listsList = await getLists();
       final tasksList = await getTasks(
-        listModel: currentLists[selectedListIndex],
+        listModel: listsList[selectedListIndex],
       );
       final QuoteModel quote = await updateQuote();
       emit(
         LoadedAppState(
-          selectedListIndex: selectedListIndex,
-          quoteModel: quote,
-          tasksList: tasksList,
-        ),
+            tasksList: tasksList,
+            quoteModel: quote,
+            selectedListIndex: selectedListIndex,
+            listsList: listsList),
       );
     });
     on<AppEventDeleteList>((event, emit) async {
       await deleteList(oldList: event.listModel);
       final listsList = await getLists();
-
+      final focusNodeList = List.generate(listsList.length, (index) => FocusNode());
       emit(
         LoadedListsAppState(
-          listsList: listsList,
+            listsList: listsList,
+            focusNodeList: focusNodeList
         ),
       );
     });
@@ -139,32 +157,51 @@ class AppBloc extends Bloc<AppEvent, AppState> {
         listColorIndex: event.listColorIndex,
       );
       final listsList = await getLists();
-
+      final focusNodeList = List.generate(listsList.length, (index) => FocusNode());
       emit(
         LoadedListsAppState(
           listsList: listsList,
+          focusNodeList: focusNodeList
         ),
       );
     });
     on<AppEventChangeList>((event, emit) async {
       selectedListIndex = event.index;
+      final listsList = await getLists();
       final tasksList = await getTasks(
-        listModel: currentLists[selectedListIndex],
+        listModel: listsList[selectedListIndex],
       );
       final QuoteModel quote = await updateQuote();
       emit(
         LoadedAppState(
             tasksList: tasksList,
             quoteModel: quote,
-            selectedListIndex: selectedListIndex),
+            selectedListIndex: selectedListIndex,
+            listsList: listsList),
       );
     });
     on<AppEventAddNewListFromListScreen>((event, emit) async {
       await createNewList(listController: event.listController);
       final listsList = await getLists();
-//create list of FocusNode => AppState => ListPage => BackgroundWidget
+      final focusNodeList = List.generate(listsList.length, (index) => FocusNode());
       emit(
-        LoadedListsAppState(listsList: listsList),
+        LoadedListsAppState(listsList: listsList, focusNodeList: focusNodeList,),
+      );
+    });
+
+    on<AppEventAddNewListFromMainScreen>((event, emit) async {
+      await createNewList(listController: event.listController);
+      final listsList = await getLists();
+      final tasksList = await getTasks(
+        listModel: listsList[selectedListIndex],
+      );
+      final QuoteModel quote = await updateQuote();
+      emit(
+        LoadedAppState(
+            tasksList: tasksList,
+            quoteModel: quote,
+            selectedListIndex: selectedListIndex,
+            listsList: listsList),
       );
     });
   }

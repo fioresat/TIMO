@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_app_main_screen/l10n/locales.dart';
@@ -37,7 +39,6 @@ import 'package:todo_app_main_screen/service/locale_provider.dart';
     )
         .doc(newList.listID);
     await docRef.set(newList);
-    currentLists.add(newList);
   }
 
   Future<void> deleteTask({
@@ -226,7 +227,7 @@ Future<void> updateListColor({
         .then(
           (querySnapshot) =>
           querySnapshot.docs.map((doc) => doc.data()).toList(),
-      onError: (e) => print("Error completing: $e"),
+      onError: (e) => log("Error completing: $e"),
     );
 
     currentLists = await ref;
@@ -311,3 +312,19 @@ Future<void> updateListColor({
     final dataDecoded = await FetchHelper().getData();
     return QuoteModel.fromJson(dataDecoded);
   }
+
+Future<void> updateListText({
+  required ListModel oldList,
+  required TextEditingController controller
+}) async {
+  final docRef = db
+      .collection("users")
+      .doc('testUser')
+      .collection('lists')
+      .doc(oldList.listID);
+
+  final updates = <String, String>{
+    "list": controller.text,
+  };
+  docRef.update(updates);
+}

@@ -7,12 +7,13 @@ import 'package:todo_app_main_screen/ui/widgets/lists_page_widgets/lists_page_ba
 
 class ListsPage extends StatefulWidget {
   final List<ListModel> listsList;
+  final List <FocusNode> focusNodeList;
 
   static const routeName = '/lists_page';
 
   const ListsPage({
     Key? key,
-    required this.listsList,
+    required this.listsList, required this.focusNodeList,
   }) : super(key: key);
 
   @override
@@ -20,7 +21,6 @@ class ListsPage extends StatefulWidget {
 }
 
 class _ListsPageState extends State<ListsPage> {
-  final listController = TextEditingController();
 
   @override
   void initState() {
@@ -47,11 +47,11 @@ class _ListsPageState extends State<ListsPage> {
             widthScreen: widthScreen,
             heightScreen: heightScreen,
             context: context,
-            onBlackButtonTap: (TextEditingController listController) {
+            onBlackButtonTap: (TextEditingController myListController) {
               Navigator.pop(context);
               context.read<AppBloc>().add(
                     AppEventAddNewListFromListScreen(
-                      listController: listController,
+                      listController: myListController,
                       context: context,
                     ),
                   );
@@ -63,7 +63,7 @@ class _ListsPageState extends State<ListsPage> {
           context.read<AppBloc>().add(
                 const AppEventGoToSettings(),
               );
-        },
+        }, focusNodeList: widget.focusNodeList,
       ),
     );
   }

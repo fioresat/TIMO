@@ -19,6 +19,7 @@ class ListsPageBackgroundWidget extends StatefulWidget {
   final List<ListModel> lists;
   final void Function() onAddButtonTap;
   final void Function() onSettingsButtonTap;
+  final List <FocusNode> focusNodeList;
 
   const ListsPageBackgroundWidget({
     Key? key,
@@ -28,6 +29,7 @@ class ListsPageBackgroundWidget extends StatefulWidget {
     required this.lists,
     required this.onAddButtonTap,
     required this.onSettingsButtonTap,
+    required this.focusNodeList,
   }) : super(key: key);
 
   @override
@@ -37,18 +39,16 @@ class ListsPageBackgroundWidget extends StatefulWidget {
 
 class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
   int _selectedIndex = 0;
-  late List<FocusNode> focusNodeList;
 
   @override
   void initState() {
-    focusNodeList = List.generate(widget.lists.length, (index) => FocusNode());
     super.initState();
   }
 
   @override
   void dispose() {
     for (int i = 0; i < widget.lists.length; i++) {
-      focusNodeList[i].dispose();
+      widget.focusNodeList[i].dispose();
     }
     super.dispose();
   }
@@ -142,10 +142,11 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                                       colors: buttonColors,
                                       onRenameTap: () {
                                         FocusScope.of(context).requestFocus(
-                                            focusNodeList[list.key]);
+                                            widget.focusNodeList[list.key]);
                                         Navigator.pop(context);
                                       },
                                       onDeleteTap: () {
+                                        Navigator.pop(context);
                                         context.read<AppBloc>().add(
                                               AppEventDeleteList(
                                                 listModel: widget
@@ -163,7 +164,7 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                                   widget.onAddButtonTap();
                                 },
                                 width: widget.width,
-                                focusNode: focusNodeList[_selectedIndex],//ToDo for add new list
+                                focusNode: widget.focusNodeList[list.key],//ToDo for add new list
                               ),
                             ),
                         AddButtonWidget(

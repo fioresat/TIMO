@@ -27,19 +27,25 @@ class LoadedAppState extends AppState {
   final QuoteModel quoteModel;
   final List<TaskModel> tasksList;
   final int selectedListIndex;
+  final List<ListModel> listsList;
 
   const LoadedAppState({
     required this.selectedListIndex,
     required this.tasksList,
     required this.quoteModel,
+    required this.listsList
   });
 }
 
 @immutable
 class LoadedListsAppState extends AppState {
   final List<ListModel> listsList;
+  final List <FocusNode> focusNodeList;
 
-  const LoadedListsAppState({required this.listsList});
+  const LoadedListsAppState({
+    required this.listsList,
+    required this.focusNodeList
+  });
 }
 
 @immutable

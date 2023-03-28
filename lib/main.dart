@@ -96,10 +96,12 @@ class MyApp extends StatelessWidget {
                       quoteModel: appState.quoteModel,
                       tasksList: appState.tasksList,
                       selectedListIndex: appState.selectedListIndex,
+                      listsList: appState.listsList,
                     );
                   } else if (appState is LoadedListsAppState) {
                     return ListsPage(
                       listsList: appState.listsList,
+                      focusNodeList: appState.focusNodeList,
                     );
                   } else if (appState is AddNewTaskAppState) {
                     return const NewTaskPage();

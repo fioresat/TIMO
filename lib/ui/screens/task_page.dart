@@ -108,7 +108,14 @@ class _TaskPageState extends State<TaskPage> {
                             widthScreen: widthScreen,
                             heightScreen: heightScreen,
                             context: context,
-                            onBlackButtonTap: (listController) {},
+                            onBlackButtonTap: (listController) {
+                              Navigator.pop(context);
+                              context.read<AppBloc>().add(
+                                AppEventAddNewListFromTaskScreen(
+                                    listController: listController,
+                                    context: context, taskModel: widget.taskModel),
+                              );
+                            },
                           );
                         },
                         onButtonPressed: Navigator.of(context).pop,
