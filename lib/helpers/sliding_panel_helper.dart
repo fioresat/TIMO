@@ -22,12 +22,12 @@ class SlidingPanelHelper {
     );
   }
 
-  void onAddNewListPressed(
-    double widthScreen,
-    double heightScreen,
-    BuildContext context,
-    TextEditingController controller,
-  ) {
+  void onAddNewListPressed({
+    required double widthScreen,
+    required double heightScreen,
+    required BuildContext context,
+    required void Function(TextEditingController controller) onBlackButtonTap,
+  }) {
     onPressedShowBottomSheet(
         AddNewListPanelWidget(
           height: heightScreen,
@@ -35,7 +35,9 @@ class SlidingPanelHelper {
             Navigator.of(context).pop();
           },
           width: widthScreen,
-          controller: controller,
+          onBlackButtonTap: (controller) {
+            onBlackButtonTap(controller);
+          },
         ),
         context);
   }
@@ -45,7 +47,7 @@ class SlidingPanelHelper {
     double heightScreen,
     BuildContext context,
     void Function() onSaveTap,
-      TaskModel taskModel,
+    TaskModel taskModel,
   ) {
     onPressedShowBottomSheet(
         ReminderPanelWidget(
@@ -78,7 +80,11 @@ class SlidingPanelHelper {
         colorsList: buttonColors,
         onAddNewListPressed: () {
           SlidingPanelHelper().onAddNewListPressed(
-              widthScreen, heightScreen, context, controller);
+            widthScreen: widthScreen,
+            heightScreen: heightScreen,
+            context: context,
+            onBlackButtonTap: (listController) {},
+          );
         },
       ),
       context,

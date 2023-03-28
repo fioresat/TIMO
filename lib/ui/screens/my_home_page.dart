@@ -8,7 +8,6 @@ import 'package:todo_app_main_screen/consts/button_colors.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
 import 'package:todo_app_main_screen/main.dart';
-import 'package:todo_app_main_screen/models/list_model.dart';
 import 'package:todo_app_main_screen/models/quote_model.dart';
 import 'package:todo_app_main_screen/models/single_task_model.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_panel_widget.dart';
@@ -18,12 +17,14 @@ import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/tasks_widget.d
 class MyHomePage extends StatefulWidget {
   final QuoteModel quoteModel;
   final List<TaskModel> tasksList;
+  final int selectedListIndex;
   static const routeName = '/my_home_page';
 
   const MyHomePage({
     Key? key,
     required this.quoteModel,
     required this.tasksList,
+    required this.selectedListIndex,
   }) : super(key: key);
 
   @override
@@ -56,7 +57,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     MediaQuery.of(context).size.height * 0.95
             ? Colors.white
             : (currentLists.isNotEmpty)
-                ? buttonColors[currentLists[selectedListIndex].listColorIndex]
+                ? buttonColors[
+                    currentLists[widget.selectedListIndex].listColorIndex]
                 : buttonColors[0],
         body: Stack(
           fit: StackFit.expand,
@@ -70,6 +72,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     );
               },
               quoteModel: widget.quoteModel,
+              buttonColor: (currentLists.isNotEmpty)
+                  ? buttonColors[
+                      currentLists[widget.selectedListIndex].listColorIndex]
+                  : buttonColors[0],
             ),
             NotificationListener<DraggableScrollableNotification>(
               onNotification: (DraggableScrollableNotification dsNotification) {
@@ -98,23 +104,28 @@ class _MyHomePageState extends State<MyHomePage> {
                             width: widthScreen,
                             lists: currentLists,
                             onTapClose: () {
-                              Navigator.of(context).pop();
+                              Navigator.pop(context);
                               setState(() {
                                 isMoveTo = false;
                               });
                             },
                             onAddNewListPressed: () {
                               SlidingPanelHelper().onAddNewListPressed(
-                                widthScreen,
-                                heightScreen,
-                                context,
-                                listController,
+                                widthScreen: widthScreen,
+                                heightScreen: heightScreen,
+                                context: context,
+                                onBlackButtonTap: (listController) {},
                               );
                             },
                             onButtonPressed: () {
-                              _updateTask(
-                                  updatedTask: currentTasks[selectedTaskIndex]);
-                              Navigator.of(context).pop();
+                              Navigator.pop(context);
+                              context.read<AppBloc>().add(
+                                    AppEventMoveToTask(
+                                      taskModel:
+                                          widget.tasksList[selectedTaskIndex],
+                                    ),
+                                  );
+
                               setState(() {
                                 isMoveTo = false;
                                 selectedTaskIndex = -1;
@@ -135,9 +146,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           : 0.55 * heightScreen,
                       isMoveToPressed: isMoveTo,
                       dragController: dragController,
-                      onTaskTap: () {
-
-                      },
+                      onTaskTap: () {},
                     );
                   }),
             ),
@@ -151,8 +160,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 backgroundColor: textColor,
                 onPressed: () {
                   context.read<AppBloc>().add(
-                    const AppEventGoToNewTask(),
-                  );
+                        const AppEventGoToNewTask(),
+                      );
                 },
                 child: Image.asset(
                   AppIcons.addButton,
@@ -162,50 +171,5 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  Future<void> _updateTask({
-    required TaskModel updatedTask,
-  }) async {
-    db
-        .collection("users")
-        .doc(updatedTask.userID)
-        .collection('lists')
-        .doc(updatedTask.listID)
-        .collection('tasks')
-        .doc(updatedTask.taskID)
-        .delete()
-        .then(
-          (doc) => log("Document deleted"),
-          onError: (e) => log("Error updating document $e"),
-        );
-    addNewTask(
-      newTask: TaskModel(
-        task: updatedTask.task,
-        colorIndex: updatedTask.colorIndex,
-        listID: currentLists[moveToListIndex].listID,
-        dateTimeReminder: updatedTask.dateTimeReminder,
-        userID: updatedTask.userID,
-        isReminderActive: updatedTask.isReminderActive,
-        taskID: updatedTask.taskID,
-      ),
-    );
-    moveToListIndex = -1;
-  }
 
-  Future<void> addNewTask({
-    required final newTask,
-  }) async {
-    final docRef = db
-        .collection("users")
-        .doc(newTask.userID)
-        .collection('lists')
-        .doc(newTask.listID)
-        .collection('tasks')
-        .withConverter(
-          toFirestore: (TaskModel task, options) => task.toFirestore(),
-          fromFirestore: TaskModel.fromFirestore,
-        )
-        .doc(newTask.taskID);
-    await docRef.set(newTask);
-    currentList = ListModel(list: 'ToDo', listID: 'ToDo');
-  }
 }

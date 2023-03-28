@@ -19,7 +19,6 @@ class ListsPageBackgroundWidget extends StatefulWidget {
   final List<ListModel> lists;
   final void Function() onAddButtonTap;
   final void Function() onSettingsButtonTap;
-  final TextEditingController controller;
 
   const ListsPageBackgroundWidget({
     Key? key,
@@ -28,7 +27,7 @@ class ListsPageBackgroundWidget extends StatefulWidget {
     required this.onPressed,
     required this.lists,
     required this.onAddButtonTap,
-    required this.controller, required this.onSettingsButtonTap,
+    required this.onSettingsButtonTap,
   }) : super(key: key);
 
   @override
@@ -116,8 +115,8 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                               (list) => SingleListWidget(
                                 onListTap: () {
                                   context.read<AppBloc>().add(
-                                    AppEventChangeList(index: list.key),
-                                  );
+                                        AppEventChangeList(index: list.key),
+                                      );
                                 },
                                 height: widget.height,
                                 onOptionsTap: () {
@@ -129,9 +128,15 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                                       height: widget.height,
                                       width: widget.width,
                                       onTapClose: () {
-                                        _updateListColor(
-                                          oldList: widget.lists[_selectedIndex],
-                                        );
+
+                                        context.read<AppBloc>().add(
+                                              AppEventUpdateListColor(
+                                                listModel: widget
+                                                    .lists[_selectedIndex],
+                                                listColorIndex:
+                                                    listCurrentColorIndex,
+                                              ),
+                                            );
                                         Navigator.pop(context);
                                       },
                                       colors: buttonColors,
@@ -141,13 +146,12 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                                         Navigator.pop(context);
                                       },
                                       onDeleteTap: () {
-                                        setState(() {
-                                          _deleteList(
-                                            oldList:
-                                                widget.lists[_selectedIndex],
-                                          );
-                                        });
-                                        Navigator.pop(context);
+                                        context.read<AppBloc>().add(
+                                              AppEventDeleteList(
+                                                listModel: widget
+                                                    .lists[_selectedIndex],
+                                              ),
+                                            );
                                       },
                                     ),
                                     context,
@@ -159,7 +163,7 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
                                   widget.onAddButtonTap();
                                 },
                                 width: widget.width,
-                                focusNode: focusNodeList[list.key],
+                                focusNode: focusNodeList[_selectedIndex],//ToDo for add new list
                               ),
                             ),
                         AddButtonWidget(
@@ -176,35 +180,5 @@ class _ListsPageBackgroundWidgetState extends State<ListsPageBackgroundWidget> {
         ),
       ),
     );
-  }
-
-  Future<void> _deleteList({
-    required ListModel oldList,
-  }) async {
-    db
-        .collection("users")
-        .doc('testUser')
-        .collection('lists')
-        .doc(oldList.listID)
-        .delete()
-        .then(
-          (doc) => print("Document deleted"),
-          onError: (e) => print("Error updating document $e"),
-        );
-  }
-
-  Future<void> _updateListColor({
-    required ListModel oldList,
-  }) async {
-    final docRef = db
-        .collection("users")
-        .doc('testUser')
-        .collection('lists')
-        .doc(oldList.listID);
-
-    final updates = <String, int>{
-      "listColorIndex": listCurrentColorIndex,
-    };
-    docRef.update(updates);
   }
 }

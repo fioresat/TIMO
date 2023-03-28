@@ -169,6 +169,12 @@ class _TasksWidgetState extends State<TasksWidget> {
                                     elevation: 0,
                                     child: SingleTaskWidget(
                                       taskModel: widget.tasksList[index],
+                                      onSingleTaskTap: () {
+                                        context.read<AppBloc>().add(
+                                            AppEventGoToSingleTask(
+                                                taskModel:
+                                                    widget.tasksList[index]));
+                                      },
                                     ),
                                   ),
                                 ),
@@ -182,6 +188,12 @@ class _TasksWidgetState extends State<TasksWidget> {
                                   elevation: 0,
                                   child: SingleTaskWidget(
                                     taskModel: widget.tasksList[index],
+                                    onSingleTaskTap: () {
+                                      context.read<AppBloc>().add(
+                                          AppEventGoToSingleTask(
+                                              taskModel:
+                                                  widget.tasksList[index]));
+                                    },
                                   ),
                                 ),
                               );

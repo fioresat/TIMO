@@ -78,7 +78,7 @@ class MyApp extends StatelessWidget {
                           (Widget child, Animation<double> animation) {
                         return SlideTransition(
                           position: Tween<Offset>(
-                            begin:Offset.zero,
+                            begin: Offset.zero,
                             end: const Offset(0, -0.2),
                           ).animate(animation),
                           child: child,
@@ -95,9 +95,12 @@ class MyApp extends StatelessWidget {
                     return MyHomePage(
                       quoteModel: appState.quoteModel,
                       tasksList: appState.tasksList,
+                      selectedListIndex: appState.selectedListIndex,
                     );
                   } else if (appState is LoadedListsAppState) {
-                    return const ListsPage();
+                    return ListsPage(
+                      listsList: appState.listsList,
+                    );
                   } else if (appState is AddNewTaskAppState) {
                     return const NewTaskPage();
                   } else if (appState is SettingsAppState) {

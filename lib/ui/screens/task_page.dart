@@ -1,12 +1,14 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app_main_screen/bloc/app_bloc.dart';
 import 'package:todo_app_main_screen/consts/app_icons.dart';
 import 'package:todo_app_main_screen/consts/button_colors.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
+import 'package:todo_app_main_screen/helpers/functions.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
 import 'package:todo_app_main_screen/main.dart';
-import 'package:todo_app_main_screen/models/list_model.dart';
 import 'package:todo_app_main_screen/models/single_task_model.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_panel_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/task_page_widgets/task_page_background_widget.dart';
@@ -34,8 +36,7 @@ class _TaskPageState extends State<TaskPage> {
 
   @override
   Widget build(BuildContext context) {
-    final taskModelFromMainScreen =
-        ModalRoute.of(context)!.settings.arguments as TaskModel;
+
     double widthScreen = MediaQuery.of(context).size.width;
     double heightScreen = MediaQuery.of(context).size.height;
     final bool showFab = MediaQuery.of(context).viewInsets.bottom == 0.0;
@@ -58,10 +59,14 @@ class _TaskPageState extends State<TaskPage> {
         taskController: textController,
         taskModel: widget.taskModel,
         onCloseTap: () {
-          _updateTask(
+          updateTask(
             updatedTask: widget.taskModel,
           );
-          Navigator.pop(context);
+          //ToDo just for closing
+          context.read<AppBloc>().add(
+            const AppEventGoToMainView(
+               ),
+          );
         },
       ),
       floatingActionButton: showFab
@@ -78,8 +83,9 @@ class _TaskPageState extends State<TaskPage> {
                     elevation: 0,
                     backgroundColor: removeColor,
                     onPressed: () {
-                      _deleteTask(oldTask: widget.taskModel,);
-                      Navigator.pop(context);
+                      context.read<AppBloc>().add(
+                        AppEventDeleteTask(taskModel: widget.taskModel),
+                      );
                     },
                     child: Image.asset(
                       AppIcons.delete,
@@ -99,10 +105,10 @@ class _TaskPageState extends State<TaskPage> {
                         onTapClose: Navigator.of(context).pop,
                         onAddNewListPressed: () {
                           SlidingPanelHelper().onAddNewListPressed(
-                            widthScreen,
-                            heightScreen,
-                            context,
-                            listController,
+                            widthScreen: widthScreen,
+                            heightScreen: heightScreen,
+                            context: context,
+                            onBlackButtonTap: (listController) {},
                           );
                         },
                         onButtonPressed: Navigator.of(context).pop,
@@ -121,24 +127,9 @@ class _TaskPageState extends State<TaskPage> {
     );
   }
 
-  Future<void> _deleteTask({
-    required TaskModel oldTask,
-  }) async {
-    db
-        .collection("users")
-        .doc(oldTask.userID)
-        .collection('lists')
-        .doc(oldTask.listID)
-        .collection('tasks')
-        .doc(oldTask.taskID)
-        .delete()
-        .then(
-          (doc) => log("Document deleted"),
-          onError: (e) => log("Error updating document $e"),
-        );
-  }
 
-  Future<void> _updateTask({
+
+  Future<void> updateTask({
     required TaskModel updatedTask,
   }) async {
     if (selectedListIndex == moveToListIndex || moveToListIndex == -1) {
@@ -170,7 +161,7 @@ class _TaskPageState extends State<TaskPage> {
             (doc) => log("Document deleted"),
             onError: (e) => log("Error updating document $e"),
           );
-      addNewTask(
+      addNewTaskUpdate(
         newTask: TaskModel(
           task: textController.text,
           colorIndex: (taskCurrentColorIndex == -1)
@@ -188,21 +179,5 @@ class _TaskPageState extends State<TaskPage> {
     taskCurrentColorIndex = -1;
   }
 
-  Future<void> addNewTask({
-    required final newTask,
-  }) async {
-    final docRef = db
-        .collection("users")
-        .doc(newTask.userID)
-        .collection('lists')
-        .doc(newTask.listID)
-        .collection('tasks')
-        .withConverter(
-          toFirestore: (TaskModel task, options) => task.toFirestore(),
-          fromFirestore: TaskModel.fromFirestore,
-        )
-        .doc(newTask.taskID);
-    await docRef.set(newTask);
-    currentList = ListModel(list: 'ToDo', listID: 'ToDo');
-  }
+
 }

@@ -58,7 +58,22 @@ class AppEventGetTasks implements AppEvent {
 
 @immutable
 class AppEventDeleteList implements AppEvent {
-  const AppEventDeleteList();
+  final ListModel listModel;
+
+  const AppEventDeleteList({
+    required this.listModel,
+  });
+}
+
+@immutable
+class AppEventUpdateListColor implements AppEvent {
+  final ListModel listModel;
+  final int listColorIndex;
+
+  const AppEventUpdateListColor({
+    required this.listModel,
+    required this.listColorIndex,
+  });
 }
 
 @immutable
@@ -72,8 +87,21 @@ class AppEventUpdateTask implements AppEvent {
 }
 
 @immutable
+class AppEventMoveToTask implements AppEvent {
+  final TaskModel taskModel;
+
+  const AppEventMoveToTask({
+    required this.taskModel,
+  });
+}
+
+@immutable
 class AppEventDeleteTask implements AppEvent {
-  const AppEventDeleteTask();
+  final TaskModel taskModel;
+
+  const AppEventDeleteTask({
+    required this.taskModel,
+  });
 }
 
 @immutable
@@ -82,6 +110,17 @@ class AppEventAddNewTask implements AppEvent {
 
   const AppEventAddNewTask({
     required this.taskController,
+  });
+}
+
+@immutable
+class AppEventAddNewListFromListScreen implements AppEvent {
+  final TextEditingController listController;
+  final BuildContext context;
+
+  const AppEventAddNewListFromListScreen({
+    required this.listController,
+    required this.context,
   });
 }
 
@@ -98,8 +137,12 @@ class AppEventGoToMainView implements AppEvent {
 @immutable
 class AppEventGoToSingleTask implements AppEvent {
   final TaskModel taskModel;
-  const AppEventGoToSingleTask({required this.taskModel}) : super();
+
+  const AppEventGoToSingleTask({
+    required this.taskModel,
+  }) : super();
 }
+
 @immutable
 class AppEventChangeList implements AppEvent {
   final int index;

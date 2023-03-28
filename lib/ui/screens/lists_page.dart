@@ -2,14 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app_main_screen/bloc/app_bloc.dart';
 import 'package:todo_app_main_screen/helpers/sliding_panel_helper.dart';
-import 'package:todo_app_main_screen/main.dart';
-import 'package:todo_app_main_screen/ui/screens/my_home_page.dart';
+import 'package:todo_app_main_screen/models/list_model.dart';
 import 'package:todo_app_main_screen/ui/widgets/lists_page_widgets/lists_page_background_widget.dart';
 
 class ListsPage extends StatefulWidget {
+  final List<ListModel> listsList;
+
   static const routeName = '/lists_page';
 
-  const ListsPage({Key? key}) : super(key: key);
+  const ListsPage({
+    Key? key,
+    required this.listsList,
+  }) : super(key: key);
 
   @override
   State<ListsPage> createState() => _ListsPageState();
@@ -21,8 +25,8 @@ class _ListsPageState extends State<ListsPage> {
   @override
   void initState() {
     super.initState();
-
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -34,23 +38,31 @@ class _ListsPageState extends State<ListsPage> {
         width: widthScreen,
         onPressed: () {
           context.read<AppBloc>().add(
-            const AppEventGoToMainView(),
-          );
+                const AppEventGoToMainView(),
+              );
         },
-        lists: currentLists,
+        lists: widget.listsList,
         onAddButtonTap: () {
           SlidingPanelHelper().onAddNewListPressed(
-            widthScreen,
-            heightScreen,
-            context,
-            listController,
+            widthScreen: widthScreen,
+            heightScreen: heightScreen,
+            context: context,
+            onBlackButtonTap: (TextEditingController listController) {
+              Navigator.pop(context);
+              context.read<AppBloc>().add(
+                    AppEventAddNewListFromListScreen(
+                      listController: listController,
+                      context: context,
+                    ),
+                  );
+
+            },
           );
         },
-        controller: listController,
         onSettingsButtonTap: () {
           context.read<AppBloc>().add(
-            const AppEventGoToSettings(),
-          );
+                const AppEventGoToSettings(),
+              );
         },
       ),
     );

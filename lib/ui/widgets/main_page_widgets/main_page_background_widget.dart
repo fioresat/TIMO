@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_app_main_screen/consts/button_colors.dart';
 import 'package:todo_app_main_screen/consts/colors.dart';
-import 'package:todo_app_main_screen/main.dart';
 import 'package:todo_app_main_screen/models/quote_model.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/date_widget.dart';
 import 'package:todo_app_main_screen/ui/widgets/main_page_widgets/quote_widget.dart';
@@ -12,13 +10,14 @@ class MainScreenBackgroundWidget extends StatelessWidget {
   final double? height;
   final void Function() onPressed;
   final QuoteModel quoteModel;
+  final Color buttonColor;
 
   const MainScreenBackgroundWidget({
     super.key,
     this.height,
     required this.onPressed,
     required this.width,
-    required this.quoteModel,
+    required this.quoteModel, required this.buttonColor,
   });
 
   @override
@@ -38,9 +37,7 @@ class MainScreenBackgroundWidget extends StatelessWidget {
                 height: height!,
                 onPressed: onPressed,
                 titleColor: textColor,
-                buttonColor: (currentLists.isNotEmpty)
-                    ? buttonColors[currentLists[selectedListIndex].listColorIndex]
-                    : buttonColors[0],
+                buttonColor: buttonColor,
               ),
               DateWidget(
                 dateTime: DateTime.now(),

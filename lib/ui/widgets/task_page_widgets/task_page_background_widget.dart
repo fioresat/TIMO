@@ -345,9 +345,11 @@ class _TaskPageBackgroundWidgetState extends State<TaskPageBackgroundWidget> {
 
   void loadBool() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      isClosePanelTapped = prefs.getBool('bool')!;
-    });
+    if(prefs.getBool('bool') != null) {
+      setState(() {
+        isClosePanelTapped = prefs.getBool('bool')!;
+      });
+    }
   }
 
   Future<void> _updateTaskReminder({
